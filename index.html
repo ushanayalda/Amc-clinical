@@ -1,324 +1,276 @@
-<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hana Study Hub</title>
+  <title>AMC Clinical Preparation | Dr Ushana Yalda</title>
   <style>
     :root{
-      --bg:#0b0f1a;
-      --card:#121a2b;
-      --card2:#0f1626;
-      --text:#e8eefc;
-      --muted:#a9b4d0;
-      --line:#26314d;
-      --accent:#7dd3fc;
-      --accent2:#a78bfa;
-      --ok:#34d399;
-      --warn:#fbbf24;
+      --bg: #f7f6f2;
+      --text: #111827;
+      --muted: #4b5563;
+      --heading: #0f2f6b;
+      --card: #ffffff;
+      --border: rgba(17,24,39,0.12);
+      --shadow: 0 8px 24px rgba(17,24,39,0.08);
+      --shadowHover: 0 14px 34px rgba(17,24,39,0.12);
+      --footerBg: #efeee9;
+      --focusRing: 0 0 0 3px rgba(15,47,107,0.18);
+      --radius: 14px;
+      --max: 980px;
+      --footerH: 56px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
+
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
     body{
-      margin:0;
+      margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 700px at 20% 10%, rgba(125,211,252,.10), transparent 60%),
-                  radial-gradient(900px 600px at 80% 20%, rgba(167,139,250,.10), transparent 60%),
-                  var(--bg);
-      color:var(--text);
-      padding-bottom:72px;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
     }
+
+    a{ color: inherit; text-decoration: none; }
+
+    .page{
+      min-height: 100vh;
+      padding-bottom: calc(var(--footerH) + 18px);
+    }
+
     header{
-      position:sticky;
-      top:0;
-      z-index:10;
-      backdrop-filter: blur(10px);
-      background: rgba(11,15,26,.65);
-      border-bottom:1px solid rgba(38,49,77,.65);
+      padding: 44px 20px 24px;
     }
-    .wrap{max-width:1100px;margin:0 auto;padding:18px 16px}
-    .title{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
     }
+
+    .brand{
+      display: grid;
+      gap: 10px;
+    }
+
     h1{
-      margin:0;
-      font-size:18px;
-      letter-spacing:.2px;
-      font-weight:800;
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: 0.2px;
+      color: var(--heading);
+      font-weight: 750;
     }
-    .sub{
-      margin-top:6px;
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.35;
+
+    h2{
+      margin: 0;
+      font-size: 18px;
+      color: var(--heading);
+      font-weight: 650;
     }
-    .pill{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      padding:8px 10px;
-      border:1px solid rgba(38,49,77,.75);
-      border-radius:999px;
-      color:var(--muted);
-      background: rgba(18,26,43,.65);
-      font-size:12px;
-      white-space:nowrap;
+
+    .desc{
+      margin: 6px 0 0;
+      max-width: 68ch;
+      color: var(--muted);
+      font-size: 15px;
     }
-    main{max-width:1100px;margin:0 auto;padding:18px 16px}
+
+    main{
+      padding: 0 20px 26px;
+    }
+
+    .sectionTitle{
+      margin: 18px 0 14px;
+      font-size: 14px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(15,47,107,0.85);
+      font-weight: 700;
+    }
+
     .grid{
-      display:grid;
+      display: grid;
       grid-template-columns: repeat(12, 1fr);
-      gap:14px;
+      gap: 14px;
     }
+
     .card{
-      grid-column: span 12;
-      background: linear-gradient(180deg, rgba(18,26,43,.90), rgba(15,22,38,.90));
-      border:1px solid rgba(38,49,77,.85);
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      grid-column: span 6;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px 16px 14px;
+      transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+      position: relative;
+      outline: none;
     }
-    @media (min-width: 760px){
-      .card{grid-column: span 6;}
+
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadowHover);
+      border-color: rgba(15,47,107,0.28);
     }
-    .cardTop{
-      padding:16px 16px 10px 16px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
+
+    .card:focus-visible{
+      box-shadow: var(--shadowHover), var(--focusRing);
+      border-color: rgba(15,47,107,0.35);
     }
+
     .cardTitle{
-      margin:0;
-      font-size:16px;
-      font-weight:850;
-      letter-spacing:.2px;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 750;
+      color: var(--text);
     }
+
     .cardMeta{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.35;
+      margin: 8px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+      word-break: break-word;
     }
-    .tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      padding:0 16px 14px 16px;
+
+    .cardAction{
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 650;
+      color: var(--heading);
+      font-size: 14px;
     }
-    .tag{
-      font-size:12px;
-      color:rgba(232,238,252,.92);
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(38,49,77,.85);
-      background: rgba(11,15,26,.45);
+
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,47,107,0.22);
+      background: rgba(15,47,107,0.06);
+      font-size: 12px;
+      color: rgba(15,47,107,0.95);
+      font-weight: 650;
     }
-    .actions{
-      display:flex;
-      gap:10px;
-      padding:12px 16px 16px 16px;
-      border-top:1px solid rgba(38,49,77,.65);
-      flex-wrap:wrap;
-    }
-    .btn{
-      appearance:none;
-      border:1px solid rgba(38,49,77,.85);
-      background: rgba(11,15,26,.55);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:750;
-      font-size:13px;
-      letter-spacing:.2px;
-      transition: transform .05s ease, background .15s ease, border-color .15s ease;
-      user-select:none;
-    }
-    .btn:active{transform: translateY(1px)}
-    .btn.primary{
-      background: rgba(125,211,252,.14);
-      border-color: rgba(125,211,252,.35);
-    }
-    .btn.secondary{
-      background: rgba(167,139,250,.14);
-      border-color: rgba(167,139,250,.35);
-    }
-    .btn:hover{background: rgba(255,255,255,.06)}
-    .btn.primary:hover{background: rgba(125,211,252,.20)}
-    .btn.secondary:hover{background: rgba(167,139,250,.20)}
+
     footer{
-      position:fixed;
-      left:0; right:0; bottom:0;
-      height:56px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:0 12px;
-      background: rgba(11,15,26,.78);
-      backdrop-filter: blur(10px);
-      border-top:1px solid rgba(38,49,77,.70);
-      color:var(--muted);
-      font-size:12px;
-      z-index:50;
-      text-align:center;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: var(--footerH);
+      background: var(--footerBg);
+      border-top: 1px solid rgba(17,24,39,0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
     }
-    .smallNote{
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.4;
-      margin:0 0 12px 0;
+
+    .footerText{
+      font-size: 12px;
+      opacity: 0.72;
+      text-align: center;
+      color: rgba(17,24,39,0.86);
+      line-height: 1.35;
+      max-width: var(--max);
     }
-    .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:12px;
-    }
-    .searchBox{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex: 1 1 360px;
-      min-width: 260px;
-    }
-    input[type="search"]{
-      width:100%;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(38,49,77,.85);
-      background: rgba(11,15,26,.55);
-      color:var(--text);
-      outline:none;
-      font-size:13px;
-    }
-    input[type="search"]::placeholder{color: rgba(169,180,208,.75)}
-    .mutedRight{
-      color:var(--muted);
-      font-size:12px;
-      white-space:nowrap;
+
+    @media (max-width: 760px){
+      h1{ font-size: 28px; }
+      .card{ grid-column: span 12; }
+      header{ padding-top: 34px; }
+      :root{ --footerH: 66px; }
+      .page{ padding-bottom: calc(var(--footerH) + 18px); }
+      .footerText{ font-size: 11.5px; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div class="title">
-        <div>
-          <h1>Prepared by Dr Ushana YALDA</h1>
-          <div class="sub">Aimed for Dr. Hanaa</div>
-        </div>
-        <div class="pill" title="Local-only GitHub Pages site. No external libraries.">
-          <span style="width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block"></span>
-          Offline ready
-        </div>
+  <div class="page">
+    <header>
+      <div class="wrap brand">
+        <h1>Prepared by Dr Ushana Yalda</h1>
+        <h2>Prepared for Dr Hanaa</h2>
+        <p class="desc">
+          A structured AMC clinical preparation resource, organised by topic for efficient review and consistent practice.
+        </p>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <div class="row">
-      <p class="smallNote">
-        Pick a topic card. Use Open Ignite for a rapid two page core. Use Open Master for full stations with escalating complexity.
-      </p>
-      <div class="mutedRight" id="topicCount"></div>
-    </div>
+    <main>
+      <div class="wrap">
+        <div class="sectionTitle">Topics</div>
+        <div id="topicsGrid" class="grid" aria-label="Topic list"></div>
+      </div>
+    </main>
+  </div>
 
-    <div class="searchBox" style="margin-bottom:14px;">
-      <input id="q" type="search" placeholder="Search topics..." aria-label="Search topics" />
-      <button class="btn" id="clearBtn" type="button">Clear</button>
-    </div>
-
-    <div class="grid" id="topicGrid"></div>
-  </main>
-
-  <footer>Copyright and publishing rights: Dr Ushana YALDA</footer>
+  <footer>
+    <div class="footerText" id="footerLegal"></div>
+  </footer>
 
   <script>
-    "use strict";
+    // Add or edit topics here. Each topic requires a title and href.
+    const TOPICS = [
+      { id: "chest-pain", title: "Chest Pain", href: "topics/chest-pain.html" }
+    ];
 
-    // Shared schema used in all files
-    const STUDY_DATA = {
-      schemaVersion: "1.0",
-      author: "Dr Ushana YALDA",
-      audience: "Dr. Hanaa",
-      topics: [
-        {
-          id: "knee_swelling",
-          title: "Knee swelling",
-          subtitle: "Acute hot swollen knee, traumatic effusion, chronic swelling patterns",
-          tags: ["MSK", "ED", "Red flags", "Procedures"],
-        },
-        {
-          id: "ankle_pain_swelling",
-          title: "Ankle pain and swelling",
-          subtitle: "Sprain vs fracture, Achilles issues, septic arthritis and gout traps",
-          tags: ["MSK", "Sports", "Imaging", "Safety net"],
-        }
-      ]
-    };
-
-    const elGrid = document.getElementById("topicGrid");
-    const elQ = document.getElementById("q");
-    const elCount = document.getElementById("topicCount");
-    const elClear = document.getElementById("clearBtn");
-
-    function esc(s){
-      return String(s)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+    function el(tag, attrs = {}, children = []) {
+      const node = document.createElement(tag);
+      for (const [k, v] of Object.entries(attrs)) {
+        if (k === "class") node.className = v;
+        else if (k === "text") node.textContent = v;
+        else if (k === "html") node.innerHTML = v;
+        else node.setAttribute(k, v);
+      }
+      for (const child of children) node.appendChild(child);
+      return node;
     }
 
-    function cardHTML(t){
-      const tags = (t.tags || []).map(x => `<span class="tag">${esc(x)}</span>`).join("");
-      const igniteUrl = `ignite.html?topic=${encodeURIComponent(t.id)}`;
-      const masterUrl = `master.html?topic=${encodeURIComponent(t.id)}`;
-      return `
-        <section class="card" data-id="${esc(t.id)}" data-text="${esc((t.title + " " + t.subtitle + " " + (t.tags||[]).join(" ")).toLowerCase())}">
-          <div class="cardTop">
-            <div>
-              <h2 class="cardTitle">${esc(t.title)}</h2>
-              <div class="cardMeta">${esc(t.subtitle)}</div>
-            </div>
-            <div class="pill" aria-hidden="true">
-              <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block"></span>
-              Topic
-            </div>
-          </div>
-          <div class="tags">${tags}</div>
-          <div class="actions">
-            <a class="btn primary" href="${igniteUrl}" role="button">Open Ignite</a>
-            <a class="btn secondary" href="${masterUrl}" role="button">Open Master</a>
-          </div>
-        </section>
-      `;
+    function renderTopics() {
+      const grid = document.getElementById("topicsGrid");
+      grid.innerHTML = "";
+
+      if (!Array.isArray(TOPICS) || TOPICS.length === 0) {
+        grid.appendChild(
+          el("div", { class: "card", tabindex: "0" }, [
+            el("p", { class: "cardTitle", text: "No topics configured" }),
+            el("p", { class: "cardMeta", text: "Edit the TOPICS array in index.html to add topics." })
+          ])
+        );
+        return;
+      }
+
+      TOPICS.forEach((t) => {
+        const link = el("a", {
+          href: t.href,
+          class: "card",
+          tabindex: "0",
+          "aria-label": t.title + " topic"
+        }, [
+          el("div", {}, [
+            el("p", { class: "cardTitle", text: t.title }),
+            el("p", { class: "cardMeta", text: "Link: " + t.href })
+          ]),
+          el("div", { class: "cardAction" }, [
+            el("span", { class: "pill", text: "Open" }),
+            el("span", { text: "Go to topic page" })
+          ])
+        ]);
+
+        grid.appendChild(link);
+      });
     }
 
-    function render(){
-      const q = (elQ.value || "").trim().toLowerCase();
-      const topics = STUDY_DATA.topics.slice();
-      const filtered = q
-        ? topics.filter(t => (t.title + " " + t.subtitle + " " + (t.tags||[]).join(" ")).toLowerCase().includes(q))
-        : topics;
-
-      elGrid.innerHTML = filtered.map(cardHTML).join("");
-      elCount.textContent = `${filtered.length} of ${topics.length} topics`;
+    function setFooter() {
+      const year = new Date().getFullYear();
+      const footer = document.getElementById("footerLegal");
+      footer.textContent = "Copyright and publishing rights reserved © " + year + " Dr Ushana Yalda. All rights reserved.";
     }
 
-    elQ.addEventListener("input", render);
-    elClear.addEventListener("click", () => { elQ.value = ""; render(); elQ.focus(); });
-
-    render();
+    renderTopics();
+    setFooter();
   </script>
 </body>
 </html>

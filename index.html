@@ -7,15 +7,12 @@
   <style>
     :root{
       --bg:#f7f6f2;
-      --card:#ffffff;
       --text:#111316;
       --muted:#4b5563;
-      --border:rgba(17,19,22,0.12);
-      --shadow:0 10px 26px rgba(0,0,0,0.07);
       --heading:#103a7a;
-      --accent:#0f766e;
-      --radius:14px;
-      --max:1100px;
+      --card:#ffffff;
+      --border:rgba(17,19,22,0.14);
+      --shadow:0 8px 18px rgba(0,0,0,0.06);
     }
 
     html,body{height:100%}
@@ -28,264 +25,175 @@
     }
 
     .wrap{
-      max-width:var(--max);
+      max-width:820px;
       margin:0 auto;
-      padding:28px 16px 104px 16px; /* prevent fixed footer overlap */
+      padding:26px 16px 92px 16px;
     }
 
-    .hero{
-      background:linear-gradient(180deg, rgba(16,58,122,0.07), rgba(247,246,242,0));
+    .header{
+      background:var(--card);
       border:1px solid var(--border);
-      border-radius:var(--radius);
+      border-radius:14px;
       box-shadow:var(--shadow);
-      padding:20px 18px;
+      padding:18px 16px;
     }
 
-    .title{
+    h1{
       margin:0;
       color:var(--heading);
-      font-size:26px;
+      font-size:22px;
       line-height:1.2;
       font-weight:800;
       letter-spacing:0.2px;
     }
 
-    .subtitle{
+    .line2{
       margin:6px 0 0 0;
       color:var(--heading);
-      font-size:18px;
-      line-height:1.25;
+      font-size:16px;
       font-weight:700;
     }
 
-    .prepared{
-      margin:10px 0 0 0;
+    .line3{
+      margin:8px 0 0 0;
       color:var(--muted);
-      font-size:14px;
+      font-size:13px;
     }
 
     .mission{
       margin:10px 0 0 0;
       color:var(--muted);
-      font-size:15px;
-      max-width:75ch;
-    }
-
-    .meta-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:14px;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(15,118,110,0.06);
-      color:#0b3f3b;
-      font-size:13px;
-      white-space:nowrap;
-    }
-
-    .dot{
-      width:8px;height:8px;border-radius:999px;background:var(--accent);
-      box-shadow:0 0 0 3px rgba(15,118,110,0.12);
+      font-size:14px;
     }
 
     .section{
-      margin-top:18px;
+      margin-top:14px;
+      color:var(--heading);
+      font-size:16px;
+      font-weight:800;
+    }
+
+    .topics{
+      margin-top:10px;
       display:flex;
-      align-items:flex-end;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .topic{
+      display:flex;
+      align-items:center;
       justify-content:space-between;
       gap:10px;
-      flex-wrap:wrap;
-    }
-
-    h2{
-      margin:0;
-      color:var(--heading);
-      font-size:18px;
-      line-height:1.2;
-      font-weight:800;
-    }
-
-    .hint{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    .grid{
-      margin-top:12px;
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:12px;
-    }
-
-    @media (max-width: 920px){
-      .grid{grid-template-columns:repeat(2, minmax(0, 1fr));}
-    }
-    @media (max-width: 620px){
-      .grid{grid-template-columns:1fr;}
-    }
-
-    .card-link{
-      display:block;
-      text-decoration:none;
-      color:inherit;
       background:var(--card);
       border:1px solid var(--border);
-      border-radius:var(--radius);
+      border-radius:14px;
       box-shadow:var(--shadow);
       padding:14px 14px;
-      transition:transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
-      min-height:92px;
+      text-decoration:none;
+      color:inherit;
     }
 
-    .card-link:hover{
-      transform:translateY(-2px);
+    .topic:hover{
       border-color:rgba(15,118,110,0.35);
-      box-shadow:0 14px 32px rgba(15,118,110,0.10);
     }
 
-    .card-title{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin:0 0 6px 0;
+    .topic-title{
       font-weight:800;
       font-size:15px;
-      color:var(--text);
-      letter-spacing:0.2px;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:4px 8px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(16,58,122,0.06);
-      color:#0f2a55;
-      font-size:12px;
-      font-weight:800;
-      white-space:nowrap;
-    }
-
-    .card-desc{
       margin:0;
+    }
+
+    .topic-desc{
+      margin:4px 0 0 0;
       color:var(--muted);
       font-size:13px;
+    }
+
+    .arrow{
+      color:var(--muted);
+      font-weight:800;
+      font-size:14px;
+      white-space:nowrap;
     }
 
     .footer{
       position:fixed;
       left:0; right:0; bottom:0;
       background:rgba(247,246,242,0.92);
-      backdrop-filter:blur(8px);
       border-top:1px solid var(--border);
       padding:10px 14px;
       text-align:center;
       font-size:12px;
-      color:rgba(17,19,22,0.55);
-    }
-
-    .footer strong{
-      font-weight:800;
-      color:rgba(17,19,22,0.65);
+      color:rgba(17,19,22,0.58);
+      backdrop-filter:blur(8px);
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="hero" role="banner" aria-label="Homepage header">
-      <h1 class="title">Dr Ushana Yalda</h1>
-      <p class="subtitle">Advanced Clinical Preparation</p>
-      <p class="prepared">Prepared for Dr Hanaa</p>
-      <p class="mission">A structured system for clinical excellence and case mastery.</p>
-
-      <div class="meta-row" aria-label="Quick notes">
-        <span class="pill"><span class="dot" aria-hidden="true"></span>Ignite opens first</span>
-        <span class="pill">Master available inside topic</span>
-        <span class="pill">Expandable topics list</span>
-      </div>
+    <div class="header">
+      <h1>Dr Ushana Yalda</h1>
+      <div class="line2">Advanced Clinical Preparation</div>
+      <div class="line3">Prepared for Dr Hanaa</div>
+      <div class="mission">A structured system for clinical excellence and case mastery.</div>
     </div>
 
-    <div class="section" aria-label="Topics header">
-      <h2>Clinical Topics</h2>
-      <p class="hint">Edit the TOPICS list in the code to add or change links.</p>
-    </div>
+    <div class="section">Clinical Topics</div>
 
-    <div id="topicsGrid" class="grid" aria-label="Topics list"></div>
+    <div id="topics" class="topics" aria-label="Topics list"></div>
   </div>
 
-  <div class="footer" id="rightsFooter" aria-label="Copyright footer"></div>
+  <div class="footer" id="rights"></div>
 
   <script>
     "use strict";
 
-    // Add or edit topics here. Each topic needs:
-    // title: what appears on the homepage
-    // href: where it links (recommended: topics/<slug>.html#ignite)
-    // desc: short description
+    // Add or edit topics here
     const TOPICS = [
       {
         title: "Chest pain",
         href: "topics/chest-pain.html#ignite",
-        desc: "Hierarchy first. Life-threatening patterns and safe escalation."
+        desc: "Start in Ignite mode."
       }
     ];
 
-    function el(tag, props){
-      const n = document.createElement(tag);
-      if(props){
-        if(props.className) n.className = props.className;
-        if(props.text != null) n.textContent = String(props.text);
-        if(props.attrs){
-          for(const k of Object.keys(props.attrs)){
-            n.setAttribute(k, String(props.attrs[k]));
-          }
-        }
-      }
-      return n;
-    }
-
     function renderTopics(){
-      const grid = document.getElementById("topicsGrid");
-      grid.innerHTML = "";
+      const root = document.getElementById("topics");
+      root.innerHTML = "";
 
       for(const t of TOPICS){
-        const a = el("a", { className: "card-link", attrs: { href: t.href } });
+        const a = document.createElement("a");
+        a.className = "topic";
+        a.href = t.href;
 
-        const titleRow = el("div", { className: "card-title" });
-        const dot = el("span", { className: "dot", attrs: { "aria-hidden": "true" }});
-        const title = el("span", { text: t.title });
-        const badge = el("span", { className: "badge", text: "Opens Ignite" });
+        const left = document.createElement("div");
 
-        titleRow.appendChild(dot);
-        titleRow.appendChild(title);
-        titleRow.appendChild(badge);
+        const title = document.createElement("div");
+        title.className = "topic-title";
+        title.textContent = t.title;
 
-        const desc = el("p", { className: "card-desc", text: t.desc || "" });
+        const desc = document.createElement("div");
+        desc.className = "topic-desc";
+        desc.textContent = t.desc || "";
 
-        a.appendChild(titleRow);
-        a.appendChild(desc);
+        left.appendChild(title);
+        left.appendChild(desc);
 
-        grid.appendChild(a);
+        const right = document.createElement("div");
+        right.className = "arrow";
+        right.textContent = "Open";
+
+        a.appendChild(left);
+        a.appendChild(right);
+        root.appendChild(a);
       }
     }
 
     function setFooter(){
       const year = new Date().getFullYear();
-      const f = document.getElementById("rightsFooter");
-      f.innerHTML =
-        "© " + year + " <strong>Dr Ushana Yalda</strong>. All rights reserved. " +
-        "Unauthorized reproduction, distribution, or modification of this material without prior permission is prohibited.";
+      document.getElementById("rights").textContent =
+        "© " + year + " Dr Ushana Yalda. All rights reserved. Unauthorized reproduction, distribution, or modification of this material without prior permission is prohibited.";
     }
 
     renderTopics();

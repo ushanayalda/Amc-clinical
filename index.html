@@ -1,203 +1,260 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Clinical Preparation</title>
-  <style>
-    :root{
-      --bg:#f7f6f2;
-      --text:#111316;
-      --muted:#4b5563;
-      --heading:#103a7a;
-      --card:#ffffff;
-      --border:rgba(17,19,22,0.14);
-      --shadow:0 8px 18px rgba(0,0,0,0.06);
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>السجل اليومي</title>
 
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.55;
-    }
+<style>
+:root{
+  --font: Arial, Tahoma, sans-serif;
+  --border:#e6e6e6;
+  --bg:#ffffff;
+}
 
-    .wrap{
-      max-width:820px;
-      margin:0 auto;
-      padding:26px 16px 92px 16px;
-    }
+*{ box-sizing:border-box; }
 
-    .header{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:14px;
-      box-shadow:var(--shadow);
-      padding:18px 16px;
-    }
+body{
+  margin:0;
+  font-family:var(--font);
+  background:#f4f4f4;
+}
 
-    h1{
-      margin:0;
-      color:var(--heading);
-      font-size:22px;
-      line-height:1.2;
-      font-weight:800;
-      letter-spacing:0.2px;
-    }
+header{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:10px;
+}
 
-    .line2{
-      margin:6px 0 0 0;
-      color:var(--heading);
-      font-size:16px;
-      font-weight:700;
-    }
+.topbar{
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    .line3{
-      margin:8px 0 0 0;
-      color:var(--muted);
-      font-size:13px;
-    }
+button{
+  border:1px solid var(--border);
+  background:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  font-family:var(--font);
+}
 
-    .mission{
-      margin:10px 0 0 0;
-      color:var(--muted);
-      font-size:14px;
-    }
+main{
+  display:flex;
+  justify-content:center;
+  padding:15px;
+}
 
-    .section{
-      margin-top:14px;
-      color:var(--heading);
-      font-size:16px;
-      font-weight:800;
-    }
+.sheet{
+  width:210mm;
+  min-height:297mm;
+  background:var(--bg);
+  padding:15mm;
+  border:1px solid var(--border);
+}
 
-    .topics{
-      margin-top:10px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
+.field-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:10px;
+}
 
-    .topic{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:14px;
-      box-shadow:var(--shadow);
-      padding:14px 14px;
-      text-decoration:none;
-      color:inherit;
-    }
+.field{
+  border:1px solid var(--border);
+  padding:10px;
+  border-radius:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    .topic:hover{
-      border-color:rgba(15,118,110,0.35);
-    }
+.field input{
+  width:60%;
+  padding:8px;
+  border:1px solid var(--border);
+  border-radius:8px;
+}
 
-    .topic-title{
-      font-weight:800;
-      font-size:15px;
-      margin:0;
-    }
+.section{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px;
+  margin:10px 0;
+}
 
-    .topic-desc{
-      margin:4px 0 0 0;
-      color:var(--muted);
-      font-size:13px;
-    }
+.section h2{
+  margin:0 0 8px;
+  font-size:16px;
+}
 
-    .arrow{
-      color:var(--muted);
-      font-weight:800;
-      font-size:14px;
-      white-space:nowrap;
-    }
+.checks{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
 
-    .footer{
-      position:fixed;
-      left:0; right:0; bottom:0;
-      background:rgba(247,246,242,0.92);
-      border-top:1px solid var(--border);
-      padding:10px 14px;
-      text-align:center;
-      font-size:12px;
-      color:rgba(17,19,22,0.58);
-      backdrop-filter:blur(8px);
-    }
-  </style>
+.check{
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+}
+
+textarea{
+  width:100%;
+  min-height:40px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:8px;
+  margin-top:6px;
+}
+
+.pain-scale{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+  margin-top:8px;
+}
+
+@media print{
+  header, main > *:not(.sheet){ display:none; }
+  body{ background:#fff; }
+  .sheet{
+    border:none;
+    width:210mm;
+    min-height:297mm;
+  }
+  @page{
+    size:A4;
+    margin:0;
+  }
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="header">
-      <h1>Dr Ushana Yalda</h1>
-      <div class="line2">Advanced Clinical Preparation</div>
-      <div class="line3">Prepared for Dr Hanaa</div>
-      <div class="mission">A structured system for clinical excellence and case mastery.</div>
+
+<header>
+  <div class="topbar">
+    <div><strong>السجل اليومي</strong></div>
+    <div>
+      <button onclick="printPage()">🖨️ طباعة</button>
+      <button onclick="document.getElementById('form').reset()">🧹 مسح</button>
     </div>
-
-    <div class="section">Clinical Topics</div>
-
-    <div id="topics" class="topics" aria-label="Topics list"></div>
   </div>
+</header>
 
-  <div class="footer" id="rights"></div>
+<main>
+<form id="form" class="sheet">
 
-  <script>
-    "use strict";
+<div class="field-row">
+  <div class="field">
+    <label>الاسم</label>
+    <input type="text" name="name">
+  </div>
+  <div class="field">
+    <label>التاريخ</label>
+    <input type="text" name="date">
+  </div>
+</div>
 
-    // Add or edit topics here
-    const TOPICS = [
-      {
-        title: "Chest pain",
-        href: "topics/chest-pain-case-1.html",
-        desc: "Start in Ignite mode."
-      }
-    ];
+<div class="field">
+  <label>عدد ساعات النوم</label>
+  <input type="number" name="sleep">
+</div>
 
-    function renderTopics(){
-      const root = document.getElementById("topics");
-      root.innerHTML = "";
+<div class="section">
+  <h2>الدواء اليوم (مع الجرعة)</h2>
+  <div class="checks">
+    <div class="check"><input type="checkbox"> فلوكستين <input type="text" placeholder="الجرعة"></div>
+    <div class="check"><input type="checkbox"> أولانزابين <input type="text" placeholder="الجرعة"></div>
+    <div class="check"><input type="checkbox"> أتوموكسيتين <input type="text" placeholder="الجرعة"></div>
+  </div>
+</div>
 
-      for(const t of TOPICS){
-        const a = document.createElement("a");
-        a.className = "topic";
-        a.href = t.href;
+<div class="section">
+  <h2>المهام والتنظيم</h2>
+  <div class="checks">
+    <div class="check"><input type="checkbox"> أنهيتُ مهمة واحدة على الأقل</div>
+    <div class="check"><input type="checkbox"> بدأتُ أكثر من عمل ولم أكمله</div>
+    <div class="check"><input type="checkbox"> احتجتُ تذكير أكثر من 3 مرات</div>
+    <div class="check"><input type="checkbox"> كان عندي خطة واضحة وأنهيتها</div>
+  </div>
+  <textarea placeholder="ملاحظة قصيرة (اختياري)"></textarea>
+</div>
 
-        const left = document.createElement("div");
+<div class="section">
+  <h2>الكلام والتواصل</h2>
+  <div class="checks">
+    <div class="check"><input type="checkbox"> تكلمتُ أكثر من 5 دقائق بدون توقف</div>
+    <div class="check"><input type="checkbox"> كررتُ نفس الكلام أكثر من 3 مرات</div>
+    <div class="check"><input type="checkbox"> أعطيتُ أوامر بدون انتظار رد</div>
+    <div class="check"><input type="checkbox"> صار حديث طبيعي (أخذ ورد)</div>
+  </div>
+</div>
 
-        const title = document.createElement("div");
-        title.className = "topic-title";
-        title.textContent = t.title;
+<div class="section">
+  <h2>المشي وحركة الجسم</h2>
+  <div class="checks">
+    <div class="check"><input type="checkbox"> مشيتُ بدون سبب واضح</div>
+    <div class="check"><input type="checkbox"> جلستُ 5 دقائق متواصلة</div>
+    <div class="check"><input type="checkbox"> شعرتُ بتحسن عندما مشيت</div>
+    <div class="check"><input type="checkbox"> لم أشعر بتحسن رغم المشي</div>
+  </div>
+  <div>ألم الساق:</div>
+  <div class="pain-scale">
+    0 1 2 3 4 5 6 7 8 9 10
+  </div>
+</div>
 
-        const desc = document.createElement("div");
-        desc.className = "topic-desc";
-        desc.textContent = t.desc || "";
+<div class="section">
+  <h2>المزاج</h2>
+  <div class="checks">
+    <div class="check"><input type="checkbox"> كنتُ هادئة أغلب الوقت</div>
+    <div class="check"><input type="checkbox"> شعرتُ بعصبية أثرت على كلامي</div>
+    <div class="check"><input type="checkbox"> شعرتُ بقلق أثر على يومي</div>
+    <div class="check"><input type="checkbox"> انفعلتُ أكثر من 5 دقائق</div>
+  </div>
+</div>
 
-        left.appendChild(title);
-        left.appendChild(desc);
+<div class="section">
+  <h2>الأفكار</h2>
+  <div class="checks">
+    <div class="check"><input type="checkbox"> سمعتُ صوت واضح خارج رأسي</div>
+    <div class="check"><input type="checkbox"> أفكار قوية لكن أعرف أنها من داخلي</div>
+    <div class="check"><input type="checkbox"> أفكاري طبيعية</div>
+    <div class="check"><input type="checkbox"> شعرتُ أن أحد يراقبني</div>
+  </div>
+</div>
 
-        const right = document.createElement("div");
-        right.className = "arrow";
-        right.textContent = "Open";
+</form>
+</main>
 
-        a.appendChild(left);
-        a.appendChild(right);
-        root.appendChild(a);
-      }
-    }
+<script>
+function printPage(){
+  const content = document.querySelector('.sheet').outerHTML;
+  const w = window.open('', '', 'width=900,height=1200');
+  w.document.write(`
+    <html dir="rtl">
+    <head>
+      <style>
+        body{ margin:0; font-family:Arial, Tahoma, sans-serif; }
+        .sheet{ width:210mm; min-height:297mm; padding:15mm; }
+        @page{ size:A4; margin:0; }
+      </style>
+    </head>
+    <body>${content}</body>
+    </html>
+  `);
+  w.document.close();
+  w.focus();
+  w.print();
+}
+</script>
 
-    function setFooter(){
-      const year = new Date().getFullYear();
-      document.getElementById("rights").textContent =
-        "© " + year + " Dr Ushana Yalda. All rights reserved. Unauthorized reproduction, distribution, or modification of this material without prior permission is prohibited.";
-    }
-
-    renderTopics();
-    setFooter();
-  </script>
 </body>
 </html>

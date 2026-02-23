@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hana Study</title>
+  <title>Clinical Preparation</title>
   <style>
     :root{
       --bg:#f7f6f2;
@@ -30,7 +30,7 @@
     .wrap{
       max-width:var(--max);
       margin:0 auto;
-      padding:28px 16px 92px 16px; /* bottom padding prevents footer overlap */
+      padding:28px 16px 104px 16px; /* prevent fixed footer overlap */
     }
 
     .hero{
@@ -41,26 +41,34 @@
       padding:20px 18px;
     }
 
-    .kicker{
-      font-size:13px;
-      letter-spacing:0.3px;
-      color:var(--muted);
-      text-transform:uppercase;
-      margin:0 0 6px 0;
-    }
-
-    h1{
-      margin:0 0 6px 0;
+    .title{
+      margin:0;
       color:var(--heading);
       font-size:26px;
       line-height:1.2;
+      font-weight:800;
+      letter-spacing:0.2px;
     }
 
-    .subhead{
-      margin:0;
+    .subtitle{
+      margin:6px 0 0 0;
+      color:var(--heading);
+      font-size:18px;
+      line-height:1.25;
+      font-weight:700;
+    }
+
+    .prepared{
+      margin:10px 0 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .mission{
+      margin:10px 0 0 0;
       color:var(--muted);
       font-size:15px;
-      max-width:70ch;
+      max-width:75ch;
     }
 
     .meta-row{
@@ -82,6 +90,7 @@
       font-size:13px;
       white-space:nowrap;
     }
+
     .dot{
       width:8px;height:8px;border-radius:999px;background:var(--accent);
       box-shadow:0 0 0 3px rgba(15,118,110,0.12);
@@ -101,6 +110,7 @@
       color:var(--heading);
       font-size:18px;
       line-height:1.2;
+      font-weight:800;
     }
 
     .hint{
@@ -123,7 +133,7 @@
       .grid{grid-template-columns:1fr;}
     }
 
-    .card{
+    .card-link{
       display:block;
       text-decoration:none;
       color:inherit;
@@ -135,7 +145,8 @@
       transition:transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
       min-height:92px;
     }
-    .card:hover{
+
+    .card-link:hover{
       transform:translateY(-2px);
       border-color:rgba(15,118,110,0.35);
       box-shadow:0 14px 32px rgba(15,118,110,0.10);
@@ -162,7 +173,7 @@
       background:rgba(16,58,122,0.06);
       color:#0f2a55;
       font-size:12px;
-      font-weight:700;
+      font-weight:800;
       white-space:nowrap;
     }
 
@@ -192,34 +203,35 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="hero">
-      <p class="kicker">Study hub</p>
-      <h1>Prepared by Dr Ushana Yalda</h1>
-      <p class="subhead">Prepared for Dr Hanaa. Select a topic to open its Ignite page. Each topic page will include tabs for Ignite and Master modes.</p>
+    <div class="hero" role="banner" aria-label="Homepage header">
+      <h1 class="title">Dr Ushana Yalda</h1>
+      <p class="subtitle">Advanced Clinical Preparation</p>
+      <p class="prepared">Prepared for Dr Hanaa</p>
+      <p class="mission">A structured system for clinical excellence and case mastery.</p>
 
-      <div class="meta-row">
-        <span class="pill"><span class="dot"></span>Ignite opens first</span>
+      <div class="meta-row" aria-label="Quick notes">
+        <span class="pill"><span class="dot" aria-hidden="true"></span>Ignite opens first</span>
         <span class="pill">Master available inside topic</span>
         <span class="pill">Expandable topics list</span>
       </div>
     </div>
 
-    <div class="section">
-      <h2>Topics</h2>
+    <div class="section" aria-label="Topics header">
+      <h2>Clinical Topics</h2>
       <p class="hint">Edit the TOPICS list in the code to add or change links.</p>
     </div>
 
     <div id="topicsGrid" class="grid" aria-label="Topics list"></div>
   </div>
 
-  <div class="footer" id="copyrightFooter"></div>
+  <div class="footer" id="rightsFooter" aria-label="Copyright footer"></div>
 
   <script>
     "use strict";
 
     // Add or edit topics here. Each topic needs:
     // title: what appears on the homepage
-    // href: where it links (recommend: topics/<slug>.html#ignite)
+    // href: where it links (recommended: topics/<slug>.html#ignite)
     // desc: short description
     const TOPICS = [
       {
@@ -227,8 +239,6 @@
         href: "topics/chest-pain.html#ignite",
         desc: "Hierarchy first. Life-threatening patterns and safe escalation."
       }
-      // Example:
-      // { title: "Knee swelling", href: "topics/knee-swelling.html#ignite", desc: "Hot joint vs crystal vs trauma. Aspiration logic." }
     ];
 
     function el(tag, props){
@@ -237,7 +247,9 @@
         if(props.className) n.className = props.className;
         if(props.text != null) n.textContent = String(props.text);
         if(props.attrs){
-          for(const k in props.attrs) n.setAttribute(k, String(props.attrs[k]));
+          for(const k of Object.keys(props.attrs)){
+            n.setAttribute(k, String(props.attrs[k]));
+          }
         }
       }
       return n;
@@ -248,7 +260,7 @@
       grid.innerHTML = "";
 
       for(const t of TOPICS){
-        const a = el("a", { className: "card", attrs: { href: t.href } });
+        const a = el("a", { className: "card-link", attrs: { href: t.href } });
 
         const titleRow = el("div", { className: "card-title" });
         const dot = el("span", { className: "dot", attrs: { "aria-hidden": "true" }});
@@ -269,9 +281,11 @@
     }
 
     function setFooter(){
-      const y = new Date().getFullYear();
-      const f = document.getElementById("copyrightFooter");
-      f.innerHTML = "Copyright and publishing rights reserved © " + y + " <strong>Dr Ushana Yalda</strong>. All rights reserved.";
+      const year = new Date().getFullYear();
+      const f = document.getElementById("rightsFooter");
+      f.innerHTML =
+        "© " + year + " <strong>Dr Ushana Yalda</strong>. All rights reserved. " +
+        "Unauthorized reproduction, distribution, or modification of this material without prior permission is prohibited.";
     }
 
     renderTopics();

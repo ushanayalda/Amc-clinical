@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chest pain</title>
+  <style>
+    :root{
+      --bg:#f7f6f2;
+      --card:#ffffff;
+      --text:#111316;
+      --muted:#4b5563;
+      --border:rgba(17,19,22,0.14);
+      --shadow:0 8px 18px rgba(0,0,0,0.06);
+      --heading:#103a7a;
+      --accent:#0f766e;
+      --amber:#b45309;
+      --radius:14px;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    .wrap{
+      max-width:900px;
+      margin:0 auto;
+      padding:16px 16px 92px 16px;
+    }
+    .top{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px 14px;
+    }
+    h1{
+      margin:0;
+      color:var(--heading);
+      font-size:20px;
+      line-height:1.2;
+      font-weight:900;
+    }
+    .sub{
+      margin:6px 0 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .tabs{
+      margin-top:12px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .tab{
+      border:1px solid var(--border);
+      background:var(--card);
+      color:var(--text);
+      border-radius:12px;
+      padding:10px 12px;
+      font-size:14px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .tab.active{
+      border-color:rgba(16,58,122,0.35);
+      background:rgba(16,58,122,0.06);
+      color:#0f2a55;
+    }
+
+    .panel{
+      margin-top:12px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px 14px;
+    }
+    .panel h2{
+      margin:0 0 8px 0;
+      color:var(--heading);
+      font-size:16px;
+      font-weight:900;
+    }
+    .hint{
+      margin:0 0 10px 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:10px;
+    }
+    .item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      text-decoration:none;
+      color:inherit;
+      background:rgba(17,19,22,0.02);
+    }
+    .item:hover{
+      border-color:rgba(15,118,110,0.35);
+      background:rgba(15,118,110,0.04);
+    }
+    .item .t{
+      font-weight:900;
+      font-size:14px;
+    }
+    .item .d{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+    }
+    .go{
+      color:var(--muted);
+      font-weight:900;
+      font-size:13px;
+      white-space:nowrap;
+    }
+
+    .footer{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      background:rgba(247,246,242,0.92);
+      border-top:1px solid var(--border);
+      padding:10px 14px;
+      text-align:center;
+      font-size:12px;
+      color:rgba(17,19,22,0.58);
+      backdrop-filter:blur(8px);
+    }
+
+    .navrow{
+      margin-top:10px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .btnlink{
+      display:inline-block;
+      border:1px solid var(--border);
+      background:var(--card);
+      color:var(--text);
+      border-radius:12px;
+      padding:10px 12px;
+      font-size:13px;
+      font-weight:800;
+      text-decoration:none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <h1>Chest pain</h1>
+      <p class="sub">Ignite first. Then cases.</p>
+
+      <div class="navrow">
+        <a class="btnlink" href="../index.html">Home</a>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button id="tabIgnite" class="tab" type="button">Ignite</button>
+        <button id="tabCases" class="tab" type="button">Cases</button>
+      </div>
+    </div>
+
+    <div id="panelIgnite" class="panel">
+      <h2>Ignite</h2>
+      <p class="hint">Paste your Ignite content for Chest pain here later.</p>
+
+      <div class="panel" style="box-shadow:none; margin-top:12px;">
+        <h2>Placeholder</h2>
+        <p class="hint">Ignite content not added yet.</p>
+      </div>
+    </div>
+
+    <div id="panelCases" class="panel" style="display:none;">
+      <h2>Cases</h2>
+      <p class="hint">Add cases by copying one line inside the CASE LINKS block.</p>
+
+      <div class="list" id="caseList"></div>
+
+      <div class="panel" style="box-shadow:none; margin-top:12px;">
+        <h2>How to add Case 2 later</h2>
+        <p class="hint">Copy the Case 1 line in the CASE LINKS block and change the title and file name.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer" id="rights"></div>
+
+  <script>
+    "use strict";
+
+    // CASE LINKS BLOCK
+    // Copy one line to add a new case.
+    // File paths are relative to this page (topics folder).
+    const CASES = [
+      {
+        title: "Case 1 - Classic ACS in GP",
+        href: "chest-pain-case-1.html",
+        desc: "Strict AMC format"
+      }
+    ];
+
+    function $(id){ return document.getElementById(id); }
+
+    function setFooter(){
+      const year = new Date().getFullYear();
+      $("rights").textContent =
+        "© " + year + " Dr Ushana Yalda. All rights reserved. Unauthorized reproduction, distribution, or modification of this material without prior permission is prohibited.";
+    }
+
+    function renderCases(){
+      const root = $("caseList");
+      root.innerHTML = "";
+      for(const c of CASES){
+        const a = document.createElement("a");
+        a.className = "item";
+        a.href = c.href;
+
+        const left = document.createElement("div");
+        const t = document.createElement("div");
+        t.className = "t";
+        t.textContent = c.title;
+
+        const d = document.createElement("div");
+        d.className = "d";
+        d.textContent = c.desc || "";
+
+        left.appendChild(t);
+        left.appendChild(d);
+
+        const go = document.createElement("div");
+        go.className = "go";
+        go.textContent = "Open";
+
+        a.appendChild(left);
+        a.appendChild(go);
+        root.appendChild(a);
+      }
+    }
+
+    function setTab(tab){
+      const isIgnite = tab === "ignite";
+      $("panelIgnite").style.display = isIgnite ? "block" : "none";
+      $("panelCases").style.display = isIgnite ? "none" : "block";
+
+      $("tabIgnite").classList.toggle("active", isIgnite);
+      $("tabCases").classList.toggle("active", !isIgnite);
+
+      location.hash = isIgnite ? "ignite" : "cases";
+    }
+
+    function tabFromHash(){
+      const h = (location.hash || "").replace("#","").toLowerCase();
+      return (h === "cases") ? "cases" : "ignite";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setFooter();
+      renderCases();
+
+      $("tabIgnite").addEventListener("click", () => setTab("ignite"));
+      $("tabCases").addEventListener("click", () => setTab("cases"));
+
+      const initial = tabFromHash();
+      setTab(initial);
+    });
+
+    window.addEventListener("hashchange", () => {
+      const t = tabFromHash();
+      if(t === "cases") setTab("cases");
+      else setTab("ignite");
+    });
+  </script>
+</body>
+</html>

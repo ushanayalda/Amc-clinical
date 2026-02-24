@@ -1,232 +1,332 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Chest pain - Case 3</title>
-  <style>
-    :root{
-      --bg:#f7f6f2;
-      --card:#ffffff;
-      --text:#111316;
-      --muted:#4b5563;
-      --border:rgba(17,19,22,0.14);
-      --shadow:0 8px 18px rgba(0,0,0,0.06);
-      --heading:#103a7a;
-      --amber:#b45309;
-      --danger:#7a1a1a;
-      --think-bg:#f1f3f5;
-      --think-text:#2b2f35;
-      --radius:14px;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Chest pain - Case 3</title>
 
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.55;
-    }
+<style>
+:root{
+  --bg:#f7f6f2;
+  --card:#ffffff;
+  --text:#111316;
+  --muted:#4b5563;
+  --border:rgba(17,19,22,0.14);
+  --shadow:0 8px 18px rgba(0,0,0,0.06);
+  --heading:#103a7a;
+  --amber:#b45309;
+  --danger:#7a1a1a;
+  --think-bg:#f1f3f5;
+  --think-text:#2b2f35;
+  --radius:14px;
+}
 
-    .wrap{
-      max-width:900px;
-      margin:0 auto;
-      padding:16px 16px 92px 16px;
-    }
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+}
 
-    .top{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:14px;
-    }
+.wrap{
+  max-width:900px;
+  margin:0 auto;
+  padding:16px 16px 100px 16px;
+}
 
-    h1{
-      margin:0;
-      color:var(--heading);
-      font-size:20px;
-      font-weight:900;
-    }
+.card{
+  margin-top:12px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:16px;
+}
 
-    .sub{
-      margin:6px 0 0 0;
-      color:var(--muted);
-      font-size:13px;
-    }
+h1{
+  margin:0;
+  font-size:20px;
+  color:var(--heading);
+  font-weight:900;
+}
 
-    .navrow{
-      margin-top:10px;
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
+h2{
+  margin:0 0 10px 0;
+  color:var(--heading);
+  font-size:16px;
+  font-weight:900;
+}
 
-    .btnlink{
-      display:inline-block;
-      border:1px solid var(--border);
-      background:var(--card);
-      color:var(--text);
-      border-radius:12px;
-      padding:10px 12px;
-      font-size:13px;
-      font-weight:800;
-      text-decoration:none;
-    }
+h3{
+  margin:14px 0 6px 0;
+  font-size:14px;
+  font-weight:900;
+  color:var(--heading);
+}
 
-    .card{
-      margin-top:12px;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:14px;
-    }
+ul{ margin:8px 0 8px 20px; }
+li{ margin:6px 0; }
 
-    h2{
-      margin:0 0 10px 0;
-      color:var(--heading);
-      font-size:16px;
-      font-weight:900;
-    }
+.spoken{
+  border:1px solid rgba(16,58,122,0.2);
+  background:rgba(16,58,122,0.05);
+  padding:14px;
+  border-radius:12px;
+  margin-top:10px;
+}
 
-    h3{
-      margin:14px 0 6px 0;
-      color:var(--heading);
-      font-size:14px;
-      font-weight:900;
-    }
+.focus{
+  border:1px solid rgba(180,83,9,0.35);
+  background:rgba(180,83,9,0.06);
+  padding:10px;
+  border-radius:12px;
+  margin:10px 0;
+}
 
-    p{ margin:8px 0; }
-    ul{ margin:8px 0 8px 20px; }
-    li{ margin:6px 0; }
+.thinking{
+  border:1px solid var(--border);
+  background:var(--think-bg);
+  padding:14px;
+  border-radius:12px;
+  margin-top:10px;
+  font-style:italic;
+}
 
-    .spoken{
-      border:1px solid rgba(16,58,122,0.16);
-      background:rgba(16,58,122,0.04);
-      border-radius:12px;
-      padding:12px;
-      margin:10px 0;
-    }
+.scoring{
+  border-left:4px solid var(--danger);
+  background:rgba(122,26,26,0.06);
+  padding:10px 12px;
+  border-radius:10px;
+  margin-top:10px;
+}
 
-    .focus{
-      border:1px solid rgba(180,83,9,0.35);
-      background:rgba(180,83,9,0.06);
-      border-radius:12px;
-      padding:10px 12px;
-      margin:10px 0;
-    }
-
-    .thinking{
-      border:1px solid var(--border);
-      background:var(--think-bg);
-      border-radius:12px;
-      padding:12px;
-      margin:10px 0;
-      font-style:italic;
-    }
-
-    .scoring{
-      border-left:4px solid rgba(122,26,26,0.55);
-      background:rgba(122,26,26,0.06);
-      border-radius:10px;
-      padding:10px 12px;
-      margin:10px 0;
-    }
-
-    .footer{
-      position:fixed;
-      left:0; right:0; bottom:0;
-      background:rgba(247,246,242,0.92);
-      border-top:1px solid var(--border);
-      padding:10px;
-      text-align:center;
-      font-size:12px;
-      color:rgba(17,19,22,0.58);
-    }
-  </style>
+.footer{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:10px;
+  text-align:center;
+  font-size:12px;
+  background:rgba(247,246,242,0.95);
+  border-top:1px solid var(--border);
+}
+</style>
 </head>
 
 <body>
+
 <div class="wrap">
 
-  <div class="top">
-    <h1>AMC Clinical - Chest pain - Tier 1</h1>
-    <p class="sub">Case 3 - Pulmonary embolism</p>
+<div class="card">
+<h1>AMC CLINICAL – CHEST PAIN<br>TIER 1 DOMINANCE<br>CASE 3 – PULMONARY EMBOLISM<br>STRICT AMC FORMAT</h1>
+</div>
 
-    <div class="navrow">
-      <a class="btnlink" href="chest-pain.html#cases">Back to Chest pain</a>
-      <a class="btnlink" href="../index.html">Home</a>
-    </div>
-  </div>
+<div class="card">
+<h2>SECTION 1 – STATION STEM</h2>
 
-  <div class="card">
-    <h2>Section 1 - Station Stem</h2>
-    <p>You are a GP in a suburban clinic.</p>
-    <p>A 34-year-old woman presents with sudden right-sided chest pain and shortness of breath for 3 hours.</p>
-    <p><strong>Past history:</strong> Recent long-haul flight 4 days ago.</p>
-    <p><strong>Medications:</strong> Combined oral contraceptive pill.</p>
-    <p><strong>Tasks:</strong></p>
-    <ul>
-      <li>Take a focused history.</li>
-      <li>Explain your most likely diagnosis and differential diagnoses.</li>
-      <li>Outline your management plan.</li>
-    </ul>
-  </div>
+<p>You are a GP in a suburban clinic.</p>
 
-  <div class="card">
-    <h2>Section 2 - 2 Minute Reading Map</h2>
-    <ul>
-      <li>Sudden pleuritic pain</li>
-      <li>Shortness of breath</li>
-      <li>OCP</li>
-      <li>Recent flight</li>
-    </ul>
-    <p><strong>Likely direction:</strong> Pulmonary embolism</p>
-    <p><strong>Urgency:</strong> Emergency transfer</p>
-  </div>
+<p>A 34-year-old woman presents with sudden right-sided chest pain and shortness of breath for 3 hours.</p>
 
-  <div class="card">
-    <h2>Section 3 - Spoken Script</h2>
-    <div class="spoken">
-      <p><strong>Introduction:</strong> Hello, I am Dr Ushana. How would you like me to address you?</p>
-      <p>Patient: Call me Sara.</p>
-      <p>Sudden pleuritic pain and breathlessness discussed.</p>
-      <p>Risk factors explored including OCP and recent travel.</p>
-      <p>Calf pain noted.</p>
-      <p><strong>Summary:</strong> Sudden pleuritic chest pain, breathlessness, OCP, recent flight.</p>
-      <div class="scoring">
-        Sudden pleuritic chest pain with risk factors must be treated as pulmonary embolism until proven otherwise.
-      </div>
-      <p><strong>Management:</strong> Immediate ambulance transfer from GP setting. No delay for in-clinic tests.</p>
-    </div>
-  </div>
+<p>Past medical history: Recent long-haul flight 4 days ago.<br>
+Medications: Combined oral contraceptive pill.</p>
 
-  <div class="card">
-    <h2>Section 4 - Internal Thinking - Not Spoken</h2>
-    <div class="thinking">
-      <ul>
-        <li>Sudden pleuritic pain</li>
-        <li>OCP</li>
-        <li>Recent travel</li>
-        <li>Calf pain</li>
-        <li>High PE probability</li>
-        <li>Immediate referral</li>
-      </ul>
-    </div>
-  </div>
+<p>Tasks:</p>
 
-  <div class="card">
-    <h2>Section 5 - Scoring Phrases</h2>
-    <div class="scoring">
-      <ul>
-        <li>Pleuritic chest pain with risk factors suggests pulmonary embolism.</li>
-        <li>Do not delay hospital referral in suspected PE.</li>
-        <li>Oxygen only if hypoxic or distressed.</li>
-      </ul>
-    </div>
-  </div>
+<ol>
+<li>Take a focused history.</li>
+<li>Explain your most likely diagnosis and differential diagnoses.</li>
+<li>Outline your management plan.</li>
+</ol>
+
+<p>You have 8 minutes.</p>
+</div>
+
+<div class="card">
+<h2>SECTION 2 – 2 MINUTE READING MAP</h2>
+
+<p>Setting: GP</p>
+
+<p>Sudden pleuritic pain<br>
+Shortness of breath<br>
+OCP<br>
+Recent flight</p>
+
+<p>Immediate threats to exclude:<br>
+Pulmonary embolism<br>
+Pneumothorax<br>
+Acute coronary syndrome<br>
+Aortic dissection</p>
+
+<p>First action rule:<br>
+Assess stability and escalate</p>
+
+<p>Likely direction: PE</p>
+
+<p>Urgency: Emergency transfer</p>
+</div>
+
+<div class="card">
+<h2>SECTION 3 – SPOKEN SCRIPT</h2>
+
+<div class="spoken">
+
+<h3>PHASE 1 – Introduction and Consent</h3>
+
+<p>Hello, I am Dr Ushana.<br>
+How would you like me to address you?</p>
+
+<p>Patient: “Call me Sara.”</p>
+
+<p>Thank you Sara. I understand you have sudden chest pain and shortness of breath. I will ask some focused questions and then explain what I think and what we need to do next. Is that okay?</p>
+
+<p>Patient: “Yes.”</p>
+
+<h3>PHASE 2 – Open Question</h3>
+
+<p>Can you tell me what happened today?</p>
+
+<p>Patient: “I suddenly felt sharp pain in my chest and it hurts to breathe.”</p>
+
+<h3>PHASE 3 – Focused History</h3>
+
+<p>When did it begin?</p>
+<p>Patient: “About three hours ago.”</p>
+
+<p>Was it sudden?</p>
+<p>Patient: “Yes.”</p>
+
+<p>Where exactly is the pain?</p>
+<p>Patient: “Right side.”</p>
+
+<p>Is it worse when you breathe in?</p>
+<p>Patient: “Yes.”</p>
+
+<p>Any coughing up blood?</p>
+<p>Patient: “No.”</p>
+
+<p>Any fainting?</p>
+<p>Patient: “No.”</p>
+
+<p>Any swelling or pain in your legs?</p>
+<p>Patient: “My left calf feels sore.”</p>
+
+<p>Have you travelled recently?</p>
+<p>Patient: “Yes, long flight four days ago.”</p>
+
+<p>Are you on the oral contraceptive pill?</p>
+<p>Patient: “Yes.”</p>
+
+<p>Any severe tearing pain to your back?</p>
+<p>Patient: “No.”</p>
+
+<p>Any heavy sweating or radiation to your arm or jaw?</p>
+<p>Patient: “No.”</p>
+
+<p>Are you allergic to any medications?</p>
+<p>Patient: “No.”</p>
+
+<h3>PHASE 4 – Red Flag Sweep</h3>
+
+<p>Just to confirm, no collapse, no severe sudden tearing back pain, and no confusion. Correct?</p>
+
+<p>Patient: “Correct.”</p>
+
+<h3>PHASE 5 – Structured Summary</h3>
+
+<p>Let me summarise to ensure I understood correctly.</p>
+
+<p>You developed sudden sharp right-sided chest pain three hours ago, worse with breathing, associated with shortness of breath. You recently travelled long-haul, are on the oral contraceptive pill, and have some calf discomfort. Is that accurate?</p>
+
+<p>Patient: “Yes.”</p>
+
+<h3>PHASE 6 – Diagnosis Explanation</h3>
+
+<p>Based on what you have told me, the most likely diagnosis is a pulmonary embolism, which is a blood clot in the lungs.</p>
+
+<div class="scoring">
+SCORING PHRASE<br>
+Sudden pleuritic chest pain with shortness of breath and risk factors must be treated as pulmonary embolism until proven otherwise.
+</div>
+
+<h3>PHASE 7 – Differential Explanation</h3>
+
+<p>Other possibilities include:</p>
+
+<ul>
+<li>Pneumothorax</li>
+<li>Acute coronary syndrome</li>
+</ul>
+
+<p>However, your risk factors strongly support pulmonary embolism.</p>
+
+<h3>PHASE 8 – Management Plan</h3>
+
+<p>We are in a GP setting.</p>
+
+<div class="focus">
+FOCUS HERE<br>
+This cannot be safely investigated here.
+</div>
+
+<p>You require urgent hospital assessment immediately.</p>
+
+<p>I will arrange ambulance transfer now.</p>
+
+<p>We will not delay transfer for blood tests in clinic.</p>
+
+<p>Oxygen will be provided only if your oxygen level is low or you develop respiratory distress.</p>
+
+<div class="scoring">
+SCORING PHRASE<br>
+Suspected pulmonary embolism in GP requires urgent hospital referral without delay.
+</div>
+
+<p>Before any blood thinners are started in hospital, contraindications such as bleeding risk will be assessed.</p>
+
+<h3>PHASE 9 – Urgency Classification</h3>
+
+<p>This is an emergency and requires immediate hospital transfer.</p>
+
+<h3>PHASE 10 – Safety Net</h3>
+
+<p>If your breathing worsens or you feel faint while waiting, emergency services are already being arranged and we will act immediately.</p>
+
+<h3>PHASE 11 – Check Understanding</h3>
+
+<p>Do you have any questions before we arrange the ambulance?</p>
+
+<p>Patient: “No.”</p>
+
+</div>
+</div>
+
+<div class="card">
+<h2>SECTION 4 – INTERNAL THINKING – NOT SPOKEN</h2>
+
+<div class="thinking">
+Sudden pleuritic pain<br>
+OCP<br>
+Recent travel<br>
+Calf pain<br><br>
+High PE probability<br><br>
+Do not delay referral<br>
+No troponin here<br>
+No reflex oxygen
+</div>
+</div>
+
+<div class="card">
+<h2>SECTION 5 – SCORING PHRASES</h2>
+
+<div class="scoring">
+Pleuritic chest pain with risk factors suggests pulmonary embolism.<br>
+Do not delay hospital referral in suspected PE.<br>
+Oxygen only if hypoxic or distressed.
+</div>
+</div>
 
 </div>
 

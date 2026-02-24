@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chest pain - Case 2</title>
+  <style>
+    :root{
+      --bg:#f7f6f2;
+      --card:#ffffff;
+      --text:#111316;
+      --muted:#4b5563;
+      --border:rgba(17,19,22,0.14);
+      --shadow:0 8px 18px rgba(0,0,0,0.06);
+      --heading:#103a7a;
+      --amber:#b45309;
+      --danger:#7a1a1a;
+      --think-bg:#f1f3f5;
+      --think-text:#2b2f35;
+      --radius:14px;
+    }
+
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    .wrap{
+      max-width:900px;
+      margin:0 auto;
+      padding:16px 16px 92px 16px;
+    }
+
+    .top{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px 14px;
+    }
+
+    h1{
+      margin:0;
+      color:var(--heading);
+      font-size:20px;
+      line-height:1.2;
+      font-weight:900;
+      letter-spacing:0.2px;
+    }
+
+    .sub{
+      margin:6px 0 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .navrow{
+      margin-top:10px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .btnlink{
+      display:inline-block;
+      border:1px solid var(--border);
+      background:var(--card);
+      color:var(--text);
+      border-radius:12px;
+      padding:10px 12px;
+      font-size:13px;
+      font-weight:800;
+      text-decoration:none;
+    }
+
+    .btnlink:hover{ border-color:rgba(15,118,110,0.35); }
+
+    .card{
+      margin-top:12px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px 14px;
+    }
+
+    h2{
+      margin:0 0 10px 0;
+      color:var(--heading);
+      font-size:16px;
+      font-weight:900;
+      line-height:1.2;
+    }
+
+    h3{
+      margin:14px 0 6px 0;
+      color:var(--heading);
+      font-size:14px;
+      font-weight:900;
+      line-height:1.2;
+    }
+
+    p{ margin:8px 0; }
+    ul{ margin:8px 0 8px 20px; padding:0; }
+    li{ margin:6px 0; }
+
+    .mono{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .spoken{
+      border:1px solid rgba(16,58,122,0.16);
+      background:rgba(16,58,122,0.04);
+      border-radius:12px;
+      padding:12px;
+      margin:10px 0;
+    }
+    .spoken .label{
+      display:block;
+      font-weight:900;
+      color:#0f2a55;
+      margin-bottom:6px;
+    }
+
+    .focus{
+      border:1px solid rgba(180,83,9,0.35);
+      background:rgba(180,83,9,0.06);
+      color:#4a2b05;
+      border-radius:12px;
+      padding:10px 12px;
+      margin:10px 0;
+    }
+    .focus strong{
+      color:var(--amber);
+      font-weight:900;
+    }
+
+    .thinking{
+      border:1px solid var(--border);
+      background:var(--think-bg);
+      color:var(--think-text);
+      border-radius:12px;
+      padding:12px;
+      margin:10px 0;
+      font-style:italic;
+    }
+    .thinking .label{
+      font-style:normal;
+      font-weight:900;
+      margin-bottom:6px;
+      display:block;
+    }
+
+    .scoring{
+      border-left:4px solid rgba(122,26,26,0.55);
+      background:rgba(122,26,26,0.06);
+      border-radius:10px;
+      padding:10px 12px;
+      margin:10px 0;
+    }
+    .scoring .label{
+      display:block;
+      font-weight:900;
+      color:var(--danger);
+      margin-bottom:6px;
+    }
+
+    .footer{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      background:rgba(247,246,242,0.92);
+      border-top:1px solid var(--border);
+      padding:10px 14px;
+      text-align:center;
+      font-size:12px;
+      color:rgba(17,19,22,0.58);
+      backdrop-filter:blur(8px);
+    }
+
+    @media print{
+      body{ background:#ffffff; }
+      .footer, .navrow{ display:none !important; }
+      .wrap{ max-width:none; padding:0; }
+      .top, .card{ border:none; box-shadow:none; border-radius:0; padding:0; }
+      .spoken, .thinking, .scoring, .focus{
+        border:1px solid #000 !important;
+        background:#f3f3f3 !important;
+        page-break-inside:avoid;
+      }
+      body::before{
+        content:"Dr Ushana Yalda";
+        position:fixed;
+        top:35%;
+        left:0;
+        right:0;
+        text-align:center;
+        font-size:72px;
+        color:rgba(0,0,0,0.07);
+        transform:rotate(-22deg);
+        pointer-events:none;
+        z-index:9999;
+      }
+      body::after{
+        content:"© " attr(data-year) " Dr Ushana Yalda. All rights reserved. Unauthorized reproduction, distribution, or modification without prior permission is prohibited.";
+        position:fixed;
+        left:0;
+        right:0;
+        bottom:0;
+        text-align:center;
+        font-size:10px;
+        color:rgba(0,0,0,0.55);
+        padding:8px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <h1>AMC Clinical - Chest pain - Tier 1 Dominance</h1>
+      <p class="sub">Case 2 - Atypical ACS in diabetic - Strict AMC format</p>
+
+      <div class="navrow">
+        <a class="btnlink" href="chest-pain.html#cases">Back to Chest pain</a>
+        <a class="btnlink" href="../index.html">Home</a>
+        <a class="btnlink" href="#" onclick="window.print();return false;">Print</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Section 1 - Station Stem</h2>
+
+      <p>You are a GP in a suburban clinic.</p>
+      <p>A 62-year-old woman presents with upper abdominal discomfort and breathlessness for 2 hours.</p>
+
+      <h3>Past medical history</h3>
+      <ul>
+        <li>Type 2 diabetes</li>
+        <li>Hypertension</li>
+      </ul>
+
+      <h3>Medications</h3>
+      <ul>
+        <li>Metformin</li>
+        <li>Ramipril</li>
+      </ul>
+
+      <h3>Tasks</h3>
+      <ul>
+        <li>Take a focused history.</li>
+        <li>Explain your most likely diagnosis and differential diagnoses.</li>
+        <li>Outline your management plan.</li>
+      </ul>
+
+      <p class="mono">You have 8 minutes.</p>
+    </div>
+
+    <div class="card">
+      <h2>Section 2 - 2 Minute Reading Map</h2>
+
+      <h3>Setting</h3>
+      <p>GP</p>
+
+      <h3>Context</h3>
+      <ul>
+        <li>Diabetic patient</li>
+        <li>Atypical symptoms</li>
+        <li>Epigastric discomfort</li>
+      </ul>
+
+      <h3>Immediate threats to exclude</h3>
+      <ul>
+        <li>Acute coronary syndrome</li>
+        <li>Aortic dissection</li>
+        <li>Pulmonary embolism</li>
+      </ul>
+
+      <h3>First action rule</h3>
+      <p>ECG immediately</p>
+
+      <div class="focus">
+        <strong>FOCUS HERE</strong>
+        <div>Atypical does not mean safe.</div>
+      </div>
+
+      <h3>Urgency</h3>
+      <p>Emergency transfer</p>
+    </div>
+
+    <div class="card">
+      <h2>Section 3 - Spoken Script</h2>
+
+      <div class="spoken">
+        <span class="label">SPOKEN</span>
+
+        <h3>Phase 1 - Introduction and Consent</h3>
+        <p>Hello, I am Dr Ushana.</p>
+        <p>How would you like me to address you?</p>
+        <p>Patient: “Call me Maria.”</p>
+        <p>Thank you Maria. I understand you have upper abdominal discomfort and breathlessness. I will ask some focused questions and then explain what I think and what we need to do next. Is that okay?</p>
+        <p>Patient: “Yes.”</p>
+
+        <h3>Phase 2 - Open Question</h3>
+        <p>Can you tell me what happened today?</p>
+        <p>Patient: “I started feeling uncomfortable in my upper abdomen and short of breath.”</p>
+
+        <h3>Phase 3 - Focused History</h3>
+        <p>When did this begin?</p>
+        <p>Patient: “About two hours ago.”</p>
+
+        <p>Was it sudden or gradual?</p>
+        <p>Patient: “Sudden.”</p>
+
+        <p>How would you describe the discomfort?</p>
+        <p>Patient: “Tight.”</p>
+
+        <p>Does it spread anywhere?</p>
+        <p>Patient: “Not really.”</p>
+
+        <p>Any sweating or nausea?</p>
+        <p>Patient: “Yes, nausea.”</p>
+
+        <p>Any chest pressure?</p>
+        <p>Patient: “Maybe a little.”</p>
+
+        <p>Did it start during exertion?</p>
+        <p>Patient: “Yes, while walking.”</p>
+
+        <p>Does it improve with rest?</p>
+        <p>Patient: “Not fully.”</p>
+
+        <p>Any fainting?</p>
+        <p>Patient: “No.”</p>
+
+        <p>Any tearing pain to your back?</p>
+        <p>Patient: “No.”</p>
+
+        <p>Any recent travel or leg swelling?</p>
+        <p>Patient: “No.”</p>
+
+        <p>Are you allergic to aspirin?</p>
+        <p>Patient: “No.”</p>
+
+        <p>Have you taken any erectile dysfunction medication in the last 48 hours?</p>
+        <p>Patient: “No.”</p>
+
+        <h3>Phase 4 - Red Flag Sweep</h3>
+        <p>Just to confirm, no collapse, no severe tearing pain to the back, and no confusion. Correct?</p>
+        <p>Patient: “Correct.”</p>
+
+        <h3>Phase 5 - Structured Summary</h3>
+        <p>Let me summarise to ensure I understood correctly.</p>
+        <p>You developed sudden upper abdominal discomfort with some tightness and nausea two hours ago while walking. You are diabetic and hypertensive. The discomfort has not fully resolved with rest. Is that accurate?</p>
+        <p>Patient: “Yes.”</p>
+
+        <h3>Phase 6 - Diagnosis Explanation</h3>
+        <p>Even though your symptoms are not classic chest pain, in a person with diabetes these symptoms can represent acute coronary syndrome.</p>
+
+        <div class="scoring">
+          <span class="label">SCORING PHRASE</span>
+          <div>In diabetic patients, acute coronary syndrome may present atypically without classic chest pain.</div>
+        </div>
+
+        <h3>Phase 7 - Differential Explanation</h3>
+        <p>Other possibilities include:</p>
+        <ul>
+          <li>Gastro-oesophageal reflux</li>
+          <li>Pulmonary embolism</li>
+        </ul>
+        <p>However, because of your diabetes and exertional onset, I must treat this as a possible cardiac emergency.</p>
+
+        <h3>Phase 8 - Management Plan</h3>
+        <p>We are in a GP setting.</p>
+
+        <div class="focus">
+          <strong>FOCUS HERE</strong>
+          <div>Atypical does not mean safe.</div>
+        </div>
+
+        <p>The first step is to perform an ECG immediately.</p>
+
+        <div class="scoring">
+          <span class="label">SCORING PHRASE</span>
+          <div>ECG must be done immediately in suspected acute coronary syndrome, even with atypical presentation.</div>
+        </div>
+
+        <p>I will give aspirin now since you have no allergy.</p>
+        <p>You require urgent ambulance transfer to hospital for further evaluation including troponin testing.</p>
+        <p>We will not delay transfer for investigations that can only be performed in hospital.</p>
+        <p>I will provide oxygen only if your oxygen level is low or you become distressed.</p>
+
+        <h3>Phase 9 - Urgency Classification</h3>
+        <p>This is an emergency requiring immediate hospital transfer.</p>
+
+        <h3>Phase 10 - Safety Net</h3>
+        <p>If your symptoms worsen, you feel faint, or breathing becomes more difficult, emergency services are already being called and we will act immediately.</p>
+
+        <h3>Phase 11 - Check Understanding</h3>
+        <p>Do you have any questions before we arrange the ambulance?</p>
+        <p>Patient: “No.”</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Section 4 - Internal Thinking - Not Spoken</h2>
+
+      <div class="thinking">
+        <span class="label">INTERNAL THINKING - NOT SPOKEN</span>
+        <ul>
+          <li>Diabetic patient</li>
+          <li>Exertional onset</li>
+          <li>Nausea</li>
+          <li>Atypical ACS likely</li>
+          <li>Do not anchor on reflux</li>
+          <li>Immediate ECG</li>
+          <li>Immediate transfer</li>
+          <li>No reflex oxygen</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Section 5 - Scoring Phrases</h2>
+
+      <div class="scoring">
+        <span class="label">SCORING PHRASE LIST</span>
+        <ul>
+          <li>In diabetic patients, acute coronary syndrome may present atypically without classic chest pain.</li>
+          <li>ECG must be done immediately in suspected acute coronary syndrome.</li>
+          <li>Do not delay hospital transfer.</li>
+          <li>Oxygen only if hypoxic or distressed.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer" id="rights"></div>
+
+  <script>
+    "use strict";
+    const year = new Date().getFullYear();
+    document.body.setAttribute("data-year", String(year));
+    document.getElementById("rights").textContent =
+      "© " + year + " Dr Ushana Yalda. All rights reserved. Unauthorized reproduction, distribution, or modification of this material without prior permission is prohibited.";
+  </script>
+</body>
+</html>

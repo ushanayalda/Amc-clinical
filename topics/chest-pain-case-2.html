@@ -1,454 +1,856 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Chest pain - Case 2</title>
-  <style>
-    :root{
-      --bg:#f7f6f2;
-      --card:#ffffff;
-      --text:#111316;
-      --muted:#4b5563;
-      --border:rgba(17,19,22,0.14);
-      --shadow:0 8px 18px rgba(0,0,0,0.06);
-      --heading:#103a7a;
-      --amber:#b45309;
-      --danger:#7a1a1a;
-      --think-bg:#f1f3f5;
-      --think-text:#2b2f35;
-      --radius:14px;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AMC Clinical - Chest pain - Tier 1 Dominance - Case 1</title>
 
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.55;
-    }
+<style>
+:root{
+  --bg:#f7f6f2;
+  --card:#ffffff;
+  --text:#111316;
+  --muted:#4b5563;
+  --border:rgba(17,19,22,0.14);
+  --shadow:0 8px 18px rgba(0,0,0,0.06);
+  --heading:#103a7a;
+  --accent:#0f766e;
+  --amber:#b45309;
+  --danger:#7a1a1a;
+  --think-bg:#f1f3f5;
+  --think-text:#2b2f35;
+  --radius:14px;
 
-    .wrap{
-      max-width:900px;
-      margin:0 auto;
-      padding:16px 16px 92px 16px;
-    }
+  --base-font:18px;
+  --line:1.72;
+  --max:980px;
 
-    .top{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:14px 14px;
-    }
+  --space-1:10px;
+  --space-2:14px;
+  --space-3:18px;
+  --space-4:24px;
+}
 
-    h1{
-      margin:0;
-      color:var(--heading);
-      font-size:20px;
-      line-height:1.2;
-      font-weight:900;
-      letter-spacing:0.2px;
-    }
+html,body{height:100%}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background:var(--bg);
+  color:var(--text);
+  font-size:var(--base-font);
+  line-height:var(--line);
+  padding:18px 16px 110px 16px;
+}
+body > *{
+  max-width:var(--max);
+  margin-left:auto;
+  margin-right:auto;
+}
 
-    .sub{
-      margin:6px 0 0 0;
-      color:var(--muted);
-      font-size:13px;
-    }
+h1{
+  margin:0 0 6px 0;
+  font-size:24px;
+  color:var(--heading);
+  font-weight:900;
+  letter-spacing:0.2px;
+}
+h2{
+  margin:0 0 16px 0;
+  color:var(--heading);
+  font-size:19px;
+  font-weight:900;
+}
+h3{
+  margin:0 0 10px 0;
+  color:var(--heading);
+  font-size:16px;
+  font-weight:900;
+}
+h4{
+  margin:14px 0 8px 0;
+  color:rgba(16,58,122,0.92);
+  font-size:15px;
+  font-weight:900;
+}
 
-    .navrow{
-      margin-top:10px;
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
+section{
+  margin:12px 0;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px;
+}
 
-    .btnlink{
-      display:inline-block;
-      border:1px solid var(--border);
-      background:var(--card);
-      color:var(--text);
-      border-radius:12px;
-      padding:10px 12px;
-      font-size:13px;
-      font-weight:800;
-      text-decoration:none;
-    }
+p{margin:10px 0}
+ul{margin:10px 0 10px 22px}
+ol{margin:10px 0 10px 22px}
+li{margin:8px 0}
+strong{font-weight:900}
 
-    .btnlink:hover{ border-color:rgba(15,118,110,0.35); }
+code, .mono{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  color:var(--muted);
+  font-size:14px;
+  background:rgba(17,19,22,0.04);
+  border:1px solid rgba(17,19,22,0.10);
+  padding:2px 6px;
+  border-radius:10px;
+}
 
-    .card{
-      margin-top:12px;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:14px 14px;
-    }
+.navrow{
+  margin:12px auto 0 auto;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
 
-    h2{
-      margin:0 0 10px 0;
-      color:var(--heading);
-      font-size:16px;
-      font-weight:900;
-      line-height:1.2;
-    }
+.btnlink{
+  display:inline-block;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:12px;
+  padding:10px 12px;
+  font-size:14px;
+  font-weight:900;
+  text-decoration:none;
+  cursor:pointer;
+}
+.btnlink:hover{
+  border-color:rgba(16,58,122,0.35);
+  box-shadow:0 6px 14px rgba(0,0,0,0.06);
+}
 
-    h3{
-      margin:14px 0 6px 0;
-      color:var(--heading);
-      font-size:14px;
-      font-weight:900;
-      line-height:1.2;
-    }
+.pillrow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(15,118,110,0.06);
+  color:#0b3f3b;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+.pill .dot{
+  width:8px;height:8px;border-radius:999px;background:var(--accent);
+  box-shadow:0 0 0 3px rgba(15,118,110,0.12);
+}
+.pill.active{
+  border-color:rgba(16,58,122,0.35);
+  background:rgba(16,58,122,0.06);
+  color:#0f2a55;
+}
+.pill.active .dot{
+  background:rgba(16,58,122,0.85);
+  box-shadow:0 0 0 3px rgba(16,58,122,0.12);
+}
 
-    p{ margin:8px 0; }
-    ul{ margin:8px 0 8px 20px; padding:0; }
-    li{ margin:6px 0; }
+.focus{
+  border:1px solid rgba(180,83,9,0.35);
+  background:rgba(180,83,9,0.06);
+  padding:12px 14px;
+  border-radius:12px;
+  margin:12px 0;
+}
+.focus strong{
+  color:var(--amber);
+  font-weight:900;
+}
 
-    .mono{
-      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-      color:var(--muted);
-      font-size:13px;
-    }
+.thinking{
+  border:1px solid var(--border);
+  background:var(--think-bg);
+  color:var(--think-text);
+  padding:16px;
+  border-radius:12px;
+  margin-top:10px;
+  font-style:italic;
+}
 
-    .spoken{
-      border:1px solid rgba(16,58,122,0.16);
-      background:rgba(16,58,122,0.04);
-      border-radius:12px;
-      padding:12px;
-      margin:10px 0;
-    }
-    .spoken .label{
-      display:block;
-      font-weight:900;
-      color:#0f2a55;
-      margin-bottom:6px;
-    }
+.scoring{
+  border-left:4px solid rgba(122,26,26,0.70);
+  background:rgba(122,26,26,0.06);
+  padding:12px 14px;
+  border-radius:12px;
+  margin-top:12px;
+}
+.scoring .label{
+  display:block;
+  font-weight:900;
+  color:var(--danger);
+  margin-bottom:8px;
+}
 
-    .focus{
-      border:1px solid rgba(180,83,9,0.35);
-      background:rgba(180,83,9,0.06);
-      color:#4a2b05;
-      border-radius:12px;
-      padding:10px 12px;
-      margin:10px 0;
-    }
-    .focus strong{
-      color:var(--amber);
-      font-weight:900;
-    }
+.spoken{
+  border:1px solid rgba(16,58,122,0.20);
+  background:rgba(16,58,122,0.04);
+  border-radius:12px;
+  padding:16px;
+}
 
-    .thinking{
-      border:1px solid var(--border);
-      background:var(--think-bg);
-      color:var(--think-text);
-      border-radius:12px;
-      padding:12px;
-      margin:10px 0;
-      font-style:italic;
-    }
-    .thinking .label{
-      font-style:normal;
-      font-weight:900;
-      margin-bottom:6px;
-      display:block;
-    }
+.line{ margin:10px 0; }
+.line.patient{
+  padding-left:14px;
+  border-left:3px solid rgba(17,19,22,0.14);
+}
+.line.patient .who{
+  font-weight:900;
+  color:rgba(17,19,22,0.78);
+}
 
-    .scoring{
-      border-left:4px solid rgba(122,26,26,0.55);
-      background:rgba(122,26,26,0.06);
-      border-radius:10px;
-      padding:10px 12px;
-      margin:10px 0;
-    }
-    .scoring .label{
-      display:block;
-      font-weight:900;
-      color:var(--danger);
-      margin-bottom:6px;
-    }
+.variant-block{ display:none; }
+.variant-block.active{ display:block; }
 
-    .footer{
-      position:fixed;
-      left:0; right:0; bottom:0;
-      background:rgba(247,246,242,0.92);
-      border-top:1px solid var(--border);
-      padding:10px 14px;
-      text-align:center;
-      font-size:12px;
-      color:rgba(17,19,22,0.58);
-      backdrop-filter:blur(8px);
-    }
+.footer{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:10px 12px;
+  text-align:center;
+  font-size:12px;
+  background:rgba(247,246,242,0.92);
+  border-top:1px solid var(--border);
+  color:rgba(17,19,22,0.52);
+  backdrop-filter:blur(8px);
+}
 
-    @media print{
-      body{ background:#ffffff; }
-      .footer, .navrow{ display:none !important; }
-      .wrap{ max-width:none; padding:0; }
-      .top, .card{ border:none; box-shadow:none; border-radius:0; padding:0; }
-      .spoken, .thinking, .scoring, .focus{
-        border:1px solid #000 !important;
-        background:#f3f3f3 !important;
-        page-break-inside:avoid;
-      }
-      body::before{
-        content:"Dr Ushana Yalda";
-        position:fixed;
-        top:35%;
-        left:0;
-        right:0;
-        text-align:center;
-        font-size:72px;
-        color:rgba(0,0,0,0.07);
-        transform:rotate(-22deg);
-        pointer-events:none;
-        z-index:9999;
-      }
-      body::after{
-        content:"© " attr(data-year) " Dr Ushana Yalda. All rights reserved. Unauthorized reproduction, distribution, or modification without prior permission is prohibited.";
-        position:fixed;
-        left:0;
-        right:0;
-        bottom:0;
-        text-align:center;
-        font-size:10px;
-        color:rgba(0,0,0,0.55);
-        padding:8px 10px;
-      }
-    }
-  </style>
+@media print{
+  body{ background:#ffffff; padding:0; }
+  .footer,.navrow,.pillrow{ display:none !important; }
+  body > *{ max-width:none; margin:0; }
+
+  section{
+    border:1px solid #000;
+    box-shadow:none;
+    border-radius:0;
+    margin:0 0 14px 0;
+    padding:0 0 10px 0;
+  }
+
+  .spoken,.thinking,.scoring,.focus{
+    border:1px solid #000 !important;
+    background:#f3f3f3 !important;
+    page-break-inside:avoid;
+  }
+
+  body::before{
+    content:"Dr Ushana Yalda";
+    position:fixed;
+    top:35%;
+    left:0;
+    right:0;
+    text-align:center;
+    font-size:72px;
+    color:rgba(0,0,0,0.07);
+    transform:rotate(-22deg);
+    pointer-events:none;
+    z-index:9999;
+  }
+
+  body::after{
+    content:"© " attr(data-year) " Dr Ushana Yalda. All rights reserved. Unauthorized reproduction, distribution, or modification without prior permission is prohibited.";
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    text-align:center;
+    font-size:10px;
+    color:rgba(0,0,0,0.55);
+    padding:8px 10px;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="top">
-      <h1>AMC Clinical - Chest pain - Tier 1 Dominance</h1>
-      <p class="sub">Case 2 - Atypical ACS in diabetic - Strict AMC format</p>
 
-      <div class="navrow">
-        <a class="btnlink" href="chest-pain.html#cases">Back to Chest pain</a>
-        <a class="btnlink" href="../index.html">Home</a>
-        <a class="btnlink" href="#" onclick="window.print();return false;">Print</a>
-      </div>
+<section>
+  <h1>AMC Clinical - Chest pain - Tier 1 Dominance</h1>
+  <p><strong>Case 1 - Classic ACS - Strict AMC format</strong></p>
+
+  <div class="navrow">
+    <button class="btnlink" type="button" onclick="window.print()">Print</button>
+  </div>
+
+  <div class="pillrow" aria-label="Setting micro variants">
+    <button class="pill active" id="btnGP" type="button"><span class="dot" aria-hidden="true"></span>GP variant</button>
+    <button class="pill" id="btnED" type="button"><span class="dot" aria-hidden="true"></span>ED variant</button>
+    <button class="pill" id="btnWard" type="button"><span class="dot" aria-hidden="true"></span>Ward variant</button>
+  </div>
+
+  <p class="mono">This file contains three setting variants. Content blocks change by setting while structure stays fixed.</p>
+</section>
+
+<section>
+  <h2>SECTION 1 - STATION STEM</h2>
+
+  <div class="variant-block active" id="stemGP">
+    <p>You are a GP in a suburban clinic.</p>
+    <p>A 58-year-old man presents with central chest pain for 1 hour.</p>
+    <p>Past medical history:</p>
+    <ul>
+      <li>Hypertension</li>
+      <li>Dyslipidaemia</li>
+    </ul>
+    <p>Medications:</p>
+    <ul>
+      <li>Perindopril</li>
+      <li>Atorvastatin</li>
+    </ul>
+    <p>He is a current smoker.</p>
+    <p>Tasks:</p>
+    <ol>
+      <li>Take a focused history.</li>
+      <li>Explain your most likely diagnosis and differential diagnoses.</li>
+      <li>Outline your management plan.</li>
+    </ol>
+    <p>You have 8 minutes.</p>
+  </div>
+
+  <div class="variant-block" id="stemED">
+    <p>You are a doctor in an Emergency Department cubicle.</p>
+    <p>A 58-year-old man presents with central chest pain for 1 hour. He appears sweaty and uncomfortable.</p>
+    <p>Past medical history:</p>
+    <ul>
+      <li>Hypertension</li>
+      <li>Dyslipidaemia</li>
+    </ul>
+    <p>Medications:</p>
+    <ul>
+      <li>Perindopril</li>
+      <li>Atorvastatin</li>
+    </ul>
+    <p>He is a current smoker.</p>
+    <p>Tasks:</p>
+    <ol>
+      <li>Take a focused history.</li>
+      <li>Explain your most likely diagnosis and differential diagnoses.</li>
+      <li>Outline your immediate management plan in ED.</li>
+    </ol>
+    <p>You have 8 minutes.</p>
+  </div>
+
+  <div class="variant-block" id="stemWard">
+    <p>You are the junior doctor on a medical ward.</p>
+    <p>A 58-year-old admitted patient develops central chest pain. The nurse calls you to review urgently.</p>
+    <p>Past medical history:</p>
+    <ul>
+      <li>Hypertension</li>
+      <li>Dyslipidaemia</li>
+    </ul>
+    <p>Medications:</p>
+    <ul>
+      <li>Perindopril</li>
+      <li>Atorvastatin</li>
+    </ul>
+    <p>He is a current smoker.</p>
+    <p>Tasks:</p>
+    <ol>
+      <li>Take a focused history.</li>
+      <li>Explain your most likely diagnosis and differential diagnoses.</li>
+      <li>Outline immediate ward management including escalation.</li>
+    </ol>
+    <p>You have 8 minutes.</p>
+  </div>
+</section>
+
+<section>
+  <h2>SECTION 2 - 2 MINUTE READING MAP</h2>
+
+  <div class="variant-block active" id="mapGP">
+    <p><strong>Setting:</strong> GP</p>
+    <p><strong>Immediate threats to exclude:</strong></p>
+    <ul>
+      <li>Acute coronary syndrome</li>
+      <li>Aortic dissection</li>
+      <li>Pulmonary embolism</li>
+      <li>Tension pneumothorax</li>
+    </ul>
+    <p><strong>First action rule:</strong> ECG immediately</p>
+    <p><strong>Key red flag questions:</strong> radiation, sweating, syncope, tearing back pain, recent travel, calf swelling, pleuritic pain</p>
+    <p><strong>Likely direction:</strong> ACS</p>
+    <p><strong>Urgency:</strong> emergency transfer</p>
+    <div class="focus"><strong>FOCUS HERE</strong><br>In GP, do not delay transfer for hospital-only tests such as troponin.</div>
+  </div>
+
+  <div class="variant-block" id="mapED">
+    <p><strong>Setting:</strong> ED</p>
+    <p><strong>Immediate threats to exclude:</strong></p>
+    <ul>
+      <li>Acute coronary syndrome</li>
+      <li>Aortic dissection</li>
+      <li>Pulmonary embolism</li>
+      <li>Tension pneumothorax</li>
+    </ul>
+    <p><strong>First action rule:</strong> ECG within 10 minutes, monitor, IV access</p>
+    <p><strong>Key red flag questions:</strong> radiation, sweating, syncope, tearing back pain, pleuritic pain, calf swelling, recent travel, neurological symptoms</p>
+    <p><strong>Likely direction:</strong> ACS</p>
+    <p><strong>Urgency:</strong> time critical ED pathway</p>
+    <div class="focus"><strong>FOCUS HERE</strong><br>Stabilise first. Investigate second. Treat based on ECG pathway (STEMI vs NSTEMI).</div>
+  </div>
+
+  <div class="variant-block" id="mapWard">
+    <p><strong>Setting:</strong> Ward</p>
+    <p><strong>Immediate threats to exclude:</strong></p>
+    <ul>
+      <li>Acute coronary syndrome</li>
+      <li>Aortic dissection</li>
+      <li>Pulmonary embolism</li>
+      <li>Tension pneumothorax</li>
+    </ul>
+    <p><strong>First action rule:</strong> assess stability, call for help early, ECG now</p>
+    <p><strong>Key red flag questions:</strong> ongoing pain at rest, dyspnoea, syncope, tearing back pain, pleuritic pain, calf swelling, recent surgery, haemodynamic instability</p>
+    <p><strong>Likely direction:</strong> ACS until excluded</p>
+    <p><strong>Urgency:</strong> escalate to senior and rapid response if unstable</p>
+    <div class="focus"><strong>FOCUS HERE</strong><br>Ward chest pain is deterioration until proven otherwise. Escalate early.</div>
+  </div>
+</section>
+
+<section>
+  <h2>SECTION 3 - SPOKEN SCRIPT</h2>
+
+  <div class="spoken">
+    <h3>PHASE 1 - Introduction and Consent</h3>
+    <div class="line doctor">Hello, I am Dr Ushana.</div>
+    <div class="line doctor">How would you like me to address you?</div>
+    <div class="line patient"><span class="who">Patient:</span> Call me Peter.</div>
+    <div class="line doctor">Thank you Peter. I understand you are experiencing chest pain. I will ask some focused questions to understand what is happening and then explain what I think and what we need to do next. Is that okay?</div>
+    <div class="line patient"><span class="who">Patient:</span> Yes.</div>
+
+    <h3>PHASE 2 - Open Question</h3>
+    <div class="line doctor">Can you tell me what happened today?</div>
+    <div class="line patient"><span class="who">Patient:</span> I developed chest pain about an hour ago.</div>
+
+    <h3>PHASE 3 - Focused History</h3>
+    <div class="line doctor">When exactly did the pain begin?</div>
+    <div class="line patient"><span class="who">Patient:</span> About an hour ago.</div>
+
+    <div class="line doctor">Was it sudden or gradual?</div>
+    <div class="line patient"><span class="who">Patient:</span> Sudden.</div>
+
+    <div class="line doctor">Where do you feel it?</div>
+    <div class="line patient"><span class="who">Patient:</span> In the middle of my chest.</div>
+
+    <div class="line doctor">How would you describe it?</div>
+    <div class="line patient"><span class="who">Patient:</span> Like pressure.</div>
+
+    <div class="line doctor">Does it go anywhere?</div>
+    <div class="line patient"><span class="who">Patient:</span> Into my left arm.</div>
+
+    <div class="line doctor">How severe is it from zero to ten?</div>
+    <div class="line patient"><span class="who">Patient:</span> Eight.</div>
+
+    <div class="line doctor">Any sweating or nausea?</div>
+    <div class="line patient"><span class="who">Patient:</span> Yes, sweating.</div>
+
+    <div class="line doctor">Any shortness of breath?</div>
+    <div class="line patient"><span class="who">Patient:</span> A little.</div>
+
+    <div class="line doctor">Any fainting?</div>
+    <div class="line patient"><span class="who">Patient:</span> No.</div>
+
+    <div class="line doctor">Any tearing pain going to your back?</div>
+    <div class="line patient"><span class="who">Patient:</span> No.</div>
+
+    <div class="line doctor">Any recent long travel or leg swelling?</div>
+    <div class="line patient"><span class="who">Patient:</span> No.</div>
+
+    <div class="line doctor">Have you ever had this before?</div>
+    <div class="line patient"><span class="who">Patient:</span> No.</div>
+
+    <div class="line doctor">Are you allergic to aspirin?</div>
+    <div class="line patient"><span class="who">Patient:</span> No.</div>
+
+    <div class="line doctor">Have you taken any erectile dysfunction medication in the last 48 hours?</div>
+    <div class="line patient"><span class="who">Patient:</span> No.</div>
+
+    <h3>PHASE 4 - Red Flag Sweep</h3>
+    <div class="line doctor">Just to confirm, no severe sudden tearing back pain, no collapse, and no confusion. Correct?</div>
+    <div class="line patient"><span class="who">Patient:</span> Correct.</div>
+
+    <h3>PHASE 5 - Structured Summary</h3>
+    <div class="line doctor">Let me summarise to ensure I understood correctly.</div>
+    <div class="line doctor">You developed sudden central chest pressure one hour ago, radiating to your left arm, associated with sweating and mild breathlessness. You have hypertension, high cholesterol, and you smoke. The pain is still present. Is that accurate?</div>
+    <div class="line patient"><span class="who">Patient:</span> Yes.</div>
+
+    <h3>PHASE 6 - Diagnosis Explanation</h3>
+    <div class="line doctor">Based on what you have told me, the most likely diagnosis is acute coronary syndrome, meaning reduced blood flow to the heart muscle.</div>
+
+    <div class="scoring">
+      <span class="label">SCORING PHRASE</span>
+      Sudden central chest pressure with radiation and autonomic symptoms must be treated as acute coronary syndrome until proven otherwise.
     </div>
 
-    <div class="card">
-      <h2>Section 1 - Station Stem</h2>
+    <h3>PHASE 7 - Differential Explanation</h3>
+    <div class="line doctor">Other serious causes we must consider include:</div>
+    <ul>
+      <li>Pulmonary embolism, which is a blood clot in the lungs.</li>
+      <li>Aortic dissection, which is a tear in the main artery.</li>
+    </ul>
+    <div class="line doctor">However, your symptom pattern strongly suggests a cardiac cause.</div>
 
-      <p>You are a GP in a suburban clinic.</p>
-      <p>A 62-year-old woman presents with upper abdominal discomfort and breathlessness for 2 hours.</p>
+    <h3>PHASE 8 - Management Plan</h3>
 
-      <h3>Past medical history</h3>
-      <ul>
-        <li>Type 2 diabetes</li>
-        <li>Hypertension</li>
-      </ul>
-
-      <h3>Medications</h3>
-      <ul>
-        <li>Metformin</li>
-        <li>Ramipril</li>
-      </ul>
-
-      <h3>Tasks</h3>
-      <ul>
-        <li>Take a focused history.</li>
-        <li>Explain your most likely diagnosis and differential diagnoses.</li>
-        <li>Outline your management plan.</li>
-      </ul>
-
-      <p class="mono">You have 8 minutes.</p>
-    </div>
-
-    <div class="card">
-      <h2>Section 2 - 2 Minute Reading Map</h2>
-
-      <h3>Setting</h3>
-      <p>GP</p>
-
-      <h3>Context</h3>
-      <ul>
-        <li>Diabetic patient</li>
-        <li>Atypical symptoms</li>
-        <li>Epigastric discomfort</li>
-      </ul>
-
-      <h3>Immediate threats to exclude</h3>
-      <ul>
-        <li>Acute coronary syndrome</li>
-        <li>Aortic dissection</li>
-        <li>Pulmonary embolism</li>
-      </ul>
-
-      <h3>First action rule</h3>
-      <p>ECG immediately</p>
-
-      <div class="focus">
-        <strong>FOCUS HERE</strong>
-        <div>Atypical does not mean safe.</div>
-      </div>
-
-      <h3>Urgency</h3>
-      <p>Emergency transfer</p>
-    </div>
-
-    <div class="card">
-      <h2>Section 3 - Spoken Script</h2>
-
-      <div class="spoken">
-        <span class="label">SPOKEN</span>
-
-        <h3>Phase 1 - Introduction and Consent</h3>
-        <p>Hello, I am Dr Ushana.</p>
-        <p>How would you like me to address you?</p>
-        <p>Patient: “Call me Maria.”</p>
-        <p>Thank you Maria. I understand you have upper abdominal discomfort and breathlessness. I will ask some focused questions and then explain what I think and what we need to do next. Is that okay?</p>
-        <p>Patient: “Yes.”</p>
-
-        <h3>Phase 2 - Open Question</h3>
-        <p>Can you tell me what happened today?</p>
-        <p>Patient: “I started feeling uncomfortable in my upper abdomen and short of breath.”</p>
-
-        <h3>Phase 3 - Focused History</h3>
-        <p>When did this begin?</p>
-        <p>Patient: “About two hours ago.”</p>
-
-        <p>Was it sudden or gradual?</p>
-        <p>Patient: “Sudden.”</p>
-
-        <p>How would you describe the discomfort?</p>
-        <p>Patient: “Tight.”</p>
-
-        <p>Does it spread anywhere?</p>
-        <p>Patient: “Not really.”</p>
-
-        <p>Any sweating or nausea?</p>
-        <p>Patient: “Yes, nausea.”</p>
-
-        <p>Any chest pressure?</p>
-        <p>Patient: “Maybe a little.”</p>
-
-        <p>Did it start during exertion?</p>
-        <p>Patient: “Yes, while walking.”</p>
-
-        <p>Does it improve with rest?</p>
-        <p>Patient: “Not fully.”</p>
-
-        <p>Any fainting?</p>
-        <p>Patient: “No.”</p>
-
-        <p>Any tearing pain to your back?</p>
-        <p>Patient: “No.”</p>
-
-        <p>Any recent travel or leg swelling?</p>
-        <p>Patient: “No.”</p>
-
-        <p>Are you allergic to aspirin?</p>
-        <p>Patient: “No.”</p>
-
-        <p>Have you taken any erectile dysfunction medication in the last 48 hours?</p>
-        <p>Patient: “No.”</p>
-
-        <h3>Phase 4 - Red Flag Sweep</h3>
-        <p>Just to confirm, no collapse, no severe tearing pain to the back, and no confusion. Correct?</p>
-        <p>Patient: “Correct.”</p>
-
-        <h3>Phase 5 - Structured Summary</h3>
-        <p>Let me summarise to ensure I understood correctly.</p>
-        <p>You developed sudden upper abdominal discomfort with some tightness and nausea two hours ago while walking. You are diabetic and hypertensive. The discomfort has not fully resolved with rest. Is that accurate?</p>
-        <p>Patient: “Yes.”</p>
-
-        <h3>Phase 6 - Diagnosis Explanation</h3>
-        <p>Even though your symptoms are not classic chest pain, in a person with diabetes these symptoms can represent acute coronary syndrome.</p>
-
-        <div class="scoring">
-          <span class="label">SCORING PHRASE</span>
-          <div>In diabetic patients, acute coronary syndrome may present atypically without classic chest pain.</div>
-        </div>
-
-        <h3>Phase 7 - Differential Explanation</h3>
-        <p>Other possibilities include:</p>
-        <ul>
-          <li>Gastro-oesophageal reflux</li>
-          <li>Pulmonary embolism</li>
-        </ul>
-        <p>However, because of your diabetes and exertional onset, I must treat this as a possible cardiac emergency.</p>
-
-        <h3>Phase 8 - Management Plan</h3>
-        <p>We are in a GP setting.</p>
-
-        <div class="focus">
-          <strong>FOCUS HERE</strong>
-          <div>Atypical does not mean safe.</div>
-        </div>
-
-        <p>The first step is to perform an ECG immediately.</p>
-
-        <div class="scoring">
-          <span class="label">SCORING PHRASE</span>
-          <div>ECG must be done immediately in suspected acute coronary syndrome, even with atypical presentation.</div>
-        </div>
-
-        <p>I will give aspirin now since you have no allergy.</p>
-        <p>You require urgent ambulance transfer to hospital for further evaluation including troponin testing.</p>
-        <p>We will not delay transfer for investigations that can only be performed in hospital.</p>
-        <p>I will provide oxygen only if your oxygen level is low or you become distressed.</p>
-
-        <h3>Phase 9 - Urgency Classification</h3>
-        <p>This is an emergency requiring immediate hospital transfer.</p>
-
-        <h3>Phase 10 - Safety Net</h3>
-        <p>If your symptoms worsen, you feel faint, or breathing becomes more difficult, emergency services are already being called and we will act immediately.</p>
-
-        <h3>Phase 11 - Check Understanding</h3>
-        <p>Do you have any questions before we arrange the ambulance?</p>
-        <p>Patient: “No.”</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Section 4 - Internal Thinking - Not Spoken</h2>
-
-      <div class="thinking">
-        <span class="label">INTERNAL THINKING - NOT SPOKEN</span>
-        <ul>
-          <li>Diabetic patient</li>
-          <li>Exertional onset</li>
-          <li>Nausea</li>
-          <li>Atypical ACS likely</li>
-          <li>Do not anchor on reflux</li>
-          <li>Immediate ECG</li>
-          <li>Immediate transfer</li>
-          <li>No reflex oxygen</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Section 5 - Scoring Phrases</h2>
-
+    <div class="variant-block active" id="manageGP">
+      <div class="line doctor">We are in a GP setting.</div>
+      <div class="focus"><strong>FOCUS HERE</strong><br>This requires urgent escalation.</div>
+      <div class="line doctor">The first step is to perform an ECG immediately.</div>
       <div class="scoring">
-        <span class="label">SCORING PHRASE LIST</span>
-        <ul>
-          <li>In diabetic patients, acute coronary syndrome may present atypically without classic chest pain.</li>
-          <li>ECG must be done immediately in suspected acute coronary syndrome.</li>
-          <li>Do not delay hospital transfer.</li>
-          <li>Oxygen only if hypoxic or distressed.</li>
-        </ul>
+        <span class="label">SCORING PHRASE</span>
+        ECG must be done immediately in suspected acute coronary syndrome.
       </div>
+      <div class="line doctor">I will give aspirin now since you have no allergy.</div>
+      <div class="line doctor">Because this may be a heart attack, you require immediate ambulance transfer to hospital.</div>
+      <div class="line doctor">We will not delay transfer for blood tests such as troponin, as those are performed in hospital.</div>
+      <div class="line doctor">I will only provide oxygen if your oxygen level is low or you develop respiratory distress.</div>
+    </div>
+
+    <div class="variant-block" id="manageED">
+      <div class="line doctor">We are in an Emergency Department setting.</div>
+      <div class="focus"><strong>FOCUS HERE</strong><br>Stabilise first and follow ECG pathway.</div>
+      <div class="line doctor">The first step is a 12-lead ECG immediately and continuous cardiac monitoring.</div>
+      <div class="scoring">
+        <span class="label">SCORING PHRASE</span>
+        ECG must be done immediately in suspected acute coronary syndrome.
+      </div>
+      <div class="line doctor">We will obtain IV access and blood tests including troponin, and arrange a chest X-ray.</div>
+      <div class="line doctor">I will give aspirin now unless contraindicated.</div>
+      <div class="line doctor">Nitrates can be considered if blood pressure is stable and there is no recent PDE5 use.</div>
+      <div class="line doctor">Oxygen will be given only if hypoxic or in respiratory distress.</div>
+      <div class="line doctor">If the ECG shows STEMI, we activate urgent reperfusion pathway. If not, we treat as NSTEMI or unstable angina with serial ECGs and troponins and cardiology involvement.</div>
+    </div>
+
+    <div class="variant-block" id="manageWard">
+      <div class="line doctor">We are on a ward setting.</div>
+      <div class="focus"><strong>FOCUS HERE</strong><br>Ward chest pain is deterioration until proven otherwise. Escalate early.</div>
+      <div class="line doctor">The first step is immediate assessment of stability and a 12-lead ECG now.</div>
+      <div class="scoring">
+        <span class="label">SCORING PHRASE</span>
+        ECG must be done immediately in suspected acute coronary syndrome.
+      </div>
+      <div class="line doctor">I will call for senior review early and activate rapid response if unstable.</div>
+      <div class="line doctor">We will place the patient on monitoring if available, obtain IV access, and arrange blood tests including troponin per hospital protocol.</div>
+      <div class="line doctor">I will give aspirin now unless contraindicated and follow local ACS pathway.</div>
+      <div class="line doctor">Oxygen will be given only if hypoxic or in respiratory distress.</div>
+      <div class="line doctor">If ongoing pain, ECG changes, or instability are present, urgent transfer to higher level care is required.</div>
+    </div>
+
+    <h3>PHASE 9 - Urgency Classification</h3>
+    <div class="variant-block active" id="urgGP">
+      <div class="line doctor">This is an emergency and requires immediate hospital transfer.</div>
+    </div>
+    <div class="variant-block" id="urgED">
+      <div class="line doctor">This is time critical and requires immediate ED monitoring and ACS pathway escalation.</div>
+    </div>
+    <div class="variant-block" id="urgWard">
+      <div class="line doctor">This is urgent deterioration on the ward and requires immediate escalation and ACS pathway management.</div>
+    </div>
+
+    <h3>PHASE 10 - Safety Net</h3>
+    <div class="variant-block active" id="snGP">
+      <div class="line doctor">If your pain worsens, you feel faint, or breathing becomes difficult while waiting, emergency services are already being called and we will act immediately.</div>
+    </div>
+    <div class="variant-block" id="snED">
+      <div class="line doctor">If pain worsens, you feel faint, or breathing becomes difficult, tell staff immediately. You will remain under close monitoring.</div>
+    </div>
+    <div class="variant-block" id="snWard">
+      <div class="line doctor">If pain worsens, breathlessness increases, or you feel faint, call for urgent help immediately and escalate care.</div>
+    </div>
+
+    <h3>PHASE 11 - Check Understanding</h3>
+    <div class="line doctor">Do you have any questions before we proceed?</div>
+    <div class="line patient"><span class="who">Patient:</span> No.</div>
+  </div>
+</section>
+
+<section>
+  <h2>SECTION 4 - INTERNAL THINKING - NOT SPOKEN</h2>
+
+  <div class="variant-block active" id="thinkGP">
+    <div class="thinking">
+      Sudden onset<br>
+      Classic radiation<br>
+      Autonomic features<br>
+      High risk profile<br>
+      Likely ACS<br>
+      Must not miss dissection or PE<br>
+      GP setting - no troponin here<br>
+      Immediate transfer<br>
+      Check PDE5 before nitrates<br>
+      No reflex oxygen
     </div>
   </div>
 
-  <div class="footer" id="rights"></div>
+  <div class="variant-block" id="thinkED">
+    <div class="thinking">
+      Sudden onset<br>
+      Classic radiation<br>
+      Autonomic features<br>
+      Likely ACS<br>
+      ECG pathway decides STEMI vs NSTEMI<br>
+      Troponins and serial ECGs if no STEMI<br>
+      Check PDE5 before nitrates<br>
+      No reflex oxygen<br>
+      Escalate cardiology early
+    </div>
+  </div>
 
-  <script>
-    "use strict";
-    const year = new Date().getFullYear();
-    document.body.setAttribute("data-year", String(year));
-    document.getElementById("rights").textContent =
-      "© " + year + " Dr Ushana Yalda. All rights reserved. Unauthorized reproduction, distribution, or modification of this material without prior permission is prohibited.";
-  </script>
+  <div class="variant-block" id="thinkWard">
+    <div class="thinking">
+      New chest pain on ward equals deterioration until proven otherwise<br>
+      Likely ACS until excluded<br>
+      ECG now<br>
+      Escalate senior and rapid response if unstable<br>
+      Follow hospital ACS pathway<br>
+      Check contraindications before medications<br>
+      No reflex oxygen
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>SECTION 5 - SCORING PHRASES</h2>
+
+  <div class="variant-block active" id="scoreGP">
+    <div class="scoring">
+      Sudden central chest pressure must be treated as ACS until proven otherwise.<br>
+      ECG must be done immediately in suspected ACS.<br>
+      Do not delay transfer for hospital-only investigations.<br>
+      Oxygen only if hypoxic or in distress.
+    </div>
+  </div>
+
+  <div class="variant-block" id="scoreED">
+    <div class="scoring">
+      Sudden central chest pressure must be treated as ACS until proven otherwise.<br>
+      ECG must be done immediately and guide STEMI vs NSTEMI pathway.<br>
+      Give aspirin unless contraindicated and escalate to reperfusion if STEMI.<br>
+      Oxygen only if hypoxic or in distress.
+    </div>
+  </div>
+
+  <div class="variant-block" id="scoreWard">
+    <div class="scoring">
+      Ward chest pain requires immediate ECG and escalation.<br>
+      Follow hospital ACS pathway and involve senior early.<br>
+      Do not delay escalation in ongoing pain or instability.<br>
+      Oxygen only if hypoxic or in distress.
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>SECTION 6 - MASTERY DRILL</h2>
+
+  <div class="variant-block active" id="drillGP">
+    <div class="thinking"><strong>30-Second Compression</strong><br>Classic ACS pattern. ECG now. Aspirin if safe. Immediate ambulance transfer. No delay for troponin in GP.</div>
+    <div class="thinking"><strong>10-Second Trigger Rule</strong><br>Central pressure plus radiation or sweating equals ACS first.</div>
+    <div class="thinking"><strong>Differential Ranking</strong><br>1) Acute coronary syndrome<br>2) Pulmonary embolism<br>3) Aortic dissection</div>
+    <div class="thinking"><strong>Why Not Pulmonary Embolism?</strong><br>Pattern is pressure with radiation and autonomic symptoms rather than pleuritic pain.</div>
+    <div class="thinking"><strong>First Action Rule</strong><br>ECG immediately and arrange emergency transfer.</div>
+  </div>
+
+  <div class="variant-block" id="drillED">
+    <div class="thinking"><strong>30-Second Compression</strong><br>Classic ACS pattern. ECG now, monitor, IV access, troponin in ED. Aspirin if safe. Activate reperfusion if STEMI.</div>
+    <div class="thinking"><strong>10-Second Trigger Rule</strong><br>Pressure plus sweating equals ECG now.</div>
+    <div class="thinking"><strong>Differential Ranking</strong><br>1) Acute coronary syndrome<br>2) Aortic dissection<br>3) Pulmonary embolism</div>
+    <div class="thinking"><strong>Why Not Aortic Dissection?</strong><br>No tearing back pain and no collapse reported.</div>
+    <div class="thinking"><strong>First Action Rule</strong><br>ECG immediately and follow ED ACS pathway.</div>
+  </div>
+
+  <div class="variant-block" id="drillWard">
+    <div class="thinking"><strong>30-Second Compression</strong><br>Ward chest pain is deterioration. ECG now, escalate senior, follow ACS pathway, monitor, troponin per protocol, transfer if unstable.</div>
+    <div class="thinking"><strong>10-Second Trigger Rule</strong><br>New chest pain on ward equals ECG and escalate.</div>
+    <div class="thinking"><strong>Differential Ranking</strong><br>1) Acute coronary syndrome<br>2) Pulmonary embolism<br>3) Pneumothorax</div>
+    <div class="thinking"><strong>Why Not Pneumothorax?</strong><br>Presentation fits pressure with radiation and autonomic symptoms rather than sudden pleuritic collapse.</div>
+    <div class="thinking"><strong>First Action Rule</strong><br>ECG immediately and escalate care.</div>
+  </div>
+</section>
+
+<section>
+  <h2>SECTION 7 - FULL UNINTERRUPTED RUN THROUGH</h2>
+
+  <div class="variant-block active" id="runGP">
+    <div class="spoken">
+      <p>Hello, I am Dr Ushana. How would you like me to address you?</p>
+      <p>Patient: Call me Peter.</p>
+      <p>Thank you Peter. I understand you are experiencing chest pain. I will ask some focused questions to understand what is happening and then explain what I think and what we need to do next. Is that okay?</p>
+      <p>Patient: Yes.</p>
+      <p>Can you tell me what happened today?</p>
+      <p>Patient: I developed chest pain about an hour ago.</p>
+      <p>When exactly did the pain begin? Was it sudden or gradual?</p>
+      <p>Patient: About an hour ago. Sudden.</p>
+      <p>Where do you feel it and how would you describe it? Does it go anywhere?</p>
+      <p>Patient: In the middle of my chest. Like pressure. Into my left arm.</p>
+      <p>How severe is it from zero to ten? Any sweating, nausea, or shortness of breath?</p>
+      <p>Patient: Eight. Yes, sweating. A little short of breath.</p>
+      <p>Any fainting? Any tearing pain going to your back? Any recent long travel or leg swelling?</p>
+      <p>Patient: No. No. No.</p>
+      <p>Have you ever had this before? Are you allergic to aspirin? Have you taken any erectile dysfunction medication in the last 48 hours?</p>
+      <p>Patient: No. No. No.</p>
+      <p>Just to confirm, no severe sudden tearing back pain, no collapse, and no confusion. Correct?</p>
+      <p>Patient: Correct.</p>
+      <p>Let me summarise to ensure I understood correctly. You developed sudden central chest pressure one hour ago, radiating to your left arm, associated with sweating and mild breathlessness. You have hypertension, high cholesterol, and you smoke. The pain is still present. Is that accurate?</p>
+      <p>Patient: Yes.</p>
+      <p>Based on what you have told me, the most likely diagnosis is acute coronary syndrome, meaning reduced blood flow to the heart muscle. We must also consider pulmonary embolism and aortic dissection, but your symptom pattern strongly suggests a cardiac cause.</p>
+      <p>We are in a GP setting. This requires urgent escalation. The first step is to perform an ECG immediately. I will give aspirin now since you have no allergy. Because this may be a heart attack, you require immediate ambulance transfer to hospital. We will not delay transfer for blood tests such as troponin, as those are performed in hospital. I will only provide oxygen if your oxygen level is low or you develop respiratory distress.</p>
+      <p>This is an emergency and requires immediate hospital transfer.</p>
+      <p>If your pain worsens, you feel faint, or breathing becomes difficult while waiting, emergency services are already being called and we will act immediately.</p>
+      <p>Do you have any questions before we proceed?</p>
+      <p>Patient: No.</p>
+      <p>Thank you. I will arrange the ambulance transfer now.</p>
+    </div>
+  </div>
+
+  <div class="variant-block" id="runED">
+    <div class="spoken">
+      <p>Hello, I am Dr Ushana. How would you like me to address you?</p>
+      <p>Patient: Call me Peter.</p>
+      <p>Thank you Peter. I understand you are experiencing chest pain. I will ask some focused questions to understand what is happening and then explain what I think and what we need to do next. Is that okay?</p>
+      <p>Patient: Yes.</p>
+      <p>Before we go further, we are in the emergency department and I will ensure you are monitored and we obtain a 12-lead ECG immediately.</p>
+      <p>Can you tell me what happened today?</p>
+      <p>Patient: I developed chest pain about an hour ago.</p>
+      <p>When exactly did the pain begin? Was it sudden or gradual?</p>
+      <p>Patient: About an hour ago. Sudden.</p>
+      <p>Where do you feel it and how would you describe it? Does it go anywhere?</p>
+      <p>Patient: In the middle of my chest. Like pressure. Into my left arm.</p>
+      <p>How severe is it from zero to ten? Any sweating, nausea, or shortness of breath?</p>
+      <p>Patient: Eight. Yes, sweating. A little short of breath.</p>
+      <p>Any fainting? Any tearing pain going to your back? Any pleuritic pain or calf swelling or recent travel?</p>
+      <p>Patient: No. No. No.</p>
+      <p>Are you allergic to aspirin? Have you taken any erectile dysfunction medication in the last 48 hours?</p>
+      <p>Patient: No. No.</p>
+      <p>Let me summarise to ensure I understood correctly. Sudden central chest pressure radiating to the left arm with sweating and mild breathlessness, ongoing now. Is that accurate?</p>
+      <p>Patient: Yes.</p>
+      <p>This is most likely acute coronary syndrome. We must also consider aortic dissection, pulmonary embolism, and pneumothorax, but your pattern strongly suggests cardiac cause.</p>
+      <p>In ED, we will do ECG immediately, continuous monitoring, IV access, and blood tests including troponin. I will give aspirin unless contraindicated. Oxygen will be given only if hypoxic or in respiratory distress. If the ECG shows STEMI, we activate urgent reperfusion pathway. If not, we treat as NSTEMI or unstable angina with serial ECGs and troponins and cardiology involvement.</p>
+      <p>This is time critical and requires immediate ED monitoring and ACS pathway escalation.</p>
+      <p>If your pain worsens, you feel faint, or breathing becomes difficult, tell staff immediately. You will remain under close monitoring.</p>
+      <p>Do you have any questions before we proceed?</p>
+      <p>Patient: No.</p>
+      <p>Thank you. We will continue urgent assessment and treatment now.</p>
+    </div>
+  </div>
+
+  <div class="variant-block" id="runWard">
+    <div class="spoken">
+      <p>Hello, I am Dr Ushana. How would you like me to address you?</p>
+      <p>Patient: Call me Peter.</p>
+      <p>Thank you Peter. I understand you are experiencing chest pain. I will ask some focused questions to understand what is happening and then explain what I think and what we need to do next. Is that okay?</p>
+      <p>Patient: Yes.</p>
+      <p>We are on a ward, so I will assess your stability now, obtain an ECG urgently, and call for senior review early.</p>
+      <p>Can you tell me what happened today?</p>
+      <p>Patient: I developed chest pain about an hour ago.</p>
+      <p>When exactly did the pain begin? Was it sudden or gradual?</p>
+      <p>Patient: About an hour ago. Sudden.</p>
+      <p>Where do you feel it and how would you describe it? Does it go anywhere?</p>
+      <p>Patient: In the middle of my chest. Like pressure. Into my left arm.</p>
+      <p>How severe is it from zero to ten? Any sweating, nausea, or shortness of breath?</p>
+      <p>Patient: Eight. Yes, sweating. A little short of breath.</p>
+      <p>Any fainting? Any tearing pain going to your back? Any pleuritic pain or calf swelling or recent travel?</p>
+      <p>Patient: No. No. No.</p>
+      <p>Are you allergic to aspirin? Have you taken any erectile dysfunction medication in the last 48 hours?</p>
+      <p>Patient: No. No.</p>
+      <p>Let me summarise to ensure I understood correctly. Sudden central chest pressure radiating to the left arm with sweating and mild breathlessness, ongoing now. Is that accurate?</p>
+      <p>Patient: Yes.</p>
+      <p>This is most likely acute coronary syndrome until proven otherwise. We must also consider pulmonary embolism, aortic dissection, and pneumothorax if features develop, but your pattern suggests cardiac cause.</p>
+      <p>On the ward, the first step is ECG now and immediate escalation. I will call for senior review early and activate rapid response if you become unstable. We will place you on monitoring, obtain IV access, and arrange troponin testing per protocol. I will give aspirin unless contraindicated. Oxygen will be given only if hypoxic or in respiratory distress. If there are ECG changes or ongoing pain or instability, urgent transfer to higher level care is required.</p>
+      <p>This is urgent deterioration on the ward and requires immediate escalation and ACS pathway management.</p>
+      <p>If pain worsens, breathlessness increases, or you feel faint, call for urgent help immediately and escalate care.</p>
+      <p>Do you have any questions before we proceed?</p>
+      <p>Patient: No.</p>
+      <p>Thank you. I will arrange immediate ECG and escalation now.</p>
+    </div>
+  </div>
+</section>
+
+<div class="footer" id="rights"></div>
+
+<script>
+"use strict";
+const year = new Date().getFullYear();
+document.body.setAttribute("data-year", String(year));
+document.getElementById("rights").textContent =
+  "© " + year + " Dr Ushana Yalda. All rights reserved. Unauthorized reproduction, distribution, or modification of this material without prior permission is prohibited.";
+
+function setVariant(v){
+  const ids = [
+    "btnGP","btnED","btnWard",
+    "stemGP","stemED","stemWard",
+    "mapGP","mapED","mapWard",
+    "manageGP","manageED","manageWard",
+    "urgGP","urgED","urgWard",
+    "snGP","snED","snWard",
+    "thinkGP","thinkED","thinkWard",
+    "scoreGP","scoreED","scoreWard",
+    "drillGP","drillED","drillWard",
+    "runGP","runED","runWard"
+  ];
+  for(const id of ids){
+    const el = document.getElementById(id);
+    if(!el) continue;
+    if(id.startsWith("btn")){
+      el.classList.remove("active");
+    }else{
+      el.classList.remove("active");
+    }
+  }
+
+  if(v === "GP"){
+    document.getElementById("btnGP").classList.add("active");
+    document.getElementById("stemGP").classList.add("active");
+    document.getElementById("mapGP").classList.add("active");
+    document.getElementById("manageGP").classList.add("active");
+    document.getElementById("urgGP").classList.add("active");
+    document.getElementById("snGP").classList.add("active");
+    document.getElementById("thinkGP").classList.add("active");
+    document.getElementById("scoreGP").classList.add("active");
+    document.getElementById("drillGP").classList.add("active");
+    document.getElementById("runGP").classList.add("active");
+  }else if(v === "ED"){
+    document.getElementById("btnED").classList.add("active");
+    document.getElementById("stemED").classList.add("active");
+    document.getElementById("mapED").classList.add("active");
+    document.getElementById("manageED").classList.add("active");
+    document.getElementById("urgED").classList.add("active");
+    document.getElementById("snED").classList.add("active");
+    document.getElementById("thinkED").classList.add("active");
+    document.getElementById("scoreED").classList.add("active");
+    document.getElementById("drillED").classList.add("active");
+    document.getElementById("runED").classList.add("active");
+  }else{
+    document.getElementById("btnWard").classList.add("active");
+    document.getElementById("stemWard").classList.add("active");
+    document.getElementById("mapWard").classList.add("active");
+    document.getElementById("manageWard").classList.add("active");
+    document.getElementById("urgWard").classList.add("active");
+    document.getElementById("snWard").classList.add("active");
+    document.getElementById("thinkWard").classList.add("active");
+    document.getElementById("scoreWard").classList.add("active");
+    document.getElementById("drillWard").classList.add("active");
+    document.getElementById("runWard").classList.add("active");
+  }
+}
+
+document.getElementById("btnGP").addEventListener("click", () => setVariant("GP"));
+document.getElementById("btnED").addEventListener("click", () => setVariant("ED"));
+document.getElementById("btnWard").addEventListener("click", () => setVariant("Ward"));
+
+setVariant("GP");
+</script>
+
 </body>
 </html>

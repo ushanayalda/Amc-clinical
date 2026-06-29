@@ -4,178 +4,179 @@
   <!-- EDITABLE: Basic page metadata -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dr Ushana Yalda | AMC Clinical Execution Dashboard</title>
-  <meta name="description" content="ADHD-friendly AMC clinical preparation dashboard for the Auto Dominance System.">
+  <title>Dr Ushana Yalda | AMC Clinical Study Dashboard</title>
+  <meta name="description" content="ADHD-friendly AMC clinical preparation dashboard.">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <a class="skip-link" href="#main-content">Skip to current mission</a>
+  <a class="skip-link" href="#main-content">Skip to Study Now</a>
 
   <header class="site-header">
     <div class="page-shell header-shell">
       <div class="brand-block" aria-label="Site identity">
         <p class="eyebrow">Dr Ushana Yalda</p>
-        <h1>Advanced Clinical Preparation</h1>
+        <h1>AMC Clinical Study Dashboard</h1>
         <p class="prepared-for">Prepared for Dr Hanaa</p>
       </div>
 
-      <div class="system-label" aria-label="System label">
-        <span>Auto Dominance System</span>
-        <strong>Execution Dashboard</strong>
+      <div class="system-label" aria-label="Dashboard label">
+        <span>AMC Clinical</span>
+        <strong>Study Dashboard</strong>
       </div>
     </div>
   </header>
 
   <main id="main-content" class="page-shell site-main">
     <section class="hero-panel" aria-labelledby="dashboard-question">
-      <p class="section-kicker">Today’s question</p>
+      <p class="section-kicker">Start here</p>
       <h2 id="dashboard-question">What do I study now?</h2>
       <p class="hero-text">
-        Start with the current mission. Planning and repair tools are available only when needed.
+        One clear next step. Study the active case type first. Planning and weak-spot repair can wait.
       </p>
     </section>
 
-    <nav class="mode-switcher" aria-label="Dashboard modes">
-      <button class="mode-tab is-active" type="button" data-mode-button="execution" aria-controls="execution-panel" aria-selected="true">
-        Execution Mode
+    <nav class="mode-switcher" aria-label="Study sections">
+      <button class="mode-tab is-active" type="button" data-mode-button="study" aria-controls="study-now-panel" aria-selected="true">
+        Study Now
       </button>
-      <button class="mode-tab" type="button" data-mode-button="strategic" aria-controls="strategic-panel" aria-selected="false">
-        Strategic Mode
+      <button class="mode-tab" type="button" data-mode-button="plan" aria-controls="plan-panel" aria-selected="false">
+        Plan
       </button>
-      <button class="mode-tab" type="button" data-mode-button="trigger" aria-controls="trigger-panel" aria-selected="false">
-        Trigger Mode
+      <button class="mode-tab" type="button" data-mode-button="fix" aria-controls="fix-panel" aria-selected="false">
+        Fix Weak Spots
       </button>
     </nav>
 
-    <section id="execution-panel" class="mode-panel is-active" data-mode-panel="execution" aria-labelledby="current-mission-title">
+    <section id="study-now-panel" class="mode-panel is-active" data-mode-panel="study" aria-labelledby="study-now-title">
       <div class="dashboard-grid">
-        <article class="mission-card" aria-labelledby="current-mission-title">
+        <article class="mission-card" aria-labelledby="study-now-title">
           <div class="card-header-row">
             <div>
-              <p class="section-kicker">Current mission</p>
-              <h2 id="current-mission-title">Continue the active learning unit</h2>
+              <p class="section-kicker">Study now</p>
+              <h2 id="study-now-title">Continue the active study step</h2>
             </div>
             <span class="status-pill status-progress">Ready</span>
           </div>
 
-          <!-- EDITABLE: Current Mission block -->
+          <!-- EDITABLE: Study Now block -->
           <dl class="mission-list">
             <div>
-              <dt>Current phase</dt>
-              <dd>Phase 1 — Catastrophic Control</dd>
+              <dt>Stage</dt>
+              <dd>Stage 1 — Dangerous symptoms first</dd>
             </div>
             <div>
-              <dt>Current pattern</dt>
-              <dd>Pattern 1 — Dangerous Chest Pain</dd>
+              <dt>Case type</dt>
+              <dd>Case Type 1 — Chest Pain: Danger Check</dd>
             </div>
             <div>
-              <dt>Current module</dt>
-              <dd>Ignite Page</dd>
+              <dt>Current step</dt>
+              <dd>Start Here</dd>
             </div>
             <div>
-              <dt>Progress status</dt>
+              <dt>Status</dt>
               <dd>Not started</dd>
             </div>
           </dl>
 
           <a class="primary-action" href="patterns/pattern-01-dangerous-chest-pain/ignite.html">
-            CONTINUE
+            CONTINUE STUDY
           </a>
 
           <p class="support-text">
-            One task only. Continue the active module before opening planning or repair views.
+            Do this one step first. Do not open the plan unless you are choosing what to study next.
           </p>
         </article>
 
         <aside class="side-stack" aria-label="Current progress and secondary links">
           <section class="progress-card" aria-labelledby="progress-title">
-            <h3 id="progress-title">Progress strip</h3>
+            <h3 id="progress-title">Progress</h3>
 
             <!-- EDITABLE: Progress strip -->
             <div class="progress-strip">
               <div>
-                <span>Phase 1</span>
-                <strong>0 / 12 patterns</strong>
+                <span>Stage 1</span>
+                <strong>0 / 12 case types</strong>
               </div>
               <div>
-                <span>Pattern 1</span>
-                <strong>Dangerous Chest Pain</strong>
+                <span>Current case type</span>
+                <strong>Chest Pain: Danger Check</strong>
               </div>
               <div>
-                <span>Module</span>
-                <strong>Ignite Page</strong>
+                <span>Current step</span>
+                <strong>Start Here</strong>
               </div>
             </div>
           </section>
 
           <section class="secondary-card" aria-labelledby="secondary-title">
-            <h3 id="secondary-title">Secondary links</h3>
+            <h3 id="secondary-title">Other areas</h3>
             <div class="secondary-links">
-              <a href="#strategic-panel" data-mode-jump="strategic">All Patterns</a>
-              <a href="system/manifest-v2-3.html">System Manifest</a>
-              <a href="#strategic-panel" data-mode-jump="strategic">Strategic Mode</a>
+              <a href="#plan-panel" data-mode-jump="plan">All Case Types</a>
+              <a href="#plan-panel" data-mode-jump="plan">Study Plan</a>
+              <a href="#fix-panel" data-mode-jump="fix">Fix Weak Spots</a>
+              <a href="system/manifest-v2-3.html">System Notes</a>
             </div>
           </section>
         </aside>
       </div>
     </section>
 
-    <section id="strategic-panel" class="mode-panel" data-mode-panel="strategic" aria-labelledby="strategic-title" hidden>
+    <section id="plan-panel" class="mode-panel" data-mode-panel="plan" aria-labelledby="plan-title" hidden>
       <article class="planning-card">
         <div class="card-header-row">
           <div>
-            <p class="section-kicker">Strategic mode</p>
-            <h2 id="strategic-title">Phase and pattern map</h2>
+            <p class="section-kicker">Plan</p>
+            <h2 id="plan-title">Full study map</h2>
           </div>
-          <span class="status-pill status-muted">Planning only</span>
+          <span class="status-pill status-muted">Choose later</span>
         </div>
 
         <p class="support-text">
-          This view is for planning. During study, return to Execution Mode.
+          Use this area only when choosing or reviewing the study plan. During study, return to Study Now.
         </p>
 
-        <!-- EDITABLE: Strategic map. Add approved patterns only. -->
+        <!-- EDITABLE: Study map. Add approved case types only. -->
         <div class="pattern-map">
           <a class="pattern-map-item is-current" href="patterns/pattern-01-dangerous-chest-pain/index.html">
-            <span>Pattern 1</span>
-            <strong>Dangerous Chest Pain</strong>
-            <em>Current active pattern</em>
+            <span>Case Type 1</span>
+            <strong>Chest Pain: Danger Check</strong>
+            <em>Current active case type</em>
           </a>
 
-          <div class="pattern-map-item is-empty" aria-label="Future approved patterns">
-            <span>Future patterns</span>
+          <div class="pattern-map-item is-empty" aria-label="Future approved case types">
+            <span>Future case types</span>
             <strong>Awaiting approved content</strong>
             <em>Add only after approval</em>
           </div>
         </div>
 
-        <button class="secondary-button" type="button" data-mode-button="execution">
-          Return to Execution Mode
+        <button class="secondary-button" type="button" data-mode-button="study">
+          Return to Study Now
         </button>
       </article>
     </section>
 
-    <section id="trigger-panel" class="mode-panel" data-mode-panel="trigger" aria-labelledby="trigger-title" hidden>
+    <section id="fix-panel" class="mode-panel" data-mode-panel="fix" aria-labelledby="fix-title" hidden>
       <article class="planning-card">
         <div class="card-header-row">
           <div>
-            <p class="section-kicker">Trigger mode</p>
-            <h2 id="trigger-title">Flagged repair queue</h2>
+            <p class="section-kicker">Fix weak spots</p>
+            <h2 id="fix-title">Repair list</h2>
           </div>
-          <span class="status-pill status-warning">Repair only</span>
+          <span class="status-pill status-warning">Use when needed</span>
         </div>
 
-        <!-- EDITABLE: Trigger queue. Add weak or repeatedly missed patterns only. -->
+        <!-- EDITABLE: Weak-spot list. Add repeated mistakes only. -->
         <div class="empty-state">
-          <h3>No flagged patterns yet</h3>
+          <h3>No weak spots flagged yet</h3>
           <p>
-            When a pattern is repeatedly missed, add it here as a repair item. This panel should stay empty unless a trigger is active.
+            When a case type is repeatedly missed, add it here. Keep this area empty unless there is something specific to repair.
           </p>
         </div>
 
-        <button class="secondary-button" type="button" data-mode-button="execution">
-          Return to Execution Mode
+        <button class="secondary-button" type="button" data-mode-button="study">
+          Return to Study Now
         </button>
       </article>
     </section>
@@ -227,7 +228,7 @@
       });
     });
 
-    setMode("execution");
+    setMode("study");
   </script>
 </body>
 </html>

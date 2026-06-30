@@ -214,6 +214,16 @@
       border-color: rgba(15, 118, 110, 0.18);
     }
 
+    .notice {
+      background: var(--soft-teal);
+      border: 1px solid rgba(15, 118, 110, 0.18);
+      color: var(--teal);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      font-weight: 650;
+    }
+
     .grid {
       display: grid;
       gap: 16px;
@@ -237,27 +247,7 @@
       bottom: 18px;
       width: 6px;
       border-radius: 999px;
-      background: transparent;
-    }
-
-    .card-blue::before {
       background: var(--blue);
-    }
-
-    .card-red::before {
-      background: var(--red);
-    }
-
-    .card-teal::before {
-      background: var(--teal);
-    }
-
-    .card-amber::before {
-      background: var(--amber);
-    }
-
-    .card-green::before {
-      background: var(--green);
     }
 
     .card-title {
@@ -278,82 +268,23 @@
       letter-spacing: -0.025em;
     }
 
-    .card-text {
-      margin: 10px 0 0;
-      color: #475467;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 1.55;
+    .placeholder {
+      margin-top: 10px;
+      display: inline-flex;
+      width: fit-content;
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--teal);
+      background: var(--soft-teal);
+      border: 1px solid rgba(15, 118, 110, 0.18);
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .two-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
-    }
-
-    .danger-list {
-      display: grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .danger-item {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid #EAECF0;
-      border-radius: 16px;
-      padding: 12px;
-      background: #FCFCFD;
-    }
-
-    .danger-icon {
-      width: 34px;
-      height: 34px;
-      display: inline-grid;
-      place-items: center;
-      border-radius: 999px;
-      color: var(--red);
-      background: var(--soft-red);
-      font-weight: 800;
-      font-size: 15px;
-    }
-
-    .danger-name {
-      color: #1D2939;
-      font-weight: 650;
-      line-height: 1.25;
-    }
-
-    .do-not-grid {
-      display: grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .do-not {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid rgba(181, 71, 8, 0.18);
-      border-radius: 16px;
-      padding: 12px;
-      background: var(--soft-amber);
-    }
-
-    .do-not-icon {
-      width: 34px;
-      height: 34px;
-      display: inline-grid;
-      place-items: center;
-      border-radius: 999px;
-      color: var(--amber);
-      background: #FFFFFF;
-      font-weight: 800;
-      font-size: 15px;
     }
 
     .action-card {
@@ -364,13 +295,12 @@
     }
 
     .action-card .card-title,
-    .action-card .card-text,
     .action-card .card-main {
       color: #FFFFFF;
     }
 
-    .action-card .card-text {
-      opacity: 0.9;
+    .action-card::before {
+      background: rgba(255, 255, 255, 0.7);
     }
 
     .action-row {
@@ -473,7 +403,7 @@
   <main class="page">
     <header class="topbar">
       <section class="brand" aria-label="Site identity">
-        <h1 class="brand-title">AMC Clinical Case Pathway</h1>
+        <h1 class="brand-title">AMC Clinical Pathway</h1>
         <p class="brand-credit">Prepared by Dr. Ushana Yalda</p>
       </section>
 
@@ -485,153 +415,117 @@
     </header>
 
     <section class="hero">
-      <p class="eyebrow">Before the case</p>
+      <p class="eyebrow">Before the Case</p>
       <h2 class="hero-title">Dangerous Chest Pain</h2>
       <p class="hero-subtitle">
-        Start by thinking danger first. Your job is not to prove the benign cause. Your job is to avoid missing the life-threatening one.
+        Transfer-ready display page. Clinical content must be inserted exactly from the Content Engine.
       </p>
 
       <div class="hero-strip">
-        <span class="hero-pill pill-risk">Can kill fast</span>
+        <span class="hero-pill pill-risk">Phase 1 - Can Kill Fast</span>
         <span class="hero-pill pill-pattern">Pattern 1</span>
-        <span class="hero-pill pill-next">Next: Case 1</span>
+        <span class="hero-pill pill-next">Current unit</span>
       </div>
     </section>
 
-    <section class="grid" aria-label="Before the case cards">
-      <article class="card card-blue">
-        <p class="card-title">Today's aim</p>
-        <p class="card-main">Recognise chest pain that needs urgent escalation.</p>
-        <p class="card-text">
-          Do not get trapped by age, anxiety, reflux symptoms, normal first ECG, or a reassuring appearance.
-        </p>
-      </article>
+    <section class="notice">
+      Awaiting transfer into the website from the Content Engine.
+    </section>
 
+    <section class="grid" aria-label="Before the case content placeholders">
       <section class="two-grid">
-        <article class="card card-teal">
-          <p class="card-title">What this tests</p>
-          <p class="card-main">Risk sorting under time pressure.</p>
-          <p class="card-text">
-            History, red flags, immediate action, safe language, and knowing when GP management is not enough.
-          </p>
+        <article class="card">
+          <p class="card-title">Today’s Aim</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
         </article>
 
-        <article class="card card-blue">
-          <p class="card-title">Station type</p>
-          <p class="card-main">Patient consultation.</p>
-          <p class="card-text">
-            Take focused history, explain likely diagnosis and differentials, then arrange urgent management.
-          </p>
+        <article class="card">
+          <p class="card-title">What This Pattern Is Testing</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
         </article>
       </section>
 
       <section class="two-grid">
-        <article class="card card-red">
-          <p class="card-title">Main danger</p>
-          <p class="card-main">Missing acute coronary syndrome.</p>
-          <p class="card-text">
-            Treat concerning chest pain as cardiac until a safer pathway is clearly established.
-          </p>
+        <article class="card">
+          <p class="card-title">Station Type</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
         </article>
 
-        <article class="card card-teal">
-          <p class="card-title">Focus here</p>
-          <p class="card-main">First action before full explanation.</p>
-          <p class="card-text">
-            If the story is high risk, say you are arranging urgent hospital assessment. Then explain why.
-          </p>
+        <article class="card">
+          <p class="card-title">Focus Here</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
         </article>
       </section>
 
-      <article class="card card-red">
-        <p class="card-title">Four causes not to miss</p>
-        <div class="danger-list">
-          <div class="danger-item">
-            <span class="danger-icon">1</span>
-            <span class="danger-name">Acute coronary syndrome</span>
-          </div>
-          <div class="danger-item">
-            <span class="danger-icon">2</span>
-            <span class="danger-name">Aortic dissection</span>
-          </div>
-          <div class="danger-item">
-            <span class="danger-icon">3</span>
-            <span class="danger-name">Pulmonary embolism</span>
-          </div>
-          <div class="danger-item">
-            <span class="danger-icon">4</span>
-            <span class="danger-name">Tension pneumothorax</span>
-          </div>
-        </div>
-      </article>
-
       <section class="two-grid">
-        <article class="card card-blue">
-          <p class="card-title">Fast trigger</p>
-          <p class="card-main">Pressure chest pain + risk factors = urgent pathway.</p>
-          <p class="card-text">
-            Especially if exertional, radiating, associated with sweating, nausea, breathlessness, collapse, or ongoing pain.
-          </p>
+        <article class="card">
+          <p class="card-title">Main Danger</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
         </article>
 
-        <article class="card card-green">
-          <p class="card-title">First action</p>
-          <p class="card-main">Escalate early.</p>
-          <p class="card-text">
-            Call ambulance or send to ED depending on setting, monitor if available, and avoid delaying for reassurance.
-          </p>
+        <article class="card">
+          <p class="card-title">Four Causes Not to Miss</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
         </article>
       </section>
 
-      <article class="card card-amber">
-        <p class="card-title">Do not do these</p>
-        <div class="do-not-grid">
-          <div class="do-not">
-            <span class="do-not-icon">×</span>
-            <span class="danger-name">Do not reassure based on a normal first ECG.</span>
-          </div>
-          <div class="do-not">
-            <span class="do-not-icon">×</span>
-            <span class="danger-name">Do not wait for troponin if the story is high risk.</span>
-          </div>
-          <div class="do-not">
-            <span class="do-not-icon">×</span>
-            <span class="danger-name">Do not give nitrate advice before checking sildenafil or similar medicines.</span>
-          </div>
-          <div class="do-not">
-            <span class="do-not-icon">×</span>
-            <span class="danger-name">Do not manage unstable chest pain as routine GP follow-up.</span>
-          </div>
-        </div>
-      </article>
-
       <section class="two-grid">
-        <article class="card card-teal">
-          <p class="card-title">One sentence to remember</p>
-          <p class="card-main">“This could be heart-related, so I am arranging urgent hospital assessment now.”</p>
+        <article class="card">
+          <p class="card-title">Fast Trigger</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
         </article>
 
-        <article class="card card-blue">
-          <p class="card-title">Warm-up</p>
-          <p class="card-main">Say the first 20 seconds aloud.</p>
-          <p class="card-text">
-            Open safely, acknowledge the symptom, and move straight into focused risk questions.
-          </p>
+        <article class="card">
+          <p class="card-title">First Action</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
+        </article>
+      </section>
+
+      <section class="two-grid">
+        <article class="card">
+          <p class="card-title">Do Not Do These</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
+        </article>
+
+        <article class="card">
+          <p class="card-title">One Sentence to Remember</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
+        </article>
+      </section>
+
+      <section class="two-grid">
+        <article class="card">
+          <p class="card-title">Warm-Up</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
+        </article>
+
+        <article class="card">
+          <p class="card-title">Stop Point</p>
+          <p class="card-main">Awaiting Content Engine</p>
+          <span class="placeholder">Awaiting transfer</span>
         </article>
       </section>
 
       <article class="card action-card">
         <div class="action-row">
           <div>
-            <p class="card-title">Next case</p>
-            <p class="card-main">Case 1 · Classic Chest Pain in General Practice</p>
-            <p class="card-text">
-              Start the first station when you can speak out loud for eight minutes.
-            </p>
+            <p class="card-title">Next Case</p>
+            <p class="card-main">Case 1 - Classic Chest Pain in General Practice</p>
           </div>
 
-          <button class="primary-action" type="button" onclick="alert('Case 1 page will be built next.')">
-            Start Case 1
+          <button class="primary-action" type="button" onclick="alert('Case 1 awaits transfer into the website from the Content Engine.')">
+            Continue
           </button>
         </div>
       </article>

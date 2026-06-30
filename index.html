@@ -16,266 +16,276 @@
       <h1>AMC Clinical Cockpit</h1>
       <p class="subtitle">Advanced Clinical Preparation · Prepared for Dr Hanaa</p>
     </div>
-    <div class="mode-chip" aria-label="Current website mode">Execution Mode</div>
+    <div class="top-actions" aria-label="Quick actions">
+      <button class="button ghost small" type="button" data-action="open-curriculum">Switch Topic</button>
+      <button class="button secondary small" type="button" data-action="park-session">Park Session</button>
+    </div>
   </header>
 
   <section class="threadbar" aria-label="Current thread">
     <div>
-      <p class="thread-label">Current Thread</p>
-      <p class="thread-path">Phase 1 <span>›</span> Pattern 1 <span>›</span> Case 1</p>
+      <p class="thread-label">You are here</p>
+      <p id="threadPath" class="thread-path">Phase 1 › Pattern 1 › Start Here</p>
     </div>
     <div class="thread-next">
       <p class="thread-label">Next</p>
-      <p class="thread-action">Start Here</p>
+      <p id="threadNext" class="thread-action">Continue</p>
     </div>
   </section>
 
   <div class="app-shell">
     <aside class="side-nav" aria-label="Primary navigation">
       <nav>
-        <a href="#today" class="nav-link active">Today</a>
-        <a href="#cases" class="nav-link">Cases</a>
-        <a href="#repair" class="nav-link">Repair</a>
-        <a href="#progress" class="nav-link">Progress</a>
-        <a href="#coverage" class="nav-link">Coverage</a>
-        <a href="#library" class="nav-link">Library</a>
-        <a href="#settings" class="nav-link">Settings</a>
+        <button class="nav-link is-active" type="button" data-screen-target="today">Today</button>
+        <button class="nav-link" type="button" data-screen-target="curriculum">Curriculum</button>
+        <button class="nav-link" type="button" data-screen-target="progress">Progress</button>
+        <button class="nav-link" type="button" data-screen-target="library">Library</button>
+        <button class="nav-link" type="button" data-screen-target="settings">Settings</button>
       </nav>
+      <div class="rail-note" aria-label="Session note">
+        <strong>Default:</strong> Today keeps one active task visible. Curriculum is for deliberate topic switching.
+      </div>
     </aside>
 
     <main id="main" class="main-content" tabindex="-1">
-      <section id="today" class="page-section">
-        <div class="section-header">
+      <section id="today" class="screen is-active" data-screen="today" aria-labelledby="today-title">
+        <div class="section-header compact">
           <p class="eyebrow">Today</p>
-          <h2>Current Mission</h2>
-          <p>One active learning unit. One dominant next action.</p>
+          <h2 id="today-title">Current Mission</h2>
+          <p>One task. One button. Progress saved before switching.</p>
         </div>
 
         <article class="mission-card primary-card" aria-labelledby="mission-title">
           <div class="mission-grid">
             <div>
-              <p class="status-label">Active</p>
+              <p id="sessionStatus" class="status-label">In Progress</p>
               <h3 id="mission-title">Phase 1 · Catastrophic Control</h3>
-              <p class="mission-text">Pattern 1 · Dangerous Chest Pain</p>
-              <p class="mission-text">Current task · Start Here</p>
+              <p id="missionPattern" class="mission-text">Pattern 1 · Dangerous Chest Pain</p>
+              <p id="missionTask" class="mission-text">Current task · Start Here</p>
             </div>
-            <div class="progress-ring" aria-label="Pattern progress 0 of 5 steps complete">
-              <span>0/5</span>
-              <small>pattern steps</small>
+            <div class="progress-ring" aria-label="Current pattern progress">
+              <span id="stepCount">0/8</span>
+              <small>steps</small>
             </div>
           </div>
 
           <div class="button-row">
-            <a class="button primary" href="#current-task">Start Current Task</a>
-            <a class="button secondary" href="#cases">View Case Ladder</a>
+            <button id="continueBtn" class="button primary" type="button" data-action="continue">Continue</button>
+            <button class="button secondary" type="button" data-action="open-curriculum">Save and choose another topic</button>
           </div>
         </article>
 
-        <article id="current-task" class="content-card active-task" aria-labelledby="task-title">
+        <article class="focus-card active-task" aria-labelledby="focus-title">
           <div class="card-topline">
-            <p class="status-label">Start Here</p>
-            <span class="small-pill">Visible before Case 1</span>
-          </div>
-          <h3 id="task-title">Pattern Orientation Card</h3>
-          <p class="quiet">This is the layout slot. Paste the approved Start Here content here without rewriting it.</p>
-
-          <div class="orientation-grid">
-            <div class="slot-card">
-              <h4>1. Pattern Name</h4>
-              <p>[Approved content]</p>
-            </div>
-            <div class="slot-card">
-              <h4>2. What This Pattern Is Testing</h4>
-              <p>[Approved content]</p>
-            </div>
-            <div class="slot-card">
-              <h4>3. Station Type</h4>
-              <p>[Approved content]</p>
-            </div>
-            <div class="slot-card">
-              <h4>4. Focus Here</h4>
-              <p>[Approved content]</p>
-            </div>
-            <div class="slot-card">
-              <h4>5. What Can Kill</h4>
-              <p>[Approved content]</p>
-            </div>
-            <div class="slot-card">
-              <h4>6. Fast Trigger</h4>
-              <p>[Approved content]</p>
-            </div>
-            <div class="slot-card">
-              <h4>7. First Action</h4>
-              <p>[Approved content]</p>
-            </div>
-            <div class="slot-card">
-              <h4>8. Must Not Do</h4>
-              <p>[Approved content]</p>
-            </div>
-            <div class="slot-card wide">
-              <h4>9. One Sentence to Remember</h4>
-              <p>[Approved content]</p>
-            </div>
+            <p id="focusKicker" class="status-label">Start Here</p>
+            <span id="focusPill" class="small-pill">Step 1 of 8</span>
           </div>
 
-          <details class="foldout">
-            <summary>Pre-Case Warm-Up</summary>
-            <div class="warmup-block">
-              <p><strong>Setting:</strong> This is a ______ setting.</p>
-              <p><strong>Station type:</strong> This is a ______ station.</p>
-              <p><strong>Immediate threats:</strong> ______, ______, ______, ______.</p>
-              <p><strong>First action:</strong> Check ______ and ______.</p>
-              <p><strong>Then arrange:</strong> ______.</p>
-              <p><strong>Trap today:</strong> ______.</p>
-              <p><strong>Must-pass line:</strong> ______.</p>
+          <h3 id="focus-title">Start Here</h3>
+          <p id="focusPurpose" class="quiet">Orient before Case 1 without turning the page into a topic lesson.</p>
+
+          <div id="focusBody" class="focus-body" aria-live="polite"></div>
+
+          <div class="micro-panel" aria-label="Fast refocus tool">
+            <div>
+              <strong>Lost focus?</strong>
+              <span>Return to the current card and do only the next action.</span>
             </div>
-          </details>
+            <button class="button ghost small" type="button" data-action="refocus">Refocus</button>
+          </div>
+
+          <div class="step-strip" id="stepStrip" aria-label="Current session steps"></div>
 
           <div class="button-row sticky-actions">
-            <a class="button primary" href="#cases">Continue to Case Ladder</a>
-            <button class="button secondary" type="button" data-copy="#current-task">Copy Current Task</button>
+            <button class="button secondary" type="button" data-action="previous-step">Previous</button>
+            <button id="markDoneBtn" class="button primary" type="button" data-action="mark-step-done">Mark done and continue</button>
+            <button class="button ghost" type="button" data-action="park-session">Park Session</button>
           </div>
         </article>
-      </section>
 
-      <section id="cases" class="page-section">
-        <div class="section-header">
-          <p class="eyebrow">Cases</p>
-          <h2>Current Pattern Ladder</h2>
-          <p>Only the active pattern is shown here. The full curriculum stays out of the daily pathway.</p>
-        </div>
-
-        <article class="content-card">
+        <article id="repairFocus" class="content-card repair-focus is-hidden" aria-labelledby="repair-title">
           <div class="card-topline">
-            <p class="status-label">Pattern 1</p>
-            <span class="small-pill">In Progress</span>
+            <p class="status-label danger">Repair Focus</p>
+            <span class="small-pill">One repair only</span>
           </div>
-          <h3>Dangerous Chest Pain</h3>
-          <ol class="ladder-list">
-            <li class="current"><span>Start Here</span><strong>Current</strong></li>
-            <li><span>Case 1 · Classic Chest Pain in General Practice</span><strong>Not Started</strong></li>
-            <li><span>Case 2 · Chest Pain with Recent Sildenafil Use in General Practice</span><strong>Not Started</strong></li>
-            <li><span>Case 3 · Chest Pain with Aortic Dissection or Pulmonary Embolism Mimic</span><strong>Not Started</strong></li>
-            <li><span>Optional Case 4 · Normal First Electrocardiogram but Ongoing Concerning Symptoms</span><strong>Locked</strong></li>
-            <li><span>Optional Case 5 · Patient Refuses Ambulance Transfer</span><strong>Locked</strong></li>
-            <li><span>Pattern Ready?</span><strong>Locked</strong></li>
-            <li><span>Coverage Check</span><strong>Locked</strong></li>
-          </ol>
-          <div class="button-row">
-            <a class="button primary" href="#current-task">Return to Current Task</a>
-          </div>
-        </article>
-      </section>
-
-      <section id="repair" class="page-section">
-        <div class="section-header">
-          <p class="eyebrow">Repair</p>
-          <h2>One Active Repair</h2>
-          <p>Repair appears only after Ready? fails. It never opens the whole repair library by default.</p>
-        </div>
-
-        <article class="content-card muted-card">
-          <p class="status-label">No Active Repair</p>
-          <h3>Repair Card Slot</h3>
+          <h3 id="repair-title">Repair Card</h3>
           <div class="repair-template">
-            <p><strong>Failure:</strong> [Selected failure]</p>
+            <p><strong>Failure:</strong> <span id="repairFailure">[Selected failure]</span></p>
             <p><strong>Why It Matters:</strong> [Approved content]</p>
             <p><strong>Correction Sentence:</strong> [Approved content]</p>
-            <p><strong>Repeat Task:</strong> [Approved content]</p>
-            <p><strong>Return Point:</strong> [Approved content]</p>
+            <p><strong>Repeat Task:</strong> Repeat the failed section only.</p>
+            <p><strong>Return Point:</strong> Complete Station</p>
           </div>
           <div class="button-row">
-            <a class="button secondary" href="#today">Return to Today</a>
+            <button class="button primary" type="button" data-action="mark-repaired">Mark repaired and return</button>
+            <button class="button secondary" type="button" data-action="repeat-section">Repeat section</button>
           </div>
         </article>
       </section>
 
-      <section id="progress" class="page-section">
-        <div class="section-header">
+      <section id="curriculum" class="screen" data-screen="curriculum" aria-labelledby="curriculum-title">
+        <div class="section-header compact">
+          <p class="eyebrow">Curriculum</p>
+          <h2 id="curriculum-title">Choose a Different Topic</h2>
+          <p>Choosing a topic parks the current session first. Progress remains visible in Progress.</p>
+        </div>
+
+        <article class="content-card switch-card" aria-labelledby="switch-title">
+          <div class="card-topline">
+            <p class="status-label">Topic Switcher</p>
+            <span class="small-pill">Safe to leave</span>
+          </div>
+          <h3 id="switch-title">Navigate away without losing the session</h3>
+          <div class="switch-grid">
+            <div class="switch-step">
+              <strong>1. Park</strong>
+              <span>The current step is saved.</span>
+            </div>
+            <div class="switch-step">
+              <strong>2. Choose</strong>
+              <span>Pick a phase or search a pattern.</span>
+            </div>
+            <div class="switch-step">
+              <strong>3. Resume</strong>
+              <span>Return later from Today or Progress.</span>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="button primary" type="button" data-action="resume-active">Resume active session</button>
+            <button class="button secondary" type="button" data-action="park-session">Park current session</button>
+          </div>
+        </article>
+
+        <div class="curriculum-tools" aria-label="Curriculum filters">
+          <label class="search-box">
+            <span>Search patterns</span>
+            <input id="patternSearch" type="search" placeholder="Chest pain, asthma, capacity..." autocomplete="off" />
+          </label>
+          <div class="phase-filter" role="group" aria-label="Filter by phase">
+            <button class="filter-chip is-active" type="button" data-phase-filter="all">All</button>
+            <button class="filter-chip" type="button" data-phase-filter="1">Phase 1</button>
+            <button class="filter-chip" type="button" data-phase-filter="2">Phase 2</button>
+            <button class="filter-chip" type="button" data-phase-filter="3">Phase 3</button>
+            <button class="filter-chip" type="button" data-phase-filter="4">Phase 4</button>
+          </div>
+        </div>
+
+        <div id="patternGrid" class="pattern-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="progress" class="screen" data-screen="progress" aria-labelledby="progress-title">
+        <div class="section-header compact">
           <p class="eyebrow">Progress</p>
-          <h2>Quiet Tracking</h2>
-          <p>Status without gamification or distraction.</p>
+          <h2 id="progress-title">Progress Memory</h2>
+          <p>Quiet tracking of sessions, repairs, and pattern status.</p>
         </div>
 
-        <div class="phase-grid">
-          <article class="phase-card active-phase">
-            <h3>Phase 1</h3>
-            <p>Catastrophic Control</p>
-            <strong>0 / 12 patterns</strong>
-          </article>
-          <article class="phase-card">
-            <h3>Phase 2</h3>
-            <p>Differentiation Control</p>
-            <strong>0 / 10 patterns</strong>
-          </article>
-          <article class="phase-card">
-            <h3>Phase 3</h3>
-            <p>System Depth</p>
-            <strong>0 / 10 patterns</strong>
-          </article>
-          <article class="phase-card">
-            <h3>Phase 4</h3>
-            <p>High Communication</p>
-            <strong>0 / 8 patterns</strong>
-          </article>
-        </div>
-      </section>
-
-      <section id="coverage" class="page-section">
-        <div class="section-header">
-          <p class="eyebrow">Coverage</p>
-          <h2>Coverage Check</h2>
-          <p>Coverage is an audit after the case ladder, not a pre-reading task.</p>
-        </div>
-
-        <article class="content-card muted-card">
-          <p class="status-label">Locked</p>
-          <h3>Coverage Check opens after Pattern Ready?</h3>
-          <div class="coverage-columns">
-            <div>
-              <h4>Covered</h4>
-              <p class="quiet">No covered items yet.</p>
+        <div class="progress-layout">
+          <article class="content-card" aria-labelledby="active-session-title">
+            <div class="card-topline">
+              <p class="status-label">Active Session</p>
+              <span id="activeSessionStatus" class="small-pill">In Progress</span>
             </div>
-            <div>
-              <h4>Still to cover</h4>
-              <p class="quiet">Available after cases are completed.</p>
+            <h3 id="active-session-title">Current saved position</h3>
+            <p id="activeSessionText" class="quiet">Phase 1 · Pattern 1 · Start Here</p>
+            <div class="button-row">
+              <button class="button primary" type="button" data-action="resume-active">Resume</button>
+              <button class="button secondary" type="button" data-action="export-progress">Export progress</button>
             </div>
+          </article>
+
+          <article class="content-card" aria-labelledby="weakness-title">
+            <div class="card-topline">
+              <p class="status-label">Weakness Flags</p>
+              <span id="weaknessCount" class="small-pill">0 active</span>
+            </div>
+            <h3 id="weakness-title">Repair status</h3>
+            <div id="weaknessList" class="quiet">No active repairs.</div>
+          </article>
+        </div>
+
+        <div id="phaseProgress" class="phase-grid"></div>
+
+        <article class="content-card" aria-labelledby="recent-title">
+          <div class="card-topline">
+            <p class="status-label">Recent</p>
+            <span class="small-pill">Saved locally</span>
           </div>
+          <h3 id="recent-title">Recent pattern activity</h3>
+          <div id="recentActivity" class="activity-list">No activity yet.</div>
         </article>
       </section>
 
-      <section id="library" class="page-section">
-        <div class="section-header">
+      <section id="library" class="screen" data-screen="library" aria-labelledby="library-title">
+        <div class="section-header compact">
           <p class="eyebrow">Library</p>
-          <h2>Hidden Support</h2>
-          <p>Deep material is opened by need, not shown before the first case.</p>
+          <h2 id="library-title">Need Help?</h2>
+          <p>Deep material stays behind need-based doors. It does not block the case.</p>
         </div>
 
         <div class="door-grid">
-          <button type="button" class="door-card">I do not understand the pattern</button>
-          <button type="button" class="door-card">I keep missing traps</button>
-          <button type="button" class="door-card">I want to know what the examiner wants</button>
-          <button type="button" class="door-card">I need speaking practice</button>
-          <button type="button" class="door-card">I need a visual overview</button>
-          <button type="button" class="door-card">I need to warm up before a case</button>
-          <button type="button" class="door-card">I need source confirmation</button>
+          <button class="door-card" type="button" data-door="architecture">
+            <strong>I do not understand the pattern</strong>
+            <span>Pattern Architecture</span>
+          </button>
+          <button class="door-card" type="button" data-door="failure">
+            <strong>I keep missing traps</strong>
+            <span>Failure Modes</span>
+          </button>
+          <button class="door-card" type="button" data-door="examiner">
+            <strong>I want to know what the examiner wants</strong>
+            <span>Examiner Mind</span>
+          </button>
+          <button class="door-card" type="button" data-door="drill">
+            <strong>I need speaking practice</strong>
+            <span>Drill Pack</span>
+          </button>
+          <button class="door-card" type="button" data-door="map">
+            <strong>I need a visual overview</strong>
+            <span>Pattern Map</span>
+          </button>
+          <button class="door-card" type="button" data-door="sources">
+            <strong>I need source confirmation</strong>
+            <span>Sources</span>
+          </button>
         </div>
+
+        <article id="libraryPanel" class="content-card is-hidden" aria-labelledby="library-panel-title">
+          <div class="card-topline">
+            <p class="status-label">Library Door</p>
+            <span class="small-pill">Return path active</span>
+          </div>
+          <h3 id="library-panel-title">[Selected support]</h3>
+          <p class="quiet">Paste approved support content here without rewriting it.</p>
+          <div class="button-row">
+            <button class="button primary" type="button" data-action="resume-active">Return to current case</button>
+          </div>
+        </article>
       </section>
 
-      <section id="settings" class="page-section">
-        <div class="section-header">
+      <section id="settings" class="screen" data-screen="settings" aria-labelledby="settings-title">
+        <div class="section-header compact">
           <p class="eyebrow">Settings</p>
-          <h2>Display Controls</h2>
-          <p>Controls for attention, readability, and print use.</p>
+          <h2 id="settings-title">Display and Recovery</h2>
+          <p>Accessibility controls and progress recovery.</p>
         </div>
 
-        <article class="content-card">
+        <article class="content-card settings-card">
+          <h3>Display</h3>
           <div class="settings-grid">
-            <button class="button secondary" type="button" data-font="larger">Larger Text</button>
-            <button class="button secondary" type="button" data-font="normal">Normal Text</button>
-            <button class="button secondary" type="button" data-contrast>High Contrast</button>
-            <button class="button secondary" type="button" data-motion>Reduced Motion</button>
-            <button class="button secondary" type="button" onclick="window.print()">Print Page</button>
+            <button class="button secondary" type="button" data-action="toggle-font">Toggle larger text</button>
+            <button class="button secondary" type="button" data-action="toggle-contrast">Toggle high contrast</button>
+            <button class="button secondary" type="button" data-action="toggle-motion">Toggle reduced motion</button>
+            <button class="button secondary" type="button" data-action="print-page">Print current page</button>
+          </div>
+        </article>
+
+        <article class="content-card settings-card danger-zone">
+          <h3>Progress controls</h3>
+          <p class="quiet">Progress is stored in this browser. Export before resetting or changing devices.</p>
+          <div class="button-row">
+            <button class="button secondary" type="button" data-action="export-progress">Export progress</button>
+            <button class="button danger" type="button" data-action="reset-progress">Reset local progress</button>
           </div>
         </article>
       </section>
@@ -283,68 +293,539 @@
   </div>
 
   <nav class="bottom-nav" aria-label="Mobile navigation">
-    <a href="#today">Today</a>
-    <a href="#cases">Cases</a>
-    <a href="#repair">Repair</a>
-    <a href="#progress">Progress</a>
-    <a href="#library">More</a>
+    <button class="bottom-link is-active" type="button" data-screen-target="today">Today</button>
+    <button class="bottom-link" type="button" data-screen-target="curriculum">Curriculum</button>
+    <button class="bottom-link" type="button" data-screen-target="progress">Progress</button>
+    <button class="bottom-link" type="button" data-screen-target="library">Library</button>
+    <button class="bottom-link" type="button" data-screen-target="settings">Settings</button>
   </nav>
 
-  <script>
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.page-section');
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    function setActiveNav() {
-      let activeId = 'today';
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= 160 && rect.bottom >= 160) activeId = section.id;
-      });
-      navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
-      });
+  <script>
+    const patterns = [
+      {id:1, phase:1, phaseName:'Catastrophic Control', name:'Dangerous Chest Pain'},
+      {id:2, phase:1, phaseName:'Catastrophic Control', name:'Acute Shortness of Breath'},
+      {id:3, phase:1, phaseName:'Catastrophic Control', name:'Sudden Neurological Deficit'},
+      {id:4, phase:1, phaseName:'Catastrophic Control', name:'Sepsis Pattern'},
+      {id:5, phase:1, phaseName:'Catastrophic Control', name:'Shock Pattern'},
+      {id:6, phase:1, phaseName:'Catastrophic Control', name:'Unstable Gastrointestinal Bleed'},
+      {id:7, phase:1, phaseName:'Catastrophic Control', name:'Metabolic Collapse'},
+      {id:8, phase:1, phaseName:'Catastrophic Control', name:'Cardiac Syncope'},
+      {id:9, phase:1, phaseName:'Catastrophic Control', name:'Acute Severe Abdominal Pain with Instability'},
+      {id:10, phase:1, phaseName:'Catastrophic Control', name:'Obstetric Catastrophe'},
+      {id:11, phase:1, phaseName:'Catastrophic Control', name:'Paediatric Acute Deterioration'},
+      {id:12, phase:1, phaseName:'Catastrophic Control', name:'Toxicological Emergency'},
+      {id:13, phase:2, phaseName:'Differentiation Control', name:'Stable Chest Pain versus Unstable Chest Pain'},
+      {id:14, phase:2, phaseName:'Differentiation Control', name:'COPD versus Asthma versus Pneumonia'},
+      {id:15, phase:2, phaseName:'Differentiation Control', name:'Peripheral Vertigo versus Central Vertigo'},
+      {id:16, phase:2, phaseName:'Differentiation Control', name:'Migraine versus Subarachnoid Haemorrhage'},
+      {id:17, phase:2, phaseName:'Differentiation Control', name:'Reflux versus Cardiac Chest Pain'},
+      {id:18, phase:2, phaseName:'Differentiation Control', name:'Vasovagal Syncope versus Cardiac Syncope'},
+      {id:19, phase:2, phaseName:'Differentiation Control', name:'Red Leg Pattern'},
+      {id:20, phase:2, phaseName:'Differentiation Control', name:'Delirium versus Dementia versus Depression'},
+      {id:21, phase:2, phaseName:'Differentiation Control', name:'Anaemia Interpretation'},
+      {id:22, phase:2, phaseName:'Differentiation Control', name:'Acute Abdomen Localisation'},
+      {id:23, phase:3, phaseName:'System Depth', name:'Right Upper Quadrant Pain'},
+      {id:24, phase:3, phaseName:'System Depth', name:'Left Iliac Fossa Pain'},
+      {id:25, phase:3, phaseName:'System Depth', name:'Dysmenorrhoea'},
+      {id:26, phase:3, phaseName:'System Depth', name:'Amenorrhoea'},
+      {id:27, phase:3, phaseName:'System Depth', name:'Mastalgia'},
+      {id:28, phase:3, phaseName:'System Depth', name:'Breast Lump'},
+      {id:29, phase:3, phaseName:'System Depth', name:'Knee Swelling'},
+      {id:30, phase:3, phaseName:'System Depth', name:'Thyroid Disorder'},
+      {id:31, phase:3, phaseName:'System Depth', name:'Diabetes Review'},
+      {id:32, phase:3, phaseName:'System Depth', name:'Hypertension Counselling'},
+      {id:33, phase:4, phaseName:'High Communication', name:'Breaking Bad News'},
+      {id:34, phase:4, phaseName:'High Communication', name:'Palliative Care Discussion'},
+      {id:35, phase:4, phaseName:'High Communication', name:'Do Not Resuscitate Discussion'},
+      {id:36, phase:4, phaseName:'High Communication', name:'Domestic Violence Safety Assessment'},
+      {id:37, phase:4, phaseName:'High Communication', name:'Sexual Health Counselling'},
+      {id:38, phase:4, phaseName:'High Communication', name:'Postpartum Psychosis Risk'},
+      {id:39, phase:4, phaseName:'High Communication', name:'Capacity Assessment'},
+      {id:40, phase:4, phaseName:'High Communication', name:'Suicidal Ideation Risk Assessment'}
+    ];
+
+    const steps = [
+      {name:'Start Here', purpose:'Orient before Case 1 without turning the page into a topic lesson.', body:'start'},
+      {name:'The Station', purpose:'See the station you are entering.', body:'station'},
+      {name:'Quick Plan', purpose:'Build the two minute plan before speaking.', body:'quickPlan'},
+      {name:'Your Consultation', purpose:'Practise what to say in the exam.', body:'consultation'},
+      {name:'Key Lines', purpose:'Lock the must-say lines.', body:'keyLines'},
+      {name:'Quick Practice', purpose:'Repeat the trigger, differential, and first action.', body:'practice'},
+      {name:'Complete Station', purpose:'Speak the full station without stopping.', body:'complete'},
+      {name:'Ready?', purpose:'Check whether to continue or repair one weakness.', body:'ready'}
+    ];
+
+    const failurePriority = [
+      'Passed',
+      'Missed diagnosis',
+      'Missed dangerous differential',
+      'Missed Decision Point',
+      'Missed first action',
+      'Missed escalation',
+      'Missed medication safety',
+      'Used technical language',
+      'Ran over time',
+      'Other'
+    ];
+
+    const STORAGE_KEY = 'amcClinicalCockpit.v3.2';
+    const defaultState = {
+      currentPattern: 1,
+      activeScreen: 'today',
+      sessions: {
+        '1': {
+          status: 'In Progress',
+          currentStepIndex: 0,
+          completedSteps: [],
+          failure: null,
+          repaired: false,
+          ready: null,
+          lastTouched: null,
+          parked: false
+        }
+      },
+      settings: {
+        largerText: false,
+        highContrast: false,
+        reducedMotion: false
+      }
+    };
+
+    let state = loadState();
+    let activePhaseFilter = 'all';
+
+    function clone(value) {
+      return JSON.parse(JSON.stringify(value));
     }
 
-    window.addEventListener('scroll', setActiveNav, { passive: true });
-    setActiveNav();
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return clone(defaultState);
+        const parsed = JSON.parse(saved);
+        return Object.assign(clone(defaultState), parsed, {
+          sessions: Object.assign({}, defaultState.sessions, parsed.sessions || {}),
+          settings: Object.assign({}, defaultState.settings, parsed.settings || {})
+        });
+      } catch (error) {
+        return clone(defaultState);
+      }
+    }
 
-    document.querySelectorAll('[data-copy]').forEach(button => {
-      button.addEventListener('click', async () => {
-        const target = document.querySelector(button.dataset.copy);
-        if (!target) return;
-        const text = target.innerText.trim();
-        try {
-          await navigator.clipboard.writeText(text);
-          button.textContent = 'Copied';
-          setTimeout(() => button.textContent = 'Copy Current Task', 1400);
-        } catch (error) {
-          button.textContent = 'Copy unavailable';
-          setTimeout(() => button.textContent = 'Copy Current Task', 1400);
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function patternById(id) {
+      return patterns.find(pattern => pattern.id === Number(id)) || patterns[0];
+    }
+
+    function currentSession() {
+      const key = String(state.currentPattern);
+      if (!state.sessions[key]) {
+        state.sessions[key] = {
+          status: 'In Progress',
+          currentStepIndex: 0,
+          completedSteps: [],
+          failure: null,
+          repaired: false,
+          ready: null,
+          lastTouched: new Date().toISOString(),
+          parked: false
+        };
+      }
+      return state.sessions[key];
+    }
+
+    function touchSession() {
+      const session = currentSession();
+      session.lastTouched = new Date().toISOString();
+      saveState();
+    }
+
+    function applySettings() {
+      document.body.classList.toggle('larger-text', !!state.settings.largerText);
+      document.body.classList.toggle('high-contrast', !!state.settings.highContrast);
+      document.body.classList.toggle('reduced-motion', !!state.settings.reducedMotion);
+    }
+
+    function showScreen(screenName) {
+      state.activeScreen = screenName;
+      saveState();
+      document.querySelectorAll('[data-screen]').forEach(screen => {
+        screen.classList.toggle('is-active', screen.dataset.screen === screenName);
+      });
+      document.querySelectorAll('[data-screen-target]').forEach(control => {
+        control.classList.toggle('is-active', control.dataset.screenTarget === screenName);
+      });
+      renderAll();
+      window.scrollTo({ top: 0, behavior: state.settings.reducedMotion ? 'auto' : 'smooth' });
+      document.getElementById('main').focus({ preventScroll: true });
+    }
+
+    function renderAll() {
+      renderThread();
+      renderToday();
+      renderCurriculum();
+      renderProgress();
+      applySettings();
+    }
+
+    function renderThread() {
+      const pattern = patternById(state.currentPattern);
+      const session = currentSession();
+      const step = steps[session.currentStepIndex] || steps[0];
+      document.getElementById('threadPath').textContent = `Phase ${pattern.phase} › Pattern ${pattern.id} › ${step.name}`;
+      document.getElementById('threadNext').textContent = session.failure ? 'Repair one weakness' : nextActionLabel(step.name);
+    }
+
+    function nextActionLabel(stepName) {
+      if (stepName === 'Start Here') return 'Start Case';
+      if (stepName === 'Complete Station') return 'Speak full station';
+      if (stepName === 'Ready?') return 'Check readiness';
+      return 'Continue';
+    }
+
+    function renderToday() {
+      const pattern = patternById(state.currentPattern);
+      const session = currentSession();
+      const step = steps[session.currentStepIndex] || steps[0];
+      const completedCount = new Set(session.completedSteps || []).size;
+
+      document.getElementById('sessionStatus').textContent = session.status || 'In Progress';
+      document.getElementById('mission-title').textContent = `Phase ${pattern.phase} · ${pattern.phaseName}`;
+      document.getElementById('missionPattern').textContent = `Pattern ${pattern.id} · ${pattern.name}`;
+      document.getElementById('missionTask').textContent = `Current task · ${step.name}`;
+      document.getElementById('stepCount').textContent = `${completedCount}/${steps.length}`;
+      document.getElementById('focusKicker').textContent = step.name;
+      document.getElementById('focusPill').textContent = `Step ${session.currentStepIndex + 1} of ${steps.length}`;
+      document.getElementById('focus-title').textContent = step.name;
+      document.getElementById('focusPurpose').textContent = step.purpose;
+      document.getElementById('focusBody').innerHTML = bodyForStep(step.body, pattern);
+      document.getElementById('continueBtn').textContent = session.failure ? 'Open Repair' : nextActionLabel(step.name);
+      document.getElementById('markDoneBtn').textContent = step.name === 'Ready?' ? 'Submit Ready?' : 'Mark done and continue';
+
+      const repairFocus = document.getElementById('repairFocus');
+      repairFocus.classList.toggle('is-hidden', !session.failure);
+      if (session.failure) {
+        document.getElementById('repairFailure').textContent = session.failure;
+      }
+
+      renderStepStrip();
+    }
+
+    function bodyForStep(type, pattern) {
+      const patternLine = `<p><strong>Pattern:</strong> ${pattern.name}</p>`;
+      const slots = {
+        start: `
+          <div class="slot-grid">
+            <div class="slot-card"><h4>1. Pattern Name</h4><p>${pattern.name}</p></div>
+            <div class="slot-card"><h4>2. What This Pattern Is Testing</h4><p>[Approved content]</p></div>
+            <div class="slot-card"><h4>3. Station Type</h4><p>[Approved content]</p></div>
+            <div class="slot-card"><h4>4. Focus Here</h4><p>[Approved content]</p></div>
+            <div class="slot-card"><h4>5. What Can Kill</h4><p>[Approved content]</p></div>
+            <div class="slot-card"><h4>6. Fast Trigger</h4><p>[Approved content]</p></div>
+            <div class="slot-card"><h4>7. First Action</h4><p>[Approved content]</p></div>
+            <div class="slot-card"><h4>8. Must Not Do</h4><p>[Approved content]</p></div>
+            <div class="slot-card wide"><h4>9. One Sentence to Remember</h4><p>[Approved content]</p></div>
+          </div>
+          <details class="foldout"><summary>Pre-Case Warm-Up</summary><div class="warmup-block"><p><strong>Setting:</strong> This is a ______ setting.</p><p><strong>Station type:</strong> This is a ______ station.</p><p><strong>Immediate threats:</strong> ______, ______, ______, ______.</p><p><strong>First action:</strong> Check ______ and ______.</p><p><strong>Then arrange:</strong> ______.</p><p><strong>Trap today:</strong> ______.</p><p><strong>Must-pass line:</strong> ______.</p></div></details>`,
+        station: `<div class="slot-card wide"><h4>The Station</h4>${patternLine}<p>[Approved station stem]</p><p>[Approved tasks]</p><p>[Approved time limit]</p></div>`,
+        quickPlan: `<div class="slot-card wide"><h4>Quick Plan</h4><p>[Approved Two Minute Reading Map]</p><p><strong>Do not browse:</strong> read the plan, then speak.</p></div>`,
+        consultation: `<div class="slot-card wide"><h4>Your Consultation</h4><p>[Approved Spoken Script]</p><p class="quiet">This is the main spoken consultation block.</p></div>`,
+        keyLines: `<div class="slot-card wide"><h4>Key Lines</h4><p>[Approved Must-Pass Lines]</p><p class="quiet">Maximum 6 essential lines.</p></div>`,
+        practice: `<div class="slot-card wide"><h4>Quick Practice</h4><p>[Approved Mastery Drill]</p><ul><li>Thirty Second Compression</li><li>Ten Second Trigger Rule</li><li>Differential Ranking</li><li>First Action Rule</li></ul></div>`,
+        complete: `<div class="slot-card wide focus-run"><h4>Complete Station</h4><p>[Approved Full Uninterrupted Run Through]</p><p class="timer-note">Speak for 3 to 4 minutes. Do not edit while speaking.</p><button class="button secondary" type="button" data-action="start-sprint">Start 4 minute speaking sprint</button></div>`,
+        ready: `<form id="readyForm" class="ready-form"><fieldset><legend>Ready?</legend>${failurePriority.map((item, index) => `<label><input type="radio" name="ready" value="${item}" ${index === 0 ? 'checked' : ''}/> ${item}</label>`).join('')}</fieldset><p class="quiet">Passed continues. Any failure opens one matching Repair Card.</p></form>`
+      };
+      return slots[type] || slots.start;
+    }
+
+    function renderStepStrip() {
+      const session = currentSession();
+      const completed = new Set(session.completedSteps || []);
+      const strip = document.getElementById('stepStrip');
+      strip.innerHTML = steps.map((step, index) => {
+        const status = completed.has(index) ? 'done' : index === session.currentStepIndex ? 'current' : 'future';
+        return `<button type="button" class="step-dot ${status}" data-step-index="${index}" aria-label="Go to ${step.name}"><span>${index + 1}</span><small>${step.name}</small></button>`;
+      }).join('');
+    }
+
+    function renderCurriculum() {
+      const searchValue = (document.getElementById('patternSearch')?.value || '').toLowerCase();
+      const grid = document.getElementById('patternGrid');
+      if (!grid) return;
+      const filtered = patterns.filter(pattern => {
+        const phaseMatch = activePhaseFilter === 'all' || String(pattern.phase) === String(activePhaseFilter);
+        const searchMatch = !searchValue || `${pattern.name} ${pattern.phaseName} ${pattern.id}`.toLowerCase().includes(searchValue);
+        return phaseMatch && searchMatch;
+      });
+      grid.innerHTML = filtered.map(pattern => {
+        const session = state.sessions[String(pattern.id)];
+        const status = session?.parked ? 'Parked' : (session?.status || 'Not Started');
+        const current = Number(state.currentPattern) === pattern.id;
+        const lastTouched = session?.lastTouched ? formatDate(session.lastTouched) : 'No activity';
+        return `<article class="pattern-card ${current ? 'is-current' : ''}">
+          <div class="card-topline"><p class="status-label">Pattern ${pattern.id}</p><span class="small-pill">${status}</span></div>
+          <h3>${pattern.name}</h3>
+          <p>Phase ${pattern.phase} · ${pattern.phaseName}</p>
+          <p class="quiet">${lastTouched}</p>
+          <button class="button ${current ? 'primary' : 'secondary'}" type="button" data-pattern-select="${pattern.id}">${current ? 'Resume this pattern' : 'Study this pattern'}</button>
+        </article>`;
+      }).join('') || '<p class="quiet">No patterns match this search.</p>';
+    }
+
+    function renderProgress() {
+      const pattern = patternById(state.currentPattern);
+      const session = currentSession();
+      const step = steps[session.currentStepIndex] || steps[0];
+      document.getElementById('activeSessionStatus').textContent = session.parked ? 'Parked' : (session.status || 'In Progress');
+      document.getElementById('activeSessionText').textContent = `Phase ${pattern.phase} · Pattern ${pattern.id} · ${pattern.name} · ${step.name}`;
+
+      const activeRepairs = Object.entries(state.sessions).filter(([, value]) => value.failure);
+      document.getElementById('weaknessCount').textContent = `${activeRepairs.length} active`;
+      document.getElementById('weaknessList').innerHTML = activeRepairs.length ? activeRepairs.map(([id, value]) => {
+        const p = patternById(id);
+        return `<div class="activity-item"><strong>Pattern ${p.id}: ${p.name}</strong><span>${value.failure}</span></div>`;
+      }).join('') : 'No active repairs.';
+
+      const phaseCounts = [1, 2, 3, 4].map(phase => {
+        const phasePatterns = patterns.filter(pattern => pattern.phase === phase);
+        const active = phasePatterns.filter(pattern => state.sessions[String(pattern.id)]).length;
+        const complete = phasePatterns.filter(pattern => state.sessions[String(pattern.id)]?.status === 'Complete').length;
+        return { phase, name: phasePatterns[0].phaseName, total: phasePatterns.length, active, complete };
+      });
+      document.getElementById('phaseProgress').innerHTML = phaseCounts.map(item => {
+        const percent = Math.round((item.active / item.total) * 100);
+        return `<article class="phase-card ${item.phase === pattern.phase ? 'active-phase' : ''}"><h3>Phase ${item.phase}</h3><p>${item.name}</p><strong>${item.active} / ${item.total} started</strong><div class="mini-bar"><span style="width:${percent}%"></span></div></article>`;
+      }).join('');
+
+      const recent = Object.entries(state.sessions)
+        .filter(([, value]) => value.lastTouched)
+        .sort((a, b) => new Date(b[1].lastTouched) - new Date(a[1].lastTouched))
+        .slice(0, 8);
+      document.getElementById('recentActivity').innerHTML = recent.length ? recent.map(([id, value]) => {
+        const p = patternById(id);
+        const currentStep = steps[value.currentStepIndex]?.name || 'Start Here';
+        return `<div class="activity-item"><strong>Pattern ${p.id}: ${p.name}</strong><span>${value.status} · ${currentStep} · ${formatDate(value.lastTouched)}</span></div>`;
+      }).join('') : 'No activity yet.';
+    }
+
+    function formatDate(value) {
+      try {
+        return new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(value));
+      } catch (error) {
+        return 'Saved';
+      }
+    }
+
+    function markStepDone() {
+      const session = currentSession();
+      const index = session.currentStepIndex;
+      const step = steps[index];
+      if (step.name === 'Ready?') {
+        submitReady();
+        return;
+      }
+      if (!session.completedSteps.includes(index)) session.completedSteps.push(index);
+      session.status = 'In Progress';
+      session.parked = false;
+      if (index < steps.length - 1) session.currentStepIndex += 1;
+      touchSession();
+      toast(`${step.name} saved. Next step opened.`);
+      renderAll();
+    }
+
+    function submitReady() {
+      const selected = document.querySelector('input[name="ready"]:checked')?.value || 'Passed';
+      const session = currentSession();
+      if (!session.completedSteps.includes(7)) session.completedSteps.push(7);
+      session.ready = selected;
+      session.lastTouched = new Date().toISOString();
+      if (selected === 'Passed') {
+        session.failure = null;
+        session.repaired = false;
+        session.status = 'Case Completed';
+        toast('Ready? passed. Case saved.');
+      } else {
+        session.failure = selected;
+        session.repaired = false;
+        session.status = 'Repair Needed';
+        toast('Repair Focus opened. One weakness only.');
+      }
+      saveState();
+      renderAll();
+    }
+
+    function previousStep() {
+      const session = currentSession();
+      if (session.currentStepIndex > 0) {
+        session.currentStepIndex -= 1;
+        touchSession();
+        renderAll();
+      }
+    }
+
+    function continueAction() {
+      const session = currentSession();
+      if (session.failure) {
+        document.getElementById('repairFocus').scrollIntoView({ behavior: state.settings.reducedMotion ? 'auto' : 'smooth', block: 'start' });
+        return;
+      }
+      if (session.currentStepIndex < steps.length - 1) {
+        markStepDone();
+      } else {
+        showScreen('progress');
+      }
+    }
+
+    function switchPattern(patternId) {
+      const current = currentSession();
+      current.parked = true;
+      current.lastTouched = new Date().toISOString();
+      state.currentPattern = Number(patternId);
+      const next = currentSession();
+      next.parked = false;
+      next.status = next.status || 'In Progress';
+      next.lastTouched = new Date().toISOString();
+      saveState();
+      renderAll();
+      showScreen('today');
+      toast(`Pattern ${patternId} opened. Previous session saved.`);
+    }
+
+    function parkSession() {
+      const session = currentSession();
+      session.parked = true;
+      session.lastTouched = new Date().toISOString();
+      saveState();
+      renderAll();
+      showScreen('curriculum');
+      toast('Session parked. Choose a topic or resume later.');
+    }
+
+    function openCurriculumSafely() {
+      const session = currentSession();
+      session.parked = true;
+      session.lastTouched = new Date().toISOString();
+      saveState();
+      renderAll();
+      showScreen('curriculum');
+      toast('Session saved. Choose another topic when ready.');
+    }
+
+    function resumeActive() {
+      const session = currentSession();
+      session.parked = false;
+      session.status = session.status || 'In Progress';
+      session.lastTouched = new Date().toISOString();
+      saveState();
+      renderAll();
+      showScreen('today');
+      toast('Active session resumed.');
+    }
+
+    function markRepaired() {
+      const session = currentSession();
+      session.failure = null;
+      session.repaired = true;
+      session.status = 'Repaired';
+      session.currentStepIndex = 6;
+      touchSession();
+      renderAll();
+      toast('Repair marked. Return to Complete Station.');
+      document.getElementById('today').scrollIntoView({ behavior: state.settings.reducedMotion ? 'auto' : 'smooth' });
+    }
+
+    function exportProgress() {
+      const payload = JSON.stringify(state, null, 2);
+      const blob = new Blob([payload], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'amc-clinical-cockpit-progress.json';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      toast('Progress exported.');
+    }
+
+    function toast(message) {
+      const node = document.getElementById('toast');
+      node.textContent = message;
+      node.classList.add('is-visible');
+      window.clearTimeout(toast.timeout);
+      toast.timeout = window.setTimeout(() => node.classList.remove('is-visible'), 2600);
+    }
+
+    document.addEventListener('click', event => {
+      const screenTarget = event.target.closest('[data-screen-target]');
+      if (screenTarget) showScreen(screenTarget.dataset.screenTarget);
+
+      const patternSelect = event.target.closest('[data-pattern-select]');
+      if (patternSelect) switchPattern(patternSelect.dataset.patternSelect);
+
+      const stepSelect = event.target.closest('[data-step-index]');
+      if (stepSelect) {
+        const session = currentSession();
+        session.currentStepIndex = Number(stepSelect.dataset.stepIndex);
+        touchSession();
+        renderAll();
+      }
+
+      const actionButton = event.target.closest('[data-action]');
+      if (!actionButton) return;
+      const action = actionButton.dataset.action;
+      if (action === 'continue') continueAction();
+      if (action === 'mark-step-done') markStepDone();
+      if (action === 'previous-step') previousStep();
+      if (action === 'open-curriculum') openCurriculumSafely();
+      if (action === 'park-session') parkSession();
+      if (action === 'resume-active') resumeActive();
+      if (action === 'refocus') { showScreen('today'); toast('Refocused on the current card.'); }
+      if (action === 'mark-repaired') markRepaired();
+      if (action === 'repeat-section') { currentSession().currentStepIndex = 6; touchSession(); renderAll(); toast('Complete Station reopened.'); }
+      if (action === 'export-progress') exportProgress();
+      if (action === 'toggle-font') { state.settings.largerText = !state.settings.largerText; saveState(); applySettings(); }
+      if (action === 'toggle-contrast') { state.settings.highContrast = !state.settings.highContrast; saveState(); applySettings(); }
+      if (action === 'toggle-motion') { state.settings.reducedMotion = !state.settings.reducedMotion; saveState(); applySettings(); }
+      if (action === 'print-page') window.print();
+      if (action === 'start-sprint') toast('Sprint started. Speak the full station now.');
+      if (action === 'reset-progress') {
+        if (window.confirm('Reset local progress for this browser?')) {
+          localStorage.removeItem(STORAGE_KEY);
+          state = clone(defaultState);
+          renderAll();
+          showScreen('today');
+          toast('Progress reset.');
         }
-      });
+      }
     });
 
-    document.querySelectorAll('[data-font]').forEach(button => {
+    document.querySelectorAll('[data-phase-filter]').forEach(button => {
       button.addEventListener('click', () => {
-        document.body.dataset.font = button.dataset.font;
-        localStorage.setItem('amcFont', button.dataset.font);
+        activePhaseFilter = button.dataset.phaseFilter;
+        document.querySelectorAll('[data-phase-filter]').forEach(item => item.classList.toggle('is-active', item === button));
+        renderCurriculum();
       });
     });
 
-    document.querySelector('[data-contrast]')?.addEventListener('click', () => {
-      document.body.classList.toggle('high-contrast');
-      localStorage.setItem('amcContrast', document.body.classList.contains('high-contrast') ? 'on' : 'off');
+    document.getElementById('patternSearch').addEventListener('input', renderCurriculum);
+
+    document.querySelectorAll('[data-door]').forEach(button => {
+      button.addEventListener('click', () => {
+        const panel = document.getElementById('libraryPanel');
+        panel.classList.remove('is-hidden');
+        document.getElementById('library-panel-title').textContent = button.querySelector('span').textContent;
+        panel.scrollIntoView({ behavior: state.settings.reducedMotion ? 'auto' : 'smooth' });
+      });
     });
 
-    document.querySelector('[data-motion]')?.addEventListener('click', () => {
-      document.body.classList.toggle('reduced-motion');
-      localStorage.setItem('amcMotion', document.body.classList.contains('reduced-motion') ? 'on' : 'off');
-    });
-
-    const savedFont = localStorage.getItem('amcFont');
-    if (savedFont) document.body.dataset.font = savedFont;
-    if (localStorage.getItem('amcContrast') === 'on') document.body.classList.add('high-contrast');
-    if (localStorage.getItem('amcMotion') === 'on') document.body.classList.add('reduced-motion');
+    renderAll();
+    showScreen('today');
   </script>
 </body>
 </html>

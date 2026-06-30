@@ -19,22 +19,25 @@
       --green: #027A48;
       --amber: #B54708;
       --red: #B42318;
-      --grey: #667085;
 
       --soft-blue: #EAF2FF;
       --soft-teal: #E6F4F1;
       --soft-green: #E6F4EA;
       --soft-amber: #FFF4E5;
       --soft-red: #FEE4E2;
-      --soft-grey: #F2F4F7;
 
       --shadow: 0 10px 26px rgba(16, 24, 40, 0.055);
+      --shadow-hover: 0 14px 32px rgba(16, 24, 40, 0.085);
       --radius: 22px;
       --max: 1040px;
     }
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -107,8 +110,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      min-height: 42px;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.88);
       color: var(--navy);
       border-radius: 999px;
       padding: 10px 15px;
@@ -126,11 +130,11 @@
     }
 
     .hero {
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.96);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: calc(var(--radius) + 4px);
       box-shadow: var(--shadow);
-      padding: clamp(22px, 4vw, 36px);
+      padding: clamp(24px, 4vw, 38px);
       margin-bottom: 18px;
       position: relative;
       overflow: hidden;
@@ -158,19 +162,19 @@
 
     .hero-title {
       margin: 0;
-      font-size: clamp(34px, 6vw, 52px);
+      max-width: 800px;
+      color: var(--navy);
+      font-size: clamp(35px, 6vw, 54px);
       line-height: 1.02;
       letter-spacing: -0.045em;
       font-weight: 720;
-      color: var(--navy);
-      max-width: 800px;
     }
 
     .hero-subtitle {
       margin: 14px 0 0;
       max-width: 760px;
-      font-size: clamp(16px, 2.4vw, 19px);
       color: #475467;
+      font-size: clamp(17px, 2.4vw, 20px);
       font-weight: 500;
       line-height: 1.55;
     }
@@ -179,7 +183,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 9px;
-      margin: 20px 0 0;
+      margin: 22px 0 0;
       position: relative;
       z-index: 1;
     }
@@ -202,16 +206,16 @@
       border-color: rgba(180, 35, 24, 0.18);
     }
 
-    .pill-next {
-      color: var(--blue);
-      background: var(--soft-blue);
-      border-color: rgba(30, 90, 168, 0.18);
-    }
-
     .pill-pattern {
       color: var(--teal);
       background: var(--soft-teal);
       border-color: rgba(15, 118, 110, 0.18);
+    }
+
+    .pill-next {
+      color: var(--blue);
+      background: var(--soft-blue);
+      border-color: rgba(30, 90, 168, 0.18);
     }
 
     .grid {
@@ -219,14 +223,26 @@
       gap: 16px;
     }
 
+    .two-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
     .card {
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.96);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 20px;
+      padding: 22px;
       position: relative;
       overflow: hidden;
+      transition: box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-hover);
     }
 
     .card::before {
@@ -269,7 +285,7 @@
       margin: 0;
       color: var(--navy);
       font-size: clamp(20px, 3vw, 26px);
-      line-height: 1.2;
+      line-height: 1.24;
       font-weight: 680;
       letter-spacing: -0.025em;
     }
@@ -279,17 +295,11 @@
       color: #475467;
       font-size: 16px;
       font-weight: 500;
-      line-height: 1.55;
-    }
-
-    .two-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      line-height: 1.58;
     }
 
     .plain-list {
-      margin: 10px 0 0;
+      margin: 12px 0 0;
       padding: 0;
       list-style: none;
       display: grid;
@@ -303,7 +313,7 @@
       background: #FCFCFD;
       color: #1D2939;
       font-weight: 620;
-      line-height: 1.35;
+      line-height: 1.38;
     }
 
     .danger-list li {
@@ -316,16 +326,45 @@
       background: var(--soft-amber);
     }
 
+    .metadata-list {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .metadata-item {
+      border: 1px solid #EAECF0;
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: #FCFCFD;
+    }
+
+    .metadata-label {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 750;
+    }
+
+    .metadata-value {
+      margin: 0;
+      color: #1D2939;
+      font-weight: 620;
+      line-height: 1.38;
+    }
+
     .warmup-box {
-      margin: 10px 0 0;
+      margin: 12px 0 0;
       white-space: pre-wrap;
       border: 1px solid #EAECF0;
       border-radius: 16px;
-      padding: 14px;
+      padding: 16px;
       background: #FCFCFD;
       color: #1D2939;
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.68;
       font-family: inherit;
       font-weight: 500;
     }
@@ -363,6 +402,7 @@
       align-items: center;
       justify-content: center;
       width: fit-content;
+      min-height: 48px;
       border: 0;
       border-radius: 999px;
       padding: 13px 22px;
@@ -373,10 +413,16 @@
       cursor: pointer;
       white-space: nowrap;
       box-shadow: 0 12px 24px rgba(16, 24, 40, 0.12);
-      transition: transform 160ms ease, box-shadow 160ms ease;
+      transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
     }
 
-    .primary-action:hover {
+    .primary-action:disabled {
+      cursor: not-allowed;
+      opacity: 0.74;
+      box-shadow: none;
+    }
+
+    .primary-action:not(:disabled):hover {
       transform: translateY(-1px);
       box-shadow: 0 16px 30px rgba(16, 24, 40, 0.18);
     }
@@ -442,6 +488,8 @@
 
       .primary-action {
         width: 100%;
+        white-space: normal;
+        text-align: center;
       }
     }
   </style>
@@ -494,9 +542,16 @@
       <section class="two-grid">
         <article class="card">
           <p class="card-title">How This Pattern May Appear</p>
-          <p class="card-main">Sorting station.</p>
-          <p class="card-text">Meaning:</p>
-          <p class="card-text">Separate immediate threats from safer causes, then act according to setting.</p>
+          <p class="card-main">This pattern may appear as:</p>
+          <ul class="plain-list">
+            <li>Patient consultation</li>
+            <li>Investigation interpretation</li>
+            <li>Physical examination</li>
+            <li>Acute emergency management</li>
+            <li>Refusal or counselling conversation</li>
+          </ul>
+          <p class="card-text">You do not choose the station type.</p>
+          <p class="card-text">The case will tell you what to do.</p>
         </article>
 
         <article class="card card-teal">
@@ -563,8 +618,33 @@
         <article class="card">
           <p class="card-title">Next Case</p>
           <p class="card-main">Case 1 - Classic Chest Pain in General Practice</p>
-          <p class="card-text">Main Risk Point:</p>
-          <p class="card-text">Do not delay ambulance transfer while trying to prove the diagnosis.</p>
+
+          <div class="metadata-list">
+            <div class="metadata-item">
+              <p class="metadata-label">Clinical Variant</p>
+              <p class="metadata-value">Classic acute coronary syndrome</p>
+            </div>
+
+            <div class="metadata-item">
+              <p class="metadata-label">Station Type</p>
+              <p class="metadata-value">Patient Consultation</p>
+            </div>
+
+            <div class="metadata-item">
+              <p class="metadata-label">Task Recipient</p>
+              <p class="metadata-value">Patient</p>
+            </div>
+
+            <div class="metadata-item">
+              <p class="metadata-label">Setting</p>
+              <p class="metadata-value">General Practice</p>
+            </div>
+
+            <div class="metadata-item">
+              <p class="metadata-label">Main Risk Point</p>
+              <p class="metadata-value">Do not delay ambulance transfer while trying to prove the diagnosis.</p>
+            </div>
+          </div>
         </article>
       </section>
 
@@ -573,10 +653,10 @@
         <pre class="warmup-box">Setting:
 This is a ______ setting.
 
-Station type:
-This is a ______ station.
+Clinical danger:
+The main danger is ______.
 
-Immediate threats:
+Four causes not to miss:
 ______, ______, ______, ______.
 
 First action:
@@ -598,8 +678,8 @@ ______.</pre>
             <p class="card-main">Stop here. The next step is the first case.</p>
           </div>
 
-          <button class="primary-action" type="button" onclick="alert('Case 1 awaits transfer into the website from the Content Engine.')">
-            Continue
+          <button class="primary-action" type="button" disabled>
+            Case 1 awaiting Content Engine transfer.
           </button>
         </div>
       </article>

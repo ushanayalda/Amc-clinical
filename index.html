@@ -99,6 +99,9 @@
     }
 
     .nav-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border: 1px solid var(--border);
       background: rgba(255, 255, 255, 0.74);
       color: var(--navy);
@@ -280,6 +283,9 @@
     }
 
     .secondary-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border: 0;
       border-radius: 999px;
       padding: 13px 22px;
@@ -375,109 +381,6 @@
       font-size: 22px;
       line-height: 1;
       font-weight: 700;
-    }
-
-    .tree {
-      padding: 20px 24px 28px;
-    }
-
-    details {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: #FFFFFF;
-      margin-bottom: 12px;
-      overflow: hidden;
-    }
-
-    details[open] {
-      box-shadow: 0 8px 20px rgba(16, 24, 40, 0.05);
-    }
-
-    summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 16px 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--navy);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    summary::before {
-      content: "›";
-      display: inline-grid;
-      place-items: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      background: var(--soft-blue);
-      color: var(--blue);
-      font-size: 22px;
-      transform: rotate(0deg);
-      transition: transform 160ms ease;
-    }
-
-    details[open] > summary::before {
-      transform: rotate(90deg);
-    }
-
-    .tree-content {
-      padding: 0 18px 16px 52px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .tree-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      border: 1px solid #EAECF0;
-      background: #FCFCFD;
-      border-radius: 14px;
-      padding: 12px 14px;
-      color: var(--text);
-    }
-
-    .tree-item span {
-      font-weight: 650;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 12px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .done {
-      color: var(--green);
-      background: var(--soft-green);
-    }
-
-    .active {
-      color: var(--blue);
-      background: var(--soft-blue);
-    }
-
-    .locked {
-      color: var(--muted);
-      background: #F2F4F7;
-    }
-
-    .optional {
-      color: var(--amber);
-      background: var(--soft-amber);
     }
 
     .progress-panel {
@@ -610,15 +513,6 @@
       .primary-action {
         width: 100%;
       }
-
-      .tree-content {
-        padding-left: 16px;
-      }
-
-      .tree-item {
-        align-items: flex-start;
-        flex-direction: column;
-      }
     }
   </style>
 </head>
@@ -632,7 +526,7 @@
       </section>
 
       <nav class="nav" aria-label="Main navigation">
-        <button class="nav-button" type="button" data-open-map>Map</button>
+        <a class="nav-button" href="map.html">Map</a>
         <button class="nav-button" type="button" data-open-progress>Progress</button>
       </nav>
     </header>
@@ -691,9 +585,9 @@
           <p class="map-text">Use this after finishing modules or when revisiting a specific case.</p>
         </div>
 
-        <button class="secondary-action" type="button" data-open-map>
+        <a class="secondary-action" href="map.html">
           Open Map
-        </button>
+        </a>
       </article>
 
       <footer class="footer-card">
@@ -703,133 +597,6 @@
       </footer>
     </section>
   </main>
-
-  <section class="modal-backdrop" id="mapModal" role="dialog" aria-modal="true" aria-labelledby="mapTitle">
-    <div class="modal">
-      <header class="modal-header">
-        <div>
-          <h2 class="modal-title" id="mapTitle">Study Map</h2>
-          <p class="modal-subtitle">A visual tree for jumping back to completed or available cases.</p>
-        </div>
-        <button class="close-button" type="button" id="closeMap" aria-label="Close map">×</button>
-      </header>
-
-      <section class="tree">
-        <details open>
-          <summary>Can kill fast</summary>
-          <div class="tree-content">
-            <details open>
-              <summary>Pattern 1 · Dangerous Chest Pain</summary>
-              <div class="tree-content">
-                <div class="tree-item">
-                  <span>Before the Case</span>
-                  <span class="pill done">Done</span>
-                </div>
-                <div class="tree-item">
-                  <span>Case 1 · Classic Chest Pain in General Practice</span>
-                  <span class="pill done">Done</span>
-                </div>
-                <div class="tree-item">
-                  <span>Case 2 · Chest Pain with Recent Sildenafil Use</span>
-                  <span class="pill active">Active</span>
-                </div>
-                <div class="tree-item">
-                  <span>Case 3 · Aortic Dissection or Pulmonary Embolism Mimic</span>
-                  <span class="pill locked">Next</span>
-                </div>
-                <div class="tree-item">
-                  <span>Case 4 · Normal First ECG but Ongoing Concern</span>
-                  <span class="pill optional">Optional</span>
-                </div>
-                <div class="tree-item">
-                  <span>Case 5 · Patient Refuses Ambulance</span>
-                  <span class="pill optional">Optional</span>
-                </div>
-                <div class="tree-item">
-                  <span>Pattern Check</span>
-                  <span class="pill locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary>Pattern 2 · Acute Shortness of Breath</summary>
-              <div class="tree-content">
-                <div class="tree-item">
-                  <span>Before the Case</span>
-                  <span class="pill locked">Not started</span>
-                </div>
-                <div class="tree-item">
-                  <span>Case Ladder</span>
-                  <span class="pill locked">Not started</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary>Pattern 3 · Sudden Neurological Deficit</summary>
-              <div class="tree-content">
-                <div class="tree-item">
-                  <span>Case Ladder</span>
-                  <span class="pill locked">Not started</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary>Patterns 4 to 12</summary>
-              <div class="tree-content">
-                <div class="tree-item">
-                  <span>Sepsis, shock, GI bleed, metabolic collapse, syncope, acute abdomen, obstetric catastrophe, paediatric deterioration, toxicology</span>
-                  <span class="pill locked">Later</span>
-                </div>
-              </div>
-            </details>
-          </div>
-        </details>
-
-        <details>
-          <summary>Dangerous mimics</summary>
-          <div class="tree-content">
-            <div class="tree-item">
-              <span>Patterns 13 to 22</span>
-              <span class="pill locked">Hidden until needed</span>
-            </div>
-          </div>
-        </details>
-
-        <details>
-          <summary>Common stations</summary>
-          <div class="tree-content">
-            <div class="tree-item">
-              <span>Patterns 23 to 32</span>
-              <span class="pill locked">Hidden until needed</span>
-            </div>
-          </div>
-        </details>
-
-        <details>
-          <summary>Hard conversations</summary>
-          <div class="tree-content">
-            <div class="tree-item">
-              <span>Patterns 33 to 40</span>
-              <span class="pill locked">Hidden until needed</span>
-            </div>
-          </div>
-        </details>
-
-        <details>
-          <summary>Extra patterns</summary>
-          <div class="tree-content">
-            <div class="tree-item">
-              <span>Expansion patterns 1 to 20</span>
-              <span class="pill locked">Optional</span>
-            </div>
-          </div>
-        </details>
-      </section>
-    </div>
-  </section>
 
   <section class="modal-backdrop" id="progressModal" role="dialog" aria-modal="true" aria-labelledby="progressTitle">
     <div class="modal">
@@ -883,13 +650,8 @@
   </section>
 
   <script>
-    const mapModal = document.getElementById("mapModal");
     const progressModal = document.getElementById("progressModal");
-
-    const closeMap = document.getElementById("closeMap");
     const closeProgress = document.getElementById("closeProgress");
-
-    const openMapButtons = document.querySelectorAll("[data-open-map]");
     const openProgressButtons = document.querySelectorAll("[data-open-progress]");
 
     function openModal(modal, focusTarget) {
@@ -901,20 +663,11 @@
       modal.classList.remove("open");
     }
 
-    openMapButtons.forEach((button) => {
-      button.addEventListener("click", () => openModal(mapModal, closeMap));
-    });
-
     openProgressButtons.forEach((button) => {
       button.addEventListener("click", () => openModal(progressModal, closeProgress));
     });
 
-    closeMap.addEventListener("click", () => hideModal(mapModal));
     closeProgress.addEventListener("click", () => hideModal(progressModal));
-
-    mapModal.addEventListener("click", (event) => {
-      if (event.target === mapModal) hideModal(mapModal);
-    });
 
     progressModal.addEventListener("click", (event) => {
       if (event.target === progressModal) hideModal(progressModal);
@@ -922,7 +675,6 @@
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        hideModal(mapModal);
         hideModal(progressModal);
       }
     });

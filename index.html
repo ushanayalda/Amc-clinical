@@ -1,234 +1,350 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <!-- EDITABLE: Basic page metadata -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dr Ushana Yalda | AMC Clinical Study Dashboard</title>
-  <meta name="description" content="ADHD-friendly AMC clinical preparation dashboard.">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMC Clinical Cockpit</title>
+  <meta name="description" content="AMC Clinical Cockpit for guided case-first clinical exam preparation." />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  <a class="skip-link" href="#main-content">Skip to Study Now</a>
+  <a class="skip-link" href="#main">Skip to current task</a>
 
-  <header class="site-header">
-    <div class="page-shell header-shell">
-      <div class="brand-block" aria-label="Site identity">
-        <p class="eyebrow">Dr Ushana Yalda</p>
-        <h1>AMC Clinical Study Dashboard</h1>
-        <p class="prepared-for">Prepared for Dr Hanaa</p>
-      </div>
-
-      <div class="system-label" aria-label="Dashboard label">
-        <span>AMC Clinical</span>
-        <strong>Study Dashboard</strong>
-      </div>
+  <header class="topbar" role="banner">
+    <div class="brand-block">
+      <p class="eyebrow">Dr Ushana Yalda</p>
+      <h1>AMC Clinical Cockpit</h1>
+      <p class="subtitle">Advanced Clinical Preparation · Prepared for Dr Hanaa</p>
     </div>
+    <div class="mode-chip" aria-label="Current website mode">Execution Mode</div>
   </header>
 
-  <main id="main-content" class="page-shell site-main">
-    <section class="hero-panel" aria-labelledby="dashboard-question">
-      <p class="section-kicker">Start here</p>
-      <h2 id="dashboard-question">What do I study now?</h2>
-      <p class="hero-text">
-        One clear next step. Study the active case type first. Planning and weak-spot repair can wait.
-      </p>
-    </section>
+  <section class="threadbar" aria-label="Current thread">
+    <div>
+      <p class="thread-label">Current Thread</p>
+      <p class="thread-path">Phase 1 <span>›</span> Pattern 1 <span>›</span> Case 1</p>
+    </div>
+    <div class="thread-next">
+      <p class="thread-label">Next</p>
+      <p class="thread-action">Start Here</p>
+    </div>
+  </section>
 
-    <nav class="mode-switcher" aria-label="Study sections">
-      <button class="mode-tab is-active" type="button" data-mode-button="study" aria-controls="study-now-panel" aria-selected="true">
-        Study Now
-      </button>
-      <button class="mode-tab" type="button" data-mode-button="plan" aria-controls="plan-panel" aria-selected="false">
-        Plan
-      </button>
-      <button class="mode-tab" type="button" data-mode-button="fix" aria-controls="fix-panel" aria-selected="false">
-        Fix Weak Spots
-      </button>
-    </nav>
+  <div class="app-shell">
+    <aside class="side-nav" aria-label="Primary navigation">
+      <nav>
+        <a href="#today" class="nav-link active">Today</a>
+        <a href="#cases" class="nav-link">Cases</a>
+        <a href="#repair" class="nav-link">Repair</a>
+        <a href="#progress" class="nav-link">Progress</a>
+        <a href="#coverage" class="nav-link">Coverage</a>
+        <a href="#library" class="nav-link">Library</a>
+        <a href="#settings" class="nav-link">Settings</a>
+      </nav>
+    </aside>
 
-    <section id="study-now-panel" class="mode-panel is-active" data-mode-panel="study" aria-labelledby="study-now-title">
-      <div class="dashboard-grid">
-        <article class="mission-card" aria-labelledby="study-now-title">
-          <div class="card-header-row">
+    <main id="main" class="main-content" tabindex="-1">
+      <section id="today" class="page-section">
+        <div class="section-header">
+          <p class="eyebrow">Today</p>
+          <h2>Current Mission</h2>
+          <p>One active learning unit. One dominant next action.</p>
+        </div>
+
+        <article class="mission-card primary-card" aria-labelledby="mission-title">
+          <div class="mission-grid">
             <div>
-              <p class="section-kicker">Study now</p>
-              <h2 id="study-now-title">Continue the active study step</h2>
+              <p class="status-label">Active</p>
+              <h3 id="mission-title">Phase 1 · Catastrophic Control</h3>
+              <p class="mission-text">Pattern 1 · Dangerous Chest Pain</p>
+              <p class="mission-text">Current task · Start Here</p>
             </div>
-            <span class="status-pill status-progress">Ready</span>
+            <div class="progress-ring" aria-label="Pattern progress 0 of 5 steps complete">
+              <span>0/5</span>
+              <small>pattern steps</small>
+            </div>
           </div>
 
-          <!-- EDITABLE: Study Now block -->
-          <dl class="mission-list">
-            <div>
-              <dt>Stage</dt>
-              <dd>Stage 1 — Dangerous symptoms first</dd>
-            </div>
-            <div>
-              <dt>Case type</dt>
-              <dd>Case Type 1 — Chest Pain: Danger Check</dd>
-            </div>
-            <div>
-              <dt>Current step</dt>
-              <dd>Start Here</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd>Not started</dd>
-            </div>
-          </dl>
-
-          <a class="primary-action" href="patterns/pattern-01-dangerous-chest-pain/ignite.html">
-            CONTINUE STUDY
-          </a>
-
-          <p class="support-text">
-            Do this one step first. Do not open the plan unless you are choosing what to study next.
-          </p>
+          <div class="button-row">
+            <a class="button primary" href="#current-task">Start Current Task</a>
+            <a class="button secondary" href="#cases">View Case Ladder</a>
+          </div>
         </article>
 
-        <aside class="side-stack" aria-label="Current progress and secondary links">
-          <section class="progress-card" aria-labelledby="progress-title">
-            <h3 id="progress-title">Progress</h3>
+        <article id="current-task" class="content-card active-task" aria-labelledby="task-title">
+          <div class="card-topline">
+            <p class="status-label">Start Here</p>
+            <span class="small-pill">Visible before Case 1</span>
+          </div>
+          <h3 id="task-title">Pattern Orientation Card</h3>
+          <p class="quiet">This is the layout slot. Paste the approved Start Here content here without rewriting it.</p>
 
-            <!-- EDITABLE: Progress strip -->
-            <div class="progress-strip">
-              <div>
-                <span>Stage 1</span>
-                <strong>0 / 12 case types</strong>
-              </div>
-              <div>
-                <span>Current case type</span>
-                <strong>Chest Pain: Danger Check</strong>
-              </div>
-              <div>
-                <span>Current step</span>
-                <strong>Start Here</strong>
-              </div>
+          <div class="orientation-grid">
+            <div class="slot-card">
+              <h4>1. Pattern Name</h4>
+              <p>[Approved content]</p>
             </div>
-          </section>
-
-          <section class="secondary-card" aria-labelledby="secondary-title">
-            <h3 id="secondary-title">Other areas</h3>
-            <div class="secondary-links">
-              <a href="#plan-panel" data-mode-jump="plan">All Case Types</a>
-              <a href="#plan-panel" data-mode-jump="plan">Study Plan</a>
-              <a href="#fix-panel" data-mode-jump="fix">Fix Weak Spots</a>
-              <a href="system/manifest-v2-3.html">System Notes</a>
+            <div class="slot-card">
+              <h4>2. What This Pattern Is Testing</h4>
+              <p>[Approved content]</p>
             </div>
-          </section>
-        </aside>
-      </div>
-    </section>
-
-    <section id="plan-panel" class="mode-panel" data-mode-panel="plan" aria-labelledby="plan-title" hidden>
-      <article class="planning-card">
-        <div class="card-header-row">
-          <div>
-            <p class="section-kicker">Plan</p>
-            <h2 id="plan-title">Full study map</h2>
+            <div class="slot-card">
+              <h4>3. Station Type</h4>
+              <p>[Approved content]</p>
+            </div>
+            <div class="slot-card">
+              <h4>4. Focus Here</h4>
+              <p>[Approved content]</p>
+            </div>
+            <div class="slot-card">
+              <h4>5. What Can Kill</h4>
+              <p>[Approved content]</p>
+            </div>
+            <div class="slot-card">
+              <h4>6. Fast Trigger</h4>
+              <p>[Approved content]</p>
+            </div>
+            <div class="slot-card">
+              <h4>7. First Action</h4>
+              <p>[Approved content]</p>
+            </div>
+            <div class="slot-card">
+              <h4>8. Must Not Do</h4>
+              <p>[Approved content]</p>
+            </div>
+            <div class="slot-card wide">
+              <h4>9. One Sentence to Remember</h4>
+              <p>[Approved content]</p>
+            </div>
           </div>
-          <span class="status-pill status-muted">Choose later</span>
-        </div>
 
-        <p class="support-text">
-          Use this area only when choosing or reviewing the study plan. During study, return to Study Now.
-        </p>
+          <details class="foldout">
+            <summary>Pre-Case Warm-Up</summary>
+            <div class="warmup-block">
+              <p><strong>Setting:</strong> This is a ______ setting.</p>
+              <p><strong>Station type:</strong> This is a ______ station.</p>
+              <p><strong>Immediate threats:</strong> ______, ______, ______, ______.</p>
+              <p><strong>First action:</strong> Check ______ and ______.</p>
+              <p><strong>Then arrange:</strong> ______.</p>
+              <p><strong>Trap today:</strong> ______.</p>
+              <p><strong>Must-pass line:</strong> ______.</p>
+            </div>
+          </details>
 
-        <!-- EDITABLE: Study map. Add approved case types only. -->
-        <div class="pattern-map">
-          <a class="pattern-map-item is-current" href="patterns/pattern-01-dangerous-chest-pain/index.html">
-            <span>Case Type 1</span>
-            <strong>Chest Pain: Danger Check</strong>
-            <em>Current active case type</em>
-          </a>
-
-          <div class="pattern-map-item is-empty" aria-label="Future approved case types">
-            <span>Future case types</span>
-            <strong>Awaiting approved content</strong>
-            <em>Add only after approval</em>
+          <div class="button-row sticky-actions">
+            <a class="button primary" href="#cases">Continue to Case Ladder</a>
+            <button class="button secondary" type="button" data-copy="#current-task">Copy Current Task</button>
           </div>
+        </article>
+      </section>
+
+      <section id="cases" class="page-section">
+        <div class="section-header">
+          <p class="eyebrow">Cases</p>
+          <h2>Current Pattern Ladder</h2>
+          <p>Only the active pattern is shown here. The full curriculum stays out of the daily pathway.</p>
         </div>
 
-        <button class="secondary-button" type="button" data-mode-button="study">
-          Return to Study Now
-        </button>
-      </article>
-    </section>
-
-    <section id="fix-panel" class="mode-panel" data-mode-panel="fix" aria-labelledby="fix-title" hidden>
-      <article class="planning-card">
-        <div class="card-header-row">
-          <div>
-            <p class="section-kicker">Fix weak spots</p>
-            <h2 id="fix-title">Repair list</h2>
+        <article class="content-card">
+          <div class="card-topline">
+            <p class="status-label">Pattern 1</p>
+            <span class="small-pill">In Progress</span>
           </div>
-          <span class="status-pill status-warning">Use when needed</span>
+          <h3>Dangerous Chest Pain</h3>
+          <ol class="ladder-list">
+            <li class="current"><span>Start Here</span><strong>Current</strong></li>
+            <li><span>Case 1 · Classic Chest Pain in General Practice</span><strong>Not Started</strong></li>
+            <li><span>Case 2 · Chest Pain with Recent Sildenafil Use in General Practice</span><strong>Not Started</strong></li>
+            <li><span>Case 3 · Chest Pain with Aortic Dissection or Pulmonary Embolism Mimic</span><strong>Not Started</strong></li>
+            <li><span>Optional Case 4 · Normal First Electrocardiogram but Ongoing Concerning Symptoms</span><strong>Locked</strong></li>
+            <li><span>Optional Case 5 · Patient Refuses Ambulance Transfer</span><strong>Locked</strong></li>
+            <li><span>Pattern Ready?</span><strong>Locked</strong></li>
+            <li><span>Coverage Check</span><strong>Locked</strong></li>
+          </ol>
+          <div class="button-row">
+            <a class="button primary" href="#current-task">Return to Current Task</a>
+          </div>
+        </article>
+      </section>
+
+      <section id="repair" class="page-section">
+        <div class="section-header">
+          <p class="eyebrow">Repair</p>
+          <h2>One Active Repair</h2>
+          <p>Repair appears only after Ready? fails. It never opens the whole repair library by default.</p>
         </div>
 
-        <!-- EDITABLE: Weak-spot list. Add repeated mistakes only. -->
-        <div class="empty-state">
-          <h3>No weak spots flagged yet</h3>
-          <p>
-            When a case type is repeatedly missed, add it here. Keep this area empty unless there is something specific to repair.
-          </p>
+        <article class="content-card muted-card">
+          <p class="status-label">No Active Repair</p>
+          <h3>Repair Card Slot</h3>
+          <div class="repair-template">
+            <p><strong>Failure:</strong> [Selected failure]</p>
+            <p><strong>Why It Matters:</strong> [Approved content]</p>
+            <p><strong>Correction Sentence:</strong> [Approved content]</p>
+            <p><strong>Repeat Task:</strong> [Approved content]</p>
+            <p><strong>Return Point:</strong> [Approved content]</p>
+          </div>
+          <div class="button-row">
+            <a class="button secondary" href="#today">Return to Today</a>
+          </div>
+        </article>
+      </section>
+
+      <section id="progress" class="page-section">
+        <div class="section-header">
+          <p class="eyebrow">Progress</p>
+          <h2>Quiet Tracking</h2>
+          <p>Status without gamification or distraction.</p>
         </div>
 
-        <button class="secondary-button" type="button" data-mode-button="study">
-          Return to Study Now
-        </button>
-      </article>
-    </section>
-  </main>
+        <div class="phase-grid">
+          <article class="phase-card active-phase">
+            <h3>Phase 1</h3>
+            <p>Catastrophic Control</p>
+            <strong>0 / 12 patterns</strong>
+          </article>
+          <article class="phase-card">
+            <h3>Phase 2</h3>
+            <p>Differentiation Control</p>
+            <strong>0 / 10 patterns</strong>
+          </article>
+          <article class="phase-card">
+            <h3>Phase 3</h3>
+            <p>System Depth</p>
+            <strong>0 / 10 patterns</strong>
+          </article>
+          <article class="phase-card">
+            <h3>Phase 4</h3>
+            <p>High Communication</p>
+            <strong>0 / 8 patterns</strong>
+          </article>
+        </div>
+      </section>
 
-  <footer class="site-footer">
-    <div class="page-shell footer-shell">
-      <p>Copyright © Dr Ushana Yalda. All rights reserved.</p>
-    </div>
-  </footer>
+      <section id="coverage" class="page-section">
+        <div class="section-header">
+          <p class="eyebrow">Coverage</p>
+          <h2>Coverage Check</h2>
+          <p>Coverage is an audit after the case ladder, not a pre-reading task.</p>
+        </div>
+
+        <article class="content-card muted-card">
+          <p class="status-label">Locked</p>
+          <h3>Coverage Check opens after Pattern Ready?</h3>
+          <div class="coverage-columns">
+            <div>
+              <h4>Covered</h4>
+              <p class="quiet">No covered items yet.</p>
+            </div>
+            <div>
+              <h4>Still to cover</h4>
+              <p class="quiet">Available after cases are completed.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="library" class="page-section">
+        <div class="section-header">
+          <p class="eyebrow">Library</p>
+          <h2>Hidden Support</h2>
+          <p>Deep material is opened by need, not shown before the first case.</p>
+        </div>
+
+        <div class="door-grid">
+          <button type="button" class="door-card">I do not understand the pattern</button>
+          <button type="button" class="door-card">I keep missing traps</button>
+          <button type="button" class="door-card">I want to know what the examiner wants</button>
+          <button type="button" class="door-card">I need speaking practice</button>
+          <button type="button" class="door-card">I need a visual overview</button>
+          <button type="button" class="door-card">I need to warm up before a case</button>
+          <button type="button" class="door-card">I need source confirmation</button>
+        </div>
+      </section>
+
+      <section id="settings" class="page-section">
+        <div class="section-header">
+          <p class="eyebrow">Settings</p>
+          <h2>Display Controls</h2>
+          <p>Controls for attention, readability, and print use.</p>
+        </div>
+
+        <article class="content-card">
+          <div class="settings-grid">
+            <button class="button secondary" type="button" data-font="larger">Larger Text</button>
+            <button class="button secondary" type="button" data-font="normal">Normal Text</button>
+            <button class="button secondary" type="button" data-contrast>High Contrast</button>
+            <button class="button secondary" type="button" data-motion>Reduced Motion</button>
+            <button class="button secondary" type="button" onclick="window.print()">Print Page</button>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Mobile navigation">
+    <a href="#today">Today</a>
+    <a href="#cases">Cases</a>
+    <a href="#repair">Repair</a>
+    <a href="#progress">Progress</a>
+    <a href="#library">More</a>
+  </nav>
 
   <script>
-    const modeButtons = document.querySelectorAll("[data-mode-button]");
-    const modePanels = document.querySelectorAll("[data-mode-panel]");
-    const jumpLinks = document.querySelectorAll("[data-mode-jump]");
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('.page-section');
 
-    function setMode(mode) {
-      modePanels.forEach((panel) => {
-        const isActive = panel.dataset.modePanel === mode;
-        panel.classList.toggle("is-active", isActive);
-        panel.hidden = !isActive;
+    function setActiveNav() {
+      let activeId = 'today';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 160 && rect.bottom >= 160) activeId = section.id;
       });
-
-      modeButtons.forEach((button) => {
-        const isActive = button.dataset.modeButton === mode;
-        button.classList.toggle("is-active", isActive);
-
-        if (button.classList.contains("mode-tab")) {
-          button.setAttribute("aria-selected", String(isActive));
-        }
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
       });
-
-      const activePanel = document.querySelector(`[data-mode-panel="${mode}"]`);
-      if (activePanel) {
-        activePanel.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
     }
 
-    modeButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        setMode(button.dataset.modeButton);
+    window.addEventListener('scroll', setActiveNav, { passive: true });
+    setActiveNav();
+
+    document.querySelectorAll('[data-copy]').forEach(button => {
+      button.addEventListener('click', async () => {
+        const target = document.querySelector(button.dataset.copy);
+        if (!target) return;
+        const text = target.innerText.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = 'Copied';
+          setTimeout(() => button.textContent = 'Copy Current Task', 1400);
+        } catch (error) {
+          button.textContent = 'Copy unavailable';
+          setTimeout(() => button.textContent = 'Copy Current Task', 1400);
+        }
       });
     });
 
-    jumpLinks.forEach((link) => {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        setMode(link.dataset.modeJump);
+    document.querySelectorAll('[data-font]').forEach(button => {
+      button.addEventListener('click', () => {
+        document.body.dataset.font = button.dataset.font;
+        localStorage.setItem('amcFont', button.dataset.font);
       });
     });
 
-    setMode("study");
+    document.querySelector('[data-contrast]')?.addEventListener('click', () => {
+      document.body.classList.toggle('high-contrast');
+      localStorage.setItem('amcContrast', document.body.classList.contains('high-contrast') ? 'on' : 'off');
+    });
+
+    document.querySelector('[data-motion]')?.addEventListener('click', () => {
+      document.body.classList.toggle('reduced-motion');
+      localStorage.setItem('amcMotion', document.body.classList.contains('reduced-motion') ? 'on' : 'off');
+    });
+
+    const savedFont = localStorage.getItem('amcFont');
+    if (savedFont) document.body.dataset.font = savedFont;
+    if (localStorage.getItem('amcContrast') === 'on') document.body.classList.add('high-contrast');
+    if (localStorage.getItem('amcMotion') === 'on') document.body.classList.add('reduced-motion');
   </script>
 </body>
 </html>

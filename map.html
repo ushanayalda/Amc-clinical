@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Study Map | AMC Clinical Case Pathway</title>
+  <title>Study Map | AMC Clinical Pathway</title>
 
   <style>
     :root {
@@ -195,22 +195,16 @@
       white-space: nowrap;
     }
 
-    .legend-done {
+    .legend-available {
       color: var(--green);
       background: var(--soft-green);
       border-color: rgba(2, 122, 72, 0.18);
     }
 
-    .legend-next {
+    .legend-current {
       color: var(--blue);
       background: var(--soft-blue);
       border-color: rgba(30, 90, 168, 0.18);
-    }
-
-    .legend-start {
-      color: var(--teal);
-      background: var(--soft-teal);
-      border-color: rgba(15, 118, 110, 0.18);
     }
 
     .legend-locked {
@@ -219,22 +213,16 @@
       border-color: rgba(102, 112, 133, 0.18);
     }
 
-    .legend-optional {
+    .legend-reserve {
       color: var(--amber);
       background: var(--soft-amber);
       border-color: rgba(181, 71, 8, 0.18);
     }
 
-    .legend-repeat {
-      color: var(--red);
-      background: var(--soft-red);
-      border-color: rgba(180, 35, 24, 0.18);
-    }
-
-    .legend-solid {
-      color: #065F46;
-      background: #D1FAE5;
-      border-color: rgba(6, 95, 70, 0.18);
+    .legend-awaiting {
+      color: var(--teal);
+      background: var(--soft-teal);
+      border-color: rgba(15, 118, 110, 0.18);
     }
 
     .map-shell {
@@ -338,7 +326,7 @@
       transform: rotate(90deg);
     }
 
-    .risk-summary {
+    .phase-summary {
       font-size: 19px;
     }
 
@@ -424,53 +412,38 @@
       border: 1px solid transparent;
     }
 
-    .row-done::before {
+    .row-available::before {
       background: var(--green);
     }
 
-    .row-next::before {
+    .row-current::before {
       background: var(--blue);
-    }
-
-    .row-start::before {
-      background: var(--teal);
     }
 
     .row-locked::before {
       background: #98A2B3;
     }
 
-    .row-optional::before {
+    .row-reserve::before {
       background: var(--amber);
     }
 
-    .row-repeat::before {
-      background: var(--red);
+    .row-awaiting::before {
+      background: var(--teal);
     }
 
-    .row-solid::before {
-      background: #065F46;
-    }
-
-    .chip-done,
-    .icon-done {
+    .chip-available,
+    .icon-available {
       color: var(--green);
       background: var(--soft-green);
       border-color: rgba(2, 122, 72, 0.18);
     }
 
-    .chip-next,
-    .icon-next {
+    .chip-current,
+    .icon-current {
       color: var(--blue);
       background: var(--soft-blue);
       border-color: rgba(30, 90, 168, 0.18);
-    }
-
-    .chip-start,
-    .icon-start {
-      color: var(--teal);
-      background: var(--soft-teal);
-      border-color: rgba(15, 118, 110, 0.18);
     }
 
     .chip-locked,
@@ -480,25 +453,18 @@
       border-color: rgba(102, 112, 133, 0.18);
     }
 
-    .chip-optional,
-    .icon-optional {
+    .chip-reserve,
+    .icon-reserve {
       color: var(--amber);
       background: var(--soft-amber);
       border-color: rgba(181, 71, 8, 0.18);
     }
 
-    .chip-repeat,
-    .icon-repeat {
-      color: var(--red);
-      background: var(--soft-red);
-      border-color: rgba(180, 35, 24, 0.18);
-    }
-
-    .chip-solid,
-    .icon-solid {
-      color: #065F46;
-      background: #D1FAE5;
-      border-color: rgba(6, 95, 70, 0.18);
+    .chip-awaiting,
+    .icon-awaiting {
+      color: var(--teal);
+      background: var(--soft-teal);
+      border-color: rgba(15, 118, 110, 0.18);
     }
 
     .footer-card {
@@ -605,7 +571,7 @@
   <main class="page">
     <header class="topbar">
       <section class="brand" aria-label="Site identity">
-        <h1 class="brand-title">AMC Clinical Case Pathway</h1>
+        <h1 class="brand-title">AMC Clinical Pathway</h1>
         <p class="brand-credit">Prepared by Dr. Ushana Yalda</p>
       </section>
 
@@ -619,17 +585,15 @@
       <p class="eyebrow">Study map</p>
       <h2 class="hero-title">Your visual case tree</h2>
       <p class="hero-subtitle">
-        Follow the risk-first path, then jump back to any available case when you need revision.
+        Follow the guided path, then jump back to any available case when you need revision.
       </p>
 
       <div class="legend" aria-label="Status legend">
-        <span class="legend-pill legend-done">Done</span>
-        <span class="legend-pill legend-next">Next</span>
-        <span class="legend-pill legend-start">Start</span>
+        <span class="legend-pill legend-available">Available</span>
+        <span class="legend-pill legend-current">Current</span>
         <span class="legend-pill legend-locked">Locked</span>
-        <span class="legend-pill legend-optional">Optional</span>
-        <span class="legend-pill legend-repeat">Repeat</span>
-        <span class="legend-pill legend-solid">Solid</span>
+        <span class="legend-pill legend-reserve">Reserve</span>
+        <span class="legend-pill legend-awaiting">Awaiting Content Engine</span>
       </div>
     </section>
 
@@ -642,771 +606,7 @@
         </div>
       </div>
 
-      <section class="tree">
-        <details open>
-          <summary class="risk-summary">Can kill fast</summary>
-
-          <div class="tree-content">
-            <details open>
-              <summary class="pattern-summary">Pattern 1 · Dangerous Chest Pain</summary>
-
-              <div class="tree-content">
-                <a href="before-case.html" class="tree-row row-done">
-                  <div class="row-left">
-                    <span class="row-icon icon-done">✓</span>
-                    <span class="row-title">Before the Case</span>
-                  </div>
-                  <span class="status-chip chip-done">Done</span>
-                </a>
-
-                <div class="tree-row row-done" onclick="goToItem('Case 1 - Classic Chest Pain in General Practice')">
-                  <div class="row-left">
-                    <span class="row-icon icon-done">✓</span>
-                    <span class="row-title">Case 1 · Classic Chest Pain in General Practice</span>
-                  </div>
-                  <span class="status-chip chip-done">Done</span>
-                </div>
-
-                <div class="tree-row row-next" onclick="goToItem('Case 2 - Chest Pain with Recent Sildenafil Use')">
-                  <div class="row-left">
-                    <span class="row-icon icon-next">●</span>
-                    <span class="row-title">Case 2 · Chest Pain with Recent Sildenafil Use</span>
-                  </div>
-                  <span class="status-chip chip-next">Next</span>
-                </div>
-
-                <div class="tree-row row-start" onclick="goToItem('Case 3 - Aortic Dissection or Pulmonary Embolism Mimic')">
-                  <div class="row-left">
-                    <span class="row-icon icon-start">○</span>
-                    <span class="row-title">Case 3 · Aortic Dissection or Pulmonary Embolism Mimic</span>
-                  </div>
-                  <span class="status-chip chip-start">Start</span>
-                </div>
-
-                <div class="tree-row row-optional" onclick="goToItem('Case 4 - Normal First ECG but Ongoing Concern')">
-                  <div class="row-left">
-                    <span class="row-icon icon-optional">○</span>
-                    <span class="row-title">Case 4 · Normal First ECG but Ongoing Concern</span>
-                  </div>
-                  <span class="status-chip chip-optional">Optional</span>
-                </div>
-
-                <div class="tree-row row-optional" onclick="goToItem('Case 5 - Patient Refuses Ambulance')">
-                  <div class="row-left">
-                    <span class="row-icon icon-optional">○</span>
-                    <span class="row-title">Case 5 · Patient Refuses Ambulance</span>
-                  </div>
-                  <span class="status-chip chip-optional">Optional</span>
-                </div>
-
-                <div class="tree-row row-locked" onclick="goToItem('Pattern Check - Dangerous Chest Pain')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Pattern Check</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 2 · Acute Shortness of Breath</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 2 - Before the Case')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Before the Case</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 2 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 3 · Sudden Neurological Deficit</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 3 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 4 · Sepsis Pattern</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 4 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 5 · Shock Pattern</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 5 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 6 · Unstable Gastrointestinal Bleed</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 6 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 7 · Metabolic Collapse</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 7 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 8 · Cardiac Syncope</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 8 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 9 · Acute Severe Abdominal Pain with Instability</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 9 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 10 · Obstetric Catastrophe</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 10 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 11 · Paediatric Acute Deterioration</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 11 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 12 · Toxicological Emergency</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 12 - Case Ladder')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-          </div>
-        </details>
-
-        <details>
-          <summary class="risk-summary">Dangerous mimics</summary>
-          <div class="tree-content">
-            <details>
-              <summary class="pattern-summary">Pattern 13 · Stable Chest Pain versus Unstable Chest Pain</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 13')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 14 · COPD versus Asthma versus Pneumonia</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 14')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 15 · Peripheral Vertigo versus Central Vertigo</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 15')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 16 · Migraine versus Subarachnoid Haemorrhage</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 16')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 17 · Reflux versus Cardiac Chest Pain</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 17')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 18 · Vasovagal Syncope versus Cardiac Syncope</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 18')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 19 · Red Leg Pattern</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 19')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 20 · Delirium versus Dementia versus Depression</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 20')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 21 · Anaemia Interpretation</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 21')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 22 · Acute Abdomen Localisation</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 22')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-          </div>
-        </details>
-
-        <details>
-          <summary class="risk-summary">Common stations</summary>
-          <div class="tree-content">
-            <details>
-              <summary class="pattern-summary">Pattern 23 · Right Upper Quadrant Pain</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 23')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 24 · Left Iliac Fossa Pain</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 24')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 25 · Dysmenorrhoea</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 25')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 26 · Amenorrhoea</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 26')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 27 · Mastalgia</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 27')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 28 · Breast Lump</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 28')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 29 · Knee Swelling</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 29')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 30 · Thyroid Disorder</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 30')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 31 · Diabetes Review</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 31')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 32 · Hypertension Counselling</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 32')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-          </div>
-        </details>
-
-        <details>
-          <summary class="risk-summary">Hard conversations</summary>
-          <div class="tree-content">
-            <details>
-              <summary class="pattern-summary">Pattern 33 · Breaking Bad News</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 33')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 34 · Palliative Care Discussion</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 34')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 35 · Do Not Resuscitate Discussion</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 35')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 36 · Domestic Violence Safety Assessment</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 36')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 37 · Sexual Health Counselling</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 37')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 38 · Postpartum Psychosis Risk</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 38')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 39 · Capacity Assessment</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 39')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-
-            <details>
-              <summary class="pattern-summary">Pattern 40 · Suicidal Ideation Risk Assessment</summary>
-              <div class="tree-content">
-                <div class="tree-row row-locked" onclick="goToItem('Pattern 40')">
-                  <div class="row-left">
-                    <span class="row-icon icon-locked">○</span>
-                    <span class="row-title">Case Ladder</span>
-                  </div>
-                  <span class="status-chip chip-locked">Locked</span>
-                </div>
-              </div>
-            </details>
-          </div>
-        </details>
-
-        <details>
-          <summary class="risk-summary">Extra patterns</summary>
-
-          <div class="tree-content">
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 1 - Hypercalcaemia Pattern')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 1 · Hypercalcaemia Pattern</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 2 - Back Pain Mechanical versus Red Flag')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 2 · Back Pain Mechanical versus Red Flag</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 3 - Paediatric Fever Differentiation')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 3 · Paediatric Fever Differentiation</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 4 - Postoperative Shortness of Breath Differentiation')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 4 · Postoperative Shortness of Breath Differentiation</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 5 - Varicose Ulcer')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 5 · Varicose Ulcer</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 6 - Chronic Kidney Disease')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 6 · Chronic Kidney Disease</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 7 - Gout versus Septic Joint')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 7 · Gout versus Septic Joint</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 8 - Fatigue Pattern')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 8 · Fatigue Pattern</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 9 - Obsessive Compulsive Disorder')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 9 · Obsessive Compulsive Disorder</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 10 - Delirium versus Dementia Communication')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 10 · Delirium versus Dementia Communication</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 11 - Alcohol Use Disorder Intervention')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 11 · Alcohol Use Disorder Intervention</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 12 - Medication Error Disclosure')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 12 · Medication Error Disclosure</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 13 - Cancer Diagnosis Counselling')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 13 · Cancer Diagnosis Counselling</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 14 - Chronic Pain Management')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 14 · Chronic Pain Management</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 15 - Fertility Discussion')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 15 · Fertility Discussion</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 16 - High Risk Pregnancy Counselling')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 16 · High Risk Pregnancy Counselling</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 17 - Child Protection Discussion')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 17 · Child Protection Discussion</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 18 - End of Life Family Meeting')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 18 · End of Life Family Meeting</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 19 - Cultural Sensitivity Conflict')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 19 · Cultural Sensitivity Conflict</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-
-            <div class="tree-row row-optional" onclick="goToItem('Expansion Pattern 20 - Explain Diagnosis to Medical Student')">
-              <div class="row-left">
-                <span class="row-icon icon-optional">○</span>
-                <span class="row-title">Expansion Pattern 20 · Explain Diagnosis to Medical Student</span>
-              </div>
-              <span class="status-chip chip-optional">Optional</span>
-            </div>
-          </div>
-        </details>
-      </section>
+      <section class="tree" id="treeRoot"></section>
     </section>
 
     <footer class="footer-card">
@@ -1417,28 +617,210 @@
   </main>
 
   <script>
+    const phases = [
+      {
+        title: "Phase 1 - Can Kill Fast",
+        open: true,
+        patterns: [
+          {
+            title: "Pattern 1 · Dangerous Chest Pain",
+            open: true,
+            rows: [
+              { title: "Before the Case", state: "Current", href: "before-case.html" },
+              { title: "Case 1 · Classic Chest Pain in General Practice", state: "Awaiting Content Engine" },
+              { title: "Case 2 · Chest Pain with Recent Sildenafil Use in General Practice", state: "Awaiting Content Engine" },
+              { title: "Case 3 · Sudden Chest Pain Radiating to the Back", state: "Awaiting Content Engine" },
+              { title: "Case 4 · Pleuritic Chest Pain with Breathlessness", state: "Awaiting Content Engine" },
+              { title: "Case 5 · Sudden Chest Pain with Severe Breathlessness and One-Sided Chest Signs", state: "Awaiting Content Engine" },
+              { title: "Pattern Confidence Check", state: "Awaiting Content Engine" },
+              { title: "Coverage Checklist", state: "Awaiting Content Engine" },
+              { title: "Reserve Case 6 · Normal First Electrocardiogram but Ongoing Concern", state: "Reserve" },
+              { title: "Reserve Case 7 · Patient Refuses Ambulance Transfer", state: "Reserve" }
+            ]
+          },
+          { title: "Pattern 2 · Acute Shortness of Breath" },
+          { title: "Pattern 3 · Sudden Neurological Deficit" },
+          { title: "Pattern 4 · Sepsis Pattern" },
+          { title: "Pattern 5 · Shock Pattern" },
+          { title: "Pattern 6 · Unstable Gastrointestinal Bleed" },
+          { title: "Pattern 7 · Metabolic Collapse" },
+          { title: "Pattern 8 · Cardiac Syncope" },
+          { title: "Pattern 9 · Acute Severe Abdominal Pain with Instability" },
+          { title: "Pattern 10 · Obstetric Catastrophe" },
+          { title: "Pattern 11 · Paediatric Acute Deterioration" },
+          { title: "Pattern 12 · Toxicological Emergency" }
+        ]
+      },
+      {
+        title: "Phase 2 - Dangerous Mimics",
+        patterns: [
+          { title: "Pattern 13 · Stable Chest Pain versus Unstable Chest Pain" },
+          { title: "Pattern 14 · Chronic Obstructive Pulmonary Disease versus Asthma versus Pneumonia" },
+          { title: "Pattern 15 · Peripheral Vertigo versus Central Vertigo" },
+          { title: "Pattern 16 · Migraine versus Subarachnoid Haemorrhage" },
+          { title: "Pattern 17 · Reflux versus Cardiac Chest Pain" },
+          { title: "Pattern 18 · Vasovagal Syncope versus Cardiac Syncope" },
+          { title: "Pattern 19 · Red Leg Pattern" },
+          { title: "Pattern 20 · Delirium versus Dementia versus Depression" },
+          { title: "Pattern 21 · Anaemia Interpretation" },
+          { title: "Pattern 22 · Acute Abdomen Localisation" }
+        ]
+      },
+      {
+        title: "Phase 3 - Common Stations",
+        patterns: [
+          { title: "Pattern 23 · Right Upper Quadrant Pain" },
+          { title: "Pattern 24 · Left Iliac Fossa Pain" },
+          { title: "Pattern 25 · Dysmenorrhoea" },
+          { title: "Pattern 26 · Amenorrhoea" },
+          { title: "Pattern 27 · Mastalgia" },
+          { title: "Pattern 28 · Breast Lump" },
+          { title: "Pattern 29 · Knee Swelling" },
+          { title: "Pattern 30 · Thyroid Disorder" },
+          { title: "Pattern 31 · Diabetes Review" },
+          { title: "Pattern 32 · Hypertension Counselling" }
+        ]
+      },
+      {
+        title: "Phase 4 - Hard Conversations",
+        patterns: [
+          { title: "Pattern 33 · Breaking Bad News" },
+          { title: "Pattern 34 · Palliative Care Discussion" },
+          { title: "Pattern 35 · Do Not Resuscitate Discussion" },
+          { title: "Pattern 36 · Domestic Violence Safety Assessment" },
+          { title: "Pattern 37 · Sexual Health Counselling" },
+          { title: "Pattern 38 · Postpartum Psychosis Risk" },
+          { title: "Pattern 39 · Capacity Assessment" },
+          { title: "Pattern 40 · Suicidal Ideation Risk Assessment" }
+        ]
+      },
+      {
+        title: "Expansion Patterns",
+        patterns: [
+          { title: "Expansion Pattern 1 · Hypercalcaemia Pattern" },
+          { title: "Expansion Pattern 2 · Back Pain Mechanical versus Red Flag" },
+          { title: "Expansion Pattern 3 · Paediatric Fever Differentiation" },
+          { title: "Expansion Pattern 4 · Postoperative Shortness of Breath Differentiation" },
+          { title: "Expansion Pattern 5 · Varicose Ulcer" },
+          { title: "Expansion Pattern 6 · Chronic Kidney Disease" },
+          { title: "Expansion Pattern 7 · Gout versus Septic Joint" },
+          { title: "Expansion Pattern 8 · Fatigue Pattern" },
+          { title: "Expansion Pattern 9 · Obsessive Compulsive Disorder" },
+          { title: "Expansion Pattern 10 · Delirium versus Dementia Communication" },
+          { title: "Expansion Pattern 11 · Alcohol Use Disorder Intervention" },
+          { title: "Expansion Pattern 12 · Medication Error Disclosure" },
+          { title: "Expansion Pattern 13 · Cancer Diagnosis Counselling" },
+          { title: "Expansion Pattern 14 · Chronic Pain Management" },
+          { title: "Expansion Pattern 15 · Fertility Discussion" },
+          { title: "Expansion Pattern 16 · High Risk Pregnancy Counselling" },
+          { title: "Expansion Pattern 17 · Child Protection Discussion" },
+          { title: "Expansion Pattern 18 · End of Life Family Meeting" },
+          { title: "Expansion Pattern 19 · Cultural Sensitivity Conflict" },
+          { title: "Expansion Pattern 20 · Explain Diagnosis to Medical Student" }
+        ]
+      }
+    ];
+
+    function stateClass(state) {
+      if (state === "Current") return "current";
+      if (state === "Available") return "available";
+      if (state === "Reserve") return "reserve";
+      if (state === "Awaiting Content Engine") return "awaiting";
+      return "locked";
+    }
+
+    function iconForState(state) {
+      if (state === "Current") return "●";
+      if (state === "Available") return "✓";
+      if (state === "Reserve") return "R";
+      if (state === "Awaiting Content Engine") return "○";
+      return "○";
+    }
+
+    function createRow(row) {
+      const state = row.state || "Locked";
+      const cls = stateClass(state);
+      const tag = row.href ? "a" : "div";
+      const element = document.createElement(tag);
+
+      element.className = "tree-row row-" + cls;
+
+      if (row.href) {
+        element.href = row.href;
+      } else {
+        element.onclick = function () {
+          alert(row.title + "\\n\\n" + state);
+        };
+      }
+
+      element.innerHTML = `
+        <div class="row-left">
+          <span class="row-icon icon-${cls}">${iconForState(state)}</span>
+          <span class="row-title">${row.title}</span>
+        </div>
+        <span class="status-chip chip-${cls}">${state}</span>
+      `;
+
+      return element;
+    }
+
+    function createPattern(pattern) {
+      const details = document.createElement("details");
+      if (pattern.open) details.open = true;
+
+      const summary = document.createElement("summary");
+      summary.className = "pattern-summary";
+      summary.textContent = pattern.title;
+      details.appendChild(summary);
+
+      const content = document.createElement("div");
+      content.className = "tree-content";
+
+      const rows = pattern.rows || [{ title: "Case Ladder", state: "Locked" }];
+      rows.forEach((row) => content.appendChild(createRow(row)));
+
+      details.appendChild(content);
+      return details;
+    }
+
+    function createPhase(phase) {
+      const details = document.createElement("details");
+      if (phase.open) details.open = true;
+
+      const summary = document.createElement("summary");
+      summary.className = "phase-summary";
+      summary.textContent = phase.title;
+      details.appendChild(summary);
+
+      const content = document.createElement("div");
+      content.className = "tree-content";
+
+      phase.patterns.forEach((pattern) => content.appendChild(createPattern(pattern)));
+
+      details.appendChild(content);
+      return details;
+    }
+
+    const treeRoot = document.getElementById("treeRoot");
+    phases.forEach((phase) => treeRoot.appendChild(createPhase(phase)));
+
     const expandAllButton = document.getElementById("expandAll");
     const collapseAllButton = document.getElementById("collapseAll");
-    const allDetails = document.querySelectorAll("details");
 
     expandAllButton.addEventListener("click", () => {
-      allDetails.forEach((item) => {
+      document.querySelectorAll("details").forEach((item) => {
         item.open = true;
       });
     });
 
     collapseAllButton.addEventListener("click", () => {
-      allDetails.forEach((item) => {
+      document.querySelectorAll("details").forEach((item) => {
         item.open = false;
       });
 
       const firstSection = document.querySelector("details");
       if (firstSection) firstSection.open = true;
     });
-
-    function goToItem(itemName) {
-      alert(itemName + "\n\nThis will open the linked page once the case pages are built.");
-    }
   </script>
 </body>
 </html>

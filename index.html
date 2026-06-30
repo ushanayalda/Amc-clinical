@@ -480,24 +480,79 @@
       background: var(--soft-amber);
     }
 
-    .profile-panel {
-      display: none;
-      margin-top: 12px;
+    .progress-panel {
+      padding: 22px 24px 28px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .progress-card {
       border: 1px solid var(--border);
       border-radius: 18px;
+      padding: 18px;
       background: #FFFFFF;
-      padding: 16px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
     }
 
-    .profile-panel.open {
-      display: block;
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 10px;
     }
 
-    .profile-panel strong {
+    .progress-label {
+      font-weight: 800;
       color: var(--navy);
+    }
+
+    .progress-value {
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .bar {
+      width: 100%;
+      height: 10px;
+      background: #EAECF0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+    }
+
+    .progress-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .mini-card {
+      border: 1px solid #EAECF0;
+      background: #FCFCFD;
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .mini-label {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+    }
+
+    .mini-value {
+      margin: 0;
+      color: var(--navy);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
 
     @media (max-width: 860px) {
@@ -524,6 +579,10 @@
 
       .secondary-action {
         width: 100%;
+      }
+
+      .progress-mini-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -574,15 +633,9 @@
 
       <nav class="nav" aria-label="Main navigation">
         <button class="nav-button" type="button" data-open-map>Map</button>
-        <button class="nav-button" type="button" id="meButton">Me</button>
+        <button class="nav-button" type="button" data-open-progress>Progress</button>
       </nav>
     </header>
-
-    <section class="profile-panel" id="profilePanel" aria-label="Profile panel">
-      <strong>Study profile</strong><br />
-      Current path: risk-first clinical mastery.<br />
-      Current focus: finish one case, fix one weak point, then move forward.
-    </section>
 
     <section class="grid" aria-label="Homepage cards">
       <article class="main-card">
@@ -778,38 +831,100 @@
     </div>
   </section>
 
+  <section class="modal-backdrop" id="progressModal" role="dialog" aria-modal="true" aria-labelledby="progressTitle">
+    <div class="modal">
+      <header class="modal-header">
+        <div>
+          <h2 class="modal-title" id="progressTitle">Progress</h2>
+          <p class="modal-subtitle">Current position in the risk-first pathway.</p>
+        </div>
+        <button class="close-button" type="button" id="closeProgress" aria-label="Close progress">×</button>
+      </header>
+
+      <section class="progress-panel">
+        <article class="progress-card">
+          <div class="progress-row">
+            <span class="progress-label">Overall</span>
+            <span class="progress-value">12%</span>
+          </div>
+          <div class="bar" aria-label="Overall progress">
+            <div class="bar-fill" style="width: 12%;"></div>
+          </div>
+        </article>
+
+        <section class="progress-mini-grid">
+          <article class="mini-card">
+            <p class="mini-label">Current pattern</p>
+            <p class="mini-value">Chest Pain</p>
+          </article>
+
+          <article class="mini-card">
+            <p class="mini-label">Cases done</p>
+            <p class="mini-value">1 of 5</p>
+          </article>
+
+          <article class="mini-card">
+            <p class="mini-label">How sure?</p>
+            <p class="mini-value">Not solid</p>
+          </article>
+        </section>
+
+        <article class="progress-card">
+          <div class="progress-row">
+            <span class="progress-label">Fix one thing</span>
+            <span class="progress-value">Nitrate trap</span>
+          </div>
+          <div class="bar" aria-label="Weak point progress">
+            <div class="bar-fill" style="width: 35%;"></div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </section>
+
   <script>
     const mapModal = document.getElementById("mapModal");
-    const closeMap = document.getElementById("closeMap");
-    const openMapButtons = document.querySelectorAll("[data-open-map]");
-    const meButton = document.getElementById("meButton");
-    const profilePanel = document.getElementById("profilePanel");
+    const progressModal = document.getElementById("progressModal");
 
-    function openMap() {
-      mapModal.classList.add("open");
-      closeMap.focus();
+    const closeMap = document.getElementById("closeMap");
+    const closeProgress = document.getElementById("closeProgress");
+
+    const openMapButtons = document.querySelectorAll("[data-open-map]");
+    const openProgressButtons = document.querySelectorAll("[data-open-progress]");
+
+    function openModal(modal, focusTarget) {
+      modal.classList.add("open");
+      focusTarget.focus();
     }
 
-    function hideMap() {
-      mapModal.classList.remove("open");
+    function hideModal(modal) {
+      modal.classList.remove("open");
     }
 
     openMapButtons.forEach((button) => {
-      button.addEventListener("click", openMap);
+      button.addEventListener("click", () => openModal(mapModal, closeMap));
     });
 
-    closeMap.addEventListener("click", hideMap);
+    openProgressButtons.forEach((button) => {
+      button.addEventListener("click", () => openModal(progressModal, closeProgress));
+    });
+
+    closeMap.addEventListener("click", () => hideModal(mapModal));
+    closeProgress.addEventListener("click", () => hideModal(progressModal));
 
     mapModal.addEventListener("click", (event) => {
-      if (event.target === mapModal) hideMap();
+      if (event.target === mapModal) hideModal(mapModal);
+    });
+
+    progressModal.addEventListener("click", (event) => {
+      if (event.target === progressModal) hideModal(progressModal);
     });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") hideMap();
-    });
-
-    meButton.addEventListener("click", () => {
-      profilePanel.classList.toggle("open");
+      if (event.key === "Escape") {
+        hideModal(mapModal);
+        hideModal(progressModal);
+      }
     });
   </script>
 </body>

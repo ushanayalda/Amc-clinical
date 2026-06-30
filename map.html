@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Study Map | AMC Clinical Case Pathway</title>
+
+  <style>
+    :root {
+      --bg: #F6F8FB;
+      --card: #FFFFFF;
+      --text: #101828;
+      --muted: #667085;
+      --border: #D0D5DD;
+
+      --navy: #102A43;
+      --blue: #1E5AA8;
+      --teal: #0F766E;
+      --red: #B42318;
+      --amber: #B54708;
+      --green: #027A48;
+
+      --soft-blue: #EAF2FF;
+      --soft-teal: #E6F4F1;
+      --soft-red: #FEE4E2;
+      --soft-amber: #FFF4E5;
+      --soft-green: #E6F4EA;
+      --soft-grey: #F2F4F7;
+
+      --shadow: 0 12px 28px rgba(16, 24, 40, 0.07);
+      --radius: 24px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(30, 90, 168, 0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.08), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 32px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 26px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 34px);
+      line-height: 1.05;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+      color: var(--navy);
+    }
+
+    .brand-credit {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 550;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .nav-button {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--navy);
+      border-radius: 999px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 6px 14px rgba(16, 24, 40, 0.04);
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-1px);
+      background: #FFFFFF;
+      box-shadow: 0 10px 22px rgba(16, 24, 40, 0.08);
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(24px, 5vw, 38px);
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -70px -100px auto;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(15, 118, 110, 0.15), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 12px;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 820;
+      color: var(--navy);
+    }
+
+    .hero-subtitle {
+      margin: 14px 0 0;
+      max-width: 680px;
+      font-size: clamp(16px, 2.4vw, 20px);
+      color: var(--muted);
+      font-weight: 560;
+      line-height: 1.45;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.76);
+      border-radius: 999px;
+      padding: 7px 11px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--muted);
+    }
+
+    .legend-dot.done {
+      background: var(--green);
+    }
+
+    .legend-dot.next {
+      background: var(--blue);
+    }
+
+    .legend-dot.start {
+      background: var(--teal);
+    }
+
+    .legend-dot.locked {
+      background: #98A2B3;
+    }
+
+    .legend-dot.optional {
+      background: var(--amber);
+    }
+
+    .legend-dot.repeat {
+      background: var(--red);
+    }
+
+    .legend-dot.solid {
+      background: #065F46;
+    }
+
+    .map-shell {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .map-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .map-tools-title {
+      margin: 0;
+      color: var(--navy);
+      font-size: 22px;
+      letter-spacing: -0.035em;
+      font-weight: 790;
+    }
+
+    .tool-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .tool-button {
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--navy);
+      border-radius: 999px;
+      padding: 9px 13px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 800;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .tool-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(16, 24, 40, 0.08);
+    }
+
+    .tree {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #FFFFFF;
+      overflow: hidden;
+    }
+
+    details[open] {
+      box-shadow: 0 8px 20px rgba(16, 24, 40, 0.05);
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--navy);
+      font-weight: 820;
+      letter-spacing: -0.02em;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::before {
+      content: "›";
+      display: inline-grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-size: 22px;
+      transform: rotate(0deg);
+      transition: transform 160ms ease;
+      flex: 0 0 auto;
+    }
+
+    details[open] > summary::before {
+      transform: rotate(90deg);
+    }
+
+    .risk-summary {
+      font-size: 18px;
+    }
+
+    .tree-content {
+      padding: 0 18px 16px 52px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .pattern-summary {
+      background: linear-gradient(90deg, rgba(234, 242, 255, 0.72), transparent);
+    }
+
+    .tree-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid #EAECF0;
+      background: #FCFCFD;
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .tree-row:hover {
+      transform: translateY(-1px);
+      border-color: #B8C4D6;
+      background: #FFFFFF;
+    }
+
+    .row-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .row-icon {
+      width: 22px;
+      height: 22px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .row-title {
+      font-weight: 690;
+      line-height: 1.25;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    .status-done {
+      color: var(--green);
+      background: var(--soft-green);
+    }
+
+    .status-next {
+      color: var(--blue);
+      background: var(--soft-blue);
+    }
+
+    .status-start {
+      color: var(--teal);
+      background: var(--soft-teal);
+    }
+
+    .status-locked {
+      color: var(--muted);
+      background: var(--soft-grey);
+    }
+
+    .status-optional {
+      color: var(--amber);
+      background: var(--soft-amber);
+    }
+
+    .status-repeat {
+      color: var(--red);
+      background: var(--soft-red);
+    }
+
+    .status-solid {
+      color: #065F46;
+      background: #D1FAE5;
+    }
+
+    .icon-done {
+      color: var(--green);
+      background: var(--soft-green);
+    }
+
+    .icon-next {
+      color: var(--blue);
+      background: var(--soft-blue);
+    }
+
+    .icon-start {
+      color: var(--teal);
+      background: var(--soft-teal);
+    }
+
+    .icon-locked {
+      color: var(--muted);
+      background: var(--soft-grey);
+    }
+
+    .icon-optional {
+      color: var(--amber);
+      background: var(--soft-amber);
+    }
+
+    .icon-repeat {
+      color: var(--red);
+      background: var(--soft-red);
+    }
+
+    .icon-solid {
+      color: #065F46;
+      background: #D1FAE5;
+    }
+
+    .footer-card {
+      margin-top: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.70);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      padding: 20px 22px;
+    }
+
+    .footer-card strong {
+      color: var(--navy);
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        padding: 20px 16px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .map-tools {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .tool-buttons {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .tree-content {
+        padding-left: 22px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar {
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+      }
+
+      .nav-button {
+        flex: 1;
+      }
+
+      .map-shell {
+        padding: 14px;
+      }
+
+      summary {
+        padding: 15px;
+      }
+
+      .tree-content {
+        padding: 0 12px 12px 12px;
+      }
+
+      .tree-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .row-left {
+        align-items: flex-start;
+      }
+
+      .pill {
+        margin-left: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="topbar">
+      <section class="brand" aria-label="Site identity">
+        <h1 class="brand-title">AMC Clinical Case Pathway</h1>
+        <p class="brand-credit">Prepared by Dr. Ushana Yalda</p>
+      </section>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav-button" href="index.html">Home</a>
+        <button class="nav-button" type="button" onclick="alert('Progress page will be built later.')">Progress</button>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">Study map</p>
+      <h2 class="hero-title">Your visual case tree</h2>
+      <p class="hero-subtitle">
+        Follow the risk-first path, then jump back to any available case when you need revision.
+      </p>
+
+      <div class="legend" aria-label="Status legend">
+        <span class="legend-item"><span class="legend-dot done"></span>Done</span>
+        <span class="legend-item"><span class="legend-dot next"></span>Next</span>
+        <span class="legend-item"><span class="legend-dot start"></span>Start</span>
+        <span class="legend-item"><span class="legend-dot locked"></span>Locked</span>
+        <span class="legend-item"><span class="legend-dot optional"></span>Optional</span>
+        <span class="legend-item"><span class="legend-dot repeat"></span>Repeat</span>
+        <span class="legend-item"><span class="legend-dot solid"></span>Solid</span>
+      </div>
+    </section>
+
+    <section class="map-shell" aria-label="Study map tree">
+      <div class="map-tools">
+        <h2 class="map-tools-title">Map</h2>
+        <div class="tool-buttons">
+          <button class="tool-button" type="button" id="expandAll">Open all</button>
+          <button class="tool-button" type="button" id="collapseAll">Close all</button>
+        </div>
+      </div>
+
+      <section class="tree">
+        <details open>
+          <summary class="risk-summary">Can kill fast</summary>
+          <div class="tree-content">
+
+            <details open>
+              <summary class="pattern-summary">Pattern 1 · Dangerous Chest Pain</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Before the Case - Dangerous Chest Pain')">
+                  <div class="row-left">
+                    <span class="row-icon icon-done">✓</span>
+                    <span class="row-title">Before the Case</span>
+                  </div>
+                  <span class="pill status-done">Done</span>
+                </div>
+
+                <div class="tree-row" onclick="goToItem('Case 1 - Classic Chest Pain in General Practice')">
+                  <div class="row-left">
+                    <span class="row-icon icon-done">✓</span>
+                    <span class="row-title">Case 1 · Classic Chest Pain in General Practice</span>
+                  </div>
+                  <span class="pill status-done">Done</span>
+                </div>
+
+                <div class="tree-row" onclick="goToItem('Case 2 - Chest Pain with Recent Sildenafil Use')">
+                  <div class="row-left">
+                    <span class="row-icon icon-next">●</span>
+                    <span class="row-title">Case 2 · Chest Pain with Recent Sildenafil Use</span>
+                  </div>
+                  <span class="pill status-next">Next</span>
+                </div>
+
+                <div class="tree-row" onclick="goToItem('Case 3 - Aortic Dissection or Pulmonary Embolism Mimic')">
+                  <div class="row-left">
+                    <span class="row-icon icon-start">○</span>
+                    <span class="row-title">Case 3 · Aortic Dissection or Pulmonary Embolism Mimic</span>
+                  </div>
+                  <span class="pill status-start">Start</span>
+                </div>
+
+                <div class="tree-row" onclick="goToItem('Case 4 - Normal First ECG but Ongoing Concern')">
+                  <div class="row-left">
+                    <span class="row-icon icon-optional">○</span>
+                    <span class="row-title">Case 4 · Normal First ECG but Ongoing Concern</span>
+                  </div>
+                  <span class="pill status-optional">Optional</span>
+                </div>
+
+                <div class="tree-row" onclick="goToItem('Case 5 - Patient Refuses Ambulance')">
+                  <div class="row-left">
+                    <span class="row-icon icon-optional">○</span>
+                    <span class="row-title">Case 5 · Patient Refuses Ambulance</span>
+                  </div>
+                  <span class="pill status-optional">Optional</span>
+                </div>
+
+                <div class="tree-row" onclick="goToItem('Pattern Check - Dangerous Chest Pain')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Pattern Check</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 2 · Acute Shortness of Breath</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 2 - Before the Case')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Before the Case</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+                <div class="tree-row" onclick="goToItem('Pattern 2 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 3 · Sudden Neurological Deficit</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 3 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 4 · Sepsis Pattern</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 4 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 5 · Shock Pattern</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 5 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 6 · Unstable Gastrointestinal Bleed</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 6 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 7 · Metabolic Collapse</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 7 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 8 · Cardiac Syncope</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 8 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 9 · Acute Severe Abdominal Pain with Instability</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 9 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 10 · Obstetric Catastrophe</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 10 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 11 · Paediatric Acute Deterioration</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 11 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary class="pattern-summary">Pattern 12 · Toxicological Emergency</summary>
+              <div class="tree-content">
+                <div class="tree-row" onclick="goToItem('Pattern 12 - Case Ladder')">
+                  <div class="row-left">
+                    <span class="row-icon icon-locked">○</span>
+                    <span class="row-title">Case Ladder</span>
+                  </div>
+                  <span class="pill status-locked">Locked</span>
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+        <details>
+          <summary class="risk-summary">Dangerous mimics</summary>
+          <div class="tree-content">
+            <details>
+              <summary class="pattern-summary">Pattern 13 · Stable Chest Pain versus Unstable Chest Pain</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 13')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 14 · COPD versus Asthma versus Pneumonia</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 14')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 15 · Peripheral Vertigo versus Central Vertigo</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 15')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 16 · Migraine versus Subarachnoid Haemorrhage</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 16')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 17 · Reflux versus Cardiac Chest Pain</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 17')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 18 · Vasovagal Syncope versus Cardiac Syncope</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 18')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 19 · Red Leg Pattern</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 19')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 20 · Delirium versus Dementia versus Depression</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 20')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 21 · Anaemia Interpretation</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 21')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 22 · Acute Abdomen Localisation</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 22')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+          </div>
+        </details>
+
+        <details>
+          <summary class="risk-summary">Common stations</summary>
+          <div class="tree-content">
+            <details>
+              <summary class="pattern-summary">Pattern 23 · Right Upper Quadrant Pain</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 23')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 24 · Left Iliac Fossa Pain</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 24')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 25 · Dysmenorrhoea</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 25')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 26 · Amenorrhoea</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 26')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 27 · Mastalgia</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 27')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 28 · Breast Lump</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 28')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 29 · Knee Swelling</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 29')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 30 · Thyroid Disorder</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 30')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 31 · Diabetes Review</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 31')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 32 · Hypertension Counselling</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 32')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+          </div>
+        </details>
+
+        <details>
+          <summary class="risk-summary">Hard conversations</summary>
+          <div class="tree-content">
+            <details>
+              <summary class="pattern-summary">Pattern 33 · Breaking Bad News</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 33')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 34 · Palliative Care Discussion</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 34')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 35 · Do Not Resuscitate Discussion</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 35')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 36 · Domestic Violence Safety Assessment</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 36')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 37 · Sexual Health Counselling</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 37')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 38 · Postpartum Psychosis Risk</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 38')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 39 · Capacity Assessment</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 39')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+            <details>
+              <summary class="pattern-summary">Pattern 40 · Suicidal Ideation Risk Assessment</summary>
+              <div class="tree-content"><div class="tree-row" onclick="goToItem('Pattern 40')"><div class="row-left"><span class="row-icon icon-locked">○</span><span class="row-title">Case Ladder</span></div><span class="pill status-locked">Locked</span></div></div>
+            </details>
+          </div>
+        </details>
+
+        <details>
+          <summary class="risk-summary">Extra patterns</summary>
+          <div class="tree-content">
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 1 - Hypercalcaemia Pattern')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 1 · Hypercalcaemia Pattern</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 2 - Back Pain Mechanical versus Red Flag')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 2 · Back Pain Mechanical versus Red Flag</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 3 - Paediatric Fever Differentiation')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 3 · Paediatric Fever Differentiation</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 4 - Postoperative Shortness of Breath Differentiation')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 4 · Postoperative Shortness of Breath Differentiation</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 5 - Varicose Ulcer')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 5 · Varicose Ulcer</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 6 - Chronic Kidney Disease')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 6 · Chronic Kidney Disease</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 7 - Gout versus Septic Joint')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 7 · Gout versus Septic Joint</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 8 - Fatigue Pattern')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 8 · Fatigue Pattern</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 9 - Obsessive Compulsive Disorder')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 9 · Obsessive Compulsive Disorder</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 10 - Delirium versus Dementia Communication')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 10 · Delirium versus Dementia Communication</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 11 - Alcohol Use Disorder Intervention')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 11 · Alcohol Use Disorder Intervention</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 12 - Medication Error Disclosure')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 12 · Medication Error Disclosure</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 13 - Cancer Diagnosis Counselling')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 13 · Cancer Diagnosis Counselling</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 14 - Chronic Pain Management')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 14 · Chronic Pain Management</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 15 - Fertility Discussion')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 15 · Fertility Discussion</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 16 - High Risk Pregnancy Counselling')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 16 · High Risk Pregnancy Counselling</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 17 - Child Protection Discussion')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 17 · Child Protection Discussion</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 18 - End of Life Family Meeting')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 18 · End of Life Family Meeting</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 19 - Cultural Sensitivity Conflict')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 19 · Cultural Sensitivity Conflict</span></div><span class="pill status-optional">Optional</span></div>
+            <div class="tree-row" onclick="goToItem('Expansion Pattern 20 - Explain Diagnosis to Medical Student')"><div class="row-left"><span class="row-icon icon-optional">○</span><span class="row-title">Expansion Pattern 20 · Explain Diagnosis to Medical Student</span></div><span class="pill status-optional">Optional</span></div>
+          </div>
+        </details>
+      </section>
+    </section>
+
+    <footer class="footer-card">
+      <strong>© 2026 Dr. Ushana Yalda. All rights reserved.</strong><br />
+      Prepared by Dr. Ushana Yalda.<br />
+      Independent educational resource. Not affiliated with or endorsed by the Australian Medical Council.
+    </footer>
+  </main>
+
+  <script>
+    const expandAllButton = document.getElementById("expandAll");
+    const collapseAllButton = document.getElementById("collapseAll");
+    const allDetails = document.querySelectorAll("details");
+
+    expandAllButton.addEventListener("click", () => {
+      allDetails.forEach((item) => {
+        item.open = true;
+      });
+    });
+
+    collapseAllButton.addEventListener("click", () => {
+      allDetails.forEach((item) => {
+        item.open = false;
+      });
+
+      const firstSection = document.querySelector("details");
+      if (firstSection) firstSection.open = true;
+    });
+
+    function goToItem(itemName) {
+      alert(itemName + "\\n\\nThis will open the linked page once the case pages are built.");
+    }
+  </script>
+</body>
+</html>

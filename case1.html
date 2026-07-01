@@ -112,7 +112,7 @@
       display: grid;
       place-items: center;
       pointer-events: none;
-      color: rgba(23, 62, 122, 0.055);
+      color: rgba(23, 62, 122, 0.045);
       font-size: clamp(48px, 12vw, 130px);
       font-weight: 500;
       transform: rotate(-22deg);
@@ -125,8 +125,16 @@
       z-index: 1;
     }
 
+    .case-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
     .case-title {
-      margin: 0 0 8px;
+      margin: 0;
       color: var(--blue);
       font-size: clamp(25px, 5vw, 38px);
       line-height: 1.15;
@@ -134,28 +142,51 @@
       letter-spacing: -0.035em;
     }
 
-    .case-subtitle {
-      margin: 0 0 28px;
-      color: var(--ink);
-      font-size: clamp(17px, 2.8vw, 22px);
-      line-height: 1.4;
-      font-weight: 500;
+    .details-drawer {
+      min-width: fit-content;
+      margin-top: 2px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--blue);
+      overflow: visible;
     }
 
-    .case-meta {
+    .details-drawer summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 8px 13px;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .details-drawer summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .details-panel {
+      position: absolute;
+      right: clamp(26px, 5vw, 52px);
+      top: 92px;
+      width: min(100% - 52px, 520px);
+      z-index: 4;
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin: 0 0 28px;
-      background: #FBFCFE;
+      border-radius: 16px;
+      padding: 16px 18px;
+      background: #FFFFFF;
+      box-shadow: 0 18px 42px rgba(16, 24, 40, 0.18);
     }
 
     .meta-row {
       display: grid;
-      grid-template-columns: 180px 1fr;
+      grid-template-columns: 150px 1fr;
       gap: 12px;
       padding: 7px 0;
       border-bottom: 1px solid #EEF1F5;
+      font-size: 15px;
+      line-height: 1.4;
     }
 
     .meta-row:last-child {
@@ -207,12 +238,7 @@
       font-size: 18px;
     }
 
-    .tight p {
-      margin-bottom: 10px;
-    }
-
-    .task-list,
-    .number-list {
+    .task-list {
       margin: 10px 0 20px 34px;
       font-size: 18px;
       line-height: 1.7;
@@ -257,10 +283,6 @@
       color: #3A3F49;
       font-size: 18px;
       font-weight: 500;
-    }
-
-    .plain-lines p {
-      margin-bottom: 9px;
     }
 
     .hidden-section {
@@ -313,27 +335,8 @@
       padding: 0 20px 22px;
     }
 
-    .quote-box {
-      border: 2px solid #3F4652;
-      border-radius: 14px;
-      padding: 16px 18px;
-      margin: 14px 0 20px;
-      background: #FFFFFF;
-    }
-
-    .quote-box-title {
-      margin: 0 0 10px;
-      color: var(--red);
-      font-weight: 800;
-      font-size: 18px;
-      text-transform: uppercase;
-    }
-
-    .focus-box-title {
-      color: var(--amber);
-    }
-
-    .must-box {
+    .must-box,
+    .drill-block {
       border: 2px solid #3F4652;
       border-radius: 14px;
       padding: 16px 18px;
@@ -343,14 +346,6 @@
 
     .must-box p {
       margin-bottom: 8px;
-    }
-
-    .drill-block {
-      border: 2px solid #3F4652;
-      border-radius: 14px;
-      padding: 16px 18px;
-      margin: 14px 0 20px;
-      background: #FFFFFF;
     }
 
     .drill-title {
@@ -433,6 +428,10 @@
       line-height: 1.5;
     }
 
+    .footer strong {
+      color: var(--blue);
+    }
+
     @media (max-width: 700px) {
       .sitebar {
         flex-direction: column;
@@ -453,6 +452,18 @@
         padding: 24px 20px;
       }
 
+      .case-top {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .details-panel {
+        position: static;
+        width: 100%;
+        margin-top: 12px;
+        box-shadow: none;
+      }
+
       .meta-row {
         grid-template-columns: 1fr;
         gap: 2px;
@@ -460,7 +471,6 @@
 
       p,
       .task-list,
-      .number-list,
       .speaker,
       .candidate-line,
       .patient-line {
@@ -492,33 +502,38 @@
 
   <main class="paper">
     <div class="content">
-      <h2 class="case-title">Case 1 - Classic Chest Pain in General Practice</h2>
+      <section class="case-top">
+        <h2 class="case-title">Case 1 - Classic Chest Pain in General Practice</h2>
 
-      <section class="case-meta" aria-label="Case metadata">
-        <div class="meta-row">
-          <div class="meta-label">Pattern:</div>
-          <div class="meta-value">Dangerous Chest Pain</div>
-        </div>
-        <div class="meta-row">
-          <div class="meta-label">Clinical Variant:</div>
-          <div class="meta-value">Classic acute coronary syndrome</div>
-        </div>
-        <div class="meta-row">
-          <div class="meta-label">Station Type:</div>
-          <div class="meta-value">Patient Consultation</div>
-        </div>
-        <div class="meta-row">
-          <div class="meta-label">Task Recipient:</div>
-          <div class="meta-value">Patient</div>
-        </div>
-        <div class="meta-row">
-          <div class="meta-label">Setting:</div>
-          <div class="meta-value">General Practice</div>
-        </div>
-        <div class="meta-row">
-          <div class="meta-label">Main Risk Point:</div>
-          <div class="meta-value">Do not delay ambulance transfer while trying to prove the diagnosis.</div>
-        </div>
+        <details class="details-drawer">
+          <summary>Details</summary>
+          <div class="details-panel">
+            <div class="meta-row">
+              <div class="meta-label">Pattern:</div>
+              <div class="meta-value">Dangerous Chest Pain</div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-label">Clinical Variant:</div>
+              <div class="meta-value">Classic acute coronary syndrome</div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-label">Station Type:</div>
+              <div class="meta-value">Patient Consultation</div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-label">Task Recipient:</div>
+              <div class="meta-value">Patient</div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-label">Setting:</div>
+              <div class="meta-value">General Practice</div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-label">Main Risk Point:</div>
+              <div class="meta-value">Do not delay ambulance transfer while trying to prove the diagnosis.</div>
+            </div>
+          </div>
+        </details>
       </section>
 
       <section class="section" id="section-1">
@@ -528,7 +543,6 @@
         <p>Mr Peter Lewis is a 60-year-old man who presents with central chest pressure.</p>
         <p>The pain started 40 minutes ago while he was walking from the car park to your clinic.</p>
         <p>He looks pale and sweaty.</p>
-
         <p>Past history:<br>Hypertension.</p>
         <p>Medication:<br>Perindopril.</p>
         <p>No investigation results are available at the start of the station.</p>
@@ -548,22 +562,20 @@
         <h3 class="section-title">Section 2 - 2-Minute Reading Map</h3>
 
         <div class="map-block">
-          <p><strong>Setting:</strong><br>General Practice.</p>
-          <p><strong>Patient:</strong><br>60-year-old man.</p>
-          <p><strong>Problem:</strong><br>Central chest pressure for 40 minutes.</p>
-          <p><strong>Already concerning:</strong><br>Pale.<br>Sweaty.<br>Started with walking.</p>
+          <p>Setting:<br>General Practice.</p>
+          <p>Patient:<br>60-year-old man.</p>
+          <p>Problem:<br>Central chest pressure for 40 minutes.</p>
+          <p>Already concerning:<br>Pale.<br>Sweaty.<br>Started with walking.</p>
 
-          <p class="map-label">Four causes not to miss:</p>
-          <p>Acute coronary syndrome.<br>Aortic dissection.<br>Pulmonary embolism.<br>Tension pneumothorax.</p>
+          <p>Four causes not to miss:<br>Acute coronary syndrome.<br>Aortic dissection.<br>Pulmonary embolism.<br>Tension pneumothorax.</p>
 
-          <p><strong>Most likely dangerous working diagnosis:</strong><br>Heart-related chest pain.</p>
-          <p><strong>First action:</strong><br>Arrange ambulance transfer now.<br>Do a heart tracing if available and not delaying transfer.</p>
-          <p><strong>Main risk point:</strong><br>Do not delay transfer while trying to prove the diagnosis.</p>
+          <p>Most likely dangerous working diagnosis:<br>Heart-related chest pain.</p>
+          <p>First action:<br>Arrange ambulance transfer now.<br>Do a heart tracing if available and not delaying transfer.</p>
+          <p>Main risk point:<br>Do not delay transfer while trying to prove the diagnosis.</p>
 
-          <p class="map-label">Must ask:</p>
-          <p>Where is the pain?<br>Does it spread?<br>Sweating, nausea, breathlessness, fainting?<br>Severe pain to the back?<br>Coughing blood or clot risk?<br>Sudden sharp pain with severe breathlessness?<br>Heart risk factors?<br>Aspirin allergy or bleeding risk?</p>
+          <p>Must ask:<br>Where is the pain?<br>Does it spread?<br>Sweating, nausea, breathlessness, fainting?<br>Severe pain to the back?<br>Coughing blood or clot risk?<br>Sudden sharp pain with severe breathlessness?<br>Heart risk factors?<br>Aspirin allergy or bleeding risk?</p>
 
-          <p><strong>Must say:</strong><br>“This is not safe to manage in this clinic. I am arranging an ambulance now.”</p>
+          <p>Must say:<br>“This is not safe to manage in this clinic. I am arranging an ambulance now.”</p>
         </div>
       </section>
 
@@ -573,210 +585,210 @@
         <div class="script">
           <h4 class="phase-title">Phase 1 - Introduction and Consent</h4>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Hello, I am Dr ___. How would you like me to address you?”</p>
+          <p>Candidate:</p>
+          <p>“Hello, I am Dr ___. How would you like me to address you?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Call me Mr Lewis.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Thank you, Mr Lewis. I can see you look pale and sweaty.”</p>
-          <p class="candidate-line">“I am worried this may be coming from your heart.”</p>
-          <p class="candidate-line">“I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?”</p>
+          <p>Candidate:</p>
+          <p>“Thank you, Mr Lewis. I can see you look pale and sweaty.”</p>
+          <p>“I am worried this may be coming from your heart.”</p>
+          <p>“I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “An ambulance? Is it that serious?”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“It may be serious. It does not mean you definitely have a heart attack, but it is serious enough that we should not wait.”</p>
+          <p>Candidate:</p>
+          <p>“It may be serious. It does not mean you definitely have a heart attack, but it is serious enough that we should not wait.”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Okay.”</p>
 
           <h4 class="phase-title">Phase 2 - Open Question</h4>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Tell me what happened today.”</p>
+          <p>Candidate:</p>
+          <p>“Tell me what happened today.”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “I was walking from the car park about 40 minutes ago and felt pressure in the middle of my chest.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Thank you. I will keep the questions focused.”</p>
+          <p>Candidate:</p>
+          <p>“Thank you. I will keep the questions focused.”</p>
 
           <h4 class="phase-title">Phase 3 - Focused History</h4>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Is the pressure still there now?”</p>
+          <p>Candidate:</p>
+          <p>“Is the pressure still there now?”</p>
           <p class="patient-line"><strong>Patient:</strong> “Yes.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Where exactly is it?”</p>
+          <p>Candidate:</p>
+          <p>“Where exactly is it?”</p>
           <p class="patient-line"><strong>Patient:</strong> “In the centre of my chest.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Does it spread anywhere?”</p>
+          <p>Candidate:</p>
+          <p>“Does it spread anywhere?”</p>
           <p class="patient-line"><strong>Patient:</strong> “To my left arm.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Does it go to your jaw, neck, back, shoulder, or upper tummy?”</p>
+          <p>Candidate:</p>
+          <p>“Does it go to your jaw, neck, back, shoulder, or upper tummy?”</p>
           <p class="patient-line"><strong>Patient:</strong> “A bit to my jaw. Not to my back.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“How bad is it out of ten?”</p>
+          <p>Candidate:</p>
+          <p>“How bad is it out of ten?”</p>
           <p class="patient-line"><strong>Patient:</strong> “About eight.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Did it start suddenly or build up?”</p>
+          <p>Candidate:</p>
+          <p>“Did it start suddenly or build up?”</p>
           <p class="patient-line"><strong>Patient:</strong> “It built up over a few minutes while I was walking.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Have you felt sweaty, sick, vomited, short of breath, faint, or had a racing heartbeat?”</p>
+          <p>Candidate:</p>
+          <p>“Have you felt sweaty, sick, vomited, short of breath, faint, or had a racing heartbeat?”</p>
           <p class="patient-line"><strong>Patient:</strong> “I am sweaty and feel sick. I am a bit short of breath. I have not fainted.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Any severe tearing pain going through to your back?”</p>
+          <p>Candidate:</p>
+          <p>“Any severe tearing pain going through to your back?”</p>
           <p class="patient-line"><strong>Patient:</strong> “No.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Any coughing blood?”</p>
+          <p>Candidate:</p>
+          <p>“Any coughing blood?”</p>
           <p class="patient-line"><strong>Patient:</strong> “No.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Any calf pain, leg swelling, recent long travel, recent surgery, being stuck in bed, cancer, or previous blood clot?”</p>
+          <p>Candidate:</p>
+          <p>“Any calf pain, leg swelling, recent long travel, recent surgery, being stuck in bed, cancer, or previous blood clot?”</p>
           <p class="patient-line"><strong>Patient:</strong> “No.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Any sudden sharp chest pain with severe breathlessness?”</p>
+          <p>Candidate:</p>
+          <p>“Any sudden sharp chest pain with severe breathlessness?”</p>
           <p class="patient-line"><strong>Patient:</strong> “No. It feels more like pressure.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Do you have diabetes, high cholesterol, kidney disease, previous heart disease, or smoking history?”</p>
+          <p>Candidate:</p>
+          <p>“Do you have diabetes, high cholesterol, kidney disease, previous heart disease, or smoking history?”</p>
           <p class="patient-line"><strong>Patient:</strong> “I have high blood pressure. I used to smoke but stopped five years ago.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Any close family history of heart disease?”</p>
+          <p>Candidate:</p>
+          <p>“Any close family history of heart disease?”</p>
           <p class="patient-line"><strong>Patient:</strong> “My father had a heart attack in his fifties.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“What medicines do you take?”</p>
+          <p>Candidate:</p>
+          <p>“What medicines do you take?”</p>
           <p class="patient-line"><strong>Patient:</strong> “Perindopril for blood pressure.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Are you allergic to aspirin?”</p>
+          <p>Candidate:</p>
+          <p>“Are you allergic to aspirin?”</p>
           <p class="patient-line"><strong>Patient:</strong> “No.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Any active bleeding, stomach bleeding, bleeding disorder, or blood thinner medicine?”</p>
+          <p>Candidate:</p>
+          <p>“Any active bleeding, stomach bleeding, bleeding disorder, or blood thinner medicine?”</p>
           <p class="patient-line"><strong>Patient:</strong> “No.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Thank you. I have enough information to act safely now.”</p>
+          <p>Candidate:</p>
+          <p>“Thank you. I have enough information to act safely now.”</p>
 
           <h4 class="phase-title">Phase 4 - Red Flag Sweep</h4>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Just to check the danger signs clearly: the pain is still there, it spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath. Correct?”</p>
+          <p>Candidate:</p>
+          <p>“Just to check the danger signs clearly: the pain is still there, it spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath. Correct?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Yes.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“And no severe tearing pain to the back, no collapse, no coughing blood, and no one-sided leg swelling?”</p>
+          <p>Candidate:</p>
+          <p>“And no severe tearing pain to the back, no collapse, no coughing blood, and no one-sided leg swelling?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Correct.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“That pattern is concerning. I am treating this as urgent.”</p>
+          <p>Candidate:</p>
+          <p>“That pattern is concerning. I am treating this as urgent.”</p>
 
           <h4 class="phase-title">Phase 5 - Structured Summary</h4>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Let me summarise.”</p>
-          <p class="candidate-line">“You developed central chest pressure about 40 minutes ago while walking. It is still there. It spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath.”</p>
-          <p class="candidate-line">“You have high blood pressure, past smoking, and a family history of heart disease.”</p>
-          <p class="candidate-line">“Is that right?”</p>
+          <p>Candidate:</p>
+          <p>“Let me summarise.”</p>
+          <p>“You developed central chest pressure about 40 minutes ago while walking. It is still there. It spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath.”</p>
+          <p>“You have high blood pressure, past smoking, and a family history of heart disease.”</p>
+          <p>“Is that right?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Yes.”</p>
 
           <h4 class="phase-title">Phase 6 - Diagnosis Explanation</h4>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“The main concern is that this may be coming from your heart.”</p>
-          <p class="candidate-line">“That includes a possible heart attack or unstable blood flow to the heart.”</p>
-          <p class="candidate-line">“I cannot confirm that here in the clinic.”</p>
-          <p class="candidate-line">“But your symptoms are serious enough that I need to treat this as a possible heart problem now.”</p>
+          <p>Candidate:</p>
+          <p>“The main concern is that this may be coming from your heart.”</p>
+          <p>“That includes a possible heart attack or unstable blood flow to the heart.”</p>
+          <p>“I cannot confirm that here in the clinic.”</p>
+          <p>“But your symptoms are serious enough that I need to treat this as a possible heart problem now.”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “So you think it could be my heart?”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Yes. That is why I am arranging urgent hospital care.”</p>
+          <p>Candidate:</p>
+          <p>“Yes. That is why I am arranging urgent hospital care.”</p>
 
           <h4 class="phase-title">Phase 7 - Differential Explanation</h4>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“There are a few other serious causes of chest pain that hospital also needs to check.”</p>
-          <p class="candidate-line">“One is a tear in the main blood vessel from the heart.”</p>
-          <p class="candidate-line">“One is a blood clot in the lung.”</p>
-          <p class="candidate-line">“One is a collapsed lung.”</p>
-          <p class="candidate-line">“Indigestion or muscle pain can happen too, but with your symptoms I cannot safely call it that here.”</p>
+          <p>Candidate:</p>
+          <p>“There are a few other serious causes of chest pain that hospital also needs to check.”</p>
+          <p>“One is a tear in the main blood vessel from the heart.”</p>
+          <p>“One is a blood clot in the lung.”</p>
+          <p>“One is a collapsed lung.”</p>
+          <p>“Indigestion or muscle pain can happen too, but with your symptoms I cannot safely call it that here.”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “I thought it might just be indigestion.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“It may turn out to be something less serious, but we need to check the dangerous causes first.”</p>
+          <p>Candidate:</p>
+          <p>“It may turn out to be something less serious, but we need to check the dangerous causes first.”</p>
 
           <h4 class="phase-title">Phase 8 - Decision Point and Management Plan</h4>
 
           <h5 class="sub-title">Phase 8A - Decision Point</h5>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Because the pressure is still there, it spreads to your arm and jaw, and you feel sweaty, sick, and short of breath, I am treating this as a possible heart problem now.”</p>
-          <p class="candidate-line">“I am not waiting for certainty before acting.”</p>
+          <p>Candidate:</p>
+          <p>“Because the pressure is still there, it spreads to your arm and jaw, and you feel sweaty, sick, and short of breath, I am treating this as a possible heart problem now.”</p>
+          <p>“I am not waiting for certainty before acting.”</p>
 
           <h5 class="sub-title">Phase 8B - Management Plan</h5>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“This is not safe to manage in this clinic.”</p>
-          <p class="candidate-line">“I am arranging an ambulance now.”</p>
-          <p class="candidate-line">“You should not drive yourself.”</p>
+          <p>Candidate:</p>
+          <p>“This is not safe to manage in this clinic.”</p>
+          <p>“I am arranging an ambulance now.”</p>
+          <p>“You should not drive yourself.”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Can my wife drive me? It is only nearby.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“No. You need an ambulance because they can monitor you and act quickly if your condition changes.”</p>
-          <p class="candidate-line">“While we wait, we will keep you resting and check your blood pressure, pulse, oxygen level, breathing rate, temperature, and alertness.”</p>
-          <p class="candidate-line">“If we can do a heart tracing immediately without delaying the ambulance, we will do it.”</p>
-          <p class="candidate-line">“I will give aspirin if it is safe for you. You have no aspirin allergy and no bleeding concern, so I would give it now.”</p>
-          <p class="candidate-line">“I will give oxygen only if your oxygen level is low or you show signs that you need it.”</p>
-          <p class="candidate-line">“Before any chest pain spray or tablet under the tongue, I will check your blood pressure and make sure none of your recent medicines make it unsafe.”</p>
-          <p class="candidate-line">“I will not delay the ambulance for blood tests that need to happen in hospital.”</p>
-          <p class="candidate-line">“In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed.”</p>
+          <p>Candidate:</p>
+          <p>“No. You need an ambulance because they can monitor you and act quickly if your condition changes.”</p>
+          <p>“While we wait, we will keep you resting and check your blood pressure, pulse, oxygen level, breathing rate, temperature, and alertness.”</p>
+          <p>“If we can do a heart tracing immediately without delaying the ambulance, we will do it.”</p>
+          <p>“I will give aspirin if it is safe for you. You have no aspirin allergy and no bleeding concern, so I would give it now.”</p>
+          <p>“I will give oxygen only if your oxygen level is low or you show signs that you need it.”</p>
+          <p>“Before any chest pain spray or tablet under the tongue, I will check your blood pressure and make sure none of your recent medicines make it unsafe.”</p>
+          <p>“I will not delay the ambulance for blood tests that need to happen in hospital.”</p>
+          <p>“In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed.”</p>
 
           <h4 class="phase-title">Phase 9 - Urgency Classification</h4>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“This is urgent.”</p>
-          <p class="candidate-line">“The safest plan is ambulance transfer now.”</p>
+          <p>Candidate:</p>
+          <p>“This is urgent.”</p>
+          <p>“The safest plan is ambulance transfer now.”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “I am worried.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“I understand. We are acting early to keep you safe.”</p>
+          <p>Candidate:</p>
+          <p>“I understand. We are acting early to keep you safe.”</p>
 
           <h4 class="phase-title">Phase 10 - Safety Net</h4>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“While we wait, tell me immediately if the pain gets worse, you feel faint, become more breathless, feel very clammy, or feel like you might collapse.”</p>
-          <p class="candidate-line">“Please stay seated or lying down.”</p>
-          <p class="candidate-line">“Do not walk around.”</p>
+          <p>Candidate:</p>
+          <p>“While we wait, tell me immediately if the pain gets worse, you feel faint, become more breathless, feel very clammy, or feel like you might collapse.”</p>
+          <p>“Please stay seated or lying down.”</p>
+          <p>“Do not walk around.”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Okay.”</p>
 
           <h4 class="phase-title">Phase 11 - Check Understanding</h4>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Can you tell me what you understand about why I am arranging an ambulance?”</p>
+          <p>Candidate:</p>
+          <p>“Can you tell me what you understand about why I am arranging an ambulance?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “You are worried this could be my heart, and I need hospital urgently.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“That is right. I will stay with you and hand over clearly to the ambulance team.”</p>
+          <p>Candidate:</p>
+          <p>“That is right. I will stay with you and hand over clearly to the ambulance team.”</p>
         </div>
       </section>
 
@@ -784,36 +796,16 @@
         <summary>Section 4 - Doctor Thinking - Hidden</summary>
         <div class="hidden-body">
           <p>Display:<br>Collapsed by default on website.</p>
-
-          <p class="map-label">Dangerous working diagnosis:</p>
-          <p>Possible acute coronary syndrome.</p>
-
-          <p class="map-label">Patient wording:</p>
-          <p>Possible heart problem.<br>Possible heart attack.<br>Unstable blood flow to the heart.</p>
-
-          <p class="map-label">Why it is likely:</p>
-          <p>Central chest pressure.<br>Exertional onset.<br>Ongoing pain.<br>Radiation to left arm and jaw.<br>Sweating.<br>Nausea.<br>Breathlessness.<br>Age 60.<br>Hypertension.<br>Past smoking.<br>Family history.</p>
-
-          <p class="map-label">Four causes not to miss:</p>
-          <p>Acute coronary syndrome.<br>Aortic dissection.<br>Pulmonary embolism.<br>Tension pneumothorax.</p>
-
-          <p class="map-label">Aortic dissection less likely because:</p>
-          <p>No sudden maximal tearing pain.<br>No pain through to the back.<br>No neurological symptoms.<br>No collapse.</p>
-
-          <p class="map-label">Pulmonary embolism less likely because:</p>
-          <p>No pleuritic pain.<br>No haemoptysis.<br>No calf swelling.<br>No travel, surgery, immobility, cancer, or previous clot.</p>
-
-          <p class="map-label">Tension pneumothorax less likely because:</p>
-          <p>Pain is pressure-like, not sudden sharp pleuritic pain.<br>No severe unilateral breathlessness.<br>No trauma.<br>No one-sided chest signs provided.</p>
-
-          <p class="map-label">General Practice logic:</p>
-          <p>This cannot be safely ruled out in clinic.<br>Call ambulance.<br>Do a heart tracing only if immediate and not delaying transfer.<br>Do not wait for troponin.<br>Do not allow private transport.</p>
-
-          <p class="map-label">Medication safety:</p>
-          <p>Aspirin if no allergy or bleeding concern.<br>Oxygen only if low oxygen, heart failure, shock, severe respiratory distress, or poor perfusion.<br>Chest pain spray or tablet only after blood pressure and medication safety check.<br>Recent sildenafil or tadalafil must be checked before glyceryl trinitrate.</p>
-
-          <p class="map-label">Decision Point:</p>
-          <p>The moment central chest pressure is associated with radiation, sweating, nausea, breathlessness, ongoing symptoms, and cardiac risk factors, treat as possible acute coronary syndrome until proven otherwise.</p>
+          <p>Dangerous working diagnosis:<br>Possible acute coronary syndrome.</p>
+          <p>Patient wording:<br>Possible heart problem.<br>Possible heart attack.<br>Unstable blood flow to the heart.</p>
+          <p>Why it is likely:<br>Central chest pressure.<br>Exertional onset.<br>Ongoing pain.<br>Radiation to left arm and jaw.<br>Sweating.<br>Nausea.<br>Breathlessness.<br>Age 60.<br>Hypertension.<br>Past smoking.<br>Family history.</p>
+          <p>Four causes not to miss:<br>Acute coronary syndrome.<br>Aortic dissection.<br>Pulmonary embolism.<br>Tension pneumothorax.</p>
+          <p>Aortic dissection less likely because:<br>No sudden maximal tearing pain.<br>No pain through to the back.<br>No neurological symptoms.<br>No collapse.</p>
+          <p>Pulmonary embolism less likely because:<br>No pleuritic pain.<br>No haemoptysis.<br>No calf swelling.<br>No travel, surgery, immobility, cancer, or previous clot.</p>
+          <p>Tension pneumothorax less likely because:<br>Pain is pressure-like, not sudden sharp pleuritic pain.<br>No severe unilateral breathlessness.<br>No trauma.<br>No one-sided chest signs provided.</p>
+          <p>General Practice logic:<br>This cannot be safely ruled out in clinic.<br>Call ambulance.<br>Do a heart tracing only if immediate and not delaying transfer.<br>Do not wait for troponin.<br>Do not allow private transport.</p>
+          <p>Medication safety:<br>Aspirin if no allergy or bleeding concern.<br>Oxygen only if low oxygen, heart failure, shock, severe respiratory distress, or poor perfusion.<br>Chest pain spray or tablet only after blood pressure and medication safety check.<br>Recent sildenafil or tadalafil must be checked before glyceryl trinitrate.</p>
+          <p>Decision Point:<br>The moment central chest pressure is associated with radiation, sweating, nausea, breathlessness, ongoing symptoms, and cardiac risk factors, treat as possible acute coronary syndrome until proven otherwise.</p>
         </div>
       </details>
 
@@ -835,7 +827,6 @@
         <summary>Section 5 - Examiner Lines - Hidden</summary>
         <div class="hidden-body">
           <p>Display:<br>Collapsed by default on website.</p>
-
           <p>“My working diagnosis is possible acute coronary syndrome until proven otherwise.”</p>
           <p>“I will assess stability first, including observations, oxygen saturation, perfusion, and conscious state.”</p>
           <p>“I will arrange urgent ambulance transfer from General Practice.”</p>
@@ -883,101 +874,101 @@
         <h3 class="section-title">Section 7 - Full Timed Run</h3>
 
         <div class="script">
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Hello, I am Dr ___. How would you like me to address you?”</p>
+          <p>Candidate:</p>
+          <p>“Hello, I am Dr ___. How would you like me to address you?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Call me Mr Lewis.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Thank you, Mr Lewis. I can see you look pale and sweaty. I am worried this may be coming from your heart. I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?”</p>
+          <p>Candidate:</p>
+          <p>“Thank you, Mr Lewis. I can see you look pale and sweaty. I am worried this may be coming from your heart. I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Is it that serious?”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“It may be serious. It does not mean you definitely have a heart attack, but it is serious enough that we should not wait.”</p>
+          <p>Candidate:</p>
+          <p>“It may be serious. It does not mean you definitely have a heart attack, but it is serious enough that we should not wait.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Tell me what happened today.”</p>
+          <p>Candidate:</p>
+          <p>“Tell me what happened today.”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “I was walking from the car park about 40 minutes ago and felt pressure in the middle of my chest.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Is the pressure still there now?”</p>
+          <p>Candidate:</p>
+          <p>“Is the pressure still there now?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Yes.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Does it spread anywhere?”</p>
+          <p>Candidate:</p>
+          <p>“Does it spread anywhere?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “To my left arm, and a bit to my jaw.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Any sweating, nausea, shortness of breath, fainting, or racing heartbeat?”</p>
+          <p>Candidate:</p>
+          <p>“Any sweating, nausea, shortness of breath, fainting, or racing heartbeat?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “I am sweaty, feel sick, and I am a bit short of breath. I have not fainted.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Any severe tearing pain going through your back?”</p>
+          <p>Candidate:</p>
+          <p>“Any severe tearing pain going through your back?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “No.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Any coughing blood, calf pain, leg swelling, recent travel, surgery, being stuck in bed, cancer, or previous blood clot?”</p>
+          <p>Candidate:</p>
+          <p>“Any coughing blood, calf pain, leg swelling, recent travel, surgery, being stuck in bed, cancer, or previous blood clot?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “No.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Do you have diabetes, high cholesterol, kidney disease, previous heart disease, or smoking history?”</p>
+          <p>Candidate:</p>
+          <p>“Do you have diabetes, high cholesterol, kidney disease, previous heart disease, or smoking history?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “I have high blood pressure and I used to smoke.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Any family history of heart disease?”</p>
+          <p>Candidate:</p>
+          <p>“Any family history of heart disease?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “My father had a heart attack in his fifties.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Are you allergic to aspirin, or do you have active bleeding or take blood thinners?”</p>
+          <p>Candidate:</p>
+          <p>“Are you allergic to aspirin, or do you have active bleeding or take blood thinners?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “No.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Let me summarise. You developed central chest pressure about 40 minutes ago while walking. It is still there, spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath. You also have high blood pressure, past smoking, and a family history of heart disease. Is that right?”</p>
+          <p>Candidate:</p>
+          <p>“Let me summarise. You developed central chest pressure about 40 minutes ago while walking. It is still there, spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath. You also have high blood pressure, past smoking, and a family history of heart disease. Is that right?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Yes.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“The main concern is that this may be coming from your heart. That includes a possible heart attack or unstable blood flow to the heart. I cannot confirm that here in the clinic, but your symptoms are serious enough that I need to treat this as a possible heart problem now.”</p>
+          <p>Candidate:</p>
+          <p>“The main concern is that this may be coming from your heart. That includes a possible heart attack or unstable blood flow to the heart. I cannot confirm that here in the clinic, but your symptoms are serious enough that I need to treat this as a possible heart problem now.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“There are other serious causes hospital also needs to check, including a tear in the main blood vessel from the heart, a blood clot in the lung, or a collapsed lung. Indigestion or muscle pain can happen too, but I cannot safely call it that here.”</p>
+          <p>Candidate:</p>
+          <p>“There are other serious causes hospital also needs to check, including a tear in the main blood vessel from the heart, a blood clot in the lung, or a collapsed lung. Indigestion or muscle pain can happen too, but I cannot safely call it that here.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“This is not safe to manage in this clinic. I am arranging an ambulance now. You should not drive yourself.”</p>
+          <p>Candidate:</p>
+          <p>“This is not safe to manage in this clinic. I am arranging an ambulance now. You should not drive yourself.”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “Can my wife drive me?”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“No. You need an ambulance because they can monitor you and act quickly if your condition changes.”</p>
+          <p>Candidate:</p>
+          <p>“No. You need an ambulance because they can monitor you and act quickly if your condition changes.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“While we wait, we will keep you resting and check your blood pressure, pulse, oxygen level, breathing rate, temperature, and alertness.”</p>
-          <p class="candidate-line">“If we can do a heart tracing immediately without delaying the ambulance, we will do it.”</p>
-          <p class="candidate-line">“I will give aspirin if it is safe for you. I will give oxygen only if your oxygen level is low or you show signs that you need it.”</p>
-          <p class="candidate-line">“Before any chest pain spray or tablet under the tongue, I will check your blood pressure and make sure none of your recent medicines make it unsafe.”</p>
-          <p class="candidate-line">“I will not delay the ambulance for blood tests that need to happen in hospital.”</p>
-          <p class="candidate-line">“In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed.”</p>
+          <p>Candidate:</p>
+          <p>“While we wait, we will keep you resting and check your blood pressure, pulse, oxygen level, breathing rate, temperature, and alertness.”</p>
+          <p>“If we can do a heart tracing immediately without delaying the ambulance, we will do it.”</p>
+          <p>“I will give aspirin if it is safe for you. I will give oxygen only if your oxygen level is low or you show signs that you need it.”</p>
+          <p>“Before any chest pain spray or tablet under the tongue, I will check your blood pressure and make sure none of your recent medicines make it unsafe.”</p>
+          <p>“I will not delay the ambulance for blood tests that need to happen in hospital.”</p>
+          <p>“In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Tell me immediately if the pain gets worse, you feel faint, become more breathless, feel very clammy, or feel like you might collapse. Please stay seated or lying down.”</p>
+          <p>Candidate:</p>
+          <p>“Tell me immediately if the pain gets worse, you feel faint, become more breathless, feel very clammy, or feel like you might collapse. Please stay seated or lying down.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“Can you tell me what you understand about why I am arranging an ambulance?”</p>
+          <p>Candidate:</p>
+          <p>“Can you tell me what you understand about why I am arranging an ambulance?”</p>
 
           <p class="patient-line"><strong>Patient:</strong> “You are worried this could be my heart, and I need hospital urgently.”</p>
 
-          <p class="speaker">Candidate:</p>
-          <p class="candidate-line">“That is right. I will stay with you and hand over clearly to the ambulance team.”</p>
+          <p>Candidate:</p>
+          <p>“That is right. I will stay with you and hand over clearly to the ambulance team.”</p>
         </div>
       </section>
 

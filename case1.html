@@ -16,7 +16,9 @@
       --doctor-bg: #F3F7FF;
       --patient-bg: #F7F8FA;
       --red: #8A1F1F;
+      --red-soft: #FFF3F1;
       --amber: #A85013;
+      --amber-soft: #FFF8EE;
       --border: #D5DAE3;
       --line: #D7DCE5;
       --shadow: 0 18px 42px rgba(16, 24, 40, 0.08);
@@ -36,7 +38,7 @@
       min-height: 100vh;
       background: var(--page-bg);
       color: var(--ink);
-      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: "Aptos", "Segoe UI", Arial, sans-serif;
       line-height: 1.58;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -65,10 +67,10 @@
     .brand-title {
       margin: 0;
       color: var(--blue);
-      font-size: clamp(22px, 4vw, 30px);
+      font-size: 29px;
       line-height: 1.1;
       font-weight: 750;
-      letter-spacing: -0.035em;
+      letter-spacing: 0;
     }
 
     .brand-credit {
@@ -115,7 +117,7 @@
       place-items: center;
       pointer-events: none;
       color: rgba(23, 62, 122, 0.04);
-      font-size: clamp(48px, 12vw, 130px);
+      font-size: 118px;
       font-weight: 500;
       transform: rotate(-22deg);
       z-index: 0;
@@ -138,10 +140,10 @@
     .case-title {
       margin: 0;
       color: var(--blue);
-      font-size: clamp(25px, 5vw, 38px);
+      font-size: 34px;
       line-height: 1.15;
       font-weight: 780;
-      letter-spacing: -0.035em;
+      letter-spacing: 0;
     }
 
     .details-drawer {
@@ -205,18 +207,87 @@
       font-weight: 500;
     }
 
+    .station-path {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0 0 26px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #F8FAFD;
+    }
+
+    .station-step {
+      min-height: 82px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      border: 1px solid #DCE2EC;
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: #FFFFFF;
+      color: var(--ink);
+    }
+
+    .station-step:focus-visible,
+    .station-step:hover {
+      border-color: var(--blue);
+      outline: none;
+    }
+
+    .station-step-number {
+      width: 30px;
+      height: 30px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #FFFFFF;
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .station-step strong {
+      display: block;
+      color: var(--blue);
+      font-size: 15px;
+      line-height: 1.15;
+      font-weight: 850;
+    }
+
+    .station-step-detail {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 650;
+    }
+
+    .station-step.action .station-step-number {
+      background: var(--red);
+    }
+
+    .station-step.action strong {
+      color: var(--red);
+    }
+
     .section {
       margin-top: 30px;
+      scroll-margin-top: 16px;
     }
 
     .section-title {
       margin: 0 0 18px;
       color: var(--blue);
-      font-size: clamp(19px, 3vw, 24px);
+      font-size: 22px;
       line-height: 1.25;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: -0.015em;
+      letter-spacing: 0;
     }
 
     .phase-title {
@@ -246,14 +317,272 @@
       line-height: 1.65;
     }
 
-    .map-block {
-      border-left: 3px solid var(--blue);
-      padding-left: 16px;
+    .case-memory-map {
       margin: 12px 0 18px;
+      border: 1px solid #DCE2EC;
+      border-radius: 16px;
+      padding: 16px;
+      background: #F8FAFD;
     }
 
-    .map-block p {
-      margin-bottom: 10px;
+    .memory-map-head {
+      display: grid;
+      gap: 3px;
+      margin-bottom: 14px;
+    }
+
+    .memory-map-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .map-label {
+      display: inline-block;
+      margin: 0 0 5px;
+      color: var(--blue);
+      font-size: 12px;
+      line-height: 1.1;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    p.map-label {
+      display: block;
+      margin: 18px 0 8px;
+    }
+
+    .memory-route {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .body-map {
+      position: relative;
+      min-height: 310px;
+      border: 1px solid #DCE2EC;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #F3F7FF 100%);
+      overflow: hidden;
+    }
+
+    .body-head,
+    .body-torso,
+    .body-arm,
+    .body-leg {
+      position: absolute;
+      background: rgba(23, 62, 122, 0.08);
+      border: 2px solid rgba(23, 62, 122, 0.22);
+    }
+
+    .body-head {
+      width: 54px;
+      height: 54px;
+      left: calc(50% - 27px);
+      top: 20px;
+      border-radius: 999px;
+    }
+
+    .body-torso {
+      width: 92px;
+      height: 128px;
+      left: calc(50% - 46px);
+      top: 84px;
+      border-radius: 42px 42px 34px 34px;
+    }
+
+    .body-arm {
+      width: 26px;
+      height: 104px;
+      top: 96px;
+      border-radius: 999px;
+    }
+
+    .body-arm.left {
+      left: calc(50% - 82px);
+      transform: rotate(14deg);
+    }
+
+    .body-arm.right {
+      right: calc(50% - 82px);
+      transform: rotate(-14deg);
+    }
+
+    .body-leg {
+      width: 30px;
+      height: 86px;
+      top: 206px;
+      border-radius: 999px;
+    }
+
+    .body-leg.left {
+      left: calc(50% - 36px);
+    }
+
+    .body-leg.right {
+      right: calc(50% - 36px);
+    }
+
+    .signal-dot {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid rgba(138, 31, 31, 0.35);
+      border-radius: 999px;
+      padding: 5px 9px;
+      background: #FFFFFF;
+      color: var(--red);
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 850;
+      box-shadow: 0 8px 18px rgba(16, 24, 40, 0.08);
+    }
+
+    .signal-chest {
+      left: 48%;
+      top: 124px;
+      transform: translateX(-50%);
+    }
+
+    .signal-jaw {
+      left: 56%;
+      top: 56px;
+    }
+
+    .signal-arm {
+      left: 8%;
+      top: 132px;
+    }
+
+    .signal-system {
+      left: 31%;
+      top: 218px;
+      color: var(--amber);
+      border-color: rgba(168, 80, 19, 0.34);
+    }
+
+    .signal-action {
+      right: 10px;
+      bottom: 12px;
+      color: #FFFFFF;
+      border-color: var(--red);
+      background: var(--red);
+    }
+
+    .route-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .route-list li {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      border: 1px solid #DCE2EC;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #FFFFFF;
+    }
+
+    .route-list li:last-child {
+      border-color: rgba(138, 31, 31, 0.32);
+      background: var(--red-soft);
+    }
+
+    .route-number {
+      width: 28px;
+      height: 28px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .route-list li:last-child .route-number {
+      background: var(--red);
+      color: #FFFFFF;
+    }
+
+    .route-list p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .route-list strong {
+      display: block;
+      color: var(--blue);
+      font-size: 13px;
+      line-height: 1.15;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+    }
+
+    .route-list li:last-child strong {
+      color: var(--red);
+    }
+
+    .map-block {
+      margin: 16px 0 18px;
+    }
+
+    .reading-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .reading-tile {
+      min-height: 96px;
+      border: 1px solid #DCE2EC;
+      border-left: 4px solid var(--blue);
+      border-radius: 12px;
+      padding: 12px 13px;
+      background: #FFFFFF;
+    }
+
+    .reading-tile.danger {
+      border-left-color: var(--amber);
+      background: var(--amber-soft);
+    }
+
+    .reading-tile.action {
+      border-left-color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .reading-tile.wide {
+      grid-column: 1 / -1;
+      min-height: 0;
+    }
+
+    .reading-tile p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.42;
+    }
+
+    .reading-tile strong {
+      color: var(--blue);
+      font-weight: 850;
+    }
+
+    .reading-tile.action strong {
+      color: var(--red);
     }
 
     .script-toolbar {
@@ -331,7 +660,7 @@
       color: var(--muted);
       font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0;
       font-weight: 800;
     }
 
@@ -373,7 +702,7 @@
       font-size: 19px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: -0.015em;
+      letter-spacing: 0;
       padding: 17px 18px;
       display: flex;
       align-items: center;
@@ -469,6 +798,7 @@
 
     .focus-routing {
       display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 9px;
       margin: 16px 0 20px;
     }
@@ -485,6 +815,56 @@
       font-size: 16px;
       line-height: 1.35;
       cursor: pointer;
+    }
+
+    .confidence-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 8px 0 18px;
+    }
+
+    .confidence-mini-grid p {
+      margin: 0;
+      border: 1px solid #DCE2EC;
+      border-radius: 10px;
+      padding: 9px 11px;
+      background: #FFFFFF;
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .confidence-next {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .confidence-next-block {
+      border: 1px solid #DCE2EC;
+      border-left: 4px solid var(--blue);
+      border-radius: 12px;
+      padding: 12px 13px;
+      background: #FFFFFF;
+    }
+
+    .confidence-next-block.repair {
+      border-left-color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .confidence-next-block p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .confidence-next-block .map-label {
+      margin-top: 0;
+      margin-bottom: 5px;
     }
 
     .focus-route-item input {
@@ -652,6 +1032,10 @@
     }
 
     @media (max-width: 700px) {
+      .watermark {
+        font-size: 56px;
+      }
+
       .sitebar {
         flex-direction: column;
         align-items: flex-start;
@@ -676,6 +1060,18 @@
         gap: 12px;
       }
 
+      .brand-title {
+        font-size: 24px;
+      }
+
+      .case-title {
+        font-size: 28px;
+      }
+
+      .section-title {
+        font-size: 20px;
+      }
+
       .details-panel {
         position: static;
         width: 100%;
@@ -686,6 +1082,33 @@
       .meta-row {
         grid-template-columns: 1fr;
         gap: 2px;
+      }
+
+      .station-path {
+        grid-template-columns: 1fr;
+      }
+
+      .station-step {
+        min-height: 0;
+      }
+
+      .memory-route {
+        grid-template-columns: 1fr;
+      }
+
+      .body-map {
+        min-height: 260px;
+      }
+
+      .body-leg {
+        height: 54px;
+      }
+
+      .reading-grid,
+      .focus-routing,
+      .confidence-mini-grid,
+      .confidence-next {
+        grid-template-columns: 1fr;
       }
 
       p,
@@ -766,6 +1189,25 @@
         </details>
       </section>
 
+      <nav class="station-path" aria-label="Case 1 station path">
+        <a class="station-step" href="#section-1">
+          <span class="station-step-number">1</span>
+          <span class="station-step-text"><strong>Read stem</strong><span class="station-step-detail">General Practice. 60-year-old man.</span></span>
+        </a>
+        <a class="station-step" href="#section-3">
+          <span class="station-step-number">2</span>
+          <span class="station-step-text"><strong>Speak station</strong><span class="station-step-detail">Focused history and management.</span></span>
+        </a>
+        <a class="station-step" href="#confidence-check">
+          <span class="station-step-number">3</span>
+          <span class="station-step-text"><strong>Check confidence</strong><span class="station-step-detail">Mark one option after speaking.</span></span>
+        </a>
+        <a class="station-step action" href="#focusPack">
+          <span class="station-step-number">4</span>
+          <span class="station-step-text"><strong>Repair one miss</strong><span class="station-step-detail">Open one matching hidden hint.</span></span>
+        </a>
+      </nav>
+
       <section class="section" id="section-1">
         <h3 class="section-title">Section 1 - Station Stem</h3>
 
@@ -791,17 +1233,83 @@
       <section class="section" id="section-2">
         <h3 class="section-title">Section 2 - 2-Minute Reading Map</h3>
 
-        <div class="map-block">
-          <p>Setting:<br>General Practice.</p>
-          <p>Patient:<br>60-year-old man.</p>
-          <p>Problem:<br>Central chest pressure for 40 minutes.</p>
-          <p>Already concerning:<br>Pale.<br>Sweaty.<br>Started with walking.</p>
-          <p>Four causes not to miss:<br>Acute coronary syndrome.<br>Aortic dissection.<br>Pulmonary embolism.<br>Tension pneumothorax.</p>
-          <p>Most likely dangerous working diagnosis:<br>Heart-related chest pain.</p>
-          <p>First action:<br>Arrange ambulance transfer now.<br>Do a heart tracing if available and not delaying transfer.</p>
-          <p>Main risk point:<br>Do not delay transfer while trying to prove the diagnosis.</p>
-          <p>Must ask:<br>Where is the pain?<br>Does it spread?<br>Sweating, nausea, breathlessness, fainting?<br>Severe pain to the back?<br>Coughing blood or clot risk?<br>Sudden sharp pain with severe breathlessness?<br>Heart risk factors?<br>Aspirin allergy or bleeding risk?</p>
-          <p>Must say:<br>“This is not safe to manage in this clinic. I am arranging an ambulance now.”</p>
+        <div class="case-memory-map" aria-label="Case 1 body memory map">
+          <div class="memory-map-head">
+            <span class="map-label">Body memory map</span>
+            <p>Follow the danger route from symptom to action.</p>
+          </div>
+
+          <div class="memory-route">
+            <div class="body-map" aria-hidden="true">
+              <span class="body-head"></span>
+              <span class="body-torso"></span>
+              <span class="body-arm left"></span>
+              <span class="body-arm right"></span>
+              <span class="body-leg left"></span>
+              <span class="body-leg right"></span>
+              <span class="signal-dot signal-chest">Chest</span>
+              <span class="signal-dot signal-jaw">Jaw</span>
+              <span class="signal-dot signal-arm">Left arm</span>
+              <span class="signal-dot signal-system">Sweaty</span>
+              <span class="signal-dot signal-action">Ambulance</span>
+            </div>
+
+            <ol class="route-list">
+              <li>
+                <span class="route-number">1</span>
+                <p><strong>Problem</strong>Central chest pressure for 40 minutes.</p>
+              </li>
+              <li>
+                <span class="route-number">2</span>
+                <p><strong>Spread</strong>To my left arm, and a bit to my jaw.</p>
+              </li>
+              <li>
+                <span class="route-number">3</span>
+                <p><strong>Body warning</strong>I am sweaty, feel sick, and I am a bit short of breath. I have not fainted.</p>
+              </li>
+              <li>
+                <span class="route-number">4</span>
+                <p><strong>Risk frame</strong>High blood pressure, past smoking, and a family history of heart disease.</p>
+              </li>
+              <li>
+                <span class="route-number">5</span>
+                <p><strong>Action</strong>I am arranging an ambulance now.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="map-block reading-grid" aria-label="2-minute reading map">
+          <article class="reading-tile">
+            <p><strong>Setting:</strong><br>General Practice.</p>
+          </article>
+          <article class="reading-tile">
+            <p><strong>Patient:</strong><br>60-year-old man.</p>
+          </article>
+          <article class="reading-tile">
+            <p><strong>Problem:</strong><br>Central chest pressure for 40 minutes.</p>
+          </article>
+          <article class="reading-tile danger">
+            <p><strong>Already concerning:</strong><br>Pale.<br>Sweaty.<br>Started with walking.</p>
+          </article>
+          <article class="reading-tile wide danger">
+            <p><strong>Four causes not to miss:</strong><br>Acute coronary syndrome.<br>Aortic dissection.<br>Pulmonary embolism.<br>Tension pneumothorax.</p>
+          </article>
+          <article class="reading-tile">
+            <p><strong>Most likely dangerous working diagnosis:</strong><br>Heart-related chest pain.</p>
+          </article>
+          <article class="reading-tile action">
+            <p><strong>First action:</strong><br>Arrange ambulance transfer now.<br>Do a heart tracing if available and not delaying transfer.</p>
+          </article>
+          <article class="reading-tile wide action">
+            <p><strong>Main risk point:</strong><br>Do not delay transfer while trying to prove the diagnosis.</p>
+          </article>
+          <article class="reading-tile wide">
+            <p><strong>Must ask:</strong><br>Where is the pain?<br>Does it spread?<br>Sweating, nausea, breathlessness, fainting?<br>Severe pain to the back?<br>Coughing blood or clot risk?<br>Sudden sharp pain with severe breathlessness?<br>Heart risk factors?<br>Aspirin allergy or bleeding risk?</p>
+          </article>
+          <article class="reading-tile wide action">
+            <p><strong>Must say:</strong><br>“This is not safe to manage in this clinic. I am arranging an ambulance now.”</p>
+          </article>
         </div>
       </section>
 
@@ -1328,7 +1836,7 @@
         </div>
       </details>
 
-      <section class="section">
+      <section class="section" id="confidence-check">
         <h3 class="section-title">Case Confidence Check</h3>
 
         <p>Mark one option after speaking the case.</p>
@@ -1365,20 +1873,27 @@
         <div class="confidence-feedback" id="confidenceFeedback"></div>
 
         <p class="map-label">Confidence Check Questions</p>
-        <p>Did I recognise possible acute coronary syndrome?</p>
-        <p>Did I use everyday patient language?</p>
-        <p>Did I ask the focused danger questions?</p>
-        <p>Did I name the four causes not to miss?</p>
-        <p>Did I state the Decision Point clearly?</p>
-        <p>Did I arrange ambulance transfer in General Practice?</p>
-        <p>Did I avoid delaying transfer for troponin?</p>
-        <p>Did I finish the full timed run?</p>
+        <div class="confidence-mini-grid" aria-label="Confidence Check Questions">
+          <p>Did I recognise possible acute coronary syndrome?</p>
+          <p>Did I use everyday patient language?</p>
+          <p>Did I ask the focused danger questions?</p>
+          <p>Did I name the four causes not to miss?</p>
+          <p>Did I state the Decision Point clearly?</p>
+          <p>Did I arrange ambulance transfer in General Practice?</p>
+          <p>Did I avoid delaying transfer for troponin?</p>
+          <p>Did I finish the full timed run?</p>
+        </div>
 
-        <p class="map-label">If Completed Well</p>
-        <p>Continue to Case 2.</p>
-
-        <p class="map-label">If Something Was Missed</p>
-        <p>Open one matching hint from the hidden Case 1 Focus Pack.</p>
+        <div class="confidence-next" aria-label="Confidence Check next step">
+          <div class="confidence-next-block">
+            <p class="map-label">If Completed Well</p>
+            <p>Continue to Case 2.</p>
+          </div>
+          <div class="confidence-next-block repair">
+            <p class="map-label">If Something Was Missed</p>
+            <p>Open one matching hint from the hidden Case 1 Focus Pack.</p>
+          </div>
+        </div>
 
       </section>
 

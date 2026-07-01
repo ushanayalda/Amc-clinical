@@ -107,7 +107,7 @@
       box-shadow: var(--shadow);
       padding: clamp(24px, 5vw, 48px);
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .watermark {
@@ -209,31 +209,40 @@
 
     .station-path {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 10px;
       margin: 0 0 26px;
       padding: 10px;
       border: 1px solid var(--border);
       border-radius: 16px;
       background: #F8FAFD;
+      position: sticky;
+      top: 8px;
+      z-index: 8;
+      box-shadow: 0 10px 24px rgba(16, 24, 40, 0.06);
     }
 
     .station-step {
-      min-height: 82px;
+      min-height: 52px;
       display: grid;
       grid-template-columns: auto minmax(0, 1fr);
-      gap: 10px;
-      align-items: start;
+      gap: 8px;
+      align-items: center;
       border: 1px solid #DCE2EC;
       border-radius: 12px;
-      padding: 11px 12px;
+      padding: 9px 10px;
       background: #FFFFFF;
       color: var(--ink);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
     }
 
+    .station-step.active,
     .station-step:focus-visible,
     .station-step:hover {
       border-color: var(--blue);
+      background: var(--blue-soft);
       outline: none;
     }
 
@@ -253,13 +262,13 @@
     .station-step strong {
       display: block;
       color: var(--blue);
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.15;
       font-weight: 850;
     }
 
     .station-step-detail {
-      display: block;
+      display: none;
       margin-top: 4px;
       color: var(--muted);
       font-size: 13px;
@@ -273,6 +282,54 @@
 
     .station-step.action strong {
       color: var(--red);
+    }
+
+    .station-step.action.active,
+    .station-step.action:hover,
+    .station-step.action:focus-visible {
+      border-color: rgba(138, 31, 31, 0.4);
+      background: var(--red-soft);
+    }
+
+    .station-panel {
+      display: none;
+    }
+
+    .station-panel.active {
+      display: block;
+    }
+
+    .door-note-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .door-note-chip {
+      border: 1px solid #DCE2EC;
+      border-left: 4px solid var(--blue);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #FBFCFE;
+    }
+
+    .door-note-chip strong {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.15;
+      text-transform: uppercase;
+      font-weight: 850;
+    }
+
+    .door-note-chip span {
+      display: block;
+      margin-top: 4px;
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.25;
+      font-weight: 750;
     }
 
     .section {
@@ -589,7 +646,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin: 0 0 18px;
+      margin: 0 0 12px;
       padding: 10px;
       border: 1px solid var(--border);
       border-radius: 16px;
@@ -611,6 +668,95 @@
       background: var(--blue);
       color: #FFFFFF;
       border-color: var(--blue);
+    }
+
+    .run-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .script-main {
+      min-width: 0;
+    }
+
+    .phase-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      overflow-x: visible;
+      padding: 10px;
+      border: 1px solid #DCE2EC;
+      border-radius: 16px;
+      background: #FFFFFF;
+      margin-bottom: 16px;
+      scrollbar-width: thin;
+    }
+
+    .phase-button {
+      flex: 0 0 auto;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--blue);
+      padding: 8px 11px;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .phase-button.active {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #FFFFFF;
+    }
+
+    .phase-hidden {
+      display: none !important;
+    }
+
+    .exam-rail {
+      position: sticky;
+      top: 132px;
+      border: 1px solid #DCE2EC;
+      border-radius: 16px;
+      padding: 14px 14px;
+      background: #FBFCFE;
+    }
+
+    .exam-rail h4 {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: 17px;
+      line-height: 1.25;
+      font-weight: 850;
+    }
+
+    .rail-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rail-list li {
+      border-left: 4px solid var(--blue);
+      padding: 4px 0 4px 9px;
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .rail-list li.danger {
+      border-left-color: var(--red);
+      color: var(--red);
+    }
+
+    .rail-list li.warning {
+      border-left-color: var(--amber);
     }
 
     .chat {
@@ -1085,15 +1231,33 @@
       }
 
       .station-path {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        padding: 8px;
       }
 
       .station-step {
+        min-width: 140px;
         min-height: 0;
       }
 
+      .door-note-meta,
       .memory-route {
         grid-template-columns: 1fr;
+      }
+
+      .run-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .phase-toolbar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+      }
+
+      .exam-rail {
+        position: static;
+        order: -1;
       }
 
       .body-map {
@@ -1125,9 +1289,7 @@
       }
 
       .script-toolbar {
-        position: sticky;
-        top: 0;
-        z-index: 5;
+        position: static;
       }
 
       .repair-bridge {
@@ -1190,26 +1352,40 @@
       </section>
 
       <nav class="station-path" aria-label="Case 1 station path">
-        <a class="station-step" href="#section-1">
+        <button class="station-step active" type="button" data-station-target="door" onclick="showStationPanel('door', this)">
           <span class="station-step-number">1</span>
-          <span class="station-step-text"><strong>Read stem</strong><span class="station-step-detail">General Practice. 60-year-old man.</span></span>
-        </a>
-        <a class="station-step" href="#section-3">
+          <span class="station-step-text"><strong>Door note</strong><span class="station-step-detail">Stem only. No hints.</span></span>
+        </button>
+        <button class="station-step" type="button" data-station-target="map" onclick="showStationPanel('map', this)">
           <span class="station-step-number">2</span>
-          <span class="station-step-text"><strong>Speak station</strong><span class="station-step-detail">Focused history and management.</span></span>
-        </a>
-        <a class="station-step" href="#confidence-check">
+          <span class="station-step-text"><strong>Brain map</strong><span class="station-step-detail">Danger route.</span></span>
+        </button>
+        <button class="station-step" type="button" data-station-target="run" onclick="showStationPanel('run', this)">
           <span class="station-step-number">3</span>
-          <span class="station-step-text"><strong>Check confidence</strong><span class="station-step-detail">Mark one option after speaking.</span></span>
-        </a>
-        <a class="station-step action" href="#focusPack">
+          <span class="station-step-text"><strong>Run station</strong><span class="station-step-detail">One phase at a time.</span></span>
+        </button>
+        <button class="station-step" type="button" data-station-target="check" onclick="showStationPanel('check', this)">
           <span class="station-step-number">4</span>
+          <span class="station-step-text"><strong>Check</strong><span class="station-step-detail">One confidence mark.</span></span>
+        </button>
+        <button class="station-step action" type="button" data-station-target="repair" onclick="showStationPanel('repair', this)">
+          <span class="station-step-number">5</span>
           <span class="station-step-text"><strong>Repair one miss</strong><span class="station-step-detail">Open one matching hidden hint.</span></span>
-        </a>
+        </button>
+        <button class="station-step" type="button" data-station-target="full" onclick="showStationPanel('full', this)">
+          <span class="station-step-number">6</span>
+          <span class="station-step-text"><strong>Full pack</strong><span class="station-step-detail">Thinking, drill, sources.</span></span>
+        </button>
       </nav>
 
-      <section class="section" id="section-1">
+      <section class="section station-panel active" id="section-1" data-station-panel="door">
         <h3 class="section-title">Section 1 - Station Stem</h3>
+
+        <div class="door-note-meta" aria-label="Door note metadata">
+          <div class="door-note-chip"><strong>Setting</strong><span>General Practice</span></div>
+          <div class="door-note-chip"><strong>Patient</strong><span>Mr Peter Lewis, 60 years old</span></div>
+          <div class="door-note-chip"><strong>Time</strong><span>2 minutes reading + 8 minutes station</span></div>
+        </div>
 
         <p>You are a General Practitioner in a suburban clinic.</p>
         <p>Mr Peter Lewis is a 60-year-old man who presents with central chest pressure.</p>
@@ -1230,7 +1406,7 @@
         <p>You have 8 minutes.</p>
       </section>
 
-      <section class="section" id="section-2">
+      <section class="section station-panel" id="section-2" data-station-panel="map">
         <h3 class="section-title">Section 2 - 2-Minute Reading Map</h3>
 
         <div class="case-memory-map" aria-label="Case 1 body memory map">
@@ -1313,16 +1489,20 @@
         </div>
       </section>
 
-      <section class="section" id="section-3">
+      <section class="section station-panel" id="section-3" data-station-panel="run">
         <h3 class="section-title">Section 3 - Live AMC Station Script</h3>
 
-        <div class="script-toolbar" aria-label="Script modes">
-          <button class="mode-button active" type="button" data-mode="read" onclick="setMode('read', this)">Read</button>
-          <button class="mode-button" type="button" data-mode="practice" onclick="setMode('practice', this)">Practice</button>
-          <button class="mode-button" type="button" data-mode="exam" onclick="setMode('exam', this)">Exam</button>
-        </div>
+        <div class="run-layout">
+          <div class="script-main">
+            <div class="script-toolbar" aria-label="Script modes">
+              <button class="mode-button active" type="button" data-mode="read" onclick="setMode('read', this)">Read</button>
+              <button class="mode-button" type="button" data-mode="practice" onclick="setMode('practice', this)">Practice</button>
+              <button class="mode-button" type="button" data-mode="exam" onclick="setMode('exam', this)">Exam</button>
+            </div>
 
-        <div class="chat" id="chatScript">
+            <div class="phase-toolbar" id="phaseToolbar" aria-label="Station script phases"></div>
+
+            <div class="chat" id="chatScript">
           <h4 class="chat-phase">Phase 1 - Introduction and Consent</h4>
 
           <div class="bubble doctor">
@@ -1708,10 +1888,26 @@
             <p class="speaker-label">Candidate</p>
             <p>“That is right. I will stay with you and hand over clearly to the ambulance team.”</p>
           </div>
+            </div>
+          </div>
+
+          <aside class="exam-rail" aria-label="Exam saver rail">
+            <h4>Exam saver rail</h4>
+            <ul class="rail-list">
+              <li class="danger">Call ambulance in the opening.</li>
+              <li>Still in pain?</li>
+              <li>Spread to arm or jaw?</li>
+              <li class="warning">Sweaty, sick, breathless, faint?</li>
+              <li>Dissection, PE, pneumothorax red flags.</li>
+              <li>Explain possible ACS.</li>
+              <li class="warning">Aspirin if safe. Oxygen only if indicated.</li>
+              <li class="danger">No driving. No test delay.</li>
+            </ul>
+          </aside>
         </div>
       </section>
 
-      <details class="hidden-section">
+      <details class="hidden-section station-panel" data-station-panel="full">
         <summary>Section 4 - Doctor Thinking - Hidden</summary>
         <div class="hidden-body">
           <p>Display:<br>Collapsed by default on website.</p>
@@ -1728,7 +1924,7 @@
         </div>
       </details>
 
-      <section class="section">
+      <section class="section station-panel" data-station-panel="run">
         <h3 class="section-title">Must-Say Lines</h3>
         <div class="must-box">
           <p>“This is not safe to manage in this clinic.”</p>
@@ -1742,7 +1938,7 @@
         </div>
       </section>
 
-      <details class="hidden-section">
+      <details class="hidden-section station-panel" data-station-panel="full">
         <summary>Section 5 - Examiner Lines - Hidden</summary>
         <div class="hidden-body">
           <p>Display:<br>Collapsed by default on website.</p>
@@ -1758,7 +1954,7 @@
         </div>
       </details>
 
-      <details class="hidden-section">
+      <details class="hidden-section station-panel" data-station-panel="full">
         <summary>Section 6 - Practice Drill</summary>
         <div class="hidden-body">
           <div class="drill-block">
@@ -1790,7 +1986,7 @@
         </div>
       </details>
 
-      <details class="hidden-section">
+      <details class="hidden-section station-panel" data-station-panel="full">
         <summary>Section 7 - Full Timed Run</summary>
         <div class="hidden-body">
           <p>Candidate:<br>“Hello, I am Dr ___. How would you like me to address you?”</p>
@@ -1836,7 +2032,7 @@
         </div>
       </details>
 
-      <section class="section" id="confidence-check">
+      <section class="section station-panel" id="confidence-check" data-station-panel="check">
         <h3 class="section-title">Case Confidence Check</h3>
 
         <p>Mark one option after speaking the case.</p>
@@ -1897,7 +2093,7 @@
 
       </section>
 
-      <details class="hidden-section" id="focusPack">
+      <details class="hidden-section station-panel" id="focusPack" data-station-panel="repair">
         <summary>Focus Pack - Hidden Hints</summary>
         <div class="hidden-body">
           <p class="focus-pack-note">Hidden by default. Choose one missed item in the Confidence Check to open one matching hint.</p>
@@ -2231,7 +2427,7 @@
         </div>
       </details>
 
-      <details class="hidden-section">
+      <details class="hidden-section station-panel" data-station-panel="full">
         <summary>Sources - Collapsed by Default</summary>
         <div class="hidden-body">
           <p>Collapsed by default on website.</p>
@@ -2251,6 +2447,109 @@
   </main>
 
   <script>
+    let currentScriptPhase = 0;
+
+    const phaseShortLabels = [
+      "First 60 sec",
+      "Open",
+      "Pain story",
+      "Red flags",
+      "Summary",
+      "Diagnosis",
+      "Differentials",
+      "Management",
+      "Urgency",
+      "Safety net",
+      "Close"
+    ];
+
+    function showStationPanel(target, control) {
+      const panels = document.querySelectorAll("[data-station-panel]");
+      const steps = document.querySelectorAll("[data-station-target]");
+
+      panels.forEach((panel) => {
+        panel.classList.toggle("active", panel.dataset.stationPanel === target);
+      });
+
+      steps.forEach((step) => {
+        step.classList.toggle("active", step.dataset.stationTarget === target);
+      });
+
+      if (target === "run") {
+        applyScriptPhase(currentScriptPhase);
+      }
+
+      if (control) {
+        const path = document.querySelector(".station-path");
+        if (path) {
+          path.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }
+
+    function initStationPanels() {
+      const hashMap = {
+        "#section-1": "door",
+        "#door-note": "door",
+        "#section-2": "map",
+        "#brain-map": "map",
+        "#section-3": "run",
+        "#run-station": "run",
+        "#confidence-check": "check",
+        "#focusPack": "repair",
+        "#repair": "repair",
+        "#full-pack": "full"
+      };
+
+      const target = hashMap[window.location.hash] || "door";
+      showStationPanel(target);
+    }
+
+    function initScriptPhases() {
+      const chat = document.getElementById("chatScript");
+      const toolbar = document.getElementById("phaseToolbar");
+      if (!chat || !toolbar) return;
+
+      let phaseIndex = -1;
+      Array.from(chat.children).forEach((child) => {
+        if (child.classList.contains("chat-phase")) {
+          phaseIndex += 1;
+        }
+
+        if (phaseIndex >= 0) {
+          child.dataset.phaseIndex = String(phaseIndex);
+        }
+      });
+
+      const phaseCount = phaseIndex + 1;
+      toolbar.innerHTML = "";
+
+      for (let index = 0; index < phaseCount; index += 1) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "phase-button";
+        button.textContent = phaseShortLabels[index] || "Phase " + (index + 1);
+        button.onclick = function () {
+          applyScriptPhase(index);
+        };
+        toolbar.appendChild(button);
+      }
+
+      applyScriptPhase(0);
+    }
+
+    function applyScriptPhase(index) {
+      currentScriptPhase = index;
+
+      document.querySelectorAll("#chatScript > [data-phase-index]").forEach((item) => {
+        item.classList.toggle("phase-hidden", Number(item.dataset.phaseIndex) !== index);
+      });
+
+      document.querySelectorAll(".phase-button").forEach((button, buttonIndex) => {
+        button.classList.toggle("active", buttonIndex === index);
+      });
+    }
+
     function setMode(mode, button) {
       const buttons = document.querySelectorAll(".mode-button");
       buttons.forEach((item) => item.classList.remove("active"));
@@ -2274,6 +2573,7 @@
           reveal.type = "button";
           reveal.className = "reveal-button";
           reveal.textContent = "Reveal patient reply";
+          reveal.dataset.phaseIndex = bubble.dataset.phaseIndex;
           reveal.onclick = function () {
             bubble.classList.remove("exam-hidden");
             reveal.remove();
@@ -2282,6 +2582,8 @@
           bubble.parentNode.insertBefore(reveal, bubble);
         });
       }
+
+      applyScriptPhase(currentScriptPhase);
     }
 
     function clearFocusPoints() {
@@ -2312,6 +2614,7 @@
       const target = document.getElementById("focus-" + targetId);
 
       if (target && focusPack) {
+        showStationPanel("repair");
         target.classList.add("active");
         focusPack.open = true;
         feedback.textContent = "Opened the matching hint below. Practise only that repair, then go back to the listed section.";
@@ -2322,6 +2625,11 @@
 
       feedback.classList.add("show");
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      initScriptPhases();
+      initStationPanels();
+    });
   </script>
 </body>
 </html>

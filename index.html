@@ -16,12 +16,7 @@
       --blue: #1E5AA8;
       --teal: #0F766E;
       --green: #027A48;
-      --amber: #B54708;
       --red: #B42318;
-      --soft-blue: #EAF2FF;
-      --soft-teal: #E6F4F1;
-      --soft-red: #FEE4E2;
-      --soft-amber: #FFF4E5;
       --shadow: 0 14px 34px rgba(16, 24, 40, 0.08);
       --max: 1040px;
       --radius: 8px;
@@ -45,10 +40,6 @@
     a {
       color: inherit;
       text-decoration: none;
-    }
-
-    button {
-      font: inherit;
     }
 
     .page {
@@ -80,13 +71,6 @@
       font-weight: 520;
     }
 
-    .nav {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
     .nav-link,
     .secondary-action,
     .primary-action {
@@ -100,7 +84,7 @@
 
     .nav-link {
       min-height: 42px;
-      padding: 10px 14px;
+      padding: 10px 16px;
       border: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.84);
       color: var(--navy);
@@ -109,15 +93,23 @@
 
     .start-band {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 290px;
-      gap: 28px;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 26px;
       align-items: stretch;
       border: 1px solid var(--line);
       border-left: 8px solid var(--red);
       background: var(--surface);
       box-shadow: var(--shadow);
       border-radius: var(--radius);
-      padding: 34px;
+      padding: 32px;
+    }
+
+    .start-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      min-width: 0;
     }
 
     .eyebrow {
@@ -131,7 +123,7 @@
       margin: 0;
       max-width: 720px;
       color: var(--navy);
-      font-size: 44px;
+      font-size: 43px;
       line-height: 1.08;
       font-weight: 780;
     }
@@ -141,14 +133,6 @@
       color: #42526A;
       font-size: 20px;
       font-weight: 650;
-    }
-
-    .start-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 26px;
-      min-width: 0;
     }
 
     .action-row {
@@ -177,184 +161,147 @@
       font-size: 15px;
     }
 
-    .start-aside {
+    .layer-stack {
       border-left: 1px solid var(--line);
-      padding-left: 24px;
+      padding-left: 22px;
       display: grid;
       align-content: center;
-      gap: 14px;
+      gap: 8px;
     }
 
-    .aside-title {
-      margin: 0;
+    .layer-title {
+      margin: 0 0 4px;
       color: var(--navy);
       font-size: 18px;
       font-weight: 800;
     }
 
-    .path-list {
+    .layer-row {
       display: grid;
+      grid-template-columns: 72px 1fr;
       gap: 10px;
-      margin: 0;
-    }
-
-    .path-item {
-      display: grid;
-      gap: 2px;
+      align-items: center;
       padding: 10px 0;
-      border-bottom: 1px solid #EEF1F5;
     }
 
-    .path-item:last-child {
-      border-bottom: 0;
+    .layer-code {
+      display: inline-flex;
+      min-height: 34px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #EEF3FA;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 820;
     }
 
-    .path-label {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 760;
-    }
-
-    .path-value {
+    .layer-name {
       color: var(--ink);
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 730;
+      line-height: 1.25;
     }
 
-    .memory-band {
+    .layer-row.current .layer-code {
+      background: var(--blue);
+      color: #FFFFFF;
+    }
+
+    .layer-row.current .layer-name {
+      color: var(--blue);
+      font-weight: 820;
+    }
+
+    .layer-line {
+      width: 2px;
+      height: 14px;
+      margin-left: 35px;
+      background: var(--line);
+    }
+
+    .cue-grid {
       margin-top: 18px;
       display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
       gap: 18px;
     }
 
-    .memory-panel,
-    .first-action-panel,
-    .choice-card,
-    .quiet-details,
-    .footer-card {
+    .cue-card {
       border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.97);
       border-radius: var(--radius);
       padding: 22px;
     }
 
-    .memory-panel {
-      border-left: 6px solid var(--teal);
-    }
-
-    .first-action-panel {
+    .cue-action {
       border-left: 6px solid var(--green);
     }
 
-    .panel-title {
+    .cue-memory {
+      border-left: 6px solid var(--teal);
+    }
+
+    .cue-label {
       margin: 0 0 8px;
       color: var(--muted);
-      font-size: 13px;
-      font-weight: 800;
+      font-size: 15px;
+      font-weight: 820;
     }
 
-    .memory-text,
-    .first-action-text {
+    .cue-statement {
       margin: 0;
       color: var(--navy);
-      font-size: 23px;
-      line-height: 1.28;
-      font-weight: 760;
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 820;
     }
 
-    .support-text {
-      margin: 10px 0 0;
+    .cue-memory .cue-statement {
+      font-size: 23px;
+      line-height: 1.3;
+    }
+
+    .cue-support {
+      margin: 12px 0 0;
       color: #475467;
       font-size: 16px;
       font-weight: 520;
     }
 
-    .choice-grid {
+    .small-links {
       margin-top: 18px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .choice-card {
-      display: grid;
-      gap: 8px;
-      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    .small-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 760;
     }
 
-    .choice-card:hover,
     .nav-link:hover,
+    .small-link:hover,
     .secondary-action:hover,
     .primary-action:hover {
       transform: translateY(-1px);
       box-shadow: 0 12px 28px rgba(16, 24, 40, 0.09);
     }
 
-    .choice-kicker {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .choice-title {
-      margin: 0;
-      color: var(--navy);
-      font-size: 22px;
-      line-height: 1.2;
-      font-weight: 780;
-    }
-
-    .choice-text {
-      margin: 0;
-      color: #475467;
-      font-size: 15px;
-      font-weight: 520;
-    }
-
-    .quiet-details {
-      margin-top: 18px;
-      color: var(--ink);
-    }
-
-    .quiet-details summary {
-      cursor: pointer;
-      color: var(--navy);
-      font-weight: 780;
-    }
-
-    .progress-grid {
-      margin-top: 16px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .progress-item {
-      border: 1px solid #EEF1F5;
-      border-radius: var(--radius);
-      padding: 12px;
-      background: #FCFCFD;
-    }
-
-    .progress-label {
-      margin: 0 0 6px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 760;
-    }
-
-    .progress-value {
-      margin: 0;
-      color: var(--navy);
-      font-size: 16px;
-      font-weight: 740;
-    }
-
     .footer-card {
       margin-top: 18px;
-      background: transparent;
-      box-shadow: none;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
       color: var(--muted);
       font-size: 12px;
       line-height: 1.55;
@@ -370,25 +317,19 @@
       }
 
       .start-band,
-      .memory-band,
-      .choice-grid {
+      .cue-grid {
         grid-template-columns: 1fr;
       }
 
-      .start-aside {
+      .layer-stack {
         border-left: 0;
         border-top: 1px solid var(--line);
         padding-left: 0;
-        padding-top: 20px;
+        padding-top: 18px;
       }
 
       .case-title {
         font-size: 36px;
-      }
-
-      .memory-text,
-      .first-action-text {
-        font-size: 20px;
       }
     }
 
@@ -402,12 +343,11 @@
         font-size: 26px;
       }
 
-      .nav {
+      .nav-link,
+      .action-row,
+      .primary-action,
+      .secondary-action {
         width: 100%;
-      }
-
-      .nav-link {
-        flex: 1;
       }
 
       .start-band {
@@ -422,14 +362,13 @@
         font-size: 18px;
       }
 
-      .action-row,
-      .primary-action,
-      .secondary-action {
-        width: 100%;
+      .cue-statement,
+      .cue-memory .cue-statement {
+        font-size: 21px;
       }
 
-      .progress-grid {
-        grid-template-columns: 1fr;
+      .layer-row {
+        grid-template-columns: 68px 1fr;
       }
     }
   </style>
@@ -443,8 +382,7 @@
         <p class="brand-credit">Prepared by Dr. Ushana Yalda</p>
       </section>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a class="nav-link" href="before-case.html">Before Case</a>
+      <nav aria-label="Main navigation">
         <a class="nav-link" href="map.html">Map</a>
       </nav>
     </header>
@@ -463,71 +401,42 @@
         </div>
       </div>
 
-      <aside class="start-aside" aria-label="Current path">
-        <p class="aside-title">You are here</p>
-        <div class="path-list">
-          <div class="path-item">
-            <span class="path-label">Phase</span>
-            <span class="path-value">Phase 1 - Can Kill Fast</span>
-          </div>
-          <div class="path-item">
-            <span class="path-label">Pattern</span>
-            <span class="path-value">Pattern 1 - Dangerous Chest Pain</span>
-          </div>
-          <div class="path-item">
-            <span class="path-label">Next action</span>
-            <span class="path-value">Start Case 1</span>
-          </div>
+      <aside class="layer-stack" aria-label="Current learning layer">
+        <p class="layer-title">You are here</p>
+        <div class="layer-row">
+          <span class="layer-code">Phase 1</span>
+          <span class="layer-name">Can Kill Fast</span>
+        </div>
+        <div class="layer-line" aria-hidden="true"></div>
+        <div class="layer-row">
+          <span class="layer-code">Pattern 1</span>
+          <span class="layer-name">Dangerous Chest Pain</span>
+        </div>
+        <div class="layer-line" aria-hidden="true"></div>
+        <div class="layer-row current">
+          <span class="layer-code">Case 1</span>
+          <span class="layer-name">Classic Chest Pain</span>
         </div>
       </aside>
     </section>
 
-    <section class="memory-band" aria-label="Case memory and first action">
-      <article class="memory-panel">
-        <p class="panel-title">One sentence to remember</p>
-        <p class="memory-text">Chest pressure with sweating, nausea, breathlessness, radiation, collapse, or cardiac risk factors is a possible heart problem until proven otherwise.</p>
+    <section class="cue-grid" aria-label="Case cues">
+      <article class="cue-card cue-action">
+        <p class="cue-label">First action in General Practice</p>
+        <p class="cue-statement">Call ambulance now.</p>
+        <p class="cue-support">Do an electrocardiogram immediately if available and not delaying transfer.</p>
       </article>
 
-      <article class="first-action-panel">
-        <p class="panel-title">First action in General Practice</p>
-        <p class="first-action-text">Call ambulance now.</p>
-        <p class="support-text">Do an electrocardiogram immediately if available and not delaying transfer.</p>
+      <article class="cue-card cue-memory">
+        <p class="cue-label">Case 1 memory</p>
+        <p class="cue-statement">Chest pressure with sweating, nausea, breathlessness, radiation, collapse, or cardiac risk factors is a possible heart problem until proven otherwise.</p>
       </article>
     </section>
 
-    <section class="choice-grid" aria-label="Other study options">
-      <a class="choice-card" href="before-case.html">
-        <span class="choice-kicker">Warm-up</span>
-        <h2 class="choice-title">Before the Case</h2>
-        <p class="choice-text">Recognise dangerous chest pain and act before certainty.</p>
-      </a>
-
-      <a class="choice-card" href="map.html">
-        <span class="choice-kicker">Study map</span>
-        <h2 class="choice-title">Open the current case tree</h2>
-        <p class="choice-text">Use this when you need to see where Case 1 sits in the pathway.</p>
-      </a>
+    <section class="small-links" aria-label="Secondary links">
+      <a class="small-link" href="before-case.html">Before the Case</a>
+      <a class="small-link" href="map.html">Current case tree</a>
     </section>
-
-    <details class="quiet-details">
-      <summary>Progress details</summary>
-      <section class="progress-grid" aria-label="Progress details">
-        <article class="progress-item">
-          <p class="progress-label">Tracking status</p>
-          <p class="progress-value">Demo progress</p>
-        </article>
-
-        <article class="progress-item">
-          <p class="progress-label">Current pattern</p>
-          <p class="progress-value">Pattern 1 - Dangerous Chest Pain</p>
-        </article>
-
-        <article class="progress-item">
-          <p class="progress-label">Current unit</p>
-          <p class="progress-value">Case 1</p>
-        </article>
-      </section>
-    </details>
 
     <footer class="footer-card">
       <strong>© 2026 Dr. Ushana Yalda. All rights reserved.</strong><br />

@@ -22,6 +22,8 @@
       --green-soft: #E7F6EC;
       --red: #B42318;
       --red-soft: #FDECEC;
+      --gold: #B54708;
+      --gold-soft: #FEF0C7;
       --shadow: 0 12px 30px rgba(16, 24, 40, 0.08);
       --max: 1000px;
       --radius: 8px;
@@ -222,8 +224,9 @@
     .cue-grid {
       margin-top: 16px;
       display: grid;
-      grid-template-columns: minmax(0, 0.76fr) minmax(0, 1.24fr);
+      grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
       gap: 16px;
+      align-items: start;
     }
 
     .cue-card {
@@ -240,6 +243,7 @@
 
     .cue-memory {
       border-left: 6px solid var(--teal);
+      background: linear-gradient(135deg, #FFFFFF 0%, #F6FBFF 100%);
     }
 
     .cue-label {
@@ -264,52 +268,278 @@
       font-weight: 500;
     }
 
-    .memory-map {
+    .memory-scene {
       display: grid;
-      gap: 10px;
-    }
-
-    .memory-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 16px;
       align-items: center;
     }
 
-    .memory-chunk {
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      border: 1px solid var(--line);
+    .body-model {
+      position: relative;
+      min-height: 286px;
+      overflow: hidden;
+      border: 1px solid var(--soft-line);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 52% 40%, rgba(20, 85, 160, 0.15), transparent 35%),
+        linear-gradient(180deg, #FFFFFF 0%, #F3F8FF 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .body-model::before {
+      content: "";
+      position: absolute;
+      inset: 22px 48px 24px;
+      border-radius: 42% 42% 34% 34%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(20, 85, 160, 0.09));
+      transform: skewX(-3deg);
+    }
+
+    .body-head,
+    .body-torso,
+    .body-arm,
+    .body-leg,
+    .heart-core,
+    .lung {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .body-head {
+      top: 24px;
+      width: 54px;
+      height: 54px;
+      border: 2px solid #B8C7D9;
       border-radius: 999px;
-      background: #F8FAFC;
+      background: linear-gradient(145deg, #FFFFFF, #E6EEF8);
+      box-shadow: 0 12px 28px rgba(16, 42, 67, 0.12);
+    }
+
+    .body-torso {
+      top: 84px;
+      width: 94px;
+      height: 132px;
+      border: 2px solid #B8C7D9;
+      border-radius: 38px 38px 34px 34px;
+      background: linear-gradient(145deg, #FFFFFF 0%, #EAF2FC 100%);
+      box-shadow: 0 18px 30px rgba(16, 42, 67, 0.14);
+    }
+
+    .body-arm {
+      top: 104px;
+      width: 24px;
+      height: 112px;
+      border: 2px solid #C3D0DE;
+      border-radius: 999px;
+      background: #EFF5FB;
+    }
+
+    .arm-left {
+      margin-left: -76px;
+      transform: rotate(16deg);
+    }
+
+    .arm-right {
+      margin-left: 76px;
+      transform: rotate(-18deg);
+    }
+
+    .body-leg {
+      top: 206px;
+      width: 27px;
+      height: 62px;
+      border: 2px solid #C3D0DE;
+      border-radius: 999px;
+      background: #EFF5FB;
+    }
+
+    .leg-left {
+      margin-left: -20px;
+    }
+
+    .leg-right {
+      margin-left: 20px;
+    }
+
+    .lung {
+      top: 118px;
+      width: 28px;
+      height: 42px;
+      border: 2px solid rgba(20, 85, 160, 0.22);
+      border-radius: 20px 20px 22px 22px;
+      background: rgba(20, 85, 160, 0.08);
+    }
+
+    .lung-left {
+      margin-left: -18px;
+    }
+
+    .lung-right {
+      margin-left: 18px;
+    }
+
+    .heart-core {
+      top: 138px;
+      width: 26px;
+      height: 26px;
+      border: 3px solid #FFFFFF;
+      border-radius: 50% 50% 45% 45%;
+      background: var(--red);
+      box-shadow: 0 0 0 8px rgba(180, 35, 24, 0.1), 0 10px 18px rgba(180, 35, 24, 0.22);
+    }
+
+    .body-pin {
+      position: absolute;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border: 3px solid #FFFFFF;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 850;
+      box-shadow: 0 8px 16px rgba(16, 24, 40, 0.18);
+    }
+
+    .pin-1 {
+      left: 105px;
+      top: 128px;
+      background: var(--red);
+    }
+
+    .pin-2 {
+      left: 113px;
+      top: 38px;
+      background: var(--gold);
+    }
+
+    .pin-3 {
+      left: 101px;
+      top: 178px;
+      background: var(--teal);
+    }
+
+    .pin-4 {
+      left: 68px;
+      top: 126px;
+      background: var(--blue);
+    }
+
+    .pin-5 {
+      left: 166px;
+      top: 138px;
+      background: #6941C6;
+    }
+
+    .pin-6 {
+      left: 96px;
+      top: 236px;
+      background: #344054;
+    }
+
+    .pin-7 {
+      left: 22px;
+      top: 190px;
+      background: var(--green);
+    }
+
+    .memory-route {
+      display: grid;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .route-row {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 9px;
+      align-items: center;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 7px 9px;
       color: var(--ink);
-      padding: 7px 11px;
       font-size: 15px;
       line-height: 1.2;
-      font-weight: 700;
+      font-weight: 720;
     }
 
-    .memory-lead {
-      background: var(--navy);
+    .route-row.primary {
       border-color: var(--navy);
+      background: var(--navy);
       color: #FFFFFF;
-      font-size: 17px;
+      font-size: 16px;
+      font-weight: 820;
     }
 
-    .memory-result {
-      background: var(--blue-soft);
-      border-color: #B2CCFF;
+    .route-row.risk {
+      border-color: #A6D8BC;
+      background: var(--green-soft);
+      color: #045C37;
+      font-weight: 800;
+    }
+
+    .route-number {
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(20, 85, 160, 0.12);
       color: var(--blue);
-      font-size: 17px;
-      font-weight: 800;
+      font-size: 12px;
+      font-weight: 850;
     }
 
-    .memory-tail {
-      background: var(--teal-soft);
-      border-color: #B7DDD6;
+    .route-row.primary .route-number {
+      background: #FFFFFF;
+      color: var(--red);
+    }
+
+    .route-result {
+      margin-top: 4px;
+      display: grid;
+      gap: 6px;
+      border: 1px solid #B2CCFF;
+      border-radius: var(--radius);
+      background: var(--blue-soft);
+      padding: 11px 12px;
+    }
+
+    .route-result span,
+    .route-result strong {
+      display: block;
+      line-height: 1.18;
+    }
+
+    .route-result span {
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 850;
+    }
+
+    .route-result strong {
       color: #075E59;
-      font-weight: 800;
+      font-size: 16px;
+      font-weight: 850;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .nav-link:hover,
@@ -338,7 +568,8 @@
       }
 
       .case-main,
-      .cue-grid {
+      .cue-grid,
+      .memory-scene {
         grid-template-columns: 1fr;
       }
 
@@ -348,6 +579,11 @@
 
       .case-title {
         font-size: 40px;
+      }
+
+      .body-model {
+        width: min(100%, 300px);
+        justify-self: center;
       }
     }
 
@@ -390,9 +626,13 @@
         font-size: 25px;
       }
 
-      .memory-chunk {
-        border-radius: var(--radius);
+      .route-row {
         font-size: 14px;
+      }
+
+      .route-row.primary,
+      .route-result span {
+        font-size: 16px;
       }
     }
   </style>
@@ -448,20 +688,61 @@
       </article>
 
       <article class="cue-card cue-memory">
-        <p class="cue-label">Case 1 memory</p>
-        <div class="memory-map" aria-label="Chest pressure with sweating, nausea, breathlessness, radiation, collapse, or cardiac risk factors is a possible heart problem until proven otherwise.">
-          <div class="memory-row">
-            <span class="memory-chunk memory-lead">Chest pressure</span>
-            <span class="memory-chunk">with sweating,</span>
-            <span class="memory-chunk">nausea,</span>
-            <span class="memory-chunk">breathlessness,</span>
-            <span class="memory-chunk">radiation,</span>
-            <span class="memory-chunk">collapse,</span>
-            <span class="memory-chunk">or cardiac risk factors</span>
+        <p class="cue-label">Case 1 body map</p>
+        <p class="sr-only">Chest pressure with sweating, nausea, breathlessness, radiation, collapse, or cardiac risk factors is a possible heart problem until proven otherwise.</p>
+        <div class="memory-scene" aria-hidden="true">
+          <div class="body-model">
+            <span class="body-head"></span>
+            <span class="body-arm arm-left"></span>
+            <span class="body-arm arm-right"></span>
+            <span class="body-torso"></span>
+            <span class="lung lung-left"></span>
+            <span class="lung lung-right"></span>
+            <span class="heart-core"></span>
+            <span class="body-leg leg-left"></span>
+            <span class="body-leg leg-right"></span>
+            <span class="body-pin pin-1">1</span>
+            <span class="body-pin pin-2">2</span>
+            <span class="body-pin pin-3">3</span>
+            <span class="body-pin pin-4">4</span>
+            <span class="body-pin pin-5">5</span>
+            <span class="body-pin pin-6">6</span>
+            <span class="body-pin pin-7">7</span>
           </div>
-          <div class="memory-row">
-            <span class="memory-chunk memory-result">is a possible heart problem</span>
-            <span class="memory-chunk memory-tail">until proven otherwise.</span>
+
+          <div class="memory-route">
+            <div class="route-row primary">
+              <span class="route-number">1</span>
+              <span>Chest pressure</span>
+            </div>
+            <div class="route-row">
+              <span class="route-number">2</span>
+              <span>with sweating,</span>
+            </div>
+            <div class="route-row">
+              <span class="route-number">3</span>
+              <span>nausea,</span>
+            </div>
+            <div class="route-row">
+              <span class="route-number">4</span>
+              <span>breathlessness,</span>
+            </div>
+            <div class="route-row">
+              <span class="route-number">5</span>
+              <span>radiation,</span>
+            </div>
+            <div class="route-row">
+              <span class="route-number">6</span>
+              <span>collapse,</span>
+            </div>
+            <div class="route-row risk">
+              <span class="route-number">7</span>
+              <span>or cardiac risk factors</span>
+            </div>
+            <div class="route-result">
+              <span>is a possible heart problem</span>
+              <strong>until proven otherwise.</strong>
+            </div>
           </div>
         </div>
       </article>

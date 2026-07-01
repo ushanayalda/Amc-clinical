@@ -416,13 +416,7 @@
       transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
     }
 
-    .primary-action:disabled {
-      cursor: not-allowed;
-      opacity: 0.74;
-      box-shadow: none;
-    }
-
-    .primary-action:not(:disabled):hover {
+    .primary-action:hover {
       transform: translateY(-1px);
       box-shadow: 0 16px 30px rgba(16, 24, 40, 0.18);
     }
@@ -678,9 +672,9 @@ ______.</pre>
             <p class="card-main">Stop here. The next step is the first case.</p>
           </div>
 
-          <button class="primary-action" type="button" disabled>
-            Case 1 awaiting Content Engine transfer.
-          </button>
+          <a class="primary-action" href="case1.html">
+            Continue → Case 1
+          </a>
         </div>
       </article>
     </section>

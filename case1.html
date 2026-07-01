@@ -499,6 +499,55 @@
       font-weight: 760;
     }
 
+    .repair-bridge {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin: 14px 0 18px;
+      border: 1px solid #B8C6D9;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: var(--blue-soft);
+    }
+
+    .repair-flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .repair-flow span,
+    .repair-flow strong {
+      display: inline-flex;
+      align-items: center;
+      min-height: 29px;
+      border: 1px solid #B8C6D9;
+      border-radius: 999px;
+      padding: 6px 9px;
+      background: #FFFFFF;
+      color: var(--blue);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .repair-flow strong {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #FFFFFF;
+    }
+
+    .repair-bridge .button {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #FFFFFF;
+      box-shadow: none;
+      white-space: nowrap;
+    }
+
     .focus-pack-note {
       margin: 0 0 16px;
       border: 1px solid #B8C6D9;
@@ -656,6 +705,10 @@
         position: sticky;
         top: 0;
         z-index: 5;
+      }
+
+      .repair-bridge {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -1279,6 +1332,16 @@
         <h3 class="section-title">Case Confidence Check</h3>
 
         <p>Mark one option after speaking the case.</p>
+
+        <div class="repair-bridge" aria-label="Case 1 repair pathway">
+          <div class="repair-flow">
+            <span>Read stem</span>
+            <span>Speak station</span>
+            <strong>Check confidence</strong>
+            <span>Repair one miss</span>
+          </div>
+          <a class="button" href="case1-focus-pack.html">Open Case 1 Focus Pack</a>
+        </div>
 
         <div class="focus-routing" aria-label="Confidence Check routing">
           <label class="focus-route-item"><input type="radio" name="confidence" value="completed"> I completed this well.</label>

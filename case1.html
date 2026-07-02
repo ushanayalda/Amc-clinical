@@ -209,7 +209,7 @@
 
     .station-path {
       display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 10px;
       margin: 0 0 26px;
       padding: 10px;
@@ -759,6 +759,15 @@
       border-left-color: var(--amber);
     }
 
+    #section-3.practice-run .phase-toolbar,
+    #section-3.practice-run .exam-rail {
+      display: none;
+    }
+
+    #section-3.practice-run .chat-phase {
+      display: none !important;
+    }
+
     .chat {
       display: grid;
       gap: 12px;
@@ -1023,6 +1032,40 @@
       background: var(--blue-soft);
       color: var(--blue);
       font-weight: 760;
+    }
+
+    .focus-route-item.chosen-route {
+      border-color: var(--red);
+      background: var(--red-soft);
+      color: var(--red);
+      font-weight: 800;
+    }
+
+    #confidence-check.repair-active .focus-route-item:not(.chosen-route),
+    #confidence-check.repair-active p.map-label,
+    #confidence-check.repair-active .confidence-mini-grid,
+    #confidence-check.repair-active .confidence-next {
+      display: none;
+    }
+
+    .confidence-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 0 0 16px;
+    }
+
+    .button.confidence-reset {
+      display: none;
+    }
+
+    #confidence-check.repair-active .button.confidence-reset {
+      display: inline-flex;
+    }
+
+    #confidence-check.repair-active .confidence-check-button {
+      display: none;
     }
 
     .repair-bridge {
@@ -1364,16 +1407,12 @@
           <span class="station-step-number">3</span>
           <span class="station-step-text"><strong>Run station</strong><span class="station-step-detail">One phase at a time.</span></span>
         </button>
-        <button class="station-step" type="button" data-station-target="check" onclick="showStationPanel('check', this)">
+        <button class="station-step action" type="button" data-station-target="check" onclick="showStationPanel('check', this)">
           <span class="station-step-number">4</span>
-          <span class="station-step-text"><strong>Check</strong><span class="station-step-detail">One confidence mark.</span></span>
-        </button>
-        <button class="station-step action" type="button" data-station-target="repair" onclick="showStationPanel('repair', this)">
-          <span class="station-step-number">5</span>
-          <span class="station-step-text"><strong>Repair one miss</strong><span class="station-step-detail">Open one matching hidden hint.</span></span>
+          <span class="station-step-text"><strong>Check / repair</strong><span class="station-step-detail">Mark one miss, repair it.</span></span>
         </button>
         <button class="station-step" type="button" data-station-target="full" onclick="showStationPanel('full', this)">
-          <span class="station-step-number">6</span>
+          <span class="station-step-number">5</span>
           <span class="station-step-text"><strong>Full pack</strong><span class="station-step-detail">Thinking, drill, sources.</span></span>
         </button>
       </nav>
@@ -1908,9 +1947,8 @@
       </section>
 
       <details class="hidden-section station-panel" data-station-panel="full">
-        <summary>Section 4 - Doctor Thinking - Hidden</summary>
+        <summary>Doctor Thinking</summary>
         <div class="hidden-body">
-          <p>Display:<br>Collapsed by default on website.</p>
           <p>Dangerous working diagnosis:<br>Possible acute coronary syndrome.</p>
           <p>Patient wording:<br>Possible heart problem.<br>Possible heart attack.<br>Unstable blood flow to the heart.</p>
           <p>Why it is likely:<br>Central chest pressure.<br>Exertional onset.<br>Ongoing pain.<br>Radiation to left arm and jaw.<br>Sweating.<br>Nausea.<br>Breathlessness.<br>Age 60.<br>Hypertension.<br>Past smoking.<br>Family history.</p>
@@ -1939,9 +1977,8 @@
       </section>
 
       <details class="hidden-section station-panel" data-station-panel="full">
-        <summary>Section 5 - Examiner Lines - Hidden</summary>
+        <summary>Examiner Lines</summary>
         <div class="hidden-body">
-          <p>Display:<br>Collapsed by default on website.</p>
           <p>“My working diagnosis is possible acute coronary syndrome until proven otherwise.”</p>
           <p>“I will assess stability first, including observations, oxygen saturation, perfusion, and conscious state.”</p>
           <p>“I will arrange urgent ambulance transfer from General Practice.”</p>
@@ -1955,7 +1992,7 @@
       </details>
 
       <details class="hidden-section station-panel" data-station-panel="full">
-        <summary>Section 6 - Practice Drill</summary>
+        <summary>Practice Drill</summary>
         <div class="hidden-body">
           <div class="drill-block">
             <p class="drill-title">30-Second Compression</p>
@@ -1987,7 +2024,7 @@
       </details>
 
       <details class="hidden-section station-panel" data-station-panel="full">
-        <summary>Section 7 - Full Timed Run</summary>
+        <summary>Full Timed Run</summary>
         <div class="hidden-body">
           <p>Candidate:<br>“Hello, I am Dr ___. How would you like me to address you?”</p>
           <p>Patient:<br>“Call me Mr Lewis.”</p>
@@ -2044,7 +2081,6 @@
             <strong>Check confidence</strong>
             <span>Repair one miss</span>
           </div>
-          <a class="button" href="case1-focus-pack.html">Open Case 1 Focus Pack</a>
         </div>
 
         <div class="focus-routing" aria-label="Confidence Check routing">
@@ -2064,7 +2100,10 @@
           <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="something-else"> Something else.</label>
         </div>
 
-        <button class="button" type="button" onclick="handleConfidence()">Check</button>
+        <div class="confidence-actions">
+          <button class="button confidence-check-button" type="button" onclick="handleConfidence()">Check</button>
+          <button class="button confidence-reset" type="button" onclick="resetConfidenceRepair()">Return to full checklist</button>
+        </div>
 
         <div class="confidence-feedback" id="confidenceFeedback"></div>
 
@@ -2093,10 +2132,10 @@
 
       </section>
 
-      <details class="hidden-section station-panel" id="focusPack" data-station-panel="repair">
-        <summary>Focus Pack - Hidden Hints</summary>
+      <details class="hidden-section station-panel" id="focusPack" data-station-panel="check">
+        <summary>Matching Repair Hint</summary>
         <div class="hidden-body">
-          <p class="focus-pack-note">Hidden by default. Choose one missed item in the Confidence Check to open one matching hint.</p>
+          <p class="focus-pack-note">One missed item opens one matching hint. Use Return to full checklist to choose another.</p>
           <div class="focus-pack">
           <article class="focus-point" id="focus-missed-diagnosis">
             <h4>Hint: Missed diagnosis</h4>
@@ -2428,9 +2467,8 @@
       </details>
 
       <details class="hidden-section station-panel" data-station-panel="full">
-        <summary>Sources - Collapsed by Default</summary>
+        <summary>Sources</summary>
         <div class="hidden-body">
-          <p>Collapsed by default on website.</p>
           <p>Heart Foundation Australia - Australian Acute Coronary Syndromes Guideline, 2025.</p>
           <p>Australian Commission on Safety and Quality in Health Care - Acute Coronary Syndromes Clinical Care Standard.</p>
           <p>ANZCOR Guideline 14.1 - Acute Coronary Syndromes: Presentation.</p>
@@ -2496,8 +2534,8 @@
         "#section-3": "run",
         "#run-station": "run",
         "#confidence-check": "check",
-        "#focusPack": "repair",
-        "#repair": "repair",
+        "#focusPack": "check",
+        "#repair": "check",
         "#full-pack": "full"
       };
 
@@ -2541,6 +2579,14 @@
     function applyScriptPhase(index) {
       currentScriptPhase = index;
 
+      const runSection = document.getElementById("section-3");
+      if (runSection && runSection.classList.contains("practice-run")) {
+        document.querySelectorAll("#chatScript > [data-phase-index]").forEach((item) => {
+          item.classList.remove("phase-hidden");
+        });
+        return;
+      }
+
       document.querySelectorAll("#chatScript > [data-phase-index]").forEach((item) => {
         item.classList.toggle("phase-hidden", Number(item.dataset.phaseIndex) !== index);
       });
@@ -2552,8 +2598,13 @@
 
     function setMode(mode, button) {
       const buttons = document.querySelectorAll(".mode-button");
+      const runSection = document.getElementById("section-3");
       buttons.forEach((item) => item.classList.remove("active"));
       button.classList.add("active");
+
+      if (runSection) {
+        runSection.classList.toggle("practice-run", mode === "practice");
+      }
 
       const patientBubbles = document.querySelectorAll(".bubble.patient");
 
@@ -2583,12 +2634,45 @@
         });
       }
 
-      applyScriptPhase(currentScriptPhase);
+      if (mode === "practice") {
+        document.querySelectorAll("#chatScript > [data-phase-index]").forEach((item) => {
+          item.classList.remove("phase-hidden");
+        });
+      } else {
+        applyScriptPhase(currentScriptPhase);
+      }
     }
 
     function clearFocusPoints() {
       const points = document.querySelectorAll(".focus-point");
       points.forEach((point) => point.classList.remove("active"));
+    }
+
+    function resetConfidenceRepair() {
+      const confidence = document.getElementById("confidence-check");
+      const feedback = document.getElementById("confidenceFeedback");
+      const focusPack = document.getElementById("focusPack");
+
+      document.querySelectorAll(".focus-route-item").forEach((item) => item.classList.remove("chosen-route"));
+      document.querySelectorAll('input[name="confidence"]').forEach((input) => { input.checked = false; });
+      clearFocusPoints();
+
+      if (confidence) {
+        confidence.classList.remove("repair-active");
+      }
+
+      if (feedback) {
+        feedback.classList.remove("show");
+        feedback.textContent = "";
+      }
+
+      if (focusPack) {
+        focusPack.open = false;
+      }
+
+      if (confidence) {
+        confidence.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
 
     function handleConfidence() {
@@ -2597,6 +2681,7 @@
       const focusPack = document.getElementById("focusPack");
 
       clearFocusPoints();
+      document.querySelectorAll(".focus-route-item").forEach((item) => item.classList.remove("chosen-route"));
 
       if (!selected) {
         feedback.textContent = "Choose one option first.";
@@ -2605,6 +2690,10 @@
       }
 
       if (selected.value === "completed") {
+        const confidence = document.getElementById("confidence-check");
+        if (confidence) {
+          confidence.classList.remove("repair-active");
+        }
         feedback.textContent = "Good. Case 2 awaits transfer.";
         feedback.classList.add("show");
         return;
@@ -2614,10 +2703,18 @@
       const target = document.getElementById("focus-" + targetId);
 
       if (target && focusPack) {
-        showStationPanel("repair");
+        const confidence = document.getElementById("confidence-check");
+        const selectedRoute = selected.closest(".focus-route-item");
+        showStationPanel("check");
+        if (confidence) {
+          confidence.classList.add("repair-active");
+        }
+        if (selectedRoute) {
+          selectedRoute.classList.add("chosen-route");
+        }
         target.classList.add("active");
         focusPack.open = true;
-        feedback.textContent = "Opened the matching hint below. Practise only that repair, then go back to the listed section.";
+        feedback.textContent = "Opened the matching hint below. Practise only that repair. Use Return to full checklist to choose another.";
         target.scrollIntoView({ behavior: "smooth", block: "start" });
       } else {
         feedback.textContent = "Open one matching hint from the hidden Case 1 Focus Pack.";
@@ -2629,6 +2726,9 @@
     document.addEventListener("DOMContentLoaded", function () {
       initScriptPhases();
       initStationPanels();
+      document.querySelectorAll('input[name="confidence"]').forEach((input) => {
+        input.addEventListener("change", handleConfidence);
+      });
     });
   </script>
 </body>

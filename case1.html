@@ -1052,6 +1052,76 @@
       padding: 0 18px 20px;
     }
 
+    .full-library {
+      border: 1px solid #DCE2EC;
+      border-radius: 16px;
+      padding: 16px;
+      background: #F8FAFD;
+    }
+
+    .full-library .section-title {
+      margin-bottom: 8px;
+    }
+
+    .full-subline {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .full-menu {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .full-menu-button {
+      display: grid;
+      gap: 5px;
+      min-height: 72px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 13px;
+      background: #FFFFFF;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 15px;
+      line-height: 1.2;
+      font-weight: 820;
+    }
+
+    .full-menu-button span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 650;
+    }
+
+    .full-menu-button.active,
+    .full-menu-button:hover,
+    .full-menu-button:focus-visible {
+      border-color: rgba(23, 62, 122, 0.32);
+      background: var(--blue-soft);
+      color: var(--blue);
+      outline: none;
+    }
+
+    .full-menu-button.active span,
+    .full-menu-button:hover span,
+    .full-menu-button:focus-visible span {
+      color: var(--blue);
+    }
+
+    .station-panel.full-pack-item.active {
+      display: none;
+    }
+
+    .station-panel.full-pack-item.active.full-item-active {
+      display: block;
+    }
+
     .must-box,
     .drill-block {
       border: 2px solid #3F4652;
@@ -1428,7 +1498,8 @@
       .reading-grid,
       .focus-routing,
       .confidence-mini-grid,
-      .confidence-next {
+      .confidence-next,
+      .full-menu {
         grid-template-columns: 1fr;
       }
 
@@ -2096,7 +2167,20 @@
         </div>
       </section>
 
-      <details class="hidden-section station-panel" data-station-panel="full">
+      <section class="section station-panel full-library" id="full-pack" data-station-panel="full">
+        <h3 class="section-title">Full Pack</h3>
+        <p class="full-subline">Open one layer.</p>
+        <div class="full-menu" aria-label="Full pack layers">
+          <a class="full-menu-button active" href="#full-must-say" data-full-target="full-must-say">Must-say lines<span>Core lines</span></a>
+          <a class="full-menu-button" href="#full-doctor-thinking" data-full-target="full-doctor-thinking">Doctor thinking<span>Reasoning layer</span></a>
+          <a class="full-menu-button" href="#full-examiner-lines" data-full-target="full-examiner-lines">Examiner lines<span>Exam language</span></a>
+          <a class="full-menu-button" href="#full-practice-drill" data-full-target="full-practice-drill">Practice drill<span>Compression drills</span></a>
+          <a class="full-menu-button" href="#full-timed-run" data-full-target="full-timed-run">Full timed run<span>Complete script</span></a>
+          <a class="full-menu-button" href="#full-sources" data-full-target="full-sources">Sources<span>Reference list</span></a>
+        </div>
+      </section>
+
+      <details class="hidden-section station-panel full-pack-item" id="full-doctor-thinking" data-station-panel="full" data-full-item="full-doctor-thinking">
         <summary>Doctor Thinking</summary>
         <div class="hidden-body">
           <p>Dangerous working diagnosis:<br>Possible acute coronary syndrome.</p>
@@ -2112,7 +2196,7 @@
         </div>
       </details>
 
-      <section class="section station-panel" data-station-panel="full">
+      <section class="section station-panel full-pack-item full-item-active" id="full-must-say" data-station-panel="full" data-full-item="full-must-say">
         <h3 class="section-title">Must-Say Lines</h3>
         <div class="must-box">
           <p>“This is not safe to manage in this clinic.”</p>
@@ -2126,7 +2210,7 @@
         </div>
       </section>
 
-      <details class="hidden-section station-panel" data-station-panel="full">
+      <details class="hidden-section station-panel full-pack-item" id="full-examiner-lines" data-station-panel="full" data-full-item="full-examiner-lines">
         <summary>Examiner Lines</summary>
         <div class="hidden-body">
           <p>“My working diagnosis is possible acute coronary syndrome until proven otherwise.”</p>
@@ -2141,7 +2225,7 @@
         </div>
       </details>
 
-      <details class="hidden-section station-panel" data-station-panel="full">
+      <details class="hidden-section station-panel full-pack-item" id="full-practice-drill" data-station-panel="full" data-full-item="full-practice-drill">
         <summary>Practice Drill</summary>
         <div class="hidden-body">
           <div class="drill-block">
@@ -2173,7 +2257,7 @@
         </div>
       </details>
 
-      <details class="hidden-section station-panel" data-station-panel="full">
+      <details class="hidden-section station-panel full-pack-item" id="full-timed-run" data-station-panel="full" data-full-item="full-timed-run">
         <summary>Full Timed Run</summary>
         <div class="hidden-body">
           <p>Candidate:<br>“Hello, I am Dr ___. How would you like me to address you?”</p>
@@ -2606,7 +2690,7 @@
         </div>
       </details>
 
-      <details class="hidden-section station-panel" data-station-panel="full">
+      <details class="hidden-section station-panel full-pack-item" id="full-sources" data-station-panel="full" data-full-item="full-sources">
         <summary>Sources</summary>
         <div class="hidden-body">
           <p>Heart Foundation Australia - Australian Acute Coronary Syndromes Guideline, 2025.</p>
@@ -2626,6 +2710,7 @@
 
   <script>
     let currentScriptPhase = 0;
+    let currentFullItemId = "full-must-say";
     let examTimerId = null;
     let examSecondsLeft = 480;
 
@@ -2739,6 +2824,39 @@
       "#run-beat-11": 10
     };
 
+    const fullHashMap = {
+      "#full-pack": "full-must-say",
+      "#full-must-say": "full-must-say",
+      "#full-doctor-thinking": "full-doctor-thinking",
+      "#full-examiner-lines": "full-examiner-lines",
+      "#full-practice-drill": "full-practice-drill",
+      "#full-timed-run": "full-timed-run",
+      "#full-sources": "full-sources"
+    };
+
+    function showFullItem(itemId, shouldScroll) {
+      currentFullItemId = itemId || "full-must-say";
+
+      document.querySelectorAll("[data-full-item]").forEach((item) => {
+        const isSelected = item.id === currentFullItemId;
+        item.classList.toggle("full-item-active", isSelected);
+        if (item.tagName.toLowerCase() === "details") {
+          item.open = isSelected;
+        }
+      });
+
+      document.querySelectorAll("[data-full-target]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.fullTarget === currentFullItemId);
+      });
+
+      if (shouldScroll) {
+        const selectedItem = document.getElementById(currentFullItemId);
+        if (selectedItem) {
+          selectedItem.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }
+
     function showStationPanel(target, control) {
       const panels = document.querySelectorAll("[data-station-panel]");
       const steps = document.querySelectorAll("[data-station-target]");
@@ -2753,6 +2871,10 @@
 
       if (target === "run") {
         applyScriptPhase(currentScriptPhase);
+      }
+
+      if (target === "full") {
+        showFullItem(currentFullItemId);
       }
 
       if (control) {
@@ -2773,15 +2895,19 @@
         "#run-station": "run",
         "#confidence-check": "check",
         "#focusPack": "check",
-        "#repair": "check",
-        "#full-pack": "full"
+        "#repair": "check"
       };
 
       const beatIndex = beatHashMap[window.location.hash];
-      const target = typeof beatIndex === "number" ? "run" : hashMap[window.location.hash] || "door";
+      const fullItemId = fullHashMap[window.location.hash];
+      const target = typeof beatIndex === "number" ? "run" : fullItemId ? "full" : hashMap[window.location.hash] || "door";
 
       if (typeof beatIndex === "number") {
         currentScriptPhase = beatIndex;
+      }
+
+      if (fullItemId) {
+        currentFullItemId = fullItemId;
       }
 
       showStationPanel(target);
@@ -2793,6 +2919,12 @@
           if (runPanel) {
             runPanel.scrollIntoView({ behavior: "smooth", block: "start" });
           }
+        }, 0);
+      }
+
+      if (fullItemId && window.location.hash !== "#full-pack") {
+        window.setTimeout(() => {
+          showFullItem(fullItemId, true);
         }, 0);
       }
     }

@@ -299,39 +299,6 @@
       display: block;
     }
 
-    .door-note-meta {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin: 0 0 18px;
-    }
-
-    .door-note-chip {
-      border: 1px solid #DCE2EC;
-      border-left: 4px solid var(--blue);
-      border-radius: 12px;
-      padding: 10px 12px;
-      background: #FBFCFE;
-    }
-
-    .door-note-chip strong {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.15;
-      text-transform: uppercase;
-      font-weight: 850;
-    }
-
-    .door-note-chip span {
-      display: block;
-      margin-top: 4px;
-      color: var(--ink);
-      font-size: 16px;
-      line-height: 1.25;
-      font-weight: 750;
-    }
-
     .section {
       margin-top: 30px;
       scroll-margin-top: 16px;
@@ -1117,17 +1084,6 @@
       white-space: nowrap;
     }
 
-    .focus-pack-note {
-      margin: 0 0 16px;
-      border: 1px solid #B8C6D9;
-      border-radius: 12px;
-      padding: 12px 14px;
-      background: var(--blue-soft);
-      color: var(--blue);
-      font-size: 16px;
-      font-weight: 760;
-    }
-
     .focus-pack {
       display: grid;
       gap: 14px;
@@ -1284,7 +1240,6 @@
         min-height: 0;
       }
 
-      .door-note-meta,
       .memory-route {
         grid-template-columns: 1fr;
       }
@@ -1405,11 +1360,11 @@
         </button>
         <button class="station-step" type="button" data-station-target="run" onclick="showStationPanel('run', this)">
           <span class="station-step-number">3</span>
-          <span class="station-step-text"><strong>Run station</strong><span class="station-step-detail">One phase at a time.</span></span>
+          <span class="station-step-text"><strong>Run station</strong><span class="station-step-detail">One beat at a time.</span></span>
         </button>
         <button class="station-step action" type="button" data-station-target="check" onclick="showStationPanel('check', this)">
           <span class="station-step-number">4</span>
-          <span class="station-step-text"><strong>Check / repair</strong><span class="station-step-detail">Mark one miss, repair it.</span></span>
+          <span class="station-step-text"><strong>Hints</strong><span class="station-step-detail">Pick one miss.</span></span>
         </button>
         <button class="station-step" type="button" data-station-target="full" onclick="showStationPanel('full', this)">
           <span class="station-step-number">5</span>
@@ -1419,12 +1374,6 @@
 
       <section class="section station-panel active" id="section-1" data-station-panel="door">
         <h3 class="section-title">Section 1 - Station Stem</h3>
-
-        <div class="door-note-meta" aria-label="Door note metadata">
-          <div class="door-note-chip"><strong>Setting</strong><span>General Practice</span></div>
-          <div class="door-note-chip"><strong>Patient</strong><span>Mr Peter Lewis, 60 years old</span></div>
-          <div class="door-note-chip"><strong>Time</strong><span>2 minutes reading + 8 minutes station</span></div>
-        </div>
 
         <p>You are a General Practitioner in a suburban clinic.</p>
         <p>Mr Peter Lewis is a 60-year-old man who presents with central chest pressure.</p>
@@ -1539,10 +1488,10 @@
               <button class="mode-button" type="button" data-mode="exam" onclick="setMode('exam', this)">Exam</button>
             </div>
 
-            <div class="phase-toolbar" id="phaseToolbar" aria-label="Station script phases"></div>
+            <div class="phase-toolbar" id="phaseToolbar" aria-label="Station script beats"></div>
 
             <div class="chat" id="chatScript">
-          <h4 class="chat-phase">Phase 1 - Introduction and Consent</h4>
+          <h4 class="chat-phase">Beat 1 - Introduction and Consent</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1576,7 +1525,7 @@
             <p>“Okay.”</p>
           </div>
 
-          <h4 class="chat-phase">Phase 2 - Open Question</h4>
+          <h4 class="chat-phase">Beat 2 - Open Question</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1593,7 +1542,7 @@
             <p>“Thank you. I will keep the questions focused.”</p>
           </div>
 
-          <h4 class="chat-phase">Phase 3 - Focused History</h4>
+          <h4 class="chat-phase">Beat 3 - Focused History</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1760,7 +1709,7 @@
             <p>“Thank you. I have enough information to act safely now.”</p>
           </div>
 
-          <h4 class="chat-phase">Phase 4 - Red Flag Sweep</h4>
+          <h4 class="chat-phase">Beat 4 - Red Flag Sweep</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1787,7 +1736,7 @@
             <p>“That pattern is concerning. I am treating this as urgent.”</p>
           </div>
 
-          <h4 class="chat-phase">Phase 5 - Structured Summary</h4>
+          <h4 class="chat-phase">Beat 5 - Structured Summary</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1802,7 +1751,7 @@
             <p>“Yes.”</p>
           </div>
 
-          <h4 class="chat-phase">Phase 6 - Diagnosis Explanation</h4>
+          <h4 class="chat-phase">Beat 6 - Diagnosis Explanation</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1822,7 +1771,7 @@
             <p>“Yes. That is why I am arranging urgent hospital care.”</p>
           </div>
 
-          <h4 class="chat-phase">Phase 7 - Differential Explanation</h4>
+          <h4 class="chat-phase">Beat 7 - Differential Explanation</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1843,9 +1792,9 @@
             <p>“It may turn out to be something less serious, but we need to check the dangerous causes first.”</p>
           </div>
 
-          <h4 class="chat-phase">Phase 8 - Decision Point and Management Plan</h4>
+          <h4 class="chat-phase">Beat 8 - Decision Point and Management Plan</h4>
 
-          <h5 class="chat-subphase">Phase 8A - Decision Point</h5>
+          <h5 class="chat-subphase">Beat 8A - Decision Point</h5>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1853,7 +1802,7 @@
             <p>“I am not waiting for certainty before acting.”</p>
           </div>
 
-          <h5 class="chat-subphase">Phase 8B - Management Plan</h5>
+          <h5 class="chat-subphase">Beat 8B - Management Plan</h5>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1879,7 +1828,7 @@
             <p>“In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed.”</p>
           </div>
 
-          <h4 class="chat-phase">Phase 9 - Urgency Classification</h4>
+          <h4 class="chat-phase">Beat 9 - Urgency Classification</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1897,7 +1846,7 @@
             <p>“I understand. We are acting early to keep you safe.”</p>
           </div>
 
-          <h4 class="chat-phase">Phase 10 - Safety Net</h4>
+          <h4 class="chat-phase">Beat 10 - Safety Net</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1911,7 +1860,7 @@
             <p>“Okay.”</p>
           </div>
 
-          <h4 class="chat-phase">Phase 11 - Check Understanding</h4>
+          <h4 class="chat-phase">Beat 11 - Check Understanding</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2070,20 +2019,20 @@
       </details>
 
       <section class="section station-panel" id="confidence-check" data-station-panel="check">
-        <h3 class="section-title">Case Confidence Check</h3>
+        <h3 class="section-title">Case Hints</h3>
 
-        <p>Mark one option after speaking the case.</p>
+        <p>After speaking the case, pick the line that matches what happened. One hint opens below.</p>
 
-        <div class="repair-bridge" aria-label="Case 1 repair pathway">
+        <div class="repair-bridge" aria-label="Case 1 hint pathway">
           <div class="repair-flow">
             <span>Read stem</span>
             <span>Speak station</span>
-            <strong>Check confidence</strong>
-            <span>Repair one miss</span>
+            <strong>Pick one miss</strong>
+            <span>Use one hint</span>
           </div>
         </div>
 
-        <div class="focus-routing" aria-label="Confidence Check routing">
+        <div class="focus-routing" aria-label="Case hint routing">
           <label class="focus-route-item"><input type="radio" name="confidence" value="completed"> I completed this well.</label>
           <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="missed-diagnosis"> I did not recognise the heart risk.</label>
           <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="technical-language"> I used too many medical words.</label>
@@ -2101,14 +2050,14 @@
         </div>
 
         <div class="confidence-actions">
-          <button class="button confidence-check-button" type="button" onclick="handleConfidence()">Check</button>
-          <button class="button confidence-reset" type="button" onclick="resetConfidenceRepair()">Return to full checklist</button>
+          <button class="button confidence-check-button" type="button" onclick="handleConfidence()">Open hint</button>
+          <button class="button confidence-reset" type="button" onclick="resetConfidenceRepair()">Back to checklist</button>
         </div>
 
         <div class="confidence-feedback" id="confidenceFeedback"></div>
 
-        <p class="map-label">Confidence Check Questions</p>
-        <div class="confidence-mini-grid" aria-label="Confidence Check Questions">
+        <p class="map-label">Quick self-check</p>
+        <div class="confidence-mini-grid" aria-label="Quick self-check questions">
           <p>Did I recognise possible acute coronary syndrome?</p>
           <p>Did I use everyday patient language?</p>
           <p>Did I ask the focused danger questions?</p>
@@ -2119,23 +2068,22 @@
           <p>Did I finish the full timed run?</p>
         </div>
 
-        <div class="confidence-next" aria-label="Confidence Check next step">
+        <div class="confidence-next" aria-label="Case hint next step">
           <div class="confidence-next-block">
             <p class="map-label">If Completed Well</p>
             <p>Continue to Case 2.</p>
           </div>
           <div class="confidence-next-block repair">
-            <p class="map-label">If Something Was Missed</p>
-            <p>Open one matching hint from the hidden Case 1 Focus Pack.</p>
+            <p class="map-label">Need a Hint?</p>
+            <p>Pick one line above. One hint opens below.</p>
           </div>
         </div>
 
       </section>
 
       <details class="hidden-section station-panel" id="focusPack" data-station-panel="check">
-        <summary>Matching Repair Hint</summary>
+        <summary>Matching Hint</summary>
         <div class="hidden-body">
-          <p class="focus-pack-note">One missed item opens one matching hint. Use Return to full checklist to choose another.</p>
           <div class="focus-pack">
           <article class="focus-point" id="focus-missed-diagnosis">
             <h4>Hint: Missed diagnosis</h4>
@@ -2158,7 +2106,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 6 - Diagnosis Explanation.</dd>
+                <dd>Run station - Beat 6 - Diagnosis Explanation.</dd>
               </div>
             </dl>
           </article>
@@ -2183,7 +2131,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 6 - Diagnosis Explanation.</dd>
+                <dd>Run station - Beat 6 - Diagnosis Explanation.</dd>
               </div>
             </dl>
           </article>
@@ -2208,7 +2156,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 7 - Differential Explanation.</dd>
+                <dd>Run station - Beat 7 - Differential Explanation.</dd>
               </div>
             </dl>
           </article>
@@ -2233,7 +2181,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 3 - Focused History.</dd>
+                <dd>Run station - Beat 3 - Focused History.</dd>
               </div>
             </dl>
           </article>
@@ -2258,7 +2206,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 8A - Decision Point.</dd>
+                <dd>Run station - Beat 8 - Decision Point and Management Plan.</dd>
               </div>
             </dl>
           </article>
@@ -2283,7 +2231,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 1 - Introduction and Consent.</dd>
+                <dd>Run station - Beat 1 - Introduction and Consent.</dd>
               </div>
             </dl>
           </article>
@@ -2308,7 +2256,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 8B - Management Plan.</dd>
+                <dd>Run station - Beat 8 - Decision Point and Management Plan.</dd>
               </div>
             </dl>
           </article>
@@ -2333,7 +2281,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 8B - Management Plan.</dd>
+                <dd>Run station - Beat 8 - Decision Point and Management Plan.</dd>
               </div>
             </dl>
           </article>
@@ -2358,7 +2306,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 8B - Management Plan.</dd>
+                <dd>Run station - Beat 8 - Decision Point and Management Plan.</dd>
               </div>
             </dl>
           </article>
@@ -2383,7 +2331,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 10 - Safety Net.</dd>
+                <dd>Run station - Beat 10 - Safety Net.</dd>
               </div>
             </dl>
           </article>
@@ -2408,7 +2356,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 3 - Phase 11 - Check Understanding.</dd>
+                <dd>Run station - Beat 11 - Check Understanding.</dd>
               </div>
             </dl>
           </article>
@@ -2566,7 +2514,7 @@
         const button = document.createElement("button");
         button.type = "button";
         button.className = "phase-button";
-        button.textContent = phaseShortLabels[index] || "Phase " + (index + 1);
+        button.textContent = phaseShortLabels[index] || "Beat " + (index + 1);
         button.onclick = function () {
           applyScriptPhase(index);
         };
@@ -2714,10 +2662,10 @@
         }
         target.classList.add("active");
         focusPack.open = true;
-        feedback.textContent = "Opened the matching hint below. Practise only that repair. Use Return to full checklist to choose another.";
+        feedback.textContent = "One hint is open. Practise the bold line, then go back to the checklist.";
         target.scrollIntoView({ behavior: "smooth", block: "start" });
       } else {
-        feedback.textContent = "Open one matching hint from the hidden Case 1 Focus Pack.";
+        feedback.textContent = "Pick one line above. One hint opens below.";
       }
 
       feedback.classList.add("show");

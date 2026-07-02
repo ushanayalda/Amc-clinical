@@ -1035,55 +1035,6 @@
       display: none;
     }
 
-    .repair-bridge {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 12px;
-      align-items: center;
-      margin: 14px 0 18px;
-      border: 1px solid #B8C6D9;
-      border-radius: 14px;
-      padding: 12px 14px;
-      background: var(--blue-soft);
-    }
-
-    .repair-flow {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      align-items: center;
-    }
-
-    .repair-flow span,
-    .repair-flow strong {
-      display: inline-flex;
-      align-items: center;
-      min-height: 29px;
-      border: 1px solid #B8C6D9;
-      border-radius: 999px;
-      padding: 6px 9px;
-      background: #FFFFFF;
-      color: var(--blue);
-      font-size: 13px;
-      line-height: 1;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .repair-flow strong {
-      border-color: var(--blue);
-      background: var(--blue);
-      color: #FFFFFF;
-    }
-
-    .repair-bridge .button {
-      border-color: var(--blue);
-      background: var(--blue);
-      color: #FFFFFF;
-      box-shadow: none;
-      white-space: nowrap;
-    }
-
     .focus-pack {
       display: grid;
       gap: 14px;
@@ -1290,9 +1241,6 @@
         position: static;
       }
 
-      .repair-bridge {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
@@ -1364,7 +1312,7 @@
         </button>
         <button class="station-step action" type="button" data-station-target="check" onclick="showStationPanel('check', this)">
           <span class="station-step-number">4</span>
-          <span class="station-step-text"><strong>Hints</strong><span class="station-step-detail">Pick one miss.</span></span>
+          <span class="station-step-text"><strong>Hints</strong><span class="station-step-detail">One hint.</span></span>
         </button>
         <button class="station-step" type="button" data-station-target="full" onclick="showStationPanel('full', this)">
           <span class="station-step-number">5</span>
@@ -2021,16 +1969,7 @@
       <section class="section station-panel" id="confidence-check" data-station-panel="check">
         <h3 class="section-title">Case Hints</h3>
 
-        <p>After speaking the case, pick the line that matches what happened. One hint opens below.</p>
-
-        <div class="repair-bridge" aria-label="Case 1 hint pathway">
-          <div class="repair-flow">
-            <span>Read stem</span>
-            <span>Speak station</span>
-            <strong>Pick one miss</strong>
-            <span>Use one hint</span>
-          </div>
-        </div>
+        <p>Pick one line. Get one hint.</p>
 
         <div class="focus-routing" aria-label="Case hint routing">
           <label class="focus-route-item"><input type="radio" name="confidence" value="completed"> I completed this well.</label>
@@ -2662,7 +2601,7 @@
         }
         target.classList.add("active");
         focusPack.open = true;
-        feedback.textContent = "Hint open. Say bold line.";
+        feedback.textContent = "Say this line.";
         target.scrollIntoView({ behavior: "smooth", block: "start" });
       } else {
         feedback.textContent = "Pick one line above. One hint opens below.";

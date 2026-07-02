@@ -1281,6 +1281,21 @@
       font-weight: 800;
     }
 
+    .return-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(23, 62, 122, 0.18);
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      padding: 7px 11px;
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 820;
+      text-decoration: none;
+    }
+
 
     .button {
       display: inline-flex;
@@ -1677,7 +1692,7 @@
             </section>
 
             <div class="chat" id="chatScript">
-          <h4 class="chat-phase">Beat 1 - Introduction and Consent</h4>
+          <h4 class="chat-phase" id="run-beat-1">Beat 1 - Introduction and Consent</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1711,7 +1726,7 @@
             <p>“Okay.”</p>
           </div>
 
-          <h4 class="chat-phase">Beat 2 - Open Question</h4>
+          <h4 class="chat-phase" id="run-beat-2">Beat 2 - Open Question</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1728,7 +1743,7 @@
             <p>“Thank you. I will keep the questions focused.”</p>
           </div>
 
-          <h4 class="chat-phase">Beat 3 - Focused History</h4>
+          <h4 class="chat-phase" id="run-beat-3">Beat 3 - Focused History</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1895,7 +1910,7 @@
             <p>“Thank you. I have enough information to act safely now.”</p>
           </div>
 
-          <h4 class="chat-phase">Beat 4 - Red Flag Sweep</h4>
+          <h4 class="chat-phase" id="run-beat-4">Beat 4 - Red Flag Sweep</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1922,7 +1937,7 @@
             <p>“That pattern is concerning. I am treating this as urgent.”</p>
           </div>
 
-          <h4 class="chat-phase">Beat 5 - Structured Summary</h4>
+          <h4 class="chat-phase" id="run-beat-5">Beat 5 - Structured Summary</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1937,7 +1952,7 @@
             <p>“Yes.”</p>
           </div>
 
-          <h4 class="chat-phase">Beat 6 - Diagnosis Explanation</h4>
+          <h4 class="chat-phase" id="run-beat-6">Beat 6 - Diagnosis Explanation</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1957,7 +1972,7 @@
             <p>“Yes. That is why I am arranging urgent hospital care.”</p>
           </div>
 
-          <h4 class="chat-phase">Beat 7 - Differential Explanation</h4>
+          <h4 class="chat-phase" id="run-beat-7">Beat 7 - Differential Explanation</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1978,9 +1993,9 @@
             <p>“It may turn out to be something less serious, but we need to check the dangerous causes first.”</p>
           </div>
 
-          <h4 class="chat-phase">Beat 8 - Decision Point and Management Plan</h4>
+          <h4 class="chat-phase" id="run-beat-8">Beat 8 - Decision Point and Management Plan</h4>
 
-          <h5 class="chat-subphase">Beat 8A - Decision Point</h5>
+          <h5 class="chat-subphase" id="run-beat-8-decision">Beat 8A - Decision Point</h5>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -1988,7 +2003,7 @@
             <p>“I am not waiting for certainty before acting.”</p>
           </div>
 
-          <h5 class="chat-subphase">Beat 8B - Management Plan</h5>
+          <h5 class="chat-subphase" id="run-beat-8-management">Beat 8B - Management Plan</h5>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2014,7 +2029,7 @@
             <p>“In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed.”</p>
           </div>
 
-          <h4 class="chat-phase">Beat 9 - Urgency Classification</h4>
+          <h4 class="chat-phase" id="run-beat-9">Beat 9 - Urgency Classification</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2032,7 +2047,7 @@
             <p>“I understand. We are acting early to keep you safe.”</p>
           </div>
 
-          <h4 class="chat-phase">Beat 10 - Safety Net</h4>
+          <h4 class="chat-phase" id="run-beat-10">Beat 10 - Safety Net</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2046,7 +2061,7 @@
             <p>“Okay.”</p>
           </div>
 
-          <h4 class="chat-phase">Beat 11 - Check Understanding</h4>
+          <h4 class="chat-phase" id="run-beat-11">Beat 11 - Check Understanding</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2097,7 +2112,7 @@
         </div>
       </details>
 
-      <section class="section station-panel" data-station-panel="run">
+      <section class="section station-panel" data-station-panel="full">
         <h3 class="section-title">Must-Say Lines</h3>
         <div class="must-box">
           <p>“This is not safe to manage in this clinic.”</p>
@@ -2283,7 +2298,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 6 - Diagnosis Explanation.</dd>
+                <dd><a class="return-link" href="#run-beat-6">Return to Beat 6 - Diagnosis Explanation</a></dd>
               </div>
             </dl>
           </article>
@@ -2308,7 +2323,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 6 - Diagnosis Explanation.</dd>
+                <dd><a class="return-link" href="#run-beat-6">Return to Beat 6 - Diagnosis Explanation</a></dd>
               </div>
             </dl>
           </article>
@@ -2333,7 +2348,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 7 - Differential Explanation.</dd>
+                <dd><a class="return-link" href="#run-beat-7">Return to Beat 7 - Differential Explanation</a></dd>
               </div>
             </dl>
           </article>
@@ -2358,7 +2373,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 3 - Focused History.</dd>
+                <dd><a class="return-link" href="#run-beat-3">Return to Beat 3 - Focused History</a></dd>
               </div>
             </dl>
           </article>
@@ -2383,7 +2398,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 8 - Decision Point and Management Plan.</dd>
+                <dd><a class="return-link" href="#run-beat-8-decision">Return to Beat 8A - Decision Point</a></dd>
               </div>
             </dl>
           </article>
@@ -2408,7 +2423,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 1 - Introduction and Consent.</dd>
+                <dd><a class="return-link" href="#run-beat-1">Return to Beat 1 - Introduction and Consent</a></dd>
               </div>
             </dl>
           </article>
@@ -2433,7 +2448,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 8 - Decision Point and Management Plan.</dd>
+                <dd><a class="return-link" href="#run-beat-8-management">Return to Beat 8B - Management Plan</a></dd>
               </div>
             </dl>
           </article>
@@ -2458,7 +2473,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 8 - Decision Point and Management Plan.</dd>
+                <dd><a class="return-link" href="#run-beat-8-management">Return to Beat 8B - Management Plan</a></dd>
               </div>
             </dl>
           </article>
@@ -2483,7 +2498,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 8 - Decision Point and Management Plan.</dd>
+                <dd><a class="return-link" href="#run-beat-8-management">Return to Beat 8B - Management Plan</a></dd>
               </div>
             </dl>
           </article>
@@ -2508,7 +2523,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 10 - Safety Net.</dd>
+                <dd><a class="return-link" href="#run-beat-10">Return to Beat 10 - Safety Net</a></dd>
               </div>
             </dl>
           </article>
@@ -2533,7 +2548,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Run station - Beat 11 - Check Understanding.</dd>
+                <dd><a class="return-link" href="#run-beat-11">Return to Beat 11 - Check Understanding</a></dd>
               </div>
             </dl>
           </article>
@@ -2558,7 +2573,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 7 - Full Timed Run.</dd>
+                <dd><a class="return-link" href="#run-station">Return to Run Station</a></dd>
               </div>
             </dl>
           </article>
@@ -2583,7 +2598,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd>Section 7 - Full Timed Run.</dd>
+                <dd><a class="return-link" href="#run-station">Return to Run Station</a></dd>
               </div>
             </dl>
           </article>
@@ -2708,6 +2723,22 @@
       }
     ];
 
+    const beatHashMap = {
+      "#run-beat-1": 0,
+      "#run-beat-2": 1,
+      "#run-beat-3": 2,
+      "#run-beat-4": 3,
+      "#run-beat-5": 4,
+      "#run-beat-6": 5,
+      "#run-beat-7": 6,
+      "#run-beat-8": 7,
+      "#run-beat-8-decision": 7,
+      "#run-beat-8-management": 7,
+      "#run-beat-9": 8,
+      "#run-beat-10": 9,
+      "#run-beat-11": 10
+    };
+
     function showStationPanel(target, control) {
       const panels = document.querySelectorAll("[data-station-panel]");
       const steps = document.querySelectorAll("[data-station-target]");
@@ -2746,8 +2777,24 @@
         "#full-pack": "full"
       };
 
-      const target = hashMap[window.location.hash] || "door";
+      const beatIndex = beatHashMap[window.location.hash];
+      const target = typeof beatIndex === "number" ? "run" : hashMap[window.location.hash] || "door";
+
+      if (typeof beatIndex === "number") {
+        currentScriptPhase = beatIndex;
+      }
+
       showStationPanel(target);
+
+      if (typeof beatIndex === "number") {
+        window.setTimeout(() => {
+          applyScriptPhase(beatIndex);
+          const runPanel = document.getElementById("section-3");
+          if (runPanel) {
+            runPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 0);
+      }
     }
 
     function initScriptPhases() {
@@ -3037,6 +3084,7 @@
     document.addEventListener("DOMContentLoaded", function () {
       initScriptPhases();
       initStationPanels();
+      window.addEventListener("hashchange", initStationPanels);
       document.querySelectorAll('input[name="confidence"]').forEach((input) => {
         input.addEventListener("change", handleConfidence);
       });

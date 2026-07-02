@@ -648,19 +648,110 @@
       min-width: 0;
     }
 
-    .phase-toolbar {
+    .run-recovery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+      border: 1px solid #B8C6D9;
+      border-radius: 16px;
+      padding: 10px;
+      background: var(--blue-soft);
+    }
+
+    .recovery-cell {
+      border: 1px solid #DCE2EC;
+      border-radius: 12px;
+      padding: 10px 11px;
+      background: #FFFFFF;
+    }
+
+    .recovery-label,
+    .beat-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1;
+      text-transform: uppercase;
+      font-weight: 850;
+    }
+
+    .recovery-cell strong {
+      display: block;
+      color: var(--blue);
+      font-size: 14px;
+      line-height: 1.25;
+      font-weight: 850;
+    }
+
+    .beat-stepper {
+      margin: 12px 0 16px;
+      border: 1px solid #DCE2EC;
+      border-radius: 16px;
+      padding: 14px;
+      background: #FFFFFF;
+    }
+
+    .beat-stepper-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .beat-count {
+      margin: 0 0 4px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .beat-title {
+      margin: 0;
+      color: var(--blue);
+      font-size: 22px;
+      line-height: 1.15;
+      font-weight: 850;
+    }
+
+    .beat-cues {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin: 0 0 12px;
+    }
+
+    .beat-cue {
+      border: 1px solid #DCE2EC;
+      border-left: 4px solid var(--blue);
+      border-radius: 12px;
+      padding: 10px 11px;
+      background: #FBFCFE;
+    }
+
+    .beat-cue.must-say {
+      border-left-color: var(--red);
+      background: #FFF8F8;
+    }
+
+    .beat-cue strong {
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+
+    .beat-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      overflow-x: visible;
-      padding: 10px;
-      border: 1px solid #DCE2EC;
-      border-radius: 16px;
-      background: #FFFFFF;
-      margin-bottom: 16px;
-      scrollbar-width: thin;
+      align-items: center;
     }
 
+    .stepper-button,
+    .beat-list-drawer summary,
     .phase-button {
       flex: 0 0 auto;
       border: 1px solid var(--border);
@@ -672,6 +763,48 @@
       line-height: 1;
       font-weight: 850;
       cursor: pointer;
+    }
+
+    .stepper-button:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+
+    .beat-list-drawer {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      overflow: visible;
+    }
+
+    .beat-list-drawer[open] {
+      box-shadow: none;
+      flex-basis: 100%;
+    }
+
+    .beat-list-drawer summary {
+      list-style: none;
+      width: fit-content;
+    }
+
+    .beat-list-drawer summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .beat-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #DCE2EC;
+      border-radius: 14px;
+      background: #FBFCFE;
+    }
+
+    .phase-button {
+      width: 100%;
+      justify-content: center;
     }
 
     .phase-button.active {
@@ -726,7 +859,7 @@
       border-left-color: var(--amber);
     }
 
-    #section-3.practice-run .phase-toolbar,
+    #section-3.practice-run .beat-stepper,
     #section-3.practice-run .exam-rail {
       display: none;
     }
@@ -1255,9 +1388,9 @@
         grid-template-columns: 1fr;
       }
 
-      .phase-toolbar {
-        flex-wrap: nowrap;
-        overflow-x: auto;
+      .run-recovery,
+      .beat-cues {
+        grid-template-columns: 1fr;
       }
 
       .exam-rail {
@@ -1488,16 +1621,56 @@
           <div class="script-main">
             <div class="script-toolbar" aria-label="Script modes">
               <button class="mode-button active" type="button" data-mode="read" onclick="setMode('read', this)">Read</button>
-              <button class="mode-button" type="button" data-mode="practice" onclick="setMode('practice', this)">Practice</button>
-              <button class="mode-button" type="button" data-mode="exam" onclick="setMode('exam', this)">Exam</button>
+              <button class="mode-button" type="button" data-mode="practice" onclick="setMode('practice', this)">Practise aloud</button>
+              <button class="mode-button" type="button" data-mode="exam" onclick="setMode('exam', this)">Timed exam</button>
             </div>
 
             <div class="exam-tools" id="examTools" aria-label="Exam tools">
               <span class="exam-timer" id="examTimer">08:00</span>
-              <button class="panic-button" id="panicRailButton" type="button" aria-expanded="false" onclick="togglePanicRail()">Open panic rail</button>
+              <button class="panic-button" id="panicRailButton" type="button" aria-expanded="false" onclick="togglePanicRail()">Show panic rail</button>
             </div>
 
-            <div class="phase-toolbar" id="phaseToolbar" aria-label="Station script beats"></div>
+            <section class="run-recovery" aria-label="Recovery after drift">
+              <div class="recovery-cell">
+                <span class="recovery-label">You are here</span>
+                <strong id="recoveryWhere">Run Station - Beat 1 of 11</strong>
+              </div>
+              <div class="recovery-cell">
+                <span class="recovery-label">Do now</span>
+                <strong id="recoveryDo">Open safely.</strong>
+              </div>
+              <div class="recovery-cell">
+                <span class="recovery-label">Next</span>
+                <strong id="recoveryNext">Open question.</strong>
+              </div>
+            </section>
+
+            <section class="beat-stepper" id="beatStepper" aria-label="Current station beat">
+              <div class="beat-stepper-head">
+                <div>
+                  <p class="beat-count" id="beatCounter">Beat 1 of 11</p>
+                  <h4 class="beat-title" id="beatTitle">Introduction and Consent</h4>
+                </div>
+              </div>
+              <div class="beat-cues">
+                <div class="beat-cue">
+                  <span class="beat-label">Goal</span>
+                  <strong id="beatGoal">Open safely and act early.</strong>
+                </div>
+                <div class="beat-cue must-say">
+                  <span class="beat-label">Must say</span>
+                  <strong id="beatMustSay">I am arranging an ambulance now.</strong>
+                </div>
+              </div>
+              <div class="beat-actions">
+                <button class="stepper-button" id="previousBeat" type="button" onclick="moveBeat(-1)">Previous</button>
+                <details class="beat-list-drawer" id="beatListDrawer">
+                  <summary>Beat list</summary>
+                  <div class="beat-list" id="phaseToolbar" aria-label="Station script beat list"></div>
+                </details>
+                <button class="stepper-button" id="nextBeat" type="button" onclick="moveBeat(1)">Next</button>
+              </div>
+            </section>
 
             <div class="chat" id="chatScript">
           <h4 class="chat-phase">Beat 1 - Introduction and Consent</h4>
@@ -2451,6 +2624,86 @@
       "Close"
     ];
 
+    const beatMeta = [
+      {
+        title: "Introduction and Consent",
+        goal: "Open safely. Name the heart concern and arrange ambulance early.",
+        mustSay: "I am going to arrange an ambulance while I ask you a few focused questions.",
+        doNow: "Open safely and call ambulance early.",
+        next: "Ask what happened today."
+      },
+      {
+        title: "Open Question",
+        goal: "Let Mr Lewis give the starting story, then keep the station focused.",
+        mustSay: "Tell me what happened today.",
+        doNow: "Ask the open question.",
+        next: "Clarify the pain story."
+      },
+      {
+        title: "Focused History",
+        goal: "Confirm ongoing pain, spread, danger symptoms, risk factors, and treatment safety.",
+        mustSay: "Thank you. I will keep the questions focused.",
+        doNow: "Ask the danger questions.",
+        next: "Sweep the red flags clearly."
+      },
+      {
+        title: "Red Flag Sweep",
+        goal: "Say the danger pattern back and exclude the major alternatives quickly.",
+        mustSay: "That pattern is concerning. I am treating this as urgent.",
+        doNow: "Check the danger pattern.",
+        next: "Summarise the case."
+      },
+      {
+        title: "Structured Summary",
+        goal: "Compress the story into the features that justify urgent action.",
+        mustSay: "Let me summarise.",
+        doNow: "Summarise the dangerous pattern.",
+        next: "Explain the likely diagnosis."
+      },
+      {
+        title: "Diagnosis Explanation",
+        goal: "Use everyday language and explain why this may be heart-related.",
+        mustSay: "The main concern is that this may be coming from your heart.",
+        doNow: "Explain the heart concern.",
+        next: "Mention serious alternatives."
+      },
+      {
+        title: "Differential Explanation",
+        goal: "Name the serious chest pain causes hospital must check.",
+        mustSay: "There are a few other serious causes of chest pain that hospital also needs to check.",
+        doNow: "Name the other serious causes.",
+        next: "State why you are acting now."
+      },
+      {
+        title: "Decision Point and Management Plan",
+        goal: "Link the symptoms to immediate transfer and safe initial management.",
+        mustSay: "This is not safe to manage in this clinic. I am arranging an ambulance now.",
+        doNow: "Make the ambulance plan clear.",
+        next: "Classify urgency."
+      },
+      {
+        title: "Urgency Classification",
+        goal: "State the urgency plainly and keep the patient oriented.",
+        mustSay: "The safest plan is ambulance transfer now.",
+        doNow: "State urgency.",
+        next: "Give safety net while waiting."
+      },
+      {
+        title: "Safety Net",
+        goal: "Tell Mr Lewis what to report and keep him resting while waiting.",
+        mustSay: "Tell me immediately if the pain gets worse, you feel faint, become more breathless, feel very clammy, or feel like you might collapse.",
+        doNow: "Give warning signs.",
+        next: "Check understanding."
+      },
+      {
+        title: "Check Understanding",
+        goal: "Confirm the patient understands why ambulance transfer is needed.",
+        mustSay: "Can you tell me what you understand about why I am arranging an ambulance?",
+        doNow: "Check understanding.",
+        next: "Move to Hints if anything was missed."
+      }
+    ];
+
     function showStationPanel(target, control) {
       const panels = document.querySelectorAll("[data-station-panel]");
       const steps = document.querySelectorAll("[data-station-target]");
@@ -2519,6 +2772,10 @@
         button.textContent = phaseShortLabels[index] || "Beat " + (index + 1);
         button.onclick = function () {
           applyScriptPhase(index);
+          const beatListDrawer = document.getElementById("beatListDrawer");
+          if (beatListDrawer) {
+            beatListDrawer.open = false;
+          }
         };
         toolbar.appendChild(button);
       }
@@ -2528,6 +2785,7 @@
 
     function applyScriptPhase(index) {
       currentScriptPhase = index;
+      updateBeatStepper(index);
 
       const runSection = document.getElementById("section-3");
       if (runSection && runSection.classList.contains("practice-run")) {
@@ -2544,6 +2802,37 @@
       document.querySelectorAll(".phase-button").forEach((button, buttonIndex) => {
         button.classList.toggle("active", buttonIndex === index);
       });
+    }
+
+    function updateBeatStepper(index) {
+      const meta = beatMeta[index] || {};
+      const count = beatMeta.length || 1;
+      const title = meta.title || "Station beat";
+      const counter = document.getElementById("beatCounter");
+      const titleNode = document.getElementById("beatTitle");
+      const goal = document.getElementById("beatGoal");
+      const mustSay = document.getElementById("beatMustSay");
+      const recoveryWhere = document.getElementById("recoveryWhere");
+      const recoveryDo = document.getElementById("recoveryDo");
+      const recoveryNext = document.getElementById("recoveryNext");
+      const previous = document.getElementById("previousBeat");
+      const next = document.getElementById("nextBeat");
+
+      if (counter) counter.textContent = "Beat " + (index + 1) + " of " + count;
+      if (titleNode) titleNode.textContent = title;
+      if (goal) goal.textContent = meta.goal || "";
+      if (mustSay) mustSay.textContent = meta.mustSay || "";
+      if (recoveryWhere) recoveryWhere.textContent = "Run Station - Beat " + (index + 1) + " of " + count + " - " + title;
+      if (recoveryDo) recoveryDo.textContent = meta.doNow || title;
+      if (recoveryNext) recoveryNext.textContent = meta.next || "Continue.";
+      if (previous) previous.disabled = index === 0;
+      if (next) next.disabled = index >= count - 1;
+    }
+
+    function moveBeat(direction) {
+      const count = beatMeta.length || 1;
+      const nextIndex = Math.min(Math.max(currentScriptPhase + direction, 0), count - 1);
+      applyScriptPhase(nextIndex);
     }
 
     function formatExamTime(seconds) {
@@ -2610,8 +2899,17 @@
 
       runSection.classList.toggle("panic-open");
       const isOpen = runSection.classList.contains("panic-open");
-      button.textContent = isOpen ? "Hide panic rail" : "Open panic rail";
+      button.textContent = isOpen ? "Hide panic rail" : "Show panic rail";
       button.setAttribute("aria-expanded", String(isOpen));
+    }
+
+    function setRecoveryText(where, doNow, next) {
+      const recoveryWhere = document.getElementById("recoveryWhere");
+      const recoveryDo = document.getElementById("recoveryDo");
+      const recoveryNext = document.getElementById("recoveryNext");
+      if (recoveryWhere) recoveryWhere.textContent = where;
+      if (recoveryDo) recoveryDo.textContent = doNow;
+      if (recoveryNext) recoveryNext.textContent = next;
     }
 
     function setMode(mode, button) {
@@ -2628,7 +2926,7 @@
 
       const panicButton = document.getElementById("panicRailButton");
       if (panicButton) {
-        panicButton.textContent = "Open panic rail";
+        panicButton.textContent = "Show panic rail";
         panicButton.setAttribute("aria-expanded", "false");
       }
 
@@ -2640,6 +2938,7 @@
           item.classList.remove("phase-hidden");
         });
         hideCandidateLines();
+        setRecoveryText("Run Station - Full practice run", "Say the candidate lines from memory.", "Use Hints for one missed point.");
       } else if (mode === "exam") {
         startExamTimer();
         applyScriptPhase(currentScriptPhase);

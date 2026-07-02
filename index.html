@@ -221,6 +221,40 @@
       font-size: 15px;
     }
 
+    .mastery-loop {
+      margin-top: 18px;
+      border: 1px solid var(--soft-line);
+      border-radius: var(--radius);
+      background: #F8FAFC;
+      padding: 12px;
+    }
+
+    .mastery-loop-title {
+      margin: 0 0 9px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .mastery-steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .mastery-step {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 10px 11px;
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 750;
+      line-height: 1.25;
+    }
+
     .cue-card .secondary-action {
       margin-top: 14px;
     }
@@ -573,7 +607,8 @@
 
       .case-main,
       .cue-grid,
-      .memory-scene {
+      .memory-scene,
+      .mastery-steps {
         grid-template-columns: 1fr;
       }
 
@@ -682,6 +717,16 @@
           <a class="secondary-action" href="before-case.html">Review Before the Case</a>
         </div>
       </div>
+
+      <div class="mastery-loop" aria-label="Today's learning loop">
+        <p class="mastery-loop-title">Today's loop</p>
+        <div class="mastery-steps">
+          <span class="mastery-step">1. Read door note</span>
+          <span class="mastery-step">2. Run one beat</span>
+          <span class="mastery-step">3. Fix one miss</span>
+          <span class="mastery-step">4. Repeat timed</span>
+        </div>
+      </div>
     </section>
 
     <section class="cue-grid" aria-label="Case cues">
@@ -749,7 +794,7 @@
             </div>
           </div>
         </div>
-        <a class="secondary-action" href="case1-focus-pack.html">Case 1 Focus Pack</a>
+        <a class="secondary-action" href="case1-focus-pack.html">Case 1 Repair Layer</a>
       </article>
     </section>
 

@@ -48,7 +48,7 @@
         radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.06), transparent 30%),
         var(--bg);
       color: var(--text);
-      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: Aptos, "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       line-height: 1.45;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -369,6 +369,50 @@
       font-weight: 500;
     }
 
+    .self-test {
+      margin: 14px 0 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .self-test-item {
+      border: 1px solid #EAECF0;
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: #FCFCFD;
+    }
+
+    .self-test-item strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .self-test-item span {
+      color: #475467;
+      font-size: 15px;
+      font-weight: 620;
+    }
+
+    .warmup-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 46px;
+      margin-top: 16px;
+      border-radius: 999px;
+      padding: 12px 18px;
+      background: var(--blue);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 760;
+      box-shadow: 0 12px 24px rgba(30, 90, 168, 0.16);
+    }
+
     .action-card {
       background:
         linear-gradient(135deg, rgba(30, 90, 168, 0.96), rgba(15, 118, 110, 0.94));
@@ -449,6 +493,10 @@
         grid-template-columns: 1fr;
       }
 
+      .self-test {
+        grid-template-columns: 1fr;
+      }
+
       .action-row {
         align-items: flex-start;
         flex-direction: column;
@@ -500,7 +548,6 @@
       <nav class="nav" aria-label="Main navigation">
         <a class="nav-button" href="index.html">Home</a>
         <a class="nav-button" href="map.html">Map</a>
-        <button class="nav-button" type="button" onclick="alert('Progress page will be built later.')">Progress</button>
       </nav>
     </header>
 
@@ -644,25 +691,16 @@
 
       <article class="card">
         <p class="card-title">Warm-Up</p>
-        <pre class="warmup-box">Setting:
-This is a ______ setting.
-
-Clinical danger:
-The main danger is ______.
-
-Four causes not to miss:
-______, ______, ______, ______.
-
-First action:
-Check ______ and ______.
-
-Then arrange ______.
-
-Main risk point today:
-______.
-
-Must-say line:
-______.</pre>
+        <p class="card-main">Before opening Case 1, say aloud:</p>
+        <div class="self-test" aria-label="Before Case self-test">
+          <div class="self-test-item"><strong>Setting</strong><span>General Practice.</span></div>
+          <div class="self-test-item"><strong>Main danger</strong><span>Possible heart-related chest pain.</span></div>
+          <div class="self-test-item"><strong>Four causes</strong><span>ACS. Dissection. PE. Tension pneumothorax.</span></div>
+          <div class="self-test-item"><strong>First action</strong><span>Call ambulance now.</span></div>
+          <div class="self-test-item"><strong>Main risk point</strong><span>Do not delay transfer while proving the diagnosis.</span></div>
+          <div class="self-test-item"><strong>Must-say line</strong><span>This may be coming from your heart.</span></div>
+        </div>
+        <a class="warmup-action" href="case1.html">Start Case 1</a>
       </article>
 
       <article class="card action-card">

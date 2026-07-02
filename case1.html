@@ -731,8 +731,64 @@
       display: none;
     }
 
-    #section-3.practice-run .chat-phase {
+    #section-3.exam-run .run-layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #section-3.exam-run.panic-open .run-layout {
+      grid-template-columns: minmax(0, 1fr) 260px;
+    }
+
+    #section-3.exam-run .exam-rail {
+      display: none;
+    }
+
+    #section-3.exam-run.panic-open .exam-rail {
+      display: block;
+    }
+
+    #section-3.practice-run .chat-phase,
+    #section-3.practice-run .chat-subphase {
       display: none !important;
+    }
+
+    .exam-tools {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0 0;
+      padding: 10px;
+      border: 1px solid #DCE2EC;
+      border-radius: 16px;
+      background: #FFFFFF;
+    }
+
+    #section-3.exam-run .exam-tools {
+      display: flex;
+    }
+
+    .exam-timer {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: var(--blue);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 850;
+    }
+
+    .panic-button {
+      border: 1px solid var(--red);
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--red);
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 850;
+      cursor: pointer;
     }
 
     .chat {
@@ -1434,6 +1490,11 @@
               <button class="mode-button active" type="button" data-mode="read" onclick="setMode('read', this)">Read</button>
               <button class="mode-button" type="button" data-mode="practice" onclick="setMode('practice', this)">Practice</button>
               <button class="mode-button" type="button" data-mode="exam" onclick="setMode('exam', this)">Exam</button>
+            </div>
+
+            <div class="exam-tools" id="examTools" aria-label="Exam tools">
+              <span class="exam-timer" id="examTimer">08:00</span>
+              <button class="panic-button" id="panicRailButton" type="button" aria-expanded="false" onclick="togglePanicRail()">Open panic rail</button>
             </div>
 
             <div class="phase-toolbar" id="phaseToolbar" aria-label="Station script beats"></div>
@@ -2373,6 +2434,8 @@
 
   <script>
     let currentScriptPhase = 0;
+    let examTimerId = null;
+    let examSecondsLeft = 480;
 
     const phaseShortLabels = [
       "First 60 sec",
@@ -2483,6 +2546,74 @@
       });
     }
 
+    function formatExamTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return String(minutes).padStart(2, "0") + ":" + String(remainingSeconds).padStart(2, "0");
+    }
+
+    function updateExamTimer() {
+      const timer = document.getElementById("examTimer");
+      if (timer) {
+        timer.textContent = formatExamTime(examSecondsLeft);
+      }
+    }
+
+    function stopExamTimer() {
+      if (examTimerId) {
+        window.clearInterval(examTimerId);
+        examTimerId = null;
+      }
+      examSecondsLeft = 480;
+      updateExamTimer();
+    }
+
+    function startExamTimer() {
+      stopExamTimer();
+      examTimerId = window.setInterval(() => {
+        examSecondsLeft = Math.max(0, examSecondsLeft - 1);
+        updateExamTimer();
+        if (examSecondsLeft === 0) {
+          window.clearInterval(examTimerId);
+          examTimerId = null;
+        }
+      }, 1000);
+    }
+
+    function clearRecallButtons() {
+      document.querySelectorAll(".reveal-button").forEach((button) => button.remove());
+      document.querySelectorAll(".bubble").forEach((bubble) => bubble.classList.remove("exam-hidden"));
+    }
+
+    function hideCandidateLines() {
+      document.querySelectorAll(".bubble.doctor").forEach((bubble) => {
+        bubble.classList.add("exam-hidden");
+
+        const reveal = document.createElement("button");
+        reveal.type = "button";
+        reveal.className = "reveal-button";
+        reveal.textContent = "Reveal candidate line";
+        reveal.dataset.phaseIndex = bubble.dataset.phaseIndex;
+        reveal.onclick = function () {
+          bubble.classList.remove("exam-hidden");
+          reveal.remove();
+        };
+
+        bubble.parentNode.insertBefore(reveal, bubble);
+      });
+    }
+
+    function togglePanicRail() {
+      const runSection = document.getElementById("section-3");
+      const button = document.getElementById("panicRailButton");
+      if (!runSection || !button) return;
+
+      runSection.classList.toggle("panic-open");
+      const isOpen = runSection.classList.contains("panic-open");
+      button.textContent = isOpen ? "Hide panic rail" : "Open panic rail";
+      button.setAttribute("aria-expanded", String(isOpen));
+    }
+
     function setMode(mode, button) {
       const buttons = document.querySelectorAll(".mode-button");
       const runSection = document.getElementById("section-3");
@@ -2491,41 +2622,31 @@
 
       if (runSection) {
         runSection.classList.toggle("practice-run", mode === "practice");
+        runSection.classList.toggle("exam-run", mode === "exam");
+        runSection.classList.remove("panic-open");
       }
 
-      const patientBubbles = document.querySelectorAll(".bubble.patient");
-
-      patientBubbles.forEach((bubble) => {
-        bubble.classList.remove("exam-hidden");
-        const existingButton = bubble.previousElementSibling;
-        if (existingButton && existingButton.classList && existingButton.classList.contains("reveal-button")) {
-          existingButton.remove();
-        }
-      });
-
-      if (mode === "exam") {
-        patientBubbles.forEach((bubble) => {
-          bubble.classList.add("exam-hidden");
-
-          const reveal = document.createElement("button");
-          reveal.type = "button";
-          reveal.className = "reveal-button";
-          reveal.textContent = "Reveal patient reply";
-          reveal.dataset.phaseIndex = bubble.dataset.phaseIndex;
-          reveal.onclick = function () {
-            bubble.classList.remove("exam-hidden");
-            reveal.remove();
-          };
-
-          bubble.parentNode.insertBefore(reveal, bubble);
-        });
+      const panicButton = document.getElementById("panicRailButton");
+      if (panicButton) {
+        panicButton.textContent = "Open panic rail";
+        panicButton.setAttribute("aria-expanded", "false");
       }
+
+      clearRecallButtons();
 
       if (mode === "practice") {
+        stopExamTimer();
         document.querySelectorAll("#chatScript > [data-phase-index]").forEach((item) => {
           item.classList.remove("phase-hidden");
         });
+        hideCandidateLines();
+      } else if (mode === "exam") {
+        startExamTimer();
+        applyScriptPhase(currentScriptPhase);
+        hideCandidateLines();
+        applyScriptPhase(currentScriptPhase);
       } else {
+        stopExamTimer();
         applyScriptPhase(currentScriptPhase);
       }
     }

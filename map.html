@@ -45,7 +45,7 @@
         radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.06), transparent 30%),
         var(--bg);
       color: var(--text);
-      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: Aptos, "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       line-height: 1.45;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -247,6 +247,13 @@
       font-size: 24px;
       letter-spacing: -0.03em;
       font-weight: 700;
+    }
+
+    .focus-note {
+      margin: -6px 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
     }
 
     .tool-buttons {
@@ -577,7 +584,6 @@
 
       <nav class="nav" aria-label="Main navigation">
         <a class="nav-button" href="index.html">Home</a>
-        <button class="nav-button" type="button" onclick="alert('Progress page will be built later.')">Progress</button>
       </nav>
     </header>
 
@@ -591,9 +597,6 @@
       <div class="legend" aria-label="Status legend">
         <span class="legend-pill legend-available">Available</span>
         <span class="legend-pill legend-current">Current</span>
-        <span class="legend-pill legend-locked">Locked</span>
-        <span class="legend-pill legend-reserve">Reserve</span>
-        <span class="legend-pill legend-awaiting">Awaiting Content Engine</span>
       </div>
     </section>
 
@@ -601,10 +604,12 @@
       <div class="map-tools">
         <h2 class="map-tools-title">Map</h2>
         <div class="tool-buttons">
+          <button class="tool-button" type="button" id="futureToggle">Show future curriculum</button>
           <button class="tool-button" type="button" id="expandAll">Open all</button>
           <button class="tool-button" type="button" id="collapseAll">Close all</button>
         </div>
       </div>
+      <p class="focus-note" id="focusNote">Focus Mode is on. Showing the current path only.</p>
 
       <section class="tree" id="treeRoot"></section>
     </section>
@@ -628,7 +633,7 @@
             rows: [
               { title: "Before the Case", state: "Available", href: "before-case.html" },
               { title: "Case 1 · Classic Chest Pain in General Practice", state: "Current", href: "case1.html" },
-              { title: "Case 1 Focus Pack · Fix the exact missed checkpoint", state: "Available", href: "case1-focus-pack.html" },
+              { title: "Case 1 Repair Layer · Fix one missed point", state: "Available", href: "case1-focus-pack.html" },
               { title: "Case 2 · Chest Pain with Recent Sildenafil Use in General Practice", state: "Awaiting Content Engine" },
               { title: "Case 3 · Sudden Chest Pain Radiating to the Back", state: "Awaiting Content Engine" },
               { title: "Case 4 · Pleuritic Chest Pain with Breathlessness", state: "Awaiting Content Engine" },
@@ -765,6 +770,12 @@
       return element;
     }
 
+    let showFutureCurriculum = false;
+
+    function isCurrentRow(row) {
+      return row.href || row.state === "Current" || row.state === "Available";
+    }
+
     function createPattern(pattern) {
       const details = document.createElement("details");
       if (pattern.open) details.open = true;
@@ -778,13 +789,15 @@
       content.className = "tree-content";
 
       const rows = pattern.rows || [{ title: "Case Ladder", state: "Locked" }];
-      rows.forEach((row) => content.appendChild(createRow(row)));
+      rows
+        .filter((row) => showFutureCurriculum || isCurrentRow(row))
+        .forEach((row) => content.appendChild(createRow(row)));
 
       details.appendChild(content);
       return details;
     }
 
-    function createPhase(phase) {
+    function createPhase(phase, phaseIndex) {
       const details = document.createElement("details");
       if (phase.open) details.open = true;
 
@@ -796,17 +809,39 @@
       const content = document.createElement("div");
       content.className = "tree-content";
 
-      phase.patterns.forEach((pattern) => content.appendChild(createPattern(pattern)));
+      phase.patterns
+        .filter((pattern, patternIndex) => showFutureCurriculum || (phaseIndex === 0 && patternIndex === 0))
+        .forEach((pattern) => content.appendChild(createPattern(pattern)));
 
       details.appendChild(content);
       return details;
     }
 
     const treeRoot = document.getElementById("treeRoot");
-    phases.forEach((phase) => treeRoot.appendChild(createPhase(phase)));
+    const futureToggle = document.getElementById("futureToggle");
+    const focusNote = document.getElementById("focusNote");
+
+    function renderTree() {
+      treeRoot.innerHTML = "";
+      phases
+        .filter((phase, phaseIndex) => showFutureCurriculum || phaseIndex === 0)
+        .forEach((phase, phaseIndex) => treeRoot.appendChild(createPhase(phase, phaseIndex)));
+
+      futureToggle.textContent = showFutureCurriculum ? "Hide future curriculum" : "Show future curriculum";
+      focusNote.textContent = showFutureCurriculum
+        ? "Study Mode is on. Future and unavailable curriculum is visible."
+        : "Focus Mode is on. Showing the current path only.";
+    }
+
+    renderTree();
 
     const expandAllButton = document.getElementById("expandAll");
     const collapseAllButton = document.getElementById("collapseAll");
+
+    futureToggle.addEventListener("click", () => {
+      showFutureCurriculum = !showFutureCurriculum;
+      renderTree();
+    });
 
     expandAllButton.addEventListener("click", () => {
       document.querySelectorAll("details").forEach((item) => {

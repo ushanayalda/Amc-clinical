@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Study Map | AMC Clinical Pathway</title>
+  <title>Cases | AMC Clinical Pathway</title>
 
   <style>
     :root {
@@ -127,8 +127,8 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: clamp(20px, 3vw, 28px);
-      margin-bottom: 14px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
       position: relative;
       overflow: hidden;
     }
@@ -138,7 +138,7 @@
     }
 
     .eyebrow {
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       font-size: 12px;
       line-height: 1;
       text-transform: uppercase;
@@ -149,27 +149,27 @@
 
     .hero-title {
       margin: 0;
-      font-size: clamp(30px, 5vw, 42px);
-      line-height: 1.08;
+      font-size: clamp(28px, 4vw, 34px);
+      line-height: 1.1;
       letter-spacing: 0;
       font-weight: 720;
       color: var(--navy);
     }
 
     .hero-subtitle {
-      margin: 14px 0 0;
+      margin: 8px 0 0;
       max-width: 740px;
-      font-size: clamp(16px, 2.4vw, 19px);
+      font-size: 16px;
       color: #475467;
       font-weight: 500;
-      line-height: 1.55;
+      line-height: 1.4;
     }
 
     .legend {
       display: flex;
       flex-wrap: wrap;
       gap: 9px;
-      margin: 20px 0 0;
+      margin: 12px 0 0;
       position: relative;
       z-index: 1;
     }
@@ -221,8 +221,8 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 16px;
-      margin-bottom: 14px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
     }
 
     .route-head {
@@ -268,19 +268,19 @@
 
     .route-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
     }
 
     .route-card {
-      min-height: 132px;
+      min-height: 82px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: #FFFFFF;
-      padding: 13px;
+      padding: 12px;
       color: var(--text);
       display: grid;
-      gap: 8px;
+      gap: 6px;
       align-content: start;
     }
 
@@ -329,6 +329,31 @@
       color: inherit;
     }
 
+    .case-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .case-list-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 14px 16px;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 750;
+      line-height: 1.3;
+    }
+
+    .case-list-row:hover {
+      border-color: rgba(30, 90, 168, 0.28);
+      background: var(--soft-blue);
+    }
+
     .curriculum-drawer {
       margin-top: 14px;
       border-radius: var(--radius);
@@ -336,12 +361,13 @@
 
     .curriculum-drawer > summary {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
     }
 
     .summary-note {
+      margin-left: auto;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.25;
@@ -689,6 +715,7 @@
       }
 
       .summary-note {
+        margin-left: 0;
         text-align: left;
       }
 
@@ -720,6 +747,15 @@
         margin-left: 42px;
         width: fit-content;
       }
+
+      .case-list-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .case-list-row .status-chip {
+        margin-left: 0;
+      }
     }
   </style>
   <link rel="stylesheet" href="accessibility.css" />
@@ -739,63 +775,71 @@
     </header>
 
     <section class="hero">
-      <p class="eyebrow">Study map</p>
-      <h2 class="hero-title">Your visual case tree</h2>
+      <p class="eyebrow">Cases</p>
+      <h2 class="hero-title">Find a case</h2>
       <p class="hero-subtitle">
-        Follow the guided path, then jump back to any available case when you need revision.
+        Open what is ready. Keep future cases hidden until you need them.
       </p>
 
       <div class="legend" aria-label="Status legend">
-        <span class="legend-pill legend-available">Available</span>
-        <span class="legend-pill legend-current">Current</span>
+        <span class="legend-pill legend-available">Ready</span>
+        <span class="legend-pill legend-current">In progress</span>
       </div>
     </section>
 
-    <section class="route-shell" aria-label="Active route">
+    <section class="route-shell" aria-label="Current case">
       <div class="route-head">
         <div>
-          <p class="route-kicker">Level 1 - use now</p>
-          <h3 class="route-title">Current route: Dangerous Chest Pain</h3>
+          <p class="route-kicker">Current case</p>
+          <h3 class="route-title">Case 1 - Classic Chest Pain</h3>
         </div>
-        <div class="route-status" id="mapRouteStatus">Case 1 is active</div>
+        <div class="route-status" id="mapRouteStatus">Ready</div>
       </div>
 
-      <nav class="route-grid" aria-label="Current route actions">
-        <a class="route-card" href="before-case.html">
-          <span class="route-number">1</span>
-          <p class="route-card-title">Before Case</p>
-          <p class="route-card-detail">Prime the danger pattern.</p>
-        </a>
+      <nav class="route-grid" aria-label="Current case actions">
         <a class="route-card current" id="mapCase1Card" href="case1.html#speak-practice">
-          <span class="route-number">2</span>
-          <p class="route-card-title">Case 1</p>
+          <p class="route-card-title">Start speaking</p>
           <p class="route-card-detail" id="mapCase1Detail">Speak the case aloud.</p>
         </a>
-        <a class="route-card repair" id="mapHintsCard" href="case1.html#confidence-check">
-          <span class="route-number">3</span>
-          <p class="route-card-title">Hints</p>
-          <p class="route-card-detail" id="mapHintsDetail">Fix one missed point.</p>
+        <a class="route-card" href="before-case.html">
+          <p class="route-card-title">Warm up</p>
+          <p class="route-card-detail">Spot the danger signs.</p>
         </a>
-        <a class="route-card" href="index.html">
-          <span class="route-number">4</span>
-          <p class="route-card-title">Home</p>
-          <p class="route-card-detail">Return to command centre.</p>
+        <a class="route-card repair" id="mapHintsCard" href="case1.html#confidence-check">
+          <p class="route-card-title">Hints</p>
+          <p class="route-card-detail" id="mapHintsDetail">Use after one missed point.</p>
         </a>
       </nav>
     </section>
 
+    <section class="route-shell" aria-label="Available cases">
+      <div class="route-head">
+        <div>
+          <p class="route-kicker">Available cases</p>
+          <h3 class="route-title">Ready now</h3>
+        </div>
+      </div>
+
+      <div class="case-list">
+        <a class="case-list-row" href="case1.html#speak-practice">
+          <span>Case 1 - Classic Chest Pain</span>
+          <span class="status-chip chip-available">Ready</span>
+        </a>
+      </div>
+    </section>
+
     <details class="curriculum-drawer">
-      <summary>Level 2 - full curriculum tree <span class="summary-note">Open when you need the broader ladder.</span></summary>
-      <section class="map-shell" aria-label="Study map tree">
+      <summary>More cases <span class="summary-note">Future cases stay hidden until needed.</span></summary>
+      <section class="map-shell" aria-label="Future cases">
         <div class="map-tools">
-          <h2 class="map-tools-title">Curriculum tree</h2>
+          <h2 class="map-tools-title">Future cases</h2>
           <div class="tool-buttons">
-            <button class="tool-button" type="button" id="futureToggle">Show future curriculum</button>
+            <button class="tool-button" type="button" id="futureToggle">Show future cases</button>
             <button class="tool-button" type="button" id="expandAll">Open all</button>
             <button class="tool-button" type="button" id="collapseAll">Close all</button>
           </div>
         </div>
-        <p class="focus-note" id="focusNote">Focus Mode is on. Showing the current path only.</p>
+        <p class="focus-note" id="focusNote">Showing ready cases only.</p>
 
         <section class="tree" id="treeRoot"></section>
       </section>
@@ -819,15 +863,15 @@
             title: "Pattern 1 · Dangerous Chest Pain",
             open: true,
             rows: [
-              { title: "Before the Case", state: "Available", href: "before-case.html" },
-              { title: "Case 1 · Classic Chest Pain in General Practice", state: "Current", href: "case1.html" },
-              { title: "Case 1 Repair Layer · Fix one missed point", state: "Available", href: "case1-focus-pack.html" },
-              { title: "Case 2 · Chest Pain with Recent Sildenafil Use in General Practice", state: "Awaiting Content Engine" },
-              { title: "Case 3 · Sudden Chest Pain Radiating to the Back", state: "Awaiting Content Engine" },
-              { title: "Case 4 · Pleuritic Chest Pain with Breathlessness", state: "Awaiting Content Engine" },
-              { title: "Case 5 · Sudden Chest Pain with Severe Breathlessness and One-Sided Chest Signs", state: "Awaiting Content Engine" },
-              { title: "Pattern Confidence Check", state: "Awaiting Content Engine" },
-              { title: "Coverage Checklist", state: "Awaiting Content Engine" },
+              { title: "Warm up", state: "Available", href: "before-case.html" },
+              { title: "Case 1 - Classic Chest Pain", state: "Current", href: "case1.html" },
+              { title: "Case 1 Hints - One missed point", state: "Available", href: "case1-focus-pack.html" },
+              { title: "Case 2 - Chest Pain with Recent Sildenafil Use", state: "Later" },
+              { title: "Case 3 - Sudden Chest Pain Radiating to the Back", state: "Later" },
+              { title: "Case 4 - Pleuritic Chest Pain with Breathlessness", state: "Later" },
+              { title: "Case 5 - Sudden Chest Pain with Severe Breathlessness", state: "Later" },
+              { title: "Group check", state: "Later" },
+              { title: "Coverage checklist", state: "Later" },
               { title: "Reserve Case 6 · Normal First Electrocardiogram but Ongoing Concern", state: "Reserve" },
               { title: "Reserve Case 7 · Patient Refuses Ambulance Transfer", state: "Reserve" }
             ]
@@ -920,7 +964,7 @@
       if (state === "Current") return "current";
       if (state === "Available") return "available";
       if (state === "Reserve") return "reserve";
-      if (state === "Awaiting Content Engine") return "awaiting";
+      if (state === "Later") return "awaiting";
       return "locked";
     }
 
@@ -928,13 +972,31 @@
       if (state === "Current") return "●";
       if (state === "Available") return "✓";
       if (state === "Reserve") return "R";
-      if (state === "Awaiting Content Engine") return "○";
+      if (state === "Later") return "○";
       return "○";
     }
 
     function displayIconForState(state) {
       if (state === "In progress") return "●";
       return iconForState(state);
+    }
+
+    function displayState(state) {
+      if (state === "In progress") return "In progress";
+      if (state === "Current") return "Ready";
+      if (state === "Available") return "Ready";
+      if (state === "Later") return "Later";
+      return state;
+    }
+
+    function displayTitle(title) {
+      return title
+        .replace(/^Phase\s+\d+\s*-\s*/i, "")
+        .replace(/^Pattern\s+\d+\s*(?:·|-)\s*/i, "")
+        .replace(/^Expansion Pattern\s+\d+\s*(?:·|-)\s*/i, "Extra - ")
+        .replace(/^Expansion Patterns$/i, "Extra cases")
+        .replace(/\s+Pattern$/i, "")
+        .replace(/^Reserve Case\s+/i, "Optional case ");
     }
 
     function isCase1Row(row) {
@@ -956,16 +1018,16 @@
         element.href = isCase1Row(row) && resume ? resume.href : row.href;
       } else {
         element.onclick = function () {
-          alert(row.title + "\n\n" + state);
+          alert(displayTitle(row.title) + "\n\n" + displayState(state));
         };
       }
 
       element.innerHTML = `
         <div class="row-left">
           <span class="row-icon icon-${cls}">${displayIconForState(state)}</span>
-          <span class="row-title">${row.title}</span>
+          <span class="row-title">${displayTitle(row.title)}</span>
         </div>
-        <span class="status-chip chip-${cls}">${state}</span>
+        <span class="status-chip chip-${cls}">${displayState(state)}</span>
       `;
 
       return element;
@@ -986,7 +1048,7 @@
       const hintsDetail = document.getElementById("mapHintsDetail");
 
       if (routeStatus) {
-        routeStatus.textContent = hasProgress ? "Case 1 in progress" : "Case 1 is active";
+        routeStatus.textContent = hasProgress ? "In progress" : "Ready";
       }
 
       if (caseCard) {
@@ -1004,7 +1066,7 @@
       if (hintsDetail) {
         hintsDetail.textContent = stats.fixed || stats.practised
           ? progress.progressLabel()
-          : "Fix one missed point.";
+          : "Use after one missed point.";
       }
     }
 
@@ -1020,7 +1082,7 @@
 
       const summary = document.createElement("summary");
       summary.className = "pattern-summary";
-      summary.textContent = pattern.title;
+      summary.textContent = displayTitle(pattern.title);
       details.appendChild(summary);
 
       const content = document.createElement("div");
@@ -1041,7 +1103,7 @@
 
       const summary = document.createElement("summary");
       summary.className = "phase-summary";
-      summary.textContent = phase.title;
+      summary.textContent = displayTitle(phase.title);
       details.appendChild(summary);
 
       const content = document.createElement("div");
@@ -1065,10 +1127,10 @@
         .filter((phase, phaseIndex) => showFutureCurriculum || phaseIndex === 0)
         .forEach((phase, phaseIndex) => treeRoot.appendChild(createPhase(phase, phaseIndex)));
 
-      futureToggle.textContent = showFutureCurriculum ? "Hide future curriculum" : "Show future curriculum";
+      futureToggle.textContent = showFutureCurriculum ? "Hide future cases" : "Show future cases";
       focusNote.textContent = showFutureCurriculum
-        ? "Study Mode is on. Future and unavailable curriculum is visible."
-        : "Focus Mode is on. Showing the current path only.";
+        ? "Future cases are visible."
+        : "Showing ready cases only.";
     }
 
     renderTree();

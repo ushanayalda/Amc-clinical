@@ -20,6 +20,12 @@
   font-family: Aptos, "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
 }
 
+.accessibility-panel:not([open]) {
+  width: auto;
+  border-radius: 999px;
+  box-shadow: 0 10px 22px rgba(16, 24, 40, 0.12);
+}
+
 .accessibility-panel > summary {
   list-style: none;
   min-height: 44px;
@@ -37,6 +43,13 @@
   letter-spacing: 0;
 }
 
+.accessibility-panel:not([open]) > summary {
+  min-height: 36px;
+  padding: 8px 11px;
+  gap: 0;
+  font-size: 13px;
+}
+
 .accessibility-panel > summary::-webkit-details-marker {
   display: none;
 }
@@ -49,6 +62,10 @@
   color: var(--a11y-panel-muted);
   font-size: 12px;
   font-weight: 750;
+}
+
+.accessibility-panel:not([open]) > summary span {
+  display: none;
 }
 
 .accessibility-body {
@@ -177,6 +194,9 @@ html[data-a11y-contrast="high"] :where(a, button, summary, input):focus-visible 
   .accessibility-panel {
     right: 10px;
     bottom: 10px;
+  }
+
+  .accessibility-panel[open] {
     width: calc(100vw - 20px);
   }
 }

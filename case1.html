@@ -40,7 +40,7 @@
       min-height: 100vh;
       background: var(--page-bg);
       color: var(--ink);
-      font-family: "Aptos", "Segoe UI", Arial, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.58;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -132,20 +132,171 @@
     }
 
     .case-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      display: grid;
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
+    }
+
+    .case-kicker {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .case-title {
       margin: 0;
       color: var(--blue);
-      font-size: 34px;
+      font-size: clamp(31px, 5vw, 40px);
       line-height: 1.15;
       font-weight: 780;
       letter-spacing: 0;
+    }
+
+    .case-summary {
+      max-width: 720px;
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(18px, 3vw, 22px);
+      line-height: 1.38;
+      font-weight: 720;
+    }
+
+    .case-summary strong {
+      color: var(--red);
+      font-weight: 850;
+    }
+
+    .case-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .primary-start {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border: 1px solid var(--blue);
+      border-radius: 12px;
+      background: var(--blue);
+      color: #FFFFFF;
+      padding: 12px 18px;
+      font-size: 16px;
+      line-height: 1.15;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    .quick-links a {
+      border-radius: 999px;
+      color: var(--blue);
+      padding: 6px 8px;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .safety-strip {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0 0 24px;
+    }
+
+    .safety-card {
+      border: 1px solid rgba(138, 31, 31, 0.22);
+      border-radius: 12px;
+      padding: 13px 14px;
+      background: var(--red-soft);
+    }
+
+    .safety-card:first-child {
+      border-color: rgba(168, 80, 19, 0.26);
+      background: var(--amber-soft);
+    }
+
+    .safety-label {
+      display: block;
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.1;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .safety-card p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.38;
+      font-weight: 700;
+    }
+
+    .safety-card strong {
+      color: var(--red);
+      font-weight: 850;
+    }
+
+    .speak-note {
+      margin: 0 0 14px;
+      border: 1px solid rgba(23, 62, 122, 0.14);
+      border-left: 5px solid var(--blue);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #F8FAFD;
+      color: var(--blue);
+      font-size: 16px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .case-details-block {
+      margin-top: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #FBFCFE;
+      overflow: hidden;
+    }
+
+    .case-details-block summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 13px 15px;
+      color: var(--blue);
+      font-size: 15px;
+      line-height: 1.2;
+      font-weight: 850;
+    }
+
+    .case-details-block summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .case-details-block .details-panel {
+      position: static;
+      width: auto;
+      border: 0;
+      border-top: 1px solid var(--border);
+      border-radius: 0;
+      box-shadow: none;
     }
 
     .details-drawer {
@@ -701,7 +852,7 @@
 
     .run-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 260px;
+      grid-template-columns: minmax(0, 1fr);
       gap: 18px;
       align-items: start;
     }
@@ -996,6 +1147,10 @@
       border-left: 2px solid #AEB8C6;
       padding-left: 16px;
       margin-top: 12px;
+    }
+
+    #section-3.practice-run .chat {
+      margin-top: 0;
     }
 
     .chat-phase {
@@ -1902,11 +2057,15 @@
       }
 
       .nav {
-        width: 100%;
+        width: auto;
       }
 
       .nav-link {
-        flex: 1;
+        flex: 0 0 auto;
+        min-height: 34px;
+        padding: 7px 10px;
+        font-size: 12px;
+        box-shadow: none;
         text-align: center;
       }
 
@@ -1926,6 +2085,10 @@
 
       .case-title {
         font-size: 28px;
+      }
+
+      .safety-strip {
+        grid-template-columns: 1fr;
       }
 
       .section-title {
@@ -2055,7 +2218,7 @@
 
     }
   </style>
-  <link rel="stylesheet" href="accessibility.css" />
+  <link rel="stylesheet" href="accessibility.css?v=case1-focus-1" />
 </head>
 
 <body>
@@ -2069,72 +2232,45 @@
 
     <nav class="nav" aria-label="Main navigation">
       <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link" href="map.html">Map</a>
-      <a class="nav-link" href="before-case.html">Before Case</a>
+      <a class="nav-link" href="map.html">Cases</a>
+      <a class="nav-link" href="before-case.html">Warm up</a>
     </nav>
   </header>
 
   <main class="paper">
     <div class="content">
       <section class="case-top">
-        <h2 class="case-title">Case 1 - Classic Chest Pain in General Practice</h2>
-
-        <details class="details-drawer">
-          <summary>Case facts</summary>
-          <div class="details-panel">
-            <div class="meta-row">
-              <div class="meta-label">Case family:</div>
-              <div class="meta-value">Dangerous Chest Pain</div>
-            </div>
-            <div class="meta-row">
-              <div class="meta-label">Case version:</div>
-              <div class="meta-value">Classic possible heart problem</div>
-            </div>
-            <div class="meta-row">
-              <div class="meta-label">What you do:</div>
-              <div class="meta-value">Talk with the patient</div>
-            </div>
-            <div class="meta-row">
-              <div class="meta-label">Speak to:</div>
-              <div class="meta-value">Patient</div>
-            </div>
-            <div class="meta-row">
-              <div class="meta-label">Place:</div>
-              <div class="meta-value">General Practice</div>
-            </div>
-            <div class="meta-row">
-              <div class="meta-label">Do not miss:</div>
-              <div class="meta-value">Do not delay ambulance transfer while trying to prove the diagnosis.</div>
-            </div>
-          </div>
-        </details>
+        <p class="case-kicker">Current case</p>
+        <h2 class="case-title">Classic Chest Pain</h2>
+        <p class="case-summary">Speak the case. <strong>Call the ambulance early.</strong> Do not wait for tests.</p>
+        <div class="case-actions" aria-label="Case 1 actions">
+          <a class="primary-start" href="#speak-practice" onclick="showStationPanel('run')">Start speaking</a>
+          <p class="quick-links">
+            <span>Need:</span>
+            <a href="#station-stem" onclick="showStationPanel('door')">Stem</a>
+            <span>|</span>
+            <a href="#confidence-check" onclick="showStationPanel('check')">Hints</a>
+            <span>|</span>
+            <a href="#study-notes" onclick="showStationPanel('full')">Notes</a>
+            <span>|</span>
+            <a href="map.html">Cases</a>
+          </p>
+        </div>
       </section>
 
-      <nav class="station-path" aria-label="Case 1 path">
-        <button class="station-step active" type="button" data-station-target="door" onclick="showStationPanel('door', this)">
-          <span class="station-step-number">1</span>
-          <span class="station-step-text"><strong>Station stem</strong><span class="station-step-detail">Read only.</span></span>
-        </button>
-        <button class="station-step" type="button" data-station-target="map" onclick="showStationPanel('map', this)">
-          <span class="station-step-number">2</span>
-          <span class="station-step-text"><strong>Brain map</strong><span class="station-step-detail">Body clues.</span></span>
-        </button>
-        <button class="station-step" type="button" data-station-target="run" onclick="showStationPanel('run', this)">
-          <span class="station-step-number">3</span>
-          <span class="station-step-text"><strong>Speak practice</strong><span class="station-step-detail">Say it out loud.</span></span>
-        </button>
-        <button class="station-step action" type="button" data-station-target="check" onclick="showStationPanel('check', this)">
-          <span class="station-step-number">4</span>
-          <span class="station-step-text"><strong>Hints</strong><span class="station-step-detail">One hint.</span></span>
-        </button>
-        <button class="station-step" type="button" data-station-target="full" onclick="showStationPanel('full', this)">
-          <span class="station-step-number">5</span>
-          <span class="station-step-text"><strong>Study notes</strong><span class="station-step-detail">Extra lines, drills, sources.</span></span>
-        </button>
-      </nav>
+      <section class="safety-strip" aria-label="Case safety focus">
+        <article class="safety-card">
+          <span class="safety-label">Danger trigger</span>
+          <p>Chest pressure with sweating, nausea, breathlessness, arm or jaw spread, collapse, or heart risk factors.</p>
+        </article>
+        <article class="safety-card">
+          <span class="safety-label">First action</span>
+          <p><strong>Call ambulance now.</strong> ECG only if it does not delay transfer. Do not wait for troponin.</p>
+        </article>
+      </section>
 
       <span class="hash-anchor" id="station-stem" aria-hidden="true"></span>
-      <section class="section station-panel active" id="section-1" data-station-panel="door">
+      <section class="section station-panel" id="section-1" data-station-panel="door">
         <h3 class="section-title">Station Stem</h3>
 
         <p>You are a General Practitioner in a suburban clinic.</p>
@@ -2240,69 +2376,18 @@
       </section>
 
       <span class="hash-anchor" id="speak-practice" aria-hidden="true"></span>
-      <section class="section station-panel" id="section-3" data-station-panel="run">
-        <h3 class="section-title">Speak Practice</h3>
+      <section class="section station-panel active practice-run" id="section-3" data-station-panel="run">
+        <h3 class="section-title">Speak the Case</h3>
 
         <div class="run-layout">
           <div class="script-main">
-            <div class="script-toolbar" aria-label="Script modes">
-              <button class="mode-button active" type="button" data-mode="read" onclick="setMode('read', this)">Learn lines</button>
-              <button class="mode-button" type="button" data-mode="practice" onclick="setMode('practice', this)">Speak full run</button>
-              <button class="mode-button" type="button" data-mode="exam" onclick="setMode('exam', this)">8-min exam</button>
-            </div>
-
-            <div class="exam-tools" id="examTools" aria-label="Exam tools">
-              <span class="exam-timer" id="examTimer">08:00</span>
-              <button class="panic-button" id="panicRailButton" type="button" aria-expanded="false" onclick="togglePanicRail()">Show panic rail</button>
-            </div>
-
-            <section class="run-recovery" aria-label="Recovery after drift">
-              <div class="recovery-cell">
-                <span class="recovery-label">You are here</span>
-                <strong id="recoveryWhere">Speak Practice - Part 1 of 11</strong>
-              </div>
-              <div class="recovery-cell">
-                <span class="recovery-label">Do now</span>
-                <strong id="recoveryDo">Open safely.</strong>
-              </div>
-              <div class="recovery-cell">
-                <span class="recovery-label">Next</span>
-                <strong id="recoveryNext">Open question.</strong>
-              </div>
-            </section>
-
-            <section class="beat-stepper" id="beatStepper" aria-label="Current practice part">
-              <div class="beat-stepper-head">
-                <div>
-                  <p class="beat-count" id="beatCounter">Part 1 of 11</p>
-                  <h4 class="beat-title" id="beatTitle">Introduction and Consent</h4>
-                </div>
-              </div>
-              <div class="beat-cues">
-                <div class="beat-cue">
-                  <span class="beat-label">Goal</span>
-                  <strong id="beatGoal">Open safely and act early.</strong>
-                </div>
-                <div class="beat-cue must-say">
-                  <span class="beat-label">Must say</span>
-                  <strong id="beatMustSay">I am arranging an ambulance now.</strong>
-                </div>
-              </div>
-              <div class="beat-actions">
-                <button class="stepper-button" id="previousBeat" type="button" onclick="moveBeat(-1)">Previous</button>
-                <details class="beat-list-drawer" id="beatListDrawer">
-                  <summary>Part list</summary>
-                  <div class="beat-list" id="phaseToolbar" aria-label="Practice part list"></div>
-                </details>
-                <button class="stepper-button" id="nextBeat" type="button" onclick="moveBeat(1)">Next</button>
-              </div>
-            </section>
+            <p class="speak-note">Speak aloud from top to bottom. Then open Hints for one missed line.</p>
 
             <div class="chat" id="chatScript">
           <h4 class="chat-phase" id="run-beat-1">Part 1 - Introduction and Consent</h4>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Hello, I am Dr ___. How would you like me to address you?”</p>
           </div>
 
@@ -2312,7 +2397,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Thank you, Mr Lewis. I can see you look pale and sweaty.”</p>
             <p>“I am worried this may be coming from your heart.”</p>
             <p>“I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?”</p>
@@ -2324,7 +2409,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“It may be serious. It does not mean you definitely have a heart attack, but it is serious enough that we should not wait.”</p>
           </div>
 
@@ -2336,7 +2421,7 @@
           <h4 class="chat-phase" id="run-beat-2">Part 2 - Open Question</h4>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Tell me what happened today.”</p>
           </div>
 
@@ -2346,14 +2431,14 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Thank you. I will keep the questions focused.”</p>
           </div>
 
           <h4 class="chat-phase" id="run-beat-3">Part 3 - Focused History</h4>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Is the pressure still there now?”</p>
           </div>
 
@@ -2363,7 +2448,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Where exactly is it?”</p>
           </div>
 
@@ -2373,7 +2458,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Does it spread anywhere?”</p>
           </div>
 
@@ -2383,7 +2468,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Does it go to your jaw, neck, back, shoulder, or upper tummy?”</p>
           </div>
 
@@ -2393,7 +2478,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“How bad is it out of ten?”</p>
           </div>
 
@@ -2403,7 +2488,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Did it start suddenly or build up?”</p>
           </div>
 
@@ -2413,7 +2498,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Have you felt sweaty, sick, vomited, short of breath, faint, or had a racing heartbeat?”</p>
           </div>
 
@@ -2423,7 +2508,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Any severe tearing pain going through to your back?”</p>
           </div>
 
@@ -2433,7 +2518,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Any coughing blood?”</p>
           </div>
 
@@ -2443,7 +2528,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Any calf pain, leg swelling, recent long travel, recent surgery, being stuck in bed, cancer, or previous blood clot?”</p>
           </div>
 
@@ -2453,7 +2538,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Any sudden sharp chest pain with severe breathlessness?”</p>
           </div>
 
@@ -2463,7 +2548,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Do you have diabetes, high cholesterol, kidney disease, previous heart disease, or smoking history?”</p>
           </div>
 
@@ -2473,7 +2558,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Any close family history of heart disease?”</p>
           </div>
 
@@ -2483,7 +2568,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“What medicines do you take?”</p>
           </div>
 
@@ -2493,7 +2578,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Are you allergic to aspirin?”</p>
           </div>
 
@@ -2503,7 +2588,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Any active bleeding, stomach bleeding, bleeding disorder, or blood thinner medicine?”</p>
           </div>
 
@@ -2513,14 +2598,14 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Thank you. I have enough information to act safely now.”</p>
           </div>
 
           <h4 class="chat-phase" id="run-beat-4">Part 4 - Red Flag Sweep</h4>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Just to check the danger signs clearly: the pain is still there, it spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath. Correct?”</p>
           </div>
 
@@ -2530,7 +2615,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“And no severe tearing pain to the back, no collapse, no coughing blood, and no one-sided leg swelling?”</p>
           </div>
 
@@ -2540,14 +2625,14 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“That pattern is concerning. I am treating this as urgent.”</p>
           </div>
 
           <h4 class="chat-phase" id="run-beat-5">Part 5 - Structured Summary</h4>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Let me summarise.”</p>
             <p>“You developed central chest pressure about 40 minutes ago while walking. It is still there. It spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath.”</p>
             <p>“You have high blood pressure, past smoking, and a family history of heart disease.”</p>
@@ -2562,7 +2647,7 @@
           <h4 class="chat-phase" id="run-beat-6">Part 6 - Diagnosis Explanation</h4>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“The main concern is that this may be coming from your heart.”</p>
             <p>“That includes a possible heart attack or unstable blood flow to the heart.”</p>
             <p>“I cannot confirm that here in the clinic.”</p>
@@ -2575,14 +2660,14 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Yes. That is why I am arranging urgent hospital care.”</p>
           </div>
 
           <h4 class="chat-phase" id="run-beat-7">Part 7 - Differential Explanation</h4>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“There are a few other serious causes of chest pain that hospital also needs to check.”</p>
             <p>“One is a tear in the main blood vessel from the heart.”</p>
             <p>“One is a blood clot in the lung.”</p>
@@ -2596,7 +2681,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“It may turn out to be something less serious, but we need to check the dangerous causes first.”</p>
           </div>
 
@@ -2605,7 +2690,7 @@
           <h5 class="chat-subphase" id="run-beat-8-decision">Part 8A - Decision Point</h5>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Because the pressure is still there, it spreads to your arm and jaw, and you feel sweaty, sick, and short of breath, I am treating this as a possible heart problem now.”</p>
             <p>“I am not waiting for certainty before acting.”</p>
           </div>
@@ -2613,7 +2698,7 @@
           <h5 class="chat-subphase" id="run-beat-8-management">Part 8B - Management Plan</h5>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“This is not safe to manage in this clinic.”</p>
             <p>“I am arranging an ambulance now.”</p>
             <p>“You should not drive yourself.”</p>
@@ -2625,7 +2710,7 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“No. You need an ambulance because they can monitor you and act quickly if your condition changes.”</p>
             <p>“While we wait, we will keep you resting and check your blood pressure, pulse, oxygen level, breathing rate, temperature, and alertness.”</p>
             <p>“If we can do a heart tracing immediately without delaying the ambulance, we will do it.”</p>
@@ -2639,7 +2724,7 @@
           <h4 class="chat-phase" id="run-beat-9">Part 9 - Urgency Classification</h4>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“This is urgent.”</p>
             <p>“The safest plan is ambulance transfer now.”</p>
           </div>
@@ -2650,14 +2735,14 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“I understand. We are acting early to keep you safe.”</p>
           </div>
 
           <h4 class="chat-phase" id="run-beat-10">Part 10 - Safety Net</h4>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“While we wait, tell me immediately if the pain gets worse, you feel faint, become more breathless, feel very clammy, or feel like you might collapse.”</p>
             <p>“Please stay seated or lying down.”</p>
             <p>“Do not walk around.”</p>
@@ -2671,7 +2756,7 @@
           <h4 class="chat-phase" id="run-beat-11">Part 11 - Check Understanding</h4>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“Can you tell me what you understand about why I am arranging an ambulance?”</p>
           </div>
 
@@ -2681,32 +2766,18 @@
           </div>
 
           <div class="bubble doctor">
-            <p class="speaker-label">Candidate</p>
+            <p class="speaker-label">You</p>
             <p>“That is right. I will stay with you and hand over clearly to the ambulance team.”</p>
           </div>
             </div>
           </div>
-
-          <aside class="exam-rail" aria-label="Exam saver rail">
-            <h4>Exam saver rail</h4>
-            <ul class="rail-list">
-              <li class="danger">Call ambulance in the opening.</li>
-              <li>Still in pain?</li>
-              <li>Spread to arm or jaw?</li>
-              <li class="warning">Sweaty, sick, breathless, faint?</li>
-              <li>Dissection, PE, pneumothorax red flags.</li>
-              <li>Explain possible ACS.</li>
-              <li class="warning">Aspirin if safe. Oxygen only if indicated.</li>
-              <li class="danger">No driving. No test delay.</li>
-            </ul>
-          </aside>
         </div>
       </section>
 
       <span class="hash-anchor" id="study-notes" aria-hidden="true"></span>
       <section class="section station-panel full-library" id="full-pack" data-station-panel="full">
-        <h3 class="section-title">Study Notes</h3>
-        <p class="full-subline">Open one layer.</p>
+        <h3 class="section-title">Notes</h3>
+        <p class="full-subline">Pick one note.</p>
         <div class="full-layer-status" aria-live="polite">
           <strong id="fullLayerName">Must-say lines</strong>
           <span id="fullLayerDetail">Core lines | 8 cards</span>
@@ -2801,65 +2872,57 @@
       <details class="hidden-section station-panel full-pack-item" id="full-timed-run" data-station-panel="full" data-full-item="full-timed-run">
         <summary>Full Speaking Run</summary>
         <div class="hidden-body">
-          <p>Candidate:<br>“Hello, I am Dr ___. How would you like me to address you?”</p>
+          <p>You:<br>“Hello, I am Dr ___. How would you like me to address you?”</p>
           <p>Patient:<br>“Call me Mr Lewis.”</p>
-          <p>Candidate:<br>“Thank you, Mr Lewis. I can see you look pale and sweaty. I am worried this may be coming from your heart. I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?”</p>
+          <p>You:<br>“Thank you, Mr Lewis. I can see you look pale and sweaty. I am worried this may be coming from your heart. I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?”</p>
           <p>Patient:<br>“Is it that serious?”</p>
-          <p>Candidate:<br>“It may be serious. It does not mean you definitely have a heart attack, but it is serious enough that we should not wait.”</p>
-          <p>Candidate:<br>“Tell me what happened today.”</p>
+          <p>You:<br>“It may be serious. It does not mean you definitely have a heart attack, but it is serious enough that we should not wait.”</p>
+          <p>You:<br>“Tell me what happened today.”</p>
           <p>Patient:<br>“I was walking from the car park about 40 minutes ago and felt pressure in the middle of my chest.”</p>
-          <p>Candidate:<br>“Is the pressure still there now?”</p>
+          <p>You:<br>“Is the pressure still there now?”</p>
           <p>Patient:<br>“Yes.”</p>
-          <p>Candidate:<br>“Does it spread anywhere?”</p>
+          <p>You:<br>“Does it spread anywhere?”</p>
           <p>Patient:<br>“To my left arm, and a bit to my jaw.”</p>
-          <p>Candidate:<br>“Any sweating, nausea, shortness of breath, fainting, or racing heartbeat?”</p>
+          <p>You:<br>“Any sweating, nausea, shortness of breath, fainting, or racing heartbeat?”</p>
           <p>Patient:<br>“I am sweaty, feel sick, and I am a bit short of breath. I have not fainted.”</p>
-          <p>Candidate:<br>“Any severe tearing pain going through your back?”</p>
+          <p>You:<br>“Any severe tearing pain going through your back?”</p>
           <p>Patient:<br>“No.”</p>
-          <p>Candidate:<br>“Any coughing blood, calf pain, leg swelling, recent travel, surgery, being stuck in bed, cancer, or previous blood clot?”</p>
+          <p>You:<br>“Any coughing blood, calf pain, leg swelling, recent travel, surgery, being stuck in bed, cancer, or previous blood clot?”</p>
           <p>Patient:<br>“No.”</p>
-          <p>Candidate:<br>“Do you have diabetes, high cholesterol, kidney disease, previous heart disease, or smoking history?”</p>
+          <p>You:<br>“Do you have diabetes, high cholesterol, kidney disease, previous heart disease, or smoking history?”</p>
           <p>Patient:<br>“I have high blood pressure and I used to smoke.”</p>
-          <p>Candidate:<br>“Any family history of heart disease?”</p>
+          <p>You:<br>“Any family history of heart disease?”</p>
           <p>Patient:<br>“My father had a heart attack in his fifties.”</p>
-          <p>Candidate:<br>“Are you allergic to aspirin, or do you have active bleeding or take blood thinners?”</p>
+          <p>You:<br>“Are you allergic to aspirin, or do you have active bleeding or take blood thinners?”</p>
           <p>Patient:<br>“No.”</p>
-          <p>Candidate:<br>“Let me summarise. You developed central chest pressure about 40 minutes ago while walking. It is still there, spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath. You also have high blood pressure, past smoking, and a family history of heart disease. Is that right?”</p>
+          <p>You:<br>“Let me summarise. You developed central chest pressure about 40 minutes ago while walking. It is still there, spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath. You also have high blood pressure, past smoking, and a family history of heart disease. Is that right?”</p>
           <p>Patient:<br>“Yes.”</p>
-          <p>Candidate:<br>“The main concern is that this may be coming from your heart. That includes a possible heart attack or unstable blood flow to the heart. I cannot confirm that here in the clinic, but your symptoms are serious enough that I need to treat this as a possible heart problem now.”</p>
-          <p>Candidate:<br>“There are other serious causes hospital also needs to check, including a tear in the main blood vessel from the heart, a blood clot in the lung, or a collapsed lung. Indigestion or muscle pain can happen too, but I cannot safely call it that here.”</p>
-          <p>Candidate:<br>“This is not safe to manage in this clinic. I am arranging an ambulance now. You should not drive yourself.”</p>
+          <p>You:<br>“The main concern is that this may be coming from your heart. That includes a possible heart attack or unstable blood flow to the heart. I cannot confirm that here in the clinic, but your symptoms are serious enough that I need to treat this as a possible heart problem now.”</p>
+          <p>You:<br>“There are other serious causes hospital also needs to check, including a tear in the main blood vessel from the heart, a blood clot in the lung, or a collapsed lung. Indigestion or muscle pain can happen too, but I cannot safely call it that here.”</p>
+          <p>You:<br>“This is not safe to manage in this clinic. I am arranging an ambulance now. You should not drive yourself.”</p>
           <p>Patient:<br>“Can my wife drive me?”</p>
-          <p>Candidate:<br>“No. You need an ambulance because they can monitor you and act quickly if your condition changes.”</p>
-          <p>Candidate:<br>“While we wait, we will keep you resting and check your blood pressure, pulse, oxygen level, breathing rate, temperature, and alertness.”</p>
+          <p>You:<br>“No. You need an ambulance because they can monitor you and act quickly if your condition changes.”</p>
+          <p>You:<br>“While we wait, we will keep you resting and check your blood pressure, pulse, oxygen level, breathing rate, temperature, and alertness.”</p>
           <p>“If we can do a heart tracing immediately without delaying the ambulance, we will do it.”</p>
           <p>“I will give aspirin if it is safe for you. I will give oxygen only if your oxygen level is low or you show signs that you need it.”</p>
           <p>“Before any chest pain spray or tablet under the tongue, I will check your blood pressure and make sure none of your recent medicines make it unsafe.”</p>
           <p>“I will not delay the ambulance for blood tests that need to happen in hospital.”</p>
           <p>“In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed.”</p>
-          <p>Candidate:<br>“Tell me immediately if the pain gets worse, you feel faint, become more breathless, feel very clammy, or feel like you might collapse. Please stay seated or lying down.”</p>
-          <p>Candidate:<br>“Can you tell me what you understand about why I am arranging an ambulance?”</p>
+          <p>You:<br>“Tell me immediately if the pain gets worse, you feel faint, become more breathless, feel very clammy, or feel like you might collapse. Please stay seated or lying down.”</p>
+          <p>You:<br>“Can you tell me what you understand about why I am arranging an ambulance?”</p>
           <p>Patient:<br>“You are worried this could be my heart, and I need hospital urgently.”</p>
-          <p>Candidate:<br>“That is right. I will stay with you and hand over clearly to the ambulance team.”</p>
+          <p>You:<br>“That is right. I will stay with you and hand over clearly to the ambulance team.”</p>
         </div>
       </details>
 
       <section class="section station-panel" id="confidence-check" data-station-panel="check">
-        <h3 class="section-title">Case Hints</h3>
+        <h3 class="section-title">Hints</h3>
 
-        <p>Pick one line. Get one hint.</p>
-
-        <div class="hint-progress" id="hintProgress" aria-label="Saved hint progress">
-          <div class="hint-progress-head">
-            <p class="hint-progress-text" id="hintProgressText">No fixes saved yet.</p>
-            <a class="hint-next-button" id="hintNextWeakPoint" href="#next-weak-point">Next hint</a>
-          </div>
-          <div class="hint-progress-meter" aria-hidden="true"><span id="hintProgressMeter"></span></div>
-        </div>
+        <p>After one speaking run, pick the one line that broke.</p>
 
         <div class="focus-routing" aria-label="Case hint routing">
           <div class="focus-complete">
-            <label class="focus-route-item"><input type="radio" name="confidence" value="completed"> I completed this well.</label>
+            <label class="focus-route-item"><input type="radio" name="confidence" value="completed"> The run felt solid.</label>
           </div>
 
           <div class="focus-route-groups">
@@ -2902,34 +2965,6 @@
 
         <div class="confidence-feedback" id="confidenceFeedback"></div>
 
-        <details class="confidence-extra">
-          <summary>Quick self-check</summary>
-          <div class="confidence-extra-body">
-            <p class="map-label">Quick self-check</p>
-            <div class="confidence-mini-grid" aria-label="Quick self-check questions">
-              <p>Did I recognise possible acute coronary syndrome?</p>
-              <p>Did I use everyday patient language?</p>
-              <p>Did I ask the focused danger questions?</p>
-              <p>Did I name the four causes not to miss?</p>
-              <p>Did I state the Decision Point clearly?</p>
-              <p>Did I arrange ambulance transfer in General Practice?</p>
-              <p>Did I avoid delaying transfer for troponin?</p>
-              <p>Did I finish the full speaking run?</p>
-            </div>
-
-            <div class="confidence-next" aria-label="Case hint next step">
-              <div class="confidence-next-block">
-                <p class="map-label">If Completed Well</p>
-                <p>Continue to Case 2.</p>
-              </div>
-              <div class="confidence-next-block repair">
-                <p class="map-label">Need a Hint?</p>
-                <p>Pick one line above. One hint opens below.</p>
-              </div>
-            </div>
-          </div>
-        </details>
-
       </section>
 
       <details class="hidden-section station-panel" id="focusPack" data-station-panel="check">
@@ -2957,7 +2992,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-6">Return to Part 6 - Diagnosis Explanation</a></dd>
+                <dd><a class="return-link" href="#run-beat-6">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -2982,7 +3017,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-6">Return to Part 6 - Diagnosis Explanation</a></dd>
+                <dd><a class="return-link" href="#run-beat-6">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3007,7 +3042,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-7">Return to Part 7 - Differential Explanation</a></dd>
+                <dd><a class="return-link" href="#run-beat-7">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3032,7 +3067,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-3">Return to Part 3 - Focused History</a></dd>
+                <dd><a class="return-link" href="#run-beat-3">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3057,7 +3092,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-8-decision">Return to Part 8A - Decision Point</a></dd>
+                <dd><a class="return-link" href="#run-beat-8-decision">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3082,7 +3117,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-1">Return to Part 1 - Introduction and Consent</a></dd>
+                <dd><a class="return-link" href="#run-beat-1">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3107,7 +3142,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-8-management">Return to Part 8B - Management Plan</a></dd>
+                <dd><a class="return-link" href="#run-beat-8-management">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3132,7 +3167,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-8-management">Return to Part 8B - Management Plan</a></dd>
+                <dd><a class="return-link" href="#run-beat-8-management">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3157,7 +3192,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-8-management">Return to Part 8B - Management Plan</a></dd>
+                <dd><a class="return-link" href="#run-beat-8-management">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3182,7 +3217,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-10">Return to Part 10 - Safety Net</a></dd>
+                <dd><a class="return-link" href="#run-beat-10">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3207,7 +3242,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-11">Return to Part 11 - Check Understanding</a></dd>
+                <dd><a class="return-link" href="#run-beat-11">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3232,7 +3267,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#speak-practice">Return to Speak Practice</a></dd>
+                <dd><a class="return-link" href="#speak-practice">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3257,7 +3292,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#speak-practice">Return to Speak Practice</a></dd>
+                <dd><a class="return-link" href="#speak-practice">Back to speaking</a></dd>
               </div>
             </dl>
           </article>
@@ -3272,6 +3307,36 @@
           <p>Australian Commission on Safety and Quality in Health Care - Acute Coronary Syndromes Clinical Care Standard.</p>
           <p>ANZCOR Guideline 14.1 - Acute Coronary Syndromes: Presentation.</p>
           <p>ANZCOR Guideline 14.2 - Acute Coronary Syndromes: Initial Medical Therapy.</p>
+        </div>
+      </details>
+
+      <details class="case-details-block">
+        <summary>Case details</summary>
+        <div class="details-panel">
+          <div class="meta-row">
+            <div class="meta-label">Case family:</div>
+            <div class="meta-value">Dangerous Chest Pain</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">Case version:</div>
+            <div class="meta-value">Classic possible heart problem</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">What you do:</div>
+            <div class="meta-value">Talk with the patient</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">Speak to:</div>
+            <div class="meta-value">Patient</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">Place:</div>
+            <div class="meta-value">General Practice</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">Do not miss:</div>
+            <div class="meta-value">Do not delay ambulance transfer while trying to prove the diagnosis.</div>
+          </div>
         </div>
       </details>
 
@@ -3425,9 +3490,9 @@
     const stationResumeMeta = {
       door: { label: "Station stem", detail: "Read only", href: "case1.html#station-stem" },
       map: { label: "Brain map", detail: "Body clues", href: "case1.html#brain-map" },
-      run: { label: "Speak practice", detail: "Say the case aloud", href: "case1.html#speak-practice" },
-      check: { label: "Hints", detail: "Fix one missed point", href: "case1.html#confidence-check" },
-      full: { label: "Study notes", detail: "Extra lines, drills, sources", href: "case1.html#study-notes" }
+      run: { label: "Speak the case", detail: "Say the case aloud", href: "case1.html#speak-practice" },
+      check: { label: "Hints", detail: "One missed line", href: "case1.html#confidence-check" },
+      full: { label: "Notes", detail: "Extra lines and sources", href: "case1.html#study-notes" }
     };
 
     function loadHintProgress() {
@@ -3472,7 +3537,7 @@
       }
 
       nextButtons.forEach((button) => {
-        button.textContent = nextHint ? "Next hint: " + nextHint.label : "All hints fixed";
+        button.textContent = nextHint ? "Hint: " + nextHint.label : "All hints fixed";
         button.href = nextHint ? "#next-weak-point" : "#speak-practice";
       });
     }
@@ -3614,7 +3679,7 @@
       }
 
       if (control) {
-        const path = document.querySelector(".station-path");
+        const path = document.querySelector(".case-top");
         if (path) {
           path.scrollIntoView({ behavior: "smooth", block: "start" });
         }
@@ -3642,8 +3707,7 @@
       const beatIndex = beatHashMap[window.location.hash];
       const fullItemId = fullHashMap[window.location.hash];
       const savedResume = window.AMCProgress && window.AMCProgress.hasResume() ? window.AMCProgress.readResume() : null;
-      const savedTarget = savedResume && stationResumeMeta[savedResume.section] ? savedResume.section : "door";
-      const target = typeof beatIndex === "number" ? "run" : fullItemId ? "full" : hashMap[window.location.hash] || savedTarget;
+      const target = typeof beatIndex === "number" ? "run" : fullItemId ? "full" : hashMap[window.location.hash] || "run";
 
       if (typeof beatIndex === "number") {
         currentScriptPhase = beatIndex;
@@ -3661,10 +3725,6 @@
 
       if (window.location.hash === "#next-weak-point") {
         window.setTimeout(openNextWeakPoint, 0);
-      } else if (!window.location.hash && savedResume && savedResume.section === "check" && savedResume.hintId) {
-        window.setTimeout(() => {
-          openHintById(savedResume.hintId);
-        }, 0);
       }
 
       if (typeof beatIndex === "number") {
@@ -3776,7 +3836,7 @@
       if (titleNode) titleNode.textContent = title;
       if (goal) goal.textContent = meta.goal || "";
       if (mustSay) mustSay.textContent = meta.mustSay || "";
-      if (recoveryWhere) recoveryWhere.textContent = "Speak Practice - Part " + (index + 1) + " of " + count + " - " + title;
+      if (recoveryWhere) recoveryWhere.textContent = "Speak the case - Part " + (index + 1) + " of " + count + " - " + title;
       if (recoveryDo) recoveryDo.textContent = meta.doNow || title;
       if (recoveryNext) recoveryNext.textContent = meta.next || "Continue.";
       if (previous) previous.disabled = index === 0;
@@ -3835,7 +3895,7 @@
         const reveal = document.createElement("button");
         reveal.type = "button";
         reveal.className = "reveal-button";
-        reveal.textContent = "Reveal candidate line";
+        reveal.textContent = "Reveal your line";
         reveal.dataset.phaseIndex = bubble.dataset.phaseIndex;
         reveal.onclick = function () {
           bubble.classList.remove("exam-hidden");
@@ -3892,7 +3952,7 @@
           item.classList.remove("phase-hidden");
         });
         hideCandidateLines();
-        setRecoveryText("Speak Practice - Full speaking run", "Say the candidate lines from memory.", "Use Hints for one missed point.");
+        setRecoveryText("Speak the case - Full run", "Say your lines from memory.", "Use Hints for one missed line.");
         saveCasePlace("run", {
           detail: "Full speaking run",
           href: "case1.html#speak-practice",
@@ -3964,9 +4024,9 @@
         loop.setAttribute("aria-label", "Hint actions");
         loop.innerHTML = `
           <div class="repair-loop-actions">
-            <button class="repair-loop-button primary" type="button" data-hint-action="practise">1. Practise line</button>
-            <a class="repair-loop-button" data-hint-action="run" href="#speak-practice">2. Practice part</a>
-            <button class="repair-loop-button done" type="button" data-hint-action="done">3. Mark fixed</button>
+            <button class="repair-loop-button primary" type="button" data-hint-action="practise">Practise</button>
+            <a class="repair-loop-button" data-hint-action="run" href="#speak-practice">Speak again</a>
+            <button class="repair-loop-button done" type="button" data-hint-action="done">Fixed</button>
           </div>
           <p class="repair-loop-status" aria-live="polite">Not fixed</p>
         `;
@@ -3980,8 +4040,8 @@
       const returnHash = returnLink ? returnLink.getAttribute("href") : "#speak-practice";
 
       if (runLink) {
-        runLink.href = returnHash || "#speak-practice";
-        runLink.textContent = returnHash === "#run-station" || returnHash === "#speak-practice" ? "2. Speak practice" : "2. Practice part";
+        runLink.href = "#speak-practice";
+        runLink.textContent = "Speak again";
         runLink.onclick = function () {
           const readButton = document.querySelector('.mode-button[data-mode="read"]');
           if (readButton) {

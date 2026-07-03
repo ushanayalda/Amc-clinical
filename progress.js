@@ -21,8 +21,8 @@
   const places = {
     before: {
       section: "before",
-      label: "Before Case",
-      detail: "Pattern primer",
+      label: "Warm up",
+      detail: "Danger pattern",
       href: "before-case.html"
     },
     door: {
@@ -39,20 +39,20 @@
     },
     run: {
       section: "run",
-      label: "Speak practice",
+      label: "Speak the case",
       detail: "Say the case aloud",
       href: "case1.html#speak-practice"
     },
     check: {
       section: "check",
       label: "Hints",
-      detail: "Fix one missed point",
+      detail: "One missed line",
       href: "case1.html#confidence-check"
     },
     full: {
       section: "full",
-      label: "Study notes",
-      detail: "Extra lines, drills, sources",
+      label: "Notes",
+      detail: "Extra lines and sources",
       href: "case1.html#study-notes"
     }
   };
@@ -84,10 +84,10 @@
 
     if (next.section && places[next.section]) {
       const current = places[next.section];
-      if (["Door note", "Run station", "Full pack"].includes(next.label)) {
+      if (["Door note", "Run station", "Full pack", "Speak practice", "Study notes"].includes(next.label)) {
         next.label = current.label;
       }
-      if (["Stem only", "Station practice", "Danger route", "Thinking, drill, sources"].includes(next.detail)) {
+      if (["Stem only", "Station practice", "Danger route", "Thinking, drill, sources", "Fix one missed point", "Extra lines, drills, sources"].includes(next.detail)) {
         next.detail = current.detail;
       }
       if (next.href === "case1.html#door-note") next.href = "case1.html#station-stem";

@@ -942,7 +942,7 @@
             <p class="mastery-loop-title">Use this order</p>
             <div class="mastery-steps">
               <span class="mastery-step">Prime the pattern</span>
-              <span class="mastery-step">Run the station</span>
+              <span class="mastery-step">Speak the case</span>
               <span class="mastery-step">Fix one miss</span>
               <span class="mastery-step">Repeat timed</span>
             </div>
@@ -952,14 +952,14 @@
         <aside class="command-status" aria-label="Case 1 progress and resume">
           <p class="status-title">Resume Case 1</p>
           <p class="status-main" id="homeResumeTitle">Start Case 1</p>
-          <p class="status-line" id="homeResumeDetail">Begin with the station run.</p>
-          <a class="resume-button" id="homeResumeButton" href="case1.html#run-station">Start station</a>
+          <p class="status-line" id="homeResumeDetail">Start by speaking the case.</p>
+          <a class="resume-button" id="homeResumeButton" href="case1.html#speak-practice">Start speaking</a>
           <div class="resume-mini-grid" aria-label="Saved case state">
             <span class="resume-chip" id="homeLastOpened">Last opened: Not started</span>
-            <span class="resume-chip" id="homeHintProgress">No fixes saved yet.</span>
+            <span class="resume-chip" id="homeHintProgress">No hints fixed yet.</span>
           </div>
           <div class="hint-meter" aria-hidden="true"><span id="homeHintMeter"></span></div>
-          <a class="resume-button secondary" id="homeNextHintButton" href="case1.html#next-weak-point">Next weak point</a>
+          <a class="resume-button secondary" id="homeNextHintButton" href="case1.html#next-weak-point">Next hint</a>
         </aside>
       </div>
 
@@ -969,15 +969,15 @@
           <p class="command-title">Prime</p>
           <p class="command-detail">Four-step Before Case drill.</p>
         </a>
-        <a class="command-card primary-command" href="case1.html#run-station">
+        <a class="command-card primary-command" href="case1.html#speak-practice">
           <span class="command-number">2</span>
-          <p class="command-title">Run station</p>
+          <p class="command-title">Speak practice</p>
           <p class="command-detail">Practise Case 1 aloud.</p>
         </a>
         <a class="command-card repair-command" href="case1.html#confidence-check">
           <span class="command-number">3</span>
           <p class="command-title">Fix one miss</p>
-          <p class="command-detail">Open Hints and repair one weak point.</p>
+          <p class="command-detail">Open one hint and fix one missed line.</p>
         </a>
         <a class="command-card map-command" href="map.html">
           <span class="command-number">4</span>
@@ -1018,7 +1018,7 @@
       const nextHintButton = document.getElementById("homeNextHintButton");
       const progress = window.AMCProgress;
       const hasResume = progress ? progress.hasResume() : false;
-      const resume = progress ? progress.readResume() : { label: "Run station", detail: "Station practice", href: "case1.html#run-station" };
+      const resume = progress ? progress.readResume() : { label: "Speak practice", detail: "Say the case aloud", href: "case1.html#speak-practice" };
       const stats = progress ? progress.hintStats() : { fixed: 0, practised: 0, open: 13, score: 0 };
       const nextHint = progress ? progress.nextHint() : null;
 
@@ -1027,12 +1027,12 @@
       }
 
       if (resumeDetail) {
-        resumeDetail.textContent = hasResume ? resume.detail : "Begin with the station run.";
+        resumeDetail.textContent = hasResume ? resume.detail : "Start by speaking the case.";
       }
 
       if (resumeButton) {
-        resumeButton.href = resume.href || "case1.html#run-station";
-        resumeButton.textContent = hasResume ? "Resume where I left off" : "Start station";
+        resumeButton.href = resume.href || "case1.html#speak-practice";
+        resumeButton.textContent = hasResume ? "Resume where I left off" : "Start speaking";
       }
 
       if (lastOpened) {
@@ -1040,7 +1040,7 @@
       }
 
       if (status) {
-        status.textContent = progress ? progress.progressLabel() : "No fixes saved yet.";
+        status.textContent = progress ? progress.progressLabel() : "No hints fixed yet.";
       }
 
       if (meter) {
@@ -1048,8 +1048,8 @@
       }
 
       if (nextHintButton) {
-        nextHintButton.textContent = nextHint ? "Next weak point: " + nextHint.label : "All hints fixed";
-        nextHintButton.href = nextHint ? "case1.html#next-weak-point" : "case1.html#run-station";
+        nextHintButton.textContent = nextHint ? "Next hint: " + nextHint.label : "All hints fixed";
+        nextHintButton.href = nextHint ? "case1.html#next-weak-point" : "case1.html#speak-practice";
       }
     }
 

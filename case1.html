@@ -355,6 +355,12 @@
       display: block;
     }
 
+    .hash-anchor {
+      display: block;
+      height: 0;
+      scroll-margin-top: 16px;
+    }
+
     .section {
       margin-top: 30px;
       scroll-margin-top: 16px;
@@ -2074,48 +2080,48 @@
         <h2 class="case-title">Case 1 - Classic Chest Pain in General Practice</h2>
 
         <details class="details-drawer">
-          <summary>Details</summary>
+          <summary>Case facts</summary>
           <div class="details-panel">
             <div class="meta-row">
-              <div class="meta-label">Pattern:</div>
+              <div class="meta-label">Case family:</div>
               <div class="meta-value">Dangerous Chest Pain</div>
             </div>
             <div class="meta-row">
-              <div class="meta-label">Clinical Variant:</div>
-              <div class="meta-value">Classic acute coronary syndrome</div>
+              <div class="meta-label">Case version:</div>
+              <div class="meta-value">Classic possible heart problem</div>
             </div>
             <div class="meta-row">
-              <div class="meta-label">Station Type:</div>
-              <div class="meta-value">Patient Consultation</div>
+              <div class="meta-label">What you do:</div>
+              <div class="meta-value">Talk with the patient</div>
             </div>
             <div class="meta-row">
-              <div class="meta-label">Task Recipient:</div>
+              <div class="meta-label">Speak to:</div>
               <div class="meta-value">Patient</div>
             </div>
             <div class="meta-row">
-              <div class="meta-label">Setting:</div>
+              <div class="meta-label">Place:</div>
               <div class="meta-value">General Practice</div>
             </div>
             <div class="meta-row">
-              <div class="meta-label">Main Risk Point:</div>
+              <div class="meta-label">Do not miss:</div>
               <div class="meta-value">Do not delay ambulance transfer while trying to prove the diagnosis.</div>
             </div>
           </div>
         </details>
       </section>
 
-      <nav class="station-path" aria-label="Case 1 station path">
+      <nav class="station-path" aria-label="Case 1 path">
         <button class="station-step active" type="button" data-station-target="door" onclick="showStationPanel('door', this)">
           <span class="station-step-number">1</span>
-          <span class="station-step-text"><strong>Door note</strong><span class="station-step-detail">Stem only. No hints.</span></span>
+          <span class="station-step-text"><strong>Station stem</strong><span class="station-step-detail">Read only.</span></span>
         </button>
         <button class="station-step" type="button" data-station-target="map" onclick="showStationPanel('map', this)">
           <span class="station-step-number">2</span>
-          <span class="station-step-text"><strong>Brain map</strong><span class="station-step-detail">Danger route.</span></span>
+          <span class="station-step-text"><strong>Brain map</strong><span class="station-step-detail">Body clues.</span></span>
         </button>
         <button class="station-step" type="button" data-station-target="run" onclick="showStationPanel('run', this)">
           <span class="station-step-number">3</span>
-          <span class="station-step-text"><strong>Run station</strong><span class="station-step-detail">One beat at a time.</span></span>
+          <span class="station-step-text"><strong>Speak practice</strong><span class="station-step-detail">Say it out loud.</span></span>
         </button>
         <button class="station-step action" type="button" data-station-target="check" onclick="showStationPanel('check', this)">
           <span class="station-step-number">4</span>
@@ -2123,20 +2129,13 @@
         </button>
         <button class="station-step" type="button" data-station-target="full" onclick="showStationPanel('full', this)">
           <span class="station-step-number">5</span>
-          <span class="station-step-text"><strong>Full pack</strong><span class="station-step-detail">Thinking, drill, sources.</span></span>
+          <span class="station-step-text"><strong>Study notes</strong><span class="station-step-detail">Extra lines, drills, sources.</span></span>
         </button>
       </nav>
 
-      <aside class="resume-rail" aria-label="Saved Case 1 place">
-        <div>
-          <p class="resume-rail-kicker">Saved place</p>
-          <p class="resume-rail-main"><strong id="caseResumeLabel">Door note</strong> <span id="caseResumeDetail">Stem only</span></p>
-        </div>
-        <a class="resume-rail-action" id="caseNextWeakPoint" href="#next-weak-point">Next weak point</a>
-      </aside>
-
+      <span class="hash-anchor" id="station-stem" aria-hidden="true"></span>
       <section class="section station-panel active" id="section-1" data-station-panel="door">
-        <h3 class="section-title">Section 1 - Station Stem</h3>
+        <h3 class="section-title">Station Stem</h3>
 
         <p>You are a General Practitioner in a suburban clinic.</p>
         <p>Mr Peter Lewis is a 60-year-old man who presents with central chest pressure.</p>
@@ -2158,7 +2157,7 @@
       </section>
 
       <section class="section station-panel" id="section-2" data-station-panel="map">
-        <h3 class="section-title">Section 2 - 2-Minute Reading Map</h3>
+        <h3 class="section-title">Brain Map</h3>
 
         <div class="case-memory-map" aria-label="Case 1 body memory map">
           <div class="memory-map-head">
@@ -2240,15 +2239,16 @@
         </div>
       </section>
 
+      <span class="hash-anchor" id="speak-practice" aria-hidden="true"></span>
       <section class="section station-panel" id="section-3" data-station-panel="run">
-        <h3 class="section-title">Section 3 - Live AMC Station Script</h3>
+        <h3 class="section-title">Speak Practice</h3>
 
         <div class="run-layout">
           <div class="script-main">
             <div class="script-toolbar" aria-label="Script modes">
-              <button class="mode-button active" type="button" data-mode="read" onclick="setMode('read', this)">Read</button>
-              <button class="mode-button" type="button" data-mode="practice" onclick="setMode('practice', this)">Practise aloud</button>
-              <button class="mode-button" type="button" data-mode="exam" onclick="setMode('exam', this)">Timed exam</button>
+              <button class="mode-button active" type="button" data-mode="read" onclick="setMode('read', this)">Learn lines</button>
+              <button class="mode-button" type="button" data-mode="practice" onclick="setMode('practice', this)">Speak full run</button>
+              <button class="mode-button" type="button" data-mode="exam" onclick="setMode('exam', this)">8-min exam</button>
             </div>
 
             <div class="exam-tools" id="examTools" aria-label="Exam tools">
@@ -2259,7 +2259,7 @@
             <section class="run-recovery" aria-label="Recovery after drift">
               <div class="recovery-cell">
                 <span class="recovery-label">You are here</span>
-                <strong id="recoveryWhere">Run Station - Beat 1 of 11</strong>
+                <strong id="recoveryWhere">Speak Practice - Part 1 of 11</strong>
               </div>
               <div class="recovery-cell">
                 <span class="recovery-label">Do now</span>
@@ -2271,10 +2271,10 @@
               </div>
             </section>
 
-            <section class="beat-stepper" id="beatStepper" aria-label="Current station beat">
+            <section class="beat-stepper" id="beatStepper" aria-label="Current practice part">
               <div class="beat-stepper-head">
                 <div>
-                  <p class="beat-count" id="beatCounter">Beat 1 of 11</p>
+                  <p class="beat-count" id="beatCounter">Part 1 of 11</p>
                   <h4 class="beat-title" id="beatTitle">Introduction and Consent</h4>
                 </div>
               </div>
@@ -2291,15 +2291,15 @@
               <div class="beat-actions">
                 <button class="stepper-button" id="previousBeat" type="button" onclick="moveBeat(-1)">Previous</button>
                 <details class="beat-list-drawer" id="beatListDrawer">
-                  <summary>Beat list</summary>
-                  <div class="beat-list" id="phaseToolbar" aria-label="Station script beat list"></div>
+                  <summary>Part list</summary>
+                  <div class="beat-list" id="phaseToolbar" aria-label="Practice part list"></div>
                 </details>
                 <button class="stepper-button" id="nextBeat" type="button" onclick="moveBeat(1)">Next</button>
               </div>
             </section>
 
             <div class="chat" id="chatScript">
-          <h4 class="chat-phase" id="run-beat-1">Beat 1 - Introduction and Consent</h4>
+          <h4 class="chat-phase" id="run-beat-1">Part 1 - Introduction and Consent</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2333,7 +2333,7 @@
             <p>“Okay.”</p>
           </div>
 
-          <h4 class="chat-phase" id="run-beat-2">Beat 2 - Open Question</h4>
+          <h4 class="chat-phase" id="run-beat-2">Part 2 - Open Question</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2350,7 +2350,7 @@
             <p>“Thank you. I will keep the questions focused.”</p>
           </div>
 
-          <h4 class="chat-phase" id="run-beat-3">Beat 3 - Focused History</h4>
+          <h4 class="chat-phase" id="run-beat-3">Part 3 - Focused History</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2517,7 +2517,7 @@
             <p>“Thank you. I have enough information to act safely now.”</p>
           </div>
 
-          <h4 class="chat-phase" id="run-beat-4">Beat 4 - Red Flag Sweep</h4>
+          <h4 class="chat-phase" id="run-beat-4">Part 4 - Red Flag Sweep</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2544,7 +2544,7 @@
             <p>“That pattern is concerning. I am treating this as urgent.”</p>
           </div>
 
-          <h4 class="chat-phase" id="run-beat-5">Beat 5 - Structured Summary</h4>
+          <h4 class="chat-phase" id="run-beat-5">Part 5 - Structured Summary</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2559,7 +2559,7 @@
             <p>“Yes.”</p>
           </div>
 
-          <h4 class="chat-phase" id="run-beat-6">Beat 6 - Diagnosis Explanation</h4>
+          <h4 class="chat-phase" id="run-beat-6">Part 6 - Diagnosis Explanation</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2579,7 +2579,7 @@
             <p>“Yes. That is why I am arranging urgent hospital care.”</p>
           </div>
 
-          <h4 class="chat-phase" id="run-beat-7">Beat 7 - Differential Explanation</h4>
+          <h4 class="chat-phase" id="run-beat-7">Part 7 - Differential Explanation</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2600,9 +2600,9 @@
             <p>“It may turn out to be something less serious, but we need to check the dangerous causes first.”</p>
           </div>
 
-          <h4 class="chat-phase" id="run-beat-8">Beat 8 - Decision Point and Management Plan</h4>
+          <h4 class="chat-phase" id="run-beat-8">Part 8 - Decision Point and Management Plan</h4>
 
-          <h5 class="chat-subphase" id="run-beat-8-decision">Beat 8A - Decision Point</h5>
+          <h5 class="chat-subphase" id="run-beat-8-decision">Part 8A - Decision Point</h5>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2610,7 +2610,7 @@
             <p>“I am not waiting for certainty before acting.”</p>
           </div>
 
-          <h5 class="chat-subphase" id="run-beat-8-management">Beat 8B - Management Plan</h5>
+          <h5 class="chat-subphase" id="run-beat-8-management">Part 8B - Management Plan</h5>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2636,7 +2636,7 @@
             <p>“In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed.”</p>
           </div>
 
-          <h4 class="chat-phase" id="run-beat-9">Beat 9 - Urgency Classification</h4>
+          <h4 class="chat-phase" id="run-beat-9">Part 9 - Urgency Classification</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2654,7 +2654,7 @@
             <p>“I understand. We are acting early to keep you safe.”</p>
           </div>
 
-          <h4 class="chat-phase" id="run-beat-10">Beat 10 - Safety Net</h4>
+          <h4 class="chat-phase" id="run-beat-10">Part 10 - Safety Net</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2668,7 +2668,7 @@
             <p>“Okay.”</p>
           </div>
 
-          <h4 class="chat-phase" id="run-beat-11">Beat 11 - Check Understanding</h4>
+          <h4 class="chat-phase" id="run-beat-11">Part 11 - Check Understanding</h4>
 
           <div class="bubble doctor">
             <p class="speaker-label">Candidate</p>
@@ -2703,25 +2703,26 @@
         </div>
       </section>
 
+      <span class="hash-anchor" id="study-notes" aria-hidden="true"></span>
       <section class="section station-panel full-library" id="full-pack" data-station-panel="full">
-        <h3 class="section-title">Full Pack</h3>
+        <h3 class="section-title">Study Notes</h3>
         <p class="full-subline">Open one layer.</p>
         <div class="full-layer-status" aria-live="polite">
           <strong id="fullLayerName">Must-say lines</strong>
           <span id="fullLayerDetail">Core lines | 8 cards</span>
         </div>
-        <div class="full-menu" aria-label="Full pack layers">
+        <div class="full-menu" aria-label="Study note layers">
           <a class="full-menu-button active" href="#full-must-say" data-full-target="full-must-say">Must-say lines<span>Core lines</span></a>
-          <a class="full-menu-button" href="#full-doctor-thinking" data-full-target="full-doctor-thinking">Doctor thinking<span>Reasoning layer</span></a>
-          <a class="full-menu-button" href="#full-examiner-lines" data-full-target="full-examiner-lines">Examiner lines<span>Exam language</span></a>
-          <a class="full-menu-button" href="#full-practice-drill" data-full-target="full-practice-drill">Practice drill<span>Compression drills</span></a>
-          <a class="full-menu-button" href="#full-timed-run" data-full-target="full-timed-run">Full timed run<span>Complete script</span></a>
+          <a class="full-menu-button" href="#full-doctor-thinking" data-full-target="full-doctor-thinking">How to think<span>Reasoning</span></a>
+          <a class="full-menu-button" href="#full-examiner-lines" data-full-target="full-examiner-lines">Exam-safe lines<span>Clear wording</span></a>
+          <a class="full-menu-button" href="#full-practice-drill" data-full-target="full-practice-drill">Memory drills<span>Short drills</span></a>
+          <a class="full-menu-button" href="#full-timed-run" data-full-target="full-timed-run">Full speaking run<span>Complete script</span></a>
           <a class="full-menu-button" href="#full-sources" data-full-target="full-sources">Sources<span>Reference list</span></a>
         </div>
       </section>
 
       <details class="hidden-section station-panel full-pack-item" id="full-doctor-thinking" data-station-panel="full" data-full-item="full-doctor-thinking">
-        <summary>Doctor Thinking</summary>
+        <summary>How To Think</summary>
         <div class="hidden-body">
           <p>Dangerous working diagnosis:<br>Possible acute coronary syndrome.</p>
           <p>Patient wording:<br>Possible heart problem.<br>Possible heart attack.<br>Unstable blood flow to the heart.</p>
@@ -2751,7 +2752,7 @@
       </section>
 
       <details class="hidden-section station-panel full-pack-item" id="full-examiner-lines" data-station-panel="full" data-full-item="full-examiner-lines">
-        <summary>Examiner Lines</summary>
+        <summary>Exam-Safe Lines</summary>
         <div class="hidden-body">
           <p>“My working diagnosis is possible acute coronary syndrome until proven otherwise.”</p>
           <p>“I will assess stability first, including observations, oxygen saturation, perfusion, and conscious state.”</p>
@@ -2766,7 +2767,7 @@
       </details>
 
       <details class="hidden-section station-panel full-pack-item" id="full-practice-drill" data-station-panel="full" data-full-item="full-practice-drill">
-        <summary>Practice Drill</summary>
+        <summary>Memory Drills</summary>
         <div class="hidden-body">
           <div class="drill-block">
             <p class="drill-title">30-Second Compression</p>
@@ -2798,7 +2799,7 @@
       </details>
 
       <details class="hidden-section station-panel full-pack-item" id="full-timed-run" data-station-panel="full" data-full-item="full-timed-run">
-        <summary>Full Timed Run</summary>
+        <summary>Full Speaking Run</summary>
         <div class="hidden-body">
           <p>Candidate:<br>“Hello, I am Dr ___. How would you like me to address you?”</p>
           <p>Patient:<br>“Call me Mr Lewis.”</p>
@@ -2851,7 +2852,7 @@
         <div class="hint-progress" id="hintProgress" aria-label="Saved hint progress">
           <div class="hint-progress-head">
             <p class="hint-progress-text" id="hintProgressText">No fixes saved yet.</p>
-            <a class="hint-next-button" id="hintNextWeakPoint" href="#next-weak-point">Next weak point</a>
+            <a class="hint-next-button" id="hintNextWeakPoint" href="#next-weak-point">Next hint</a>
           </div>
           <div class="hint-progress-meter" aria-hidden="true"><span id="hintProgressMeter"></span></div>
         </div>
@@ -2913,7 +2914,7 @@
               <p>Did I state the Decision Point clearly?</p>
               <p>Did I arrange ambulance transfer in General Practice?</p>
               <p>Did I avoid delaying transfer for troponin?</p>
-              <p>Did I finish the full timed run?</p>
+              <p>Did I finish the full speaking run?</p>
             </div>
 
             <div class="confidence-next" aria-label="Case hint next step">
@@ -2956,7 +2957,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-6">Return to Beat 6 - Diagnosis Explanation</a></dd>
+                <dd><a class="return-link" href="#run-beat-6">Return to Part 6 - Diagnosis Explanation</a></dd>
               </div>
             </dl>
           </article>
@@ -2981,7 +2982,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-6">Return to Beat 6 - Diagnosis Explanation</a></dd>
+                <dd><a class="return-link" href="#run-beat-6">Return to Part 6 - Diagnosis Explanation</a></dd>
               </div>
             </dl>
           </article>
@@ -3006,7 +3007,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-7">Return to Beat 7 - Differential Explanation</a></dd>
+                <dd><a class="return-link" href="#run-beat-7">Return to Part 7 - Differential Explanation</a></dd>
               </div>
             </dl>
           </article>
@@ -3031,7 +3032,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-3">Return to Beat 3 - Focused History</a></dd>
+                <dd><a class="return-link" href="#run-beat-3">Return to Part 3 - Focused History</a></dd>
               </div>
             </dl>
           </article>
@@ -3056,7 +3057,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-8-decision">Return to Beat 8A - Decision Point</a></dd>
+                <dd><a class="return-link" href="#run-beat-8-decision">Return to Part 8A - Decision Point</a></dd>
               </div>
             </dl>
           </article>
@@ -3077,11 +3078,11 @@
               </div>
               <div class="focus-row">
                 <dt>Practise now</dt>
-                <dd>Start the station with ambulance action before the full history.</dd>
+                <dd>Start with ambulance action before the full history.</dd>
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-1">Return to Beat 1 - Introduction and Consent</a></dd>
+                <dd><a class="return-link" href="#run-beat-1">Return to Part 1 - Introduction and Consent</a></dd>
               </div>
             </dl>
           </article>
@@ -3106,7 +3107,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-8-management">Return to Beat 8B - Management Plan</a></dd>
+                <dd><a class="return-link" href="#run-beat-8-management">Return to Part 8B - Management Plan</a></dd>
               </div>
             </dl>
           </article>
@@ -3131,7 +3132,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-8-management">Return to Beat 8B - Management Plan</a></dd>
+                <dd><a class="return-link" href="#run-beat-8-management">Return to Part 8B - Management Plan</a></dd>
               </div>
             </dl>
           </article>
@@ -3156,7 +3157,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-8-management">Return to Beat 8B - Management Plan</a></dd>
+                <dd><a class="return-link" href="#run-beat-8-management">Return to Part 8B - Management Plan</a></dd>
               </div>
             </dl>
           </article>
@@ -3181,7 +3182,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-10">Return to Beat 10 - Safety Net</a></dd>
+                <dd><a class="return-link" href="#run-beat-10">Return to Part 10 - Safety Net</a></dd>
               </div>
             </dl>
           </article>
@@ -3206,7 +3207,7 @@
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-beat-11">Return to Beat 11 - Check Understanding</a></dd>
+                <dd><a class="return-link" href="#run-beat-11">Return to Part 11 - Check Understanding</a></dd>
               </div>
             </dl>
           </article>
@@ -3219,7 +3220,7 @@
               </div>
               <div class="focus-row">
                 <dt>Why it matters</dt>
-                <dd>This station rewards early action, focused questions, short explanation, and transfer.</dd>
+                <dd>This case rewards early action, focused questions, short explanation, and transfer.</dd>
               </div>
               <div class="focus-row say">
                 <dt>Say this</dt>
@@ -3227,11 +3228,11 @@
               </div>
               <div class="focus-row">
                 <dt>Practise now</dt>
-                <dd>Run Section 7 with a hard 8-minute stop.</dd>
+                <dd>Speak the full run with a hard 8-minute stop.</dd>
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-station">Return to Run Station</a></dd>
+                <dd><a class="return-link" href="#speak-practice">Return to Speak Practice</a></dd>
               </div>
             </dl>
           </article>
@@ -3244,7 +3245,7 @@
               </div>
               <div class="focus-row">
                 <dt>Why it matters</dt>
-                <dd>The station still needs urgent recognition, ambulance action, safe language, and time control.</dd>
+                <dd>Your answer still needs urgent recognition, ambulance action, safe language, and time control.</dd>
               </div>
               <div class="focus-row say">
                 <dt>Say this</dt>
@@ -3252,11 +3253,11 @@
               </div>
               <div class="focus-row">
                 <dt>Practise now</dt>
-                <dd>Repeat the Full Timed Run and identify one exact line to improve.</dd>
+                <dd>Repeat the full speaking run and identify one exact line to improve.</dd>
               </div>
               <div class="focus-row">
                 <dt>Go back to</dt>
-                <dd><a class="return-link" href="#run-station">Return to Run Station</a></dd>
+                <dd><a class="return-link" href="#speak-practice">Return to Speak Practice</a></dd>
               </div>
             </dl>
           </article>
@@ -3411,10 +3412,10 @@
 
     const fullLayerMeta = {
       "full-must-say": { name: "Must-say lines", label: "Core lines" },
-      "full-doctor-thinking": { name: "Doctor thinking", label: "Reasoning layer" },
-      "full-examiner-lines": { name: "Examiner lines", label: "Exam language" },
-      "full-practice-drill": { name: "Practice drill", label: "Compression drills" },
-      "full-timed-run": { name: "Full timed run", label: "Complete script" },
+      "full-doctor-thinking": { name: "How to think", label: "Reasoning" },
+      "full-examiner-lines": { name: "Exam-safe lines", label: "Clear wording" },
+      "full-practice-drill": { name: "Memory drills", label: "Short drills" },
+      "full-timed-run": { name: "Full speaking run", label: "Complete script" },
       "full-sources": { name: "Sources", label: "Reference list" }
     };
 
@@ -3422,11 +3423,11 @@
     const hintProgress = loadHintProgress();
 
     const stationResumeMeta = {
-      door: { label: "Door note", detail: "Stem only", href: "case1.html#door-note" },
-      map: { label: "Brain map", detail: "Danger route", href: "case1.html#brain-map" },
-      run: { label: "Run station", detail: "Station practice", href: "case1.html#run-station" },
+      door: { label: "Station stem", detail: "Read only", href: "case1.html#station-stem" },
+      map: { label: "Brain map", detail: "Body clues", href: "case1.html#brain-map" },
+      run: { label: "Speak practice", detail: "Say the case aloud", href: "case1.html#speak-practice" },
       check: { label: "Hints", detail: "Fix one missed point", href: "case1.html#confidence-check" },
-      full: { label: "Full pack", detail: "Thinking, drill, sources", href: "case1.html#full-pack" }
+      full: { label: "Study notes", detail: "Extra lines, drills, sources", href: "case1.html#study-notes" }
     };
 
     function loadHintProgress() {
@@ -3463,16 +3464,16 @@
       const nextButtons = document.querySelectorAll("#caseNextWeakPoint, #hintNextWeakPoint");
 
       if (label) {
-        label.textContent = resume.label || "Door note";
+        label.textContent = resume.label || "Station stem";
       }
 
       if (detail) {
-        detail.textContent = resume.detail || "Stem only";
+        detail.textContent = resume.detail || "Read only";
       }
 
       nextButtons.forEach((button) => {
-        button.textContent = nextHint ? "Next weak point: " + nextHint.label : "All hints fixed";
-        button.href = nextHint ? "#next-weak-point" : "#run-station";
+        button.textContent = nextHint ? "Next hint: " + nextHint.label : "All hints fixed";
+        button.href = nextHint ? "#next-weak-point" : "#speak-practice";
       });
     }
 
@@ -3624,14 +3625,18 @@
       const hashMap = {
         "#section-1": "door",
         "#door-note": "door",
+        "#station-stem": "door",
         "#section-2": "map",
         "#brain-map": "map",
         "#section-3": "run",
         "#run-station": "run",
+        "#speak-practice": "run",
         "#confidence-check": "check",
         "#focusPack": "check",
         "#repair": "check",
-        "#next-weak-point": "check"
+        "#next-weak-point": "check",
+        "#study-notes": "full",
+        "#full-pack": "full"
       };
 
       const beatIndex = beatHashMap[window.location.hash];
@@ -3702,7 +3707,7 @@
         const button = document.createElement("button");
         button.type = "button";
         button.className = "phase-button";
-        button.textContent = phaseShortLabels[index] || "Beat " + (index + 1);
+        button.textContent = phaseShortLabels[index] || "Part " + (index + 1);
         button.onclick = function () {
           applyScriptPhase(index);
           const beatListDrawer = document.getElementById("beatListDrawer");
@@ -3727,8 +3732,8 @@
         });
         if (runSection.classList.contains("active")) {
           saveCasePlace("run", {
-            detail: "Full practice run",
-            href: "case1.html#run-station",
+            detail: "Full speaking run",
+            href: "case1.html#speak-practice",
             beatIndex: currentScriptPhase
           });
         }
@@ -3746,7 +3751,7 @@
       if (runSection && runSection.classList.contains("active")) {
         const meta = beatMeta[index] || {};
         saveCasePlace("run", {
-          detail: "Beat " + (index + 1) + " - " + (meta.title || "Station beat"),
+          detail: "Part " + (index + 1) + " - " + (meta.title || "practice part"),
           href: "case1.html#run-beat-" + (index + 1),
           beatIndex: index
         });
@@ -3756,7 +3761,7 @@
     function updateBeatStepper(index) {
       const meta = beatMeta[index] || {};
       const count = beatMeta.length || 1;
-      const title = meta.title || "Station beat";
+      const title = meta.title || "practice part";
       const counter = document.getElementById("beatCounter");
       const titleNode = document.getElementById("beatTitle");
       const goal = document.getElementById("beatGoal");
@@ -3767,11 +3772,11 @@
       const previous = document.getElementById("previousBeat");
       const next = document.getElementById("nextBeat");
 
-      if (counter) counter.textContent = "Beat " + (index + 1) + " of " + count;
+      if (counter) counter.textContent = "Part " + (index + 1) + " of " + count;
       if (titleNode) titleNode.textContent = title;
       if (goal) goal.textContent = meta.goal || "";
       if (mustSay) mustSay.textContent = meta.mustSay || "";
-      if (recoveryWhere) recoveryWhere.textContent = "Run Station - Beat " + (index + 1) + " of " + count + " - " + title;
+      if (recoveryWhere) recoveryWhere.textContent = "Speak Practice - Part " + (index + 1) + " of " + count + " - " + title;
       if (recoveryDo) recoveryDo.textContent = meta.doNow || title;
       if (recoveryNext) recoveryNext.textContent = meta.next || "Continue.";
       if (previous) previous.disabled = index === 0;
@@ -3887,10 +3892,10 @@
           item.classList.remove("phase-hidden");
         });
         hideCandidateLines();
-        setRecoveryText("Run Station - Full practice run", "Say the candidate lines from memory.", "Use Hints for one missed point.");
+        setRecoveryText("Speak Practice - Full speaking run", "Say the candidate lines from memory.", "Use Hints for one missed point.");
         saveCasePlace("run", {
-          detail: "Full practice run",
-          href: "case1.html#run-station",
+          detail: "Full speaking run",
+          href: "case1.html#speak-practice",
           beatIndex: currentScriptPhase,
           mode: "practice"
         });
@@ -3930,7 +3935,7 @@
 
       showStationPanel("check");
       if (feedback) {
-        feedback.textContent = "All hints are marked fixed. Run the station again.";
+        feedback.textContent = "All hints are marked fixed. Speak the case again.";
         feedback.classList.add("show");
       }
     }
@@ -3960,7 +3965,7 @@
         loop.innerHTML = `
           <div class="repair-loop-actions">
             <button class="repair-loop-button primary" type="button" data-hint-action="practise">1. Practise line</button>
-            <a class="repair-loop-button" data-hint-action="run" href="#run-station">2. Run beat</a>
+            <a class="repair-loop-button" data-hint-action="run" href="#speak-practice">2. Practice part</a>
             <button class="repair-loop-button done" type="button" data-hint-action="done">3. Mark fixed</button>
           </div>
           <p class="repair-loop-status" aria-live="polite">Not fixed</p>
@@ -3972,11 +3977,11 @@
       const runLink = loop.querySelector('[data-hint-action="run"]');
       const practiseButton = loop.querySelector('[data-hint-action="practise"]');
       const doneButton = loop.querySelector('[data-hint-action="done"]');
-      const returnHash = returnLink ? returnLink.getAttribute("href") : "#run-station";
+      const returnHash = returnLink ? returnLink.getAttribute("href") : "#speak-practice";
 
       if (runLink) {
-        runLink.href = returnHash || "#run-station";
-        runLink.textContent = returnHash === "#run-station" ? "2. Run station" : "2. Run beat";
+        runLink.href = returnHash || "#speak-practice";
+        runLink.textContent = returnHash === "#run-station" || returnHash === "#speak-practice" ? "2. Speak practice" : "2. Practice part";
         runLink.onclick = function () {
           const readButton = document.querySelector('.mode-button[data-mode="read"]');
           if (readButton) {

@@ -766,10 +766,10 @@
           <p class="route-card-title">Before Case</p>
           <p class="route-card-detail">Prime the danger pattern.</p>
         </a>
-        <a class="route-card current" id="mapCase1Card" href="case1.html#run-station">
+        <a class="route-card current" id="mapCase1Card" href="case1.html#speak-practice">
           <span class="route-number">2</span>
           <p class="route-card-title">Case 1</p>
-          <p class="route-card-detail" id="mapCase1Detail">Run the station aloud.</p>
+          <p class="route-card-detail" id="mapCase1Detail">Speak the case aloud.</p>
         </a>
         <a class="route-card repair" id="mapHintsCard" href="case1.html#confidence-check">
           <span class="route-number">3</span>
@@ -990,11 +990,11 @@
       }
 
       if (caseCard) {
-        caseCard.href = hasProgress ? resume.href : "case1.html#run-station";
+        caseCard.href = hasProgress ? resume.href : "case1.html#speak-practice";
       }
 
       if (caseDetail) {
-        caseDetail.textContent = hasProgress ? "Resume: " + resume.label : "Run the station aloud.";
+        caseDetail.textContent = hasProgress ? "Continue: " + resume.label : "Speak the case aloud.";
       }
 
       if (hintsCard) {

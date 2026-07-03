@@ -3,7 +3,7 @@
   const hintKey = "amc.case1.hintProgress.v1";
 
   const hints = [
-    { id: "missed-diagnosis", label: "Heart risk" },
+    { id: "missed-diagnosis", label: "Possible heart attack" },
     { id: "dangerous-alternatives", label: "Other serious causes" },
     { id: "focused-danger-questions", label: "Danger questions" },
     { id: "technical-language", label: "Everyday language" },
@@ -27,21 +27,21 @@
     },
     door: {
       section: "door",
-      label: "Door note",
-      detail: "Stem only",
-      href: "case1.html#door-note"
+      label: "Station stem",
+      detail: "Read only",
+      href: "case1.html#station-stem"
     },
     map: {
       section: "map",
       label: "Brain map",
-      detail: "Danger route",
+      detail: "Body clues",
       href: "case1.html#brain-map"
     },
     run: {
       section: "run",
-      label: "Run station",
-      detail: "Station practice",
-      href: "case1.html#run-station"
+      label: "Speak practice",
+      detail: "Say the case aloud",
+      href: "case1.html#speak-practice"
     },
     check: {
       section: "check",
@@ -51,9 +51,9 @@
     },
     full: {
       section: "full",
-      label: "Full pack",
-      detail: "Thinking, drill, sources",
-      href: "case1.html#full-pack"
+      label: "Study notes",
+      detail: "Extra lines, drills, sources",
+      href: "case1.html#study-notes"
     }
   };
 
@@ -79,7 +79,23 @@
 
   function readResume() {
     const stored = readJSON(resumeKey, null);
-    return Object.assign({}, places.run, stored || {});
+    const base = stored && places[stored.section] ? places[stored.section] : places.run;
+    const next = Object.assign({}, base, stored || {});
+
+    if (next.section && places[next.section]) {
+      const current = places[next.section];
+      if (["Door note", "Run station", "Full pack"].includes(next.label)) {
+        next.label = current.label;
+      }
+      if (["Stem only", "Station practice", "Danger route", "Thinking, drill, sources"].includes(next.detail)) {
+        next.detail = current.detail;
+      }
+      if (next.href === "case1.html#door-note") next.href = "case1.html#station-stem";
+      if (next.href === "case1.html#run-station") next.href = "case1.html#speak-practice";
+      if (next.href === "case1.html#full-pack") next.href = "case1.html#study-notes";
+    }
+
+    return next;
   }
 
   function saveResume(update) {
@@ -128,8 +144,8 @@
 
   function progressLabel() {
     const stats = hintStats();
-    if (!stats.fixed && !stats.practised) return "No fixes saved yet.";
-    return stats.fixed + " fixed | " + stats.practised + " practised | " + stats.open + " open";
+    if (!stats.fixed && !stats.practised) return "No hints fixed yet.";
+    return stats.fixed + " fixed | " + stats.practised + " practised | " + stats.open + " left";
   }
 
   window.AMCProgress = {

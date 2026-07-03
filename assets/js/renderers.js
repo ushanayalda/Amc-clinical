@@ -261,7 +261,7 @@
       '<div class="script-stack">' + currentCase.script.map(function (block, index) {
         return '<article class="script-block">' +
           '<div class="beat-head">' +
-            '<span class="beat-number">' + esc(index + 1) + '</span>' +
+            '<span class="beat-number">' + esc(String(index + 1).padStart(2, "0")) + '</span>' +
             '<div><h3>' + esc(block.heading) + '</h3></div>' +
           '</div>' +
           block.turns.map(function (turn) {

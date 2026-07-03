@@ -1,363 +1,125 @@
-# AMC Clinical Pathway - Codex Instructions
-
-## User context
-
-The project owner is new to Codex and new to GitHub.
-
-When working on this repository:
-
-- Explain each action in plain language.
-- Avoid assuming GitHub knowledge.
-- Do not use unexplained Git terms without a short explanation.
-- Prefer small, safe changes.
-- Before making large changes, explain what files will change.
-- After changes, summarize:
-  - files changed
-  - what changed
-  - what the user should check on the live site
-  - whether any clinical text was touched
+# AGENTS.md
 
 ## Project identity
 
-Website name:
+AMC Clinical Pathway is a clinical pattern-training site by Dr. Ushana Yalda.
 
-AMC Clinical Pathway
+It teaches learners to recognise dangerous clinical patterns before diagnostic certainty.
 
-Credit line:
+The core learning structure is:
 
-Prepared by Dr. Ushana Yalda
+Phase
+-> Pattern
+-> Warm-up
+-> Case
+-> Speak aloud
+-> Hints / Notes only when needed
 
-Footer:
+This is not a generic case library.
 
-© 2026 Dr. Ushana Yalda. All rights reserved.
-Prepared by Dr. Ushana Yalda.
-Independent educational resource. Not affiliated with or endorsed by the Australian Medical Council.
+## Product goal
 
-Do not rename the website to AMC Case Mastery.
+Make the learner feel oriented, calm, and guided.
 
-## Role boundary
+The learner must always understand:
+- Where they are
+- What they are learning
+- What to press next
+- What danger pattern matters
+- What they need to say aloud
 
-This repository is the WEBSITE DESIGN THREAD.
+## UX problem to solve
 
-Codex is responsible for:
+The current site creates cognitive overload:
+- too many visible buttons
+- repeated full headers
+- mixed labels such as Map, Cases, Warm-up, Hints, Need, Stem, Notes
+- large cards that consume mobile screen space
+- fragmented pages that do not feel connected
 
-- HTML
-- CSS
-- JavaScript
-- layout
-- navigation
-- responsive design
-- show/hide behavior
-- collapsible sections
-- confidence check interaction
-- ADHD-friendly display
-- GitHub implementation help
+Fix structure and navigation before adding more content.
 
-Codex is NOT the medical content engine.
+## Design rules
 
-Do not rewrite, shorten, expand, correct, or invent clinical content.
+1. Mobile-first.
+2. One main action per screen.
+3. Compact headers on study pages.
+4. Navigation should be reachable but visually quiet.
+5. Use progressive disclosure.
+6. Show the pathway as Phase -> Pattern -> Case.
+7. Use drawers, sheets, accordions, and overlays for secondary tools.
+8. Do not repeat the full AMC brand block on every page.
+9. Do not add a layout or view selector.
+10. Do not create a separate custom design for every case.
 
-Clinical content must be inserted exactly as supplied by the user from the Content Engine.
-
-If clinical content is missing, display:
-
-Awaiting Content Engine transfer
-
-Do not fill the gap.
-
-## Absolute clinical-content rules
-
-Never change:
-
-- clinical wording
-- case wording
-- patient dialogue
-- candidate dialogue
-- medication wording
-- management sequence
-- differential diagnosis wording
-- sources wording
-- confidence check wording
-- focus pack wording
-
-If something looks clinically wrong, do not fix it.
-
-Instead write:
-
-Content issue for Content Engine review
-
-## Current repo structure
-
-Expected files:
-
-- index.html
-- map.html
-- before-case.html
-- case1.html
-
-The site is deployed through GitHub Pages.
-
-The user may not know where files are located or how to commit changes, so explain exactly what to click or paste when needed.
-
-## Current learning flow
-
-Homepage:
-
-Continue → current active unit
-
-Current active unit:
-
-Case 1 - Classic Chest Pain in General Practice
-
-Current Pattern:
-
-Pattern 1 - Dangerous Chest Pain
-
-Phase label:
-
-Phase 1 - Can Kill Fast
-
-## Learner-facing phase labels
-
-Use exactly:
-
-- Phase 1 - Can Kill Fast
-- Phase 2 - Dangerous Mimics
-- Phase 3 - Common Stations
-- Phase 4 - Hard Conversations
-- Expansion Patterns
-
-Do not use system-based or specialty-based navigation.
-
-Do not create station-type menus.
-
-## Pattern 1 ladder
-
-Pattern 1 - Dangerous Chest Pain
-
-Active learner sequence:
-
-1. Before the Case
-2. Case 1 - Classic Chest Pain in General Practice
-3. Case 2 - Chest Pain with Recent Sildenafil Use in General Practice
-4. Case 3 - Sudden Chest Pain Radiating to the Back
-5. Case 4 - Pleuritic Chest Pain with Breathlessness
-6. Case 5 - Sudden Chest Pain with Severe Breathlessness and One-Sided Chest Signs
-7. Pattern Confidence Check
-8. Coverage Checklist
-
-Reserve only:
-
-- Reserve Case 6 - Normal First Electrocardiogram but Ongoing Concern
-- Reserve Case 7 - Patient Refuses Ambulance Transfer
-
-Do not place reserve cases into the active learner sequence unless the user explicitly instructs it.
-
-## Content state rules
-
-Use content states:
-
-- Available
-- Current
-- Locked
-- Reserve
-- Awaiting Content Engine
-
-Use learner progress states only when real progress tracking exists:
-
-- Done
-- Repeat
-- Solid
-
-If tracking is not connected, say:
-
-Demo progress
-
-Do not falsely claim the learner has completed anything.
-
-## Current content status
-
-Available on website:
-
-- Before the Case - Dangerous Chest Pain
-- Case 1 - Classic Chest Pain in General Practice
-
-Awaiting transfer:
-
-- Case 1 Focus Pack
-- Case 2
-- Case 2 Focus Pack
-- Case 3
-- Case 3 Focus Pack
-- Case 4
-- Case 4 Focus Pack
-- Case 5
-- Case 5 Focus Pack
-- Pattern Confidence Check
-- Coverage Checklist
-- Focus Module - Pattern Architecture
-
-Not yet generated by Content Engine:
-
-- Focus Module - Failure Modes
-- Focus Module - Examiner Mind
-- Focus Module - Drill Pack
-- Focus Module - Pattern Map
-- Focus Module - Activation Support
-- Final Sources module if needed separately
-
-## Case page design rules
-
-Case pages must feel like an AMC exam station, not a dashboard.
+## Approved navigation labels
 
 Use:
-
-- document-reader layout for Station Stem and 2-Minute Reading Map
-- clinical chat reader layout for Live AMC Station Script
-- patient lines visually distinct
-- candidate lines easy to read
-- phase headings clear
-- hidden details drawer for metadata
-- hidden/collapsed sections for Doctor Thinking, Examiner Lines, Practice Drill, Full Timed Run, Sources, Focus Pack
-
-Do not show a large metadata card before the station stem.
-
-Metadata such as Pattern, Clinical Variant, Station Type, Task Recipient, Setting, and Main Risk Point should be behind a small Details button or drawer.
-
-## Case 1 current design direction
-
-Current approved direction:
-
-Case 1 v4 - Clinical Chat Reader
-
-The first screen should show:
-
-- Case title
-- Details button
-- Section 1 - Station Stem
-
-The large metadata card must not appear before Section 1.
-
-The spoken script should use a chat-like clinical layout:
-
-- Candidate = doctor bubble
-- Patient = visually distinct patient reply
-- Read / Practice / Exam mode controls are allowed
-- Exam mode may hide patient replies until tapped
-
-Do not change the case wording while formatting it.
-
-## Visibility rules
-
-Visible by default:
-
-- Station Stem
-- 2-Minute Reading Map
-- Live AMC Station Script
-- Must-Say Lines
-- Confidence Check
-
-Collapsed by default:
-
-- Doctor Thinking - Hidden
-- Examiner Lines - Hidden
-- Practice Drill
-- Full Timed Run
-- Sources
-
-Hidden until needed:
-
-- Focus Pack
-- individual Focus Points
-
-## Focus Pack behavior
-
-Each case may have a Focus Pack.
-
-Do not display all Focus Points as a visible list.
-
-After Confidence Check:
-
-If learner selects:
-
-I completed this well
-
-Then:
-Continue to next case only if the next case exists.
-
-If learner selects a missed point:
-
-Then:
-Open one matching Focus Point only.
-
-Until Case 1 Focus Pack is transferred, show:
-
-Case 1 Focus Pack awaiting transfer into the website from the Content Engine.
-
-## ADHD design rules
-
-Optimize for inattentive doctors and low-confidence learners.
-
-Use:
-
-- one obvious next action
-- short visual zones
-- clear phase headings
-- high signal, low clutter
-- collapsed reference material
-- gentle confidence-check feedback
-- no “wrong” or “failed” language
-- repair-path language
-
-Use wording such as:
-
-Repair one thing.
-Then repeat that part.
+- Home
+- Pathway
+- Warm-up
+- Case
+- Tools
+- Hints
+- Notes
 
 Avoid:
+- Map
+- Cases
+- Need
+- Stem button group
+- Open what is ready
+- Continue without destination
 
-- dashboard overload
-- giant metadata blocks
-- making every section look equally important
-- too many colours
-- all content in similar cards
-- long visible duplicate scripts
-- station-type navigation menus
+Use explicit CTAs:
+- Continue Case 1
+- Start Case 1
+- Start speaking
+- Open Pathway
+- Open Warm-up
 
-## Current known design issue
+## Clinical safety rules
 
-Case 1 should not show a large metadata card at the top.
+Preserve existing clinical meaning.
 
-If it appears, replace it with a compact Details drawer.
+For dangerous chest pain, keep these points prominent:
+- Chest pressure with danger features is dangerous.
+- Possible heart problem until proven otherwise.
+- Do not reassure early.
+- Do not miss ACS, aortic dissection, pulmonary embolism, and tension pneumothorax.
+- Call ambulance now.
+- ECG only if it does not delay transfer.
+- Do not wait for troponin.
+- Do not let the patient drive.
+- Must-say line: "This may be coming from your heart. I am arranging an ambulance now."
 
-## Development safety
+Do not invent new medical guidance unless explicitly asked.
 
-Before editing, inspect current files.
+## Hybrid-readiness rules
 
-Change one page at a time unless the user explicitly asks for multiple files.
+The site must remain static and GitHub Pages compatible.
 
-After editing, tell the user exactly what changed.
+Leave clean upgrade space for:
+- PWA installability
+- offline access
+- local progress tracking
+- search
+- content packs
+- possible native wrapper later
 
-Do not delete content unless instructed.
+Do not implement heavy future features before the learning flow is stable.
 
-Do not rename files unless instructed.
+## Animation rules
 
-Do not break existing links:
+Use subtle animation only when it improves orientation:
+- card reveal
+- drawer open and close
+- phase expansion
+- active path movement
+- smooth transitions
 
-- index.html → case1.html
-- before-case.html → case1.html
-- map.html → case1.html
+Avoid distracting or decorative animation.
 
-## Testing checklist after any change
+## Accessibility rules
 
-Check:
-
-- page loads on mobile width
-- nav links work
-- Details drawer works
-- collapsed sections are collapsed by default
-- Focus Pack is not open by default
-- Sources are collapsed by default
-- no clinical wording changed
-- footer still present
-- homepage still uses AMC Clinical Pathway
+Use semantic HTML, accessible buttons, visible focus states, ARIA labels for drawers and navigation, Escape-to-close behavior, and reduced-motion support.

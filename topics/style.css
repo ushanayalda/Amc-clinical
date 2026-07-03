@@ -100,6 +100,48 @@ li{ margin:8px 0; }
   text-decoration:none;
 }
 
+.legacy-banner{
+  margin:0 0 12px 0;
+  border:1px solid rgba(180,35,24,0.22);
+  border-left:6px solid #b42318;
+  border-radius:12px;
+  background:#fff;
+  padding:12px;
+  display:grid;
+  gap:8px;
+}
+
+.legacy-banner strong{
+  color:#7a1a1a;
+  font-size:14px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+}
+
+.legacy-banner span{
+  color:var(--muted);
+  font-size:13px;
+  font-weight:650;
+}
+
+.legacy-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.legacy-actions a{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:8px 10px;
+  color:#103a7a;
+  background:#fff;
+  font-size:13px;
+  font-weight:850;
+  text-decoration:none;
+}
+
 /* SPOKEN block */
 .spoken{
   border:1px solid rgba(16,58,122,0.20);

@@ -28,7 +28,7 @@
 
       --shadow: 0 10px 26px rgba(16, 24, 40, 0.055);
       --shadow-hover: 0 14px 32px rgba(16, 24, 40, 0.085);
-      --radius: 22px;
+      --radius: 8px;
       --max: 1040px;
     }
 
@@ -43,10 +43,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, rgba(30, 90, 168, 0.08), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.06), transparent 30%),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: Aptos, "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       line-height: 1.45;
@@ -132,22 +129,16 @@
     .hero {
       background: rgba(255, 255, 255, 0.96);
       border: 1px solid var(--border);
-      border-radius: calc(var(--radius) + 4px);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: clamp(24px, 4vw, 38px);
-      margin-bottom: 18px;
+      padding: clamp(20px, 3vw, 28px);
+      margin-bottom: 14px;
       position: relative;
       overflow: hidden;
     }
 
     .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto -80px -110px auto;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle, rgba(30, 90, 168, 0.12), transparent 68%);
-      pointer-events: none;
+      display: none;
     }
 
     .eyebrow {
@@ -164,9 +155,9 @@
       margin: 0;
       max-width: 800px;
       color: var(--navy);
-      font-size: clamp(35px, 6vw, 54px);
-      line-height: 1.02;
-      letter-spacing: -0.045em;
+      font-size: clamp(30px, 5vw, 42px);
+      line-height: 1.08;
+      letter-spacing: 0;
       font-weight: 720;
     }
 
@@ -183,7 +174,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 9px;
-      margin: 22px 0 0;
+      margin: 16px 0 0;
       position: relative;
       z-index: 1;
     }
@@ -221,6 +212,275 @@
     .grid {
       display: grid;
       gap: 16px;
+    }
+
+    .primer-shell {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .primer-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+
+    .primer-label {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+    }
+
+    .primer-title {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1.15;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .primer-status {
+      min-width: 158px;
+      border: 1px solid rgba(30, 90, 168, 0.16);
+      border-radius: var(--radius);
+      padding: 10px;
+      background: var(--soft-blue);
+    }
+
+    .primer-status-text {
+      margin: 0 0 7px;
+      color: var(--blue);
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 850;
+    }
+
+    .primer-meter {
+      height: 7px;
+      border-radius: 999px;
+      background: #D9E4F5;
+      overflow: hidden;
+    }
+
+    .primer-meter span {
+      display: block;
+      width: 25%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--blue);
+      transition: width 180ms ease;
+    }
+
+    .primer-track {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 0 0 12px;
+    }
+
+    .primer-step {
+      min-height: 48px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      color: var(--navy);
+      padding: 9px 10px;
+      font-size: 13px;
+      line-height: 1.15;
+      font-weight: 850;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .primer-step.active {
+      border-color: rgba(30, 90, 168, 0.32);
+      background: var(--soft-blue);
+      color: var(--blue);
+    }
+
+    .primer-step.done {
+      border-color: rgba(2, 122, 72, 0.22);
+      background: var(--soft-green);
+      color: var(--green);
+    }
+
+    .primer-panel {
+      display: none;
+      border: 1px solid #EAECF0;
+      border-radius: var(--radius);
+      background: #FCFCFD;
+      padding: 14px;
+    }
+
+    .primer-panel.active {
+      display: grid;
+      gap: 12px;
+    }
+
+    .primer-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .primer-card {
+      border: 1px solid #EAECF0;
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 12px;
+    }
+
+    .primer-card.danger {
+      border-left-color: var(--red);
+      background: var(--soft-red);
+    }
+
+    .primer-card.safe {
+      border-left-color: var(--green);
+      background: var(--soft-green);
+    }
+
+    .primer-card.warn {
+      border-left-color: var(--amber);
+      background: var(--soft-amber);
+    }
+
+    .primer-card-title {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 850;
+    }
+
+    .primer-card-main {
+      margin: 0;
+      color: var(--navy);
+      font-size: 20px;
+      line-height: 1.25;
+      font-weight: 760;
+    }
+
+    .primer-card-text {
+      margin: 8px 0 0;
+      color: #475467;
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 560;
+    }
+
+    .primer-chip-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .primer-chip {
+      border: 1px solid rgba(180, 35, 24, 0.16);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      color: var(--red);
+      padding: 10px;
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .primer-say-line {
+      border: 1px solid rgba(30, 90, 168, 0.22);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-size: clamp(20px, 3vw, 28px);
+      line-height: 1.25;
+      font-weight: 820;
+    }
+
+    .primer-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .primer-button {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--blue);
+      padding: 10px 15px;
+      font-size: 14px;
+      line-height: 1.15;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .primer-button.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #FFFFFF;
+      box-shadow: 0 10px 20px rgba(30, 90, 168, 0.14);
+    }
+
+    .primer-button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .reference-drawer {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .reference-drawer > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 15px 16px;
+      color: var(--navy);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      font-weight: 850;
+    }
+
+    .reference-drawer > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .reference-drawer > summary span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .reference-drawer .grid {
+      padding: 0 16px 16px;
     }
 
     .two-grid {
@@ -355,116 +615,6 @@
       line-height: 1.38;
     }
 
-    .warmup-box {
-      margin: 12px 0 0;
-      white-space: pre-wrap;
-      border: 1px solid #EAECF0;
-      border-radius: 16px;
-      padding: 16px;
-      background: #FCFCFD;
-      color: #1D2939;
-      font-size: 16px;
-      line-height: 1.68;
-      font-family: inherit;
-      font-weight: 500;
-    }
-
-    .self-test {
-      margin: 14px 0 0;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .self-test-item {
-      border: 1px solid #EAECF0;
-      border-radius: 16px;
-      padding: 12px 14px;
-      background: #FCFCFD;
-    }
-
-    .self-test-item strong {
-      display: block;
-      margin-bottom: 5px;
-      color: var(--navy);
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .self-test-item span {
-      color: #475467;
-      font-size: 15px;
-      font-weight: 620;
-    }
-
-    .warmup-action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: fit-content;
-      min-height: 46px;
-      margin-top: 16px;
-      border-radius: 999px;
-      padding: 12px 18px;
-      background: var(--blue);
-      color: #FFFFFF;
-      font-size: 15px;
-      font-weight: 760;
-      box-shadow: 0 12px 24px rgba(30, 90, 168, 0.16);
-    }
-
-    .action-card {
-      background:
-        linear-gradient(135deg, rgba(30, 90, 168, 0.96), rgba(15, 118, 110, 0.94));
-      color: #FFFFFF;
-      border: 0;
-    }
-
-    .action-card .card-title,
-    .action-card .card-main,
-    .action-card .card-text {
-      color: #FFFFFF;
-    }
-
-    .action-card .card-text {
-      opacity: 0.9;
-    }
-
-    .action-card::before {
-      background: rgba(255, 255, 255, 0.7);
-    }
-
-    .action-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .primary-action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: fit-content;
-      min-height: 48px;
-      border: 0;
-      border-radius: 999px;
-      padding: 13px 22px;
-      background: #FFFFFF;
-      color: var(--blue);
-      font-size: 15px;
-      font-weight: 750;
-      cursor: pointer;
-      white-space: nowrap;
-      box-shadow: 0 12px 24px rgba(16, 24, 40, 0.12);
-      transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
-    }
-
-    .primary-action:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 30px rgba(16, 24, 40, 0.18);
-    }
-
     .footer-card {
       margin-top: 20px;
       border: 1px solid var(--border);
@@ -493,14 +643,24 @@
         grid-template-columns: 1fr;
       }
 
-      .self-test {
+      .primer-head,
+      .primer-card-grid {
         grid-template-columns: 1fr;
       }
 
-      .action-row {
-        align-items: flex-start;
-        flex-direction: column;
+      .primer-status {
+        min-width: 0;
       }
+
+      .primer-chip-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .primer-actions {
+        align-items: stretch;
+        flex-wrap: wrap;
+      }
+
     }
 
     @media (max-width: 560px) {
@@ -528,13 +688,31 @@
         padding: 18px;
       }
 
-      .primary-action {
-        width: 100%;
-        white-space: normal;
-        text-align: center;
+      .primer-track {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .primer-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .primer-button {
+        width: 100%;
+      }
+
+      .reference-drawer > summary {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .reference-drawer > summary span {
+        text-align: left;
+      }
+
     }
   </style>
+  <link rel="stylesheet" href="accessibility.css" />
 </head>
 
 <body>
@@ -565,6 +743,78 @@
       </div>
     </section>
 
+    <section class="primer-shell" aria-label="Before Case primer">
+      <div class="primer-head">
+        <div>
+          <p class="primer-label">Priming drill</p>
+          <h3 class="primer-title">Load the danger pattern before Case 1.</h3>
+        </div>
+        <div class="primer-status" aria-live="polite">
+          <p class="primer-status-text" id="primerStatus">Step 1 of 4</p>
+          <div class="primer-meter" aria-hidden="true"><span id="primerMeter"></span></div>
+        </div>
+      </div>
+
+      <div class="primer-track" role="tablist" aria-label="Primer steps">
+        <button class="primer-step active" type="button" role="tab" aria-selected="true" data-primer-step="0">1. Pattern</button>
+        <button class="primer-step" type="button" role="tab" aria-selected="false" data-primer-step="1">2. Danger</button>
+        <button class="primer-step" type="button" role="tab" aria-selected="false" data-primer-step="2">3. Action</button>
+        <button class="primer-step" type="button" role="tab" aria-selected="false" data-primer-step="3">4. Say</button>
+      </div>
+
+      <div class="primer-panel active" data-primer-panel="0">
+        <div class="primer-card-grid">
+          <article class="primer-card danger">
+            <p class="primer-card-title">Trigger</p>
+            <p class="primer-card-main">Chest pressure plus danger features.</p>
+            <p class="primer-card-text">Sweating, nausea, breathlessness, radiation, collapse, or cardiac risk factors.</p>
+          </article>
+          <article class="primer-card safe">
+            <p class="primer-card-title">Meaning</p>
+            <p class="primer-card-main">Possible heart problem until proven otherwise.</p>
+            <p class="primer-card-text">Do not reassure early.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="primer-panel" data-primer-panel="1">
+        <p class="primer-card-title">Four causes not to miss</p>
+        <div class="primer-chip-row" aria-label="Four dangerous causes">
+          <span class="primer-chip">ACS</span>
+          <span class="primer-chip">Dissection</span>
+          <span class="primer-chip">PE</span>
+          <span class="primer-chip">Tension pneumothorax</span>
+        </div>
+      </div>
+
+      <div class="primer-panel" data-primer-panel="2">
+        <div class="primer-card-grid">
+          <article class="primer-card safe">
+            <p class="primer-card-title">First action in General Practice</p>
+            <p class="primer-card-main">Call ambulance now.</p>
+          </article>
+          <article class="primer-card warn">
+            <p class="primer-card-title">Avoid delay</p>
+            <p class="primer-card-main">ECG only if it does not delay transfer.</p>
+            <p class="primer-card-text">Do not wait for troponin. Do not let the patient drive.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="primer-panel" data-primer-panel="3">
+        <p class="primer-card-title">Say aloud once</p>
+        <div class="primer-say-line">This may be coming from your heart. I am arranging an ambulance now.</div>
+      </div>
+
+      <div class="primer-actions">
+        <button class="primer-button" type="button" id="primerBack">Back</button>
+        <button class="primer-button primary" type="button" id="primerNext">Next</button>
+        <a class="primer-button primary" href="case1.html">Start Case 1</a>
+      </div>
+    </section>
+
+    <details class="reference-drawer">
+      <summary>Reference cards <span>Open only if you need the longer version.</span></summary>
     <section class="grid" aria-label="Before the case content">
       <section class="two-grid">
         <article class="card">
@@ -689,33 +939,8 @@
         </article>
       </section>
 
-      <article class="card">
-        <p class="card-title">Warm-Up</p>
-        <p class="card-main">Before opening Case 1, say aloud:</p>
-        <div class="self-test" aria-label="Before Case self-test">
-          <div class="self-test-item"><strong>Setting</strong><span>General Practice.</span></div>
-          <div class="self-test-item"><strong>Main danger</strong><span>Possible heart-related chest pain.</span></div>
-          <div class="self-test-item"><strong>Four causes</strong><span>ACS. Dissection. PE. Tension pneumothorax.</span></div>
-          <div class="self-test-item"><strong>First action</strong><span>Call ambulance now.</span></div>
-          <div class="self-test-item"><strong>Main risk point</strong><span>Do not delay transfer while proving the diagnosis.</span></div>
-          <div class="self-test-item"><strong>Must-say line</strong><span>This may be coming from your heart.</span></div>
-        </div>
-        <a class="warmup-action" href="case1.html">Start Case 1</a>
-      </article>
-
-      <article class="card action-card">
-        <div class="action-row">
-          <div>
-            <p class="card-title">Stop Point</p>
-            <p class="card-main">Stop here. The next step is the first case.</p>
-          </div>
-
-          <a class="primary-action" href="case1.html">
-            Continue → Case 1
-          </a>
-        </div>
-      </article>
     </section>
+    </details>
 
     <footer class="footer-card">
       <strong>© 2026 Dr. Ushana Yalda. All rights reserved.</strong><br />
@@ -723,5 +948,71 @@
       Independent educational resource. Not affiliated with or endorsed by the Australian Medical Council.
     </footer>
   </main>
+
+  <script>
+    let currentPrimerStep = 0;
+    const primerStepCount = 4;
+
+    function setPrimerStep(index) {
+      currentPrimerStep = Math.min(Math.max(index, 0), primerStepCount - 1);
+
+      document.querySelectorAll("[data-primer-step]").forEach((button) => {
+        const buttonIndex = Number(button.dataset.primerStep);
+        const isActive = buttonIndex === currentPrimerStep;
+        button.classList.toggle("active", isActive);
+        button.classList.toggle("done", buttonIndex < currentPrimerStep);
+        button.setAttribute("aria-selected", String(isActive));
+      });
+
+      document.querySelectorAll("[data-primer-panel]").forEach((panel) => {
+        panel.classList.toggle("active", Number(panel.dataset.primerPanel) === currentPrimerStep);
+      });
+
+      const status = document.getElementById("primerStatus");
+      const meter = document.getElementById("primerMeter");
+      const back = document.getElementById("primerBack");
+      const next = document.getElementById("primerNext");
+
+      if (status) status.textContent = "Step " + (currentPrimerStep + 1) + " of " + primerStepCount;
+      if (meter) meter.style.width = ((currentPrimerStep + 1) / primerStepCount) * 100 + "%";
+      if (back) back.disabled = currentPrimerStep === 0;
+      if (next) next.textContent = currentPrimerStep === primerStepCount - 1 ? "Review once" : "Next";
+
+      if (window.AMCProgress) {
+        window.AMCProgress.saveResume({
+          section: "before",
+          detail: "Primer step " + (currentPrimerStep + 1) + " of " + primerStepCount,
+          href: "before-case.html"
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll("[data-primer-step]").forEach((button) => {
+        button.addEventListener("click", function () {
+          setPrimerStep(Number(button.dataset.primerStep));
+        });
+      });
+
+      const back = document.getElementById("primerBack");
+      const next = document.getElementById("primerNext");
+
+      if (back) {
+        back.addEventListener("click", function () {
+          setPrimerStep(currentPrimerStep - 1);
+        });
+      }
+
+      if (next) {
+        next.addEventListener("click", function () {
+          setPrimerStep(currentPrimerStep === primerStepCount - 1 ? 0 : currentPrimerStep + 1);
+        });
+      }
+
+      setPrimerStep(0);
+    });
+  </script>
+  <script src="progress.js"></script>
+  <script src="accessibility.js"></script>
 </body>
 </html>

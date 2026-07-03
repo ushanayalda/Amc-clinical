@@ -29,7 +29,7 @@
       --soft-grey: #F2F4F7;
 
       --shadow: 0 10px 26px rgba(16, 24, 40, 0.055);
-      --radius: 22px;
+      --radius: 8px;
       --max: 1040px;
     }
 
@@ -40,10 +40,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, rgba(30, 90, 168, 0.08), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.06), transparent 30%),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: Aptos, "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       line-height: 1.45;
@@ -110,7 +107,7 @@
       border: 1px solid var(--border);
       background: rgba(255, 255, 255, 0.85);
       color: var(--navy);
-      border-radius: 999px;
+      border-radius: var(--radius);
       padding: 10px 15px;
       cursor: pointer;
       font-weight: 650;
@@ -130,20 +127,14 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: clamp(22px, 4vw, 34px);
-      margin-bottom: 18px;
+      padding: clamp(20px, 3vw, 28px);
+      margin-bottom: 14px;
       position: relative;
       overflow: hidden;
     }
 
     .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto -80px -110px auto;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle, rgba(15, 118, 110, 0.10), transparent 68%);
-      pointer-events: none;
+      display: none;
     }
 
     .eyebrow {
@@ -158,9 +149,9 @@
 
     .hero-title {
       margin: 0;
-      font-size: clamp(34px, 6vw, 52px);
-      line-height: 1.02;
-      letter-spacing: -0.045em;
+      font-size: clamp(30px, 5vw, 42px);
+      line-height: 1.08;
+      letter-spacing: 0;
       font-weight: 720;
       color: var(--navy);
     }
@@ -225,11 +216,143 @@
       border-color: rgba(15, 118, 110, 0.18);
     }
 
-    .map-shell {
-      background: rgba(255, 255, 255, 0.94);
+    .route-shell {
+      background: #FFFFFF;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .route-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .route-kicker,
+    .route-label {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 850;
+    }
+
+    .route-title {
+      margin: 5px 0 0;
+      color: var(--navy);
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1.15;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .route-status {
+      min-width: 150px;
+      border: 1px solid rgba(30, 90, 168, 0.16);
+      border-radius: var(--radius);
+      padding: 10px;
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .route-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .route-card {
+      min-height: 132px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 13px;
+      color: var(--text);
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .route-card.current {
+      border-color: rgba(30, 90, 168, 0.26);
+      background: var(--soft-blue);
+    }
+
+    .route-card.repair {
+      border-color: rgba(2, 122, 72, 0.22);
+      background: var(--soft-green);
+    }
+
+    .route-number {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--navy);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .route-card-title {
+      margin: 0;
+      color: var(--navy);
+      font-size: 18px;
+      line-height: 1.15;
+      font-weight: 850;
+    }
+
+    .route-card-detail {
+      margin: 0;
+      color: #475467;
+      font-size: 13px;
+      line-height: 1.3;
+      font-weight: 650;
+    }
+
+    .route-card.current .route-card-title,
+    .route-card.current .route-card-detail,
+    .route-card.repair .route-card-title,
+    .route-card.repair .route-card-detail {
+      color: inherit;
+    }
+
+    .curriculum-drawer {
+      margin-top: 14px;
+      border-radius: var(--radius);
+    }
+
+    .curriculum-drawer > summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .summary-note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 650;
+      text-align: right;
+    }
+
+    .map-shell {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       padding: 20px;
     }
 
@@ -267,7 +390,7 @@
       border: 1px solid var(--border);
       background: #FFFFFF;
       color: var(--navy);
-      border-radius: 999px;
+      border-radius: var(--radius);
       padding: 9px 13px;
       cursor: pointer;
       font-size: 13px;
@@ -287,7 +410,7 @@
 
     details {
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: var(--radius);
       background: #FFFFFF;
       overflow: hidden;
     }
@@ -338,7 +461,7 @@
     }
 
     .pattern-summary {
-      background: linear-gradient(90deg, rgba(234, 242, 255, 0.62), transparent);
+      background: #F8FAFC;
       font-size: 16px;
     }
 
@@ -355,7 +478,7 @@
       gap: 14px;
       border: 1px solid #EAECF0;
       background: #FCFCFD;
-      border-radius: 16px;
+      border-radius: var(--radius);
       padding: 14px 14px 14px 16px;
       color: var(--text);
       cursor: pointer;
@@ -503,6 +626,20 @@
         flex-direction: column;
       }
 
+      .route-head {
+        flex-direction: column;
+      }
+
+      .route-status {
+        min-width: 0;
+        width: 100%;
+        text-align: left;
+      }
+
+      .route-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .tool-buttons {
         width: 100%;
         justify-content: flex-start;
@@ -542,6 +679,19 @@
         padding: 14px;
       }
 
+      .route-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .curriculum-drawer > summary {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .summary-note {
+        text-align: left;
+      }
+
       summary {
         padding: 15px;
         font-size: 16px;
@@ -572,6 +722,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="accessibility.css" />
 </head>
 
 <body>
@@ -600,19 +751,55 @@
       </div>
     </section>
 
-    <section class="map-shell" aria-label="Study map tree">
-      <div class="map-tools">
-        <h2 class="map-tools-title">Map</h2>
-        <div class="tool-buttons">
-          <button class="tool-button" type="button" id="futureToggle">Show future curriculum</button>
-          <button class="tool-button" type="button" id="expandAll">Open all</button>
-          <button class="tool-button" type="button" id="collapseAll">Close all</button>
+    <section class="route-shell" aria-label="Active route">
+      <div class="route-head">
+        <div>
+          <p class="route-kicker">Level 1 - use now</p>
+          <h3 class="route-title">Current route: Dangerous Chest Pain</h3>
         </div>
+        <div class="route-status" id="mapRouteStatus">Case 1 is active</div>
       </div>
-      <p class="focus-note" id="focusNote">Focus Mode is on. Showing the current path only.</p>
 
-      <section class="tree" id="treeRoot"></section>
+      <nav class="route-grid" aria-label="Current route actions">
+        <a class="route-card" href="before-case.html">
+          <span class="route-number">1</span>
+          <p class="route-card-title">Before Case</p>
+          <p class="route-card-detail">Prime the danger pattern.</p>
+        </a>
+        <a class="route-card current" id="mapCase1Card" href="case1.html#run-station">
+          <span class="route-number">2</span>
+          <p class="route-card-title">Case 1</p>
+          <p class="route-card-detail" id="mapCase1Detail">Run the station aloud.</p>
+        </a>
+        <a class="route-card repair" id="mapHintsCard" href="case1.html#confidence-check">
+          <span class="route-number">3</span>
+          <p class="route-card-title">Hints</p>
+          <p class="route-card-detail" id="mapHintsDetail">Fix one missed point.</p>
+        </a>
+        <a class="route-card" href="index.html">
+          <span class="route-number">4</span>
+          <p class="route-card-title">Home</p>
+          <p class="route-card-detail">Return to command centre.</p>
+        </a>
+      </nav>
     </section>
+
+    <details class="curriculum-drawer">
+      <summary>Level 2 - full curriculum tree <span class="summary-note">Open when you need the broader ladder.</span></summary>
+      <section class="map-shell" aria-label="Study map tree">
+        <div class="map-tools">
+          <h2 class="map-tools-title">Curriculum tree</h2>
+          <div class="tool-buttons">
+            <button class="tool-button" type="button" id="futureToggle">Show future curriculum</button>
+            <button class="tool-button" type="button" id="expandAll">Open all</button>
+            <button class="tool-button" type="button" id="collapseAll">Close all</button>
+          </div>
+        </div>
+        <p class="focus-note" id="focusNote">Focus Mode is on. Showing the current path only.</p>
+
+        <section class="tree" id="treeRoot"></section>
+      </section>
+    </details>
 
     <footer class="footer-card">
       <strong>© 2026 Dr. Ushana Yalda. All rights reserved.</strong><br />
@@ -621,6 +808,7 @@
     </footer>
   </main>
 
+  <script src="progress.js"></script>
   <script>
     const phases = [
       {
@@ -728,6 +916,7 @@
     ];
 
     function stateClass(state) {
+      if (state === "In progress") return "current";
       if (state === "Current") return "current";
       if (state === "Available") return "available";
       if (state === "Reserve") return "reserve";
@@ -743,8 +932,20 @@
       return "○";
     }
 
+    function displayIconForState(state) {
+      if (state === "In progress") return "●";
+      return iconForState(state);
+    }
+
+    function isCase1Row(row) {
+      return row.title && row.title.indexOf("Case 1") === 0 && row.title.indexOf("Classic Chest Pain") > -1;
+    }
+
     function createRow(row) {
-      const state = row.state || "Locked";
+      const progress = window.AMCProgress;
+      const hasProgress = progress && progress.hasResume();
+      const resume = progress ? progress.readResume() : null;
+      const state = isCase1Row(row) && hasProgress ? "In progress" : row.state || "Locked";
       const cls = stateClass(state);
       const tag = row.href ? "a" : "div";
       const element = document.createElement(tag);
@@ -752,7 +953,7 @@
       element.className = "tree-row row-" + cls;
 
       if (row.href) {
-        element.href = row.href;
+        element.href = isCase1Row(row) && resume ? resume.href : row.href;
       } else {
         element.onclick = function () {
           alert(row.title + "\n\n" + state);
@@ -761,13 +962,50 @@
 
       element.innerHTML = `
         <div class="row-left">
-          <span class="row-icon icon-${cls}">${iconForState(state)}</span>
+          <span class="row-icon icon-${cls}">${displayIconForState(state)}</span>
           <span class="row-title">${row.title}</span>
         </div>
         <span class="status-chip chip-${cls}">${state}</span>
       `;
 
       return element;
+    }
+
+    function updateMapProgress() {
+      const progress = window.AMCProgress;
+      if (!progress) return;
+
+      const hasProgress = progress.hasResume();
+      const resume = progress.readResume();
+      const stats = progress.hintStats();
+      const nextHint = progress.nextHint();
+      const routeStatus = document.getElementById("mapRouteStatus");
+      const caseCard = document.getElementById("mapCase1Card");
+      const caseDetail = document.getElementById("mapCase1Detail");
+      const hintsCard = document.getElementById("mapHintsCard");
+      const hintsDetail = document.getElementById("mapHintsDetail");
+
+      if (routeStatus) {
+        routeStatus.textContent = hasProgress ? "Case 1 in progress" : "Case 1 is active";
+      }
+
+      if (caseCard) {
+        caseCard.href = hasProgress ? resume.href : "case1.html#run-station";
+      }
+
+      if (caseDetail) {
+        caseDetail.textContent = hasProgress ? "Resume: " + resume.label : "Run the station aloud.";
+      }
+
+      if (hintsCard) {
+        hintsCard.href = nextHint ? "case1.html#next-weak-point" : "case1.html#confidence-check";
+      }
+
+      if (hintsDetail) {
+        hintsDetail.textContent = stats.fixed || stats.practised
+          ? progress.progressLabel()
+          : "Fix one missed point.";
+      }
     }
 
     let showFutureCurriculum = false;
@@ -834,6 +1072,17 @@
     }
 
     renderTree();
+    updateMapProgress();
+
+    window.addEventListener("storage", () => {
+      renderTree();
+      updateMapProgress();
+    });
+
+    window.addEventListener("amc:progress-updated", () => {
+      renderTree();
+      updateMapProgress();
+    });
 
     const expandAllButton = document.getElementById("expandAll");
     const collapseAllButton = document.getElementById("collapseAll");
@@ -844,19 +1093,20 @@
     });
 
     expandAllButton.addEventListener("click", () => {
-      document.querySelectorAll("details").forEach((item) => {
+      treeRoot.querySelectorAll("details").forEach((item) => {
         item.open = true;
       });
     });
 
     collapseAllButton.addEventListener("click", () => {
-      document.querySelectorAll("details").forEach((item) => {
+      treeRoot.querySelectorAll("details").forEach((item) => {
         item.open = false;
       });
 
-      const firstSection = document.querySelector("details");
+      const firstSection = treeRoot.querySelector("details");
       if (firstSection) firstSection.open = true;
     });
   </script>
+  <script src="accessibility.js"></script>
 </body>
 </html>

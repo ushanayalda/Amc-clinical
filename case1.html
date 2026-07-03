@@ -19,6 +19,8 @@
       --red-soft: #FFF3F1;
       --amber: #A85013;
       --amber-soft: #FFF8EE;
+      --green: #24734A;
+      --green-soft: #EFFAF3;
       --border: #D5DAE3;
       --line: #D7DCE5;
       --shadow: 0 18px 42px rgba(16, 24, 40, 0.08);
@@ -289,6 +291,60 @@
     .station-step.action:focus-visible {
       border-color: rgba(138, 31, 31, 0.4);
       background: var(--red-soft);
+    }
+
+    .resume-rail {
+      margin: -12px 0 20px;
+      border: 1px solid rgba(23, 62, 122, 0.16);
+      border-radius: 14px;
+      background: #FBFCFE;
+      padding: 11px 13px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .resume-rail-kicker {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .resume-rail-main {
+      margin: 0;
+      color: var(--blue);
+      font-size: 15px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+
+    .resume-rail-main span {
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .resume-rail-action,
+    .hint-next-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      border: 1px solid rgba(36, 115, 74, 0.28);
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 9px 13px;
+      font-size: 13px;
+      line-height: 1.15;
+      font-weight: 850;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
     }
 
     .station-panel {
@@ -1071,30 +1127,77 @@
       font-weight: 650;
     }
 
+    .full-layer-status {
+      margin: 0 0 10px;
+      border: 1px solid rgba(23, 62, 122, 0.16);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .full-layer-status strong {
+      color: var(--blue);
+      font-size: 15px;
+      line-height: 1.2;
+      font-weight: 850;
+    }
+
+    .full-layer-status span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 760;
+      text-align: right;
+    }
+
     .full-menu {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 6px;
+      counter-reset: fullLayer;
     }
 
     .full-menu-button {
       display: grid;
-      gap: 5px;
-      min-height: 72px;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 4px 7px;
+      min-height: 58px;
+      align-items: center;
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 13px;
+      border-radius: 13px;
+      padding: 9px 10px;
       background: #FFFFFF;
       color: var(--ink);
       text-decoration: none;
-      font-size: 15px;
+      font-size: 13px;
       line-height: 1.2;
       font-weight: 820;
     }
 
-    .full-menu-button span {
-      color: var(--muted);
+    .full-menu-button::before {
+      counter-increment: fullLayer;
+      content: counter(fullLayer);
+      grid-row: 1 / span 2;
+      display: inline-grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #EDF1F7;
+      color: var(--blue);
       font-size: 12px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .full-menu-button span {
+      grid-column: 2;
+      color: var(--muted);
+      font-size: 11px;
       line-height: 1.25;
       font-weight: 650;
     }
@@ -1106,6 +1209,13 @@
       background: var(--blue-soft);
       color: var(--blue);
       outline: none;
+    }
+
+    .full-menu-button.active::before,
+    .full-menu-button:hover::before,
+    .full-menu-button:focus-visible::before {
+      background: var(--blue);
+      color: #FFFFFF;
     }
 
     .full-menu-button.active span,
@@ -1120,6 +1230,36 @@
 
     .station-panel.full-pack-item.active.full-item-active {
       display: block;
+      margin-top: 12px;
+      border: 1px solid #DCE2EC;
+      border-radius: 16px;
+      padding: 14px;
+      background: #FBFCFE;
+      scroll-margin-top: 108px;
+    }
+
+    .station-panel.full-pack-item.active.full-item-active > summary,
+    #full-must-say.full-item-active .section-title {
+      display: none;
+    }
+
+    .station-panel.full-pack-item.full-item-active .hidden-body {
+      padding: 0;
+    }
+
+    .station-panel.full-pack-item .hidden-body {
+      display: grid;
+      gap: 10px;
+    }
+
+    #full-doctor-thinking .hidden-body,
+    #full-examiner-lines .hidden-body,
+    #full-sources .hidden-body,
+    #full-practice-drill .hidden-body,
+    #full-must-say .must-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
     }
 
     .must-box,
@@ -1131,8 +1271,72 @@
       background: #FFFFFF;
     }
 
+    #full-must-say .must-box {
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+    }
+
+    .station-panel.full-pack-item .hidden-body > p,
+    #full-must-say .must-box > p,
+    #full-practice-drill .drill-block {
+      margin: 0;
+      border: 1px solid #DCE2EC;
+      border-left: 5px solid var(--blue);
+      border-radius: 14px;
+      padding: 11px 12px;
+      background: #FFFFFF;
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.42;
+      font-weight: 560;
+    }
+
+    .station-panel.full-pack-item .hidden-body > p::first-line {
+      color: var(--blue);
+      font-weight: 850;
+    }
+
     .must-box p {
-      margin-bottom: 8px;
+      margin-bottom: 0;
+      border-left-color: var(--red);
+      background: var(--red-soft);
+      color: var(--red);
+      font-weight: 820;
+    }
+
+    #full-practice-drill .drill-block {
+      border-left-color: var(--amber);
+      background: #FFFFFF;
+    }
+
+    #full-timed-run .hidden-body {
+      max-height: min(70vh, 680px);
+      overflow: auto;
+      border: 1px solid #DCE2EC;
+      border-radius: 16px;
+      padding: 12px;
+      background: #FFFFFF;
+      scrollbar-gutter: stable;
+    }
+
+    #full-timed-run .hidden-body > p {
+      width: min(100%, 760px);
+      border-left-color: var(--blue);
+      background: var(--doctor-bg);
+    }
+
+    #full-timed-run .hidden-body > p.full-line-patient {
+      justify-self: end;
+      border-left-color: var(--line);
+      background: var(--patient-bg);
+      color: var(--ink);
+    }
+
+    #full-timed-run .hidden-body > p.full-line-patient::first-line {
+      color: var(--muted);
     }
 
     .drill-title {
@@ -1183,9 +1387,88 @@
 
     .focus-routing {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 9px;
+      gap: 12px;
       margin: 16px 0 20px;
+    }
+
+    .hint-progress {
+      margin: 12px 0 8px;
+      border: 1px solid rgba(23, 62, 122, 0.16);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: #FBFCFE;
+      display: grid;
+      gap: 8px;
+    }
+
+    .hint-progress-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hint-progress-text {
+      margin: 0;
+      color: var(--blue);
+      font-size: 14px;
+      line-height: 1.25;
+      font-weight: 850;
+    }
+
+    .hint-next-button {
+      min-height: 34px;
+      padding: 7px 11px;
+      font-size: 12px;
+    }
+
+    .hint-progress-meter {
+      height: 7px;
+      border-radius: 999px;
+      background: #E7ECF4;
+      overflow: hidden;
+    }
+
+    .hint-progress-meter span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+      transition: width 180ms ease;
+    }
+
+    .focus-complete {
+      display: grid;
+    }
+
+    .focus-route-groups {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      align-items: start;
+    }
+
+    .focus-route-group {
+      border: 1px solid #DCE2EC;
+      border-radius: 14px;
+      padding: 12px;
+      background: #FFFFFF;
+    }
+
+    .focus-route-title {
+      margin: 0 0 9px;
+      color: var(--blue);
+      font-size: 12px;
+      line-height: 1.15;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .focus-route-stack {
+      display: grid;
+      gap: 8px;
     }
 
     .focus-route-item {
@@ -1200,6 +1483,12 @@
       font-size: 16px;
       line-height: 1.35;
       cursor: pointer;
+    }
+
+    .focus-complete .focus-route-item {
+      border-left: 5px solid var(--blue);
+      background: #FFFFFF;
+      font-weight: 760;
     }
 
     .confidence-mini-grid {
@@ -1252,6 +1541,38 @@
       margin-bottom: 5px;
     }
 
+    .confidence-extra {
+      margin: 14px 0 0;
+      border: 1px solid #DCE2EC;
+      border-radius: 14px;
+      background: #FBFCFE;
+      overflow: hidden;
+    }
+
+    .confidence-extra summary {
+      list-style: none;
+      cursor: pointer;
+      color: var(--blue);
+      padding: 12px 14px;
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .confidence-extra summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .confidence-extra-body {
+      padding: 0 14px 14px;
+    }
+
+    .confidence-extra:not([open]) .confidence-extra-body {
+      display: none;
+    }
+
     .focus-route-item input {
       margin-top: 4px;
       accent-color: var(--blue);
@@ -1271,11 +1592,62 @@
       font-weight: 800;
     }
 
+    .focus-route-item.hint-practised {
+      border-color: rgba(168, 80, 19, 0.28);
+      background: var(--amber-soft);
+    }
+
+    .focus-route-item.hint-fixed {
+      border-color: rgba(36, 115, 74, 0.28);
+      background: var(--green-soft);
+    }
+
+    .focus-route-item.hint-practised::after,
+    .focus-route-item.hint-fixed::after {
+      grid-column: 2;
+      justify-self: start;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+      line-height: 1.3;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .focus-route-item.hint-practised::after {
+      content: "practised";
+      background: #FFF1DE;
+      color: var(--amber);
+    }
+
+    .focus-route-item.hint-fixed::after {
+      content: "fixed";
+      background: var(--green);
+      color: #FFFFFF;
+    }
+
     #confidence-check.repair-active .focus-route-item:not(.chosen-route),
+    #confidence-check.repair-active .focus-complete,
+    #confidence-check.repair-active .focus-route-group:not(:has(.chosen-route)),
+    #confidence-check.repair-active .focus-route-title,
     #confidence-check.repair-active p.map-label,
+    #confidence-check.repair-active .hint-progress,
     #confidence-check.repair-active .confidence-mini-grid,
-    #confidence-check.repair-active .confidence-next {
+    #confidence-check.repair-active .confidence-next,
+    #confidence-check.repair-active .confidence-feedback,
+    #confidence-check.repair-active .confidence-extra {
       display: none;
+    }
+
+    #confidence-check.repair-active .focus-route-groups {
+      grid-template-columns: 1fr;
+    }
+
+    #confidence-check.repair-active .focus-route-group:has(.chosen-route) {
+      border: 0;
+      padding: 0;
+      background: transparent;
     }
 
     .confidence-actions {
@@ -1294,13 +1666,28 @@
       display: inline-flex;
     }
 
-    #confidence-check.repair-active .confidence-check-button {
-      display: none;
-    }
-
     .focus-pack {
       display: grid;
       gap: 14px;
+    }
+
+    #focusPack.station-panel.active:not([open]) {
+      display: none;
+    }
+
+    #confidence-check.repair-active + #focusPack {
+      margin-top: 12px;
+      border: 0;
+      background: transparent;
+      overflow: visible;
+    }
+
+    #confidence-check.repair-active + #focusPack > summary {
+      display: none;
+    }
+
+    #confidence-check.repair-active + #focusPack .hidden-body {
+      padding: 0;
     }
 
     .focus-point {
@@ -1314,6 +1701,8 @@
 
     .focus-point.active {
       display: block;
+      border-left-color: var(--red);
+      box-shadow: 0 14px 34px rgba(16, 24, 40, 0.08);
     }
 
     .focus-point h4 {
@@ -1351,6 +1740,28 @@
       font-weight: 800;
     }
 
+    .focus-point.active .focus-row.say {
+      margin: 10px 0;
+      border: 1px solid rgba(23, 62, 122, 0.18);
+      border-radius: 12px;
+      padding: 12px;
+      background: var(--blue-soft);
+    }
+
+    .focus-point.active .focus-row.say dt {
+      color: var(--blue);
+    }
+
+    .focus-point.active .focus-row.say dd {
+      font-size: 18px;
+      line-height: 1.35;
+      font-weight: 850;
+    }
+
+    .focus-point.active .focus-row:has(.return-link) {
+      display: none;
+    }
+
     .return-link {
       display: inline-flex;
       align-items: center;
@@ -1364,6 +1775,75 @@
       line-height: 1.2;
       font-weight: 820;
       text-decoration: none;
+    }
+
+    .repair-loop {
+      margin-top: 12px;
+      border: 1px solid rgba(36, 115, 74, 0.22);
+      border-radius: 14px;
+      padding: 10px;
+      background: var(--green-soft);
+      display: grid;
+      gap: 8px;
+    }
+
+    .repair-loop-actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .repair-loop-button {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(36, 115, 74, 0.26);
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--green);
+      padding: 9px 10px;
+      font-size: 14px;
+      line-height: 1.15;
+      font-weight: 850;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .repair-loop-button.primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #FFFFFF;
+    }
+
+    .repair-loop-button.done {
+      background: var(--green);
+      border-color: var(--green);
+      color: #FFFFFF;
+    }
+
+    .repair-loop-status {
+      margin: 0;
+      color: var(--green);
+      font-size: 13px;
+      line-height: 1.3;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .focus-point.repair-practise .focus-row.say {
+      border-color: rgba(36, 115, 74, 0.36);
+      background: var(--green-soft);
+      box-shadow: 0 0 0 4px rgba(36, 115, 74, 0.08);
+    }
+
+    .focus-point.repair-done {
+      border-left-color: var(--green);
+    }
+
+    .focus-point.repair-done .repair-loop {
+      border-color: rgba(36, 115, 74, 0.4);
     }
 
 
@@ -1469,6 +1949,18 @@
         min-height: 0;
       }
 
+      .resume-rail,
+      .hint-progress-head {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .resume-rail-action,
+      .hint-next-button {
+        width: 100%;
+        white-space: normal;
+      }
+
       .memory-route {
         grid-template-columns: 1fr;
       }
@@ -1497,10 +1989,45 @@
 
       .reading-grid,
       .focus-routing,
+      .focus-route-groups,
       .confidence-mini-grid,
       .confidence-next,
-      .full-menu {
+      .repair-loop-actions {
         grid-template-columns: 1fr;
+      }
+
+      .full-layer-status {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .full-layer-status span {
+        text-align: left;
+      }
+
+      .full-menu {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scroll-snap-type: x proximity;
+      }
+
+      .full-menu-button {
+        flex: 0 0 156px;
+        min-height: 54px;
+        scroll-snap-align: start;
+      }
+
+      #full-doctor-thinking .hidden-body,
+      #full-examiner-lines .hidden-body,
+      #full-sources .hidden-body,
+      #full-practice-drill .hidden-body,
+      #full-must-say .must-box {
+        grid-template-columns: 1fr;
+      }
+
+      #full-timed-run .hidden-body > p {
+        width: 100%;
       }
 
       p,
@@ -1522,6 +2049,7 @@
 
     }
   </style>
+  <link rel="stylesheet" href="accessibility.css" />
 </head>
 
 <body>
@@ -1598,6 +2126,14 @@
           <span class="station-step-text"><strong>Full pack</strong><span class="station-step-detail">Thinking, drill, sources.</span></span>
         </button>
       </nav>
+
+      <aside class="resume-rail" aria-label="Saved Case 1 place">
+        <div>
+          <p class="resume-rail-kicker">Saved place</p>
+          <p class="resume-rail-main"><strong id="caseResumeLabel">Door note</strong> <span id="caseResumeDetail">Stem only</span></p>
+        </div>
+        <a class="resume-rail-action" id="caseNextWeakPoint" href="#next-weak-point">Next weak point</a>
+      </aside>
 
       <section class="section station-panel active" id="section-1" data-station-panel="door">
         <h3 class="section-title">Section 1 - Station Stem</h3>
@@ -2170,6 +2706,10 @@
       <section class="section station-panel full-library" id="full-pack" data-station-panel="full">
         <h3 class="section-title">Full Pack</h3>
         <p class="full-subline">Open one layer.</p>
+        <div class="full-layer-status" aria-live="polite">
+          <strong id="fullLayerName">Must-say lines</strong>
+          <span id="fullLayerDetail">Core lines | 8 cards</span>
+        </div>
         <div class="full-menu" aria-label="Full pack layers">
           <a class="full-menu-button active" href="#full-must-say" data-full-target="full-must-say">Must-say lines<span>Core lines</span></a>
           <a class="full-menu-button" href="#full-doctor-thinking" data-full-target="full-doctor-thinking">Doctor thinking<span>Reasoning layer</span></a>
@@ -2308,52 +2848,86 @@
 
         <p>Pick one line. Get one hint.</p>
 
+        <div class="hint-progress" id="hintProgress" aria-label="Saved hint progress">
+          <div class="hint-progress-head">
+            <p class="hint-progress-text" id="hintProgressText">No fixes saved yet.</p>
+            <a class="hint-next-button" id="hintNextWeakPoint" href="#next-weak-point">Next weak point</a>
+          </div>
+          <div class="hint-progress-meter" aria-hidden="true"><span id="hintProgressMeter"></span></div>
+        </div>
+
         <div class="focus-routing" aria-label="Case hint routing">
-          <label class="focus-route-item"><input type="radio" name="confidence" value="completed"> I completed this well.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="missed-diagnosis"> I did not recognise the heart risk.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="technical-language"> I used too many medical words.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="dangerous-alternatives"> I did not mention another serious cause.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="focused-danger-questions"> I did not ask the danger questions.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="decision-point"> I did not say why I acted now.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="first-action"> I did not call the ambulance early.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="escalation"> I did not make ambulance transfer clear.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="delayed-transfer-tests"> I waited for tests before transfer.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="medication-safety"> I did not check medicine safety.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="safety-net"> I did not give warning signs.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="understanding-check"> I did not check patient understanding.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="ran-over-time"> I ran out of time.</label>
-          <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="something-else"> Something else.</label>
+          <div class="focus-complete">
+            <label class="focus-route-item"><input type="radio" name="confidence" value="completed"> I completed this well.</label>
+          </div>
+
+          <div class="focus-route-groups">
+            <section class="focus-route-group" aria-label="Recognise danger">
+              <p class="focus-route-title">Recognise danger</p>
+              <div class="focus-route-stack">
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="missed-diagnosis"> I did not recognise the heart risk.</label>
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="dangerous-alternatives"> I did not mention another serious cause.</label>
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="focused-danger-questions"> I did not ask the danger questions.</label>
+              </div>
+            </section>
+
+            <section class="focus-route-group" aria-label="Explain and act">
+              <p class="focus-route-title">Explain and act</p>
+              <div class="focus-route-stack">
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="technical-language"> I used too many medical words.</label>
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="decision-point"> I did not say why I acted now.</label>
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="first-action"> I did not call the ambulance early.</label>
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="escalation"> I did not make ambulance transfer clear.</label>
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="delayed-transfer-tests"> I waited for tests before transfer.</label>
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="medication-safety"> I did not check medicine safety.</label>
+              </div>
+            </section>
+
+            <section class="focus-route-group" aria-label="Safety, time, close">
+              <p class="focus-route-title">Safety, time, close</p>
+              <div class="focus-route-stack">
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="safety-net"> I did not give warning signs.</label>
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="understanding-check"> I did not check patient understanding.</label>
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="ran-over-time"> I ran out of time.</label>
+                <label class="focus-route-item"><input type="radio" name="confidence" value="missed" data-focus="something-else"> Something else.</label>
+              </div>
+            </section>
+          </div>
         </div>
 
         <div class="confidence-actions">
-          <button class="button confidence-check-button" type="button" onclick="handleConfidence()">Open hint</button>
           <button class="button confidence-reset" type="button" onclick="resetConfidenceRepair()">Back to checklist</button>
         </div>
 
         <div class="confidence-feedback" id="confidenceFeedback"></div>
 
-        <p class="map-label">Quick self-check</p>
-        <div class="confidence-mini-grid" aria-label="Quick self-check questions">
-          <p>Did I recognise possible acute coronary syndrome?</p>
-          <p>Did I use everyday patient language?</p>
-          <p>Did I ask the focused danger questions?</p>
-          <p>Did I name the four causes not to miss?</p>
-          <p>Did I state the Decision Point clearly?</p>
-          <p>Did I arrange ambulance transfer in General Practice?</p>
-          <p>Did I avoid delaying transfer for troponin?</p>
-          <p>Did I finish the full timed run?</p>
-        </div>
+        <details class="confidence-extra">
+          <summary>Quick self-check</summary>
+          <div class="confidence-extra-body">
+            <p class="map-label">Quick self-check</p>
+            <div class="confidence-mini-grid" aria-label="Quick self-check questions">
+              <p>Did I recognise possible acute coronary syndrome?</p>
+              <p>Did I use everyday patient language?</p>
+              <p>Did I ask the focused danger questions?</p>
+              <p>Did I name the four causes not to miss?</p>
+              <p>Did I state the Decision Point clearly?</p>
+              <p>Did I arrange ambulance transfer in General Practice?</p>
+              <p>Did I avoid delaying transfer for troponin?</p>
+              <p>Did I finish the full timed run?</p>
+            </div>
 
-        <div class="confidence-next" aria-label="Case hint next step">
-          <div class="confidence-next-block">
-            <p class="map-label">If Completed Well</p>
-            <p>Continue to Case 2.</p>
+            <div class="confidence-next" aria-label="Case hint next step">
+              <div class="confidence-next-block">
+                <p class="map-label">If Completed Well</p>
+                <p>Continue to Case 2.</p>
+              </div>
+              <div class="confidence-next-block repair">
+                <p class="map-label">Need a Hint?</p>
+                <p>Pick one line above. One hint opens below.</p>
+              </div>
+            </div>
           </div>
-          <div class="confidence-next-block repair">
-            <p class="map-label">Need a Hint?</p>
-            <p>Pick one line above. One hint opens below.</p>
-          </div>
-        </div>
+        </details>
 
       </section>
 
@@ -2708,6 +3282,7 @@
     </div>
   </main>
 
+  <script src="progress.js"></script>
   <script>
     let currentScriptPhase = 0;
     let currentFullItemId = "full-must-say";
@@ -2834,6 +3409,150 @@
       "#full-sources": "full-sources"
     };
 
+    const fullLayerMeta = {
+      "full-must-say": { name: "Must-say lines", label: "Core lines" },
+      "full-doctor-thinking": { name: "Doctor thinking", label: "Reasoning layer" },
+      "full-examiner-lines": { name: "Examiner lines", label: "Exam language" },
+      "full-practice-drill": { name: "Practice drill", label: "Compression drills" },
+      "full-timed-run": { name: "Full timed run", label: "Complete script" },
+      "full-sources": { name: "Sources", label: "Reference list" }
+    };
+
+    const hintStorageKey = "amc.case1.hintProgress.v1";
+    const hintProgress = loadHintProgress();
+
+    const stationResumeMeta = {
+      door: { label: "Door note", detail: "Stem only", href: "case1.html#door-note" },
+      map: { label: "Brain map", detail: "Danger route", href: "case1.html#brain-map" },
+      run: { label: "Run station", detail: "Station practice", href: "case1.html#run-station" },
+      check: { label: "Hints", detail: "Fix one missed point", href: "case1.html#confidence-check" },
+      full: { label: "Full pack", detail: "Thinking, drill, sources", href: "case1.html#full-pack" }
+    };
+
+    function loadHintProgress() {
+      try {
+        return JSON.parse(window.localStorage.getItem(hintStorageKey)) || {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveHintProgress() {
+      try {
+        window.localStorage.setItem(hintStorageKey, JSON.stringify(hintProgress));
+        window.dispatchEvent(new CustomEvent("amc:progress-updated", { detail: { type: "hint-progress" } }));
+      } catch (error) {
+        return;
+      }
+    }
+
+    function saveCasePlace(section, update) {
+      if (!window.AMCProgress) return;
+
+      const meta = stationResumeMeta[section] || stationResumeMeta.run;
+      window.AMCProgress.saveResume(Object.assign({}, meta, { section }, update || {}));
+      updateCaseResumeDisplay();
+    }
+
+    function updateCaseResumeDisplay() {
+      const progress = window.AMCProgress;
+      const resume = progress ? progress.readResume() : stationResumeMeta.door;
+      const nextHint = progress ? progress.nextHint() : null;
+      const label = document.getElementById("caseResumeLabel");
+      const detail = document.getElementById("caseResumeDetail");
+      const nextButtons = document.querySelectorAll("#caseNextWeakPoint, #hintNextWeakPoint");
+
+      if (label) {
+        label.textContent = resume.label || "Door note";
+      }
+
+      if (detail) {
+        detail.textContent = resume.detail || "Stem only";
+      }
+
+      nextButtons.forEach((button) => {
+        button.textContent = nextHint ? "Next weak point: " + nextHint.label : "All hints fixed";
+        button.href = nextHint ? "#next-weak-point" : "#run-station";
+      });
+    }
+
+    function updateHintProgressDisplay() {
+      const routeInputs = Array.from(document.querySelectorAll('input[name="confidence"][data-focus]'));
+      const progressText = document.getElementById("hintProgressText");
+      const progressMeter = document.getElementById("hintProgressMeter");
+      const total = routeInputs.length;
+      let fixedCount = 0;
+      let practisedCount = 0;
+
+      routeInputs.forEach((input) => {
+        const item = input.closest(".focus-route-item");
+        const status = hintProgress[input.dataset.focus];
+        if (!item) return;
+
+        item.classList.toggle("hint-practised", status === "Line practised");
+        item.classList.toggle("hint-fixed", status === "Fixed once");
+
+        if (status === "Fixed once") {
+          fixedCount += 1;
+        } else if (status === "Line practised") {
+          practisedCount += 1;
+        }
+      });
+
+      if (progressText) {
+        progressText.textContent = fixedCount || practisedCount
+          ? fixedCount + " fixed | " + practisedCount + " practised | " + Math.max(total - fixedCount - practisedCount, 0) + " open"
+          : "No fixes saved yet.";
+      }
+
+      if (progressMeter) {
+        const progressScore = total ? ((fixedCount + practisedCount * 0.5) / total) * 100 : 0;
+        progressMeter.style.width = Math.min(progressScore, 100) + "%";
+      }
+
+      updateCaseResumeDisplay();
+    }
+
+    function getFullLayerCount(itemId) {
+      const item = document.getElementById(itemId);
+      if (!item) return 0;
+      if (itemId === "full-must-say") {
+        return item.querySelectorAll(".must-box > p").length;
+      }
+      if (itemId === "full-practice-drill") {
+        return item.querySelectorAll(".drill-block").length;
+      }
+      return item.querySelectorAll(".hidden-body > p").length;
+    }
+
+    function updateFullLayerStatus(itemId) {
+      const meta = fullLayerMeta[itemId] || fullLayerMeta["full-must-say"];
+      const name = document.getElementById("fullLayerName");
+      const detail = document.getElementById("fullLayerDetail");
+      const count = getFullLayerCount(itemId);
+
+      if (name) {
+        name.textContent = meta.name;
+      }
+
+      if (detail) {
+        detail.textContent = meta.label + " | " + count + " cards";
+      }
+    }
+
+    function enhanceFullPackItems() {
+      document.querySelectorAll(".station-panel.full-pack-item .hidden-body > p, #full-must-say .must-box > p").forEach((line) => {
+        line.classList.add("full-pack-card");
+      });
+
+      document.querySelectorAll("#full-timed-run .hidden-body > p").forEach((line) => {
+        const text = line.textContent.trim();
+        line.classList.add("full-dialogue-line");
+        line.classList.toggle("full-line-patient", text.startsWith("Patient:"));
+        line.classList.toggle("full-line-candidate", !text.startsWith("Patient:"));
+      });
+    }
+
     function showFullItem(itemId, shouldScroll) {
       currentFullItemId = itemId || "full-must-say";
 
@@ -2849,11 +3568,23 @@
         button.classList.toggle("active", button.dataset.fullTarget === currentFullItemId);
       });
 
+      updateFullLayerStatus(currentFullItemId);
+
       if (shouldScroll) {
         const selectedItem = document.getElementById(currentFullItemId);
         if (selectedItem) {
           selectedItem.scrollIntoView({ behavior: "smooth", block: "start" });
         }
+      }
+
+      const fullPanel = document.getElementById("full-pack");
+      if (fullPanel && fullPanel.classList.contains("active")) {
+        const meta = fullLayerMeta[currentFullItemId] || fullLayerMeta["full-must-say"];
+        saveCasePlace("full", {
+          detail: meta.name,
+          href: "case1.html#" + currentFullItemId,
+          fullItemId: currentFullItemId
+        });
       }
     }
 
@@ -2877,6 +3608,10 @@
         showFullItem(currentFullItemId);
       }
 
+      if (target !== "run" && target !== "full") {
+        saveCasePlace(target);
+      }
+
       if (control) {
         const path = document.querySelector(".station-path");
         if (path) {
@@ -2895,22 +3630,37 @@
         "#run-station": "run",
         "#confidence-check": "check",
         "#focusPack": "check",
-        "#repair": "check"
+        "#repair": "check",
+        "#next-weak-point": "check"
       };
 
       const beatIndex = beatHashMap[window.location.hash];
       const fullItemId = fullHashMap[window.location.hash];
-      const target = typeof beatIndex === "number" ? "run" : fullItemId ? "full" : hashMap[window.location.hash] || "door";
+      const savedResume = window.AMCProgress && window.AMCProgress.hasResume() ? window.AMCProgress.readResume() : null;
+      const savedTarget = savedResume && stationResumeMeta[savedResume.section] ? savedResume.section : "door";
+      const target = typeof beatIndex === "number" ? "run" : fullItemId ? "full" : hashMap[window.location.hash] || savedTarget;
 
       if (typeof beatIndex === "number") {
         currentScriptPhase = beatIndex;
+      } else if (!window.location.hash && savedResume && typeof savedResume.beatIndex === "number") {
+        currentScriptPhase = savedResume.beatIndex;
       }
 
       if (fullItemId) {
         currentFullItemId = fullItemId;
+      } else if (!window.location.hash && savedResume && savedResume.fullItemId) {
+        currentFullItemId = savedResume.fullItemId;
       }
 
       showStationPanel(target);
+
+      if (window.location.hash === "#next-weak-point") {
+        window.setTimeout(openNextWeakPoint, 0);
+      } else if (!window.location.hash && savedResume && savedResume.section === "check" && savedResume.hintId) {
+        window.setTimeout(() => {
+          openHintById(savedResume.hintId);
+        }, 0);
+      }
 
       if (typeof beatIndex === "number") {
         window.setTimeout(() => {
@@ -2975,6 +3725,13 @@
         document.querySelectorAll("#chatScript > [data-phase-index]").forEach((item) => {
           item.classList.remove("phase-hidden");
         });
+        if (runSection.classList.contains("active")) {
+          saveCasePlace("run", {
+            detail: "Full practice run",
+            href: "case1.html#run-station",
+            beatIndex: currentScriptPhase
+          });
+        }
         return;
       }
 
@@ -2985,6 +3742,15 @@
       document.querySelectorAll(".phase-button").forEach((button, buttonIndex) => {
         button.classList.toggle("active", buttonIndex === index);
       });
+
+      if (runSection && runSection.classList.contains("active")) {
+        const meta = beatMeta[index] || {};
+        saveCasePlace("run", {
+          detail: "Beat " + (index + 1) + " - " + (meta.title || "Station beat"),
+          href: "case1.html#run-beat-" + (index + 1),
+          beatIndex: index
+        });
+      }
     }
 
     function updateBeatStepper(index) {
@@ -3122,6 +3888,12 @@
         });
         hideCandidateLines();
         setRecoveryText("Run Station - Full practice run", "Say the candidate lines from memory.", "Use Hints for one missed point.");
+        saveCasePlace("run", {
+          detail: "Full practice run",
+          href: "case1.html#run-station",
+          beatIndex: currentScriptPhase,
+          mode: "practice"
+        });
       } else if (mode === "exam") {
         startExamTimer();
         applyScriptPhase(currentScriptPhase);
@@ -3135,7 +3907,101 @@
 
     function clearFocusPoints() {
       const points = document.querySelectorAll(".focus-point");
-      points.forEach((point) => point.classList.remove("active"));
+      points.forEach((point) => point.classList.remove("active", "repair-practise", "repair-done"));
+    }
+
+    function openHintById(targetId) {
+      const input = document.querySelector('input[name="confidence"][data-focus="' + targetId + '"]');
+      if (!input) return false;
+
+      showStationPanel("check");
+      input.checked = true;
+      handleConfidence();
+      return true;
+    }
+
+    function openNextWeakPoint() {
+      const nextHint = window.AMCProgress ? window.AMCProgress.nextHint() : null;
+      const feedback = document.getElementById("confidenceFeedback");
+
+      if (nextHint && openHintById(nextHint.id)) {
+        return;
+      }
+
+      showStationPanel("check");
+      if (feedback) {
+        feedback.textContent = "All hints are marked fixed. Run the station again.";
+        feedback.classList.add("show");
+      }
+    }
+
+    function setHintProgress(point, targetId, status) {
+      hintProgress[targetId] = status;
+      saveHintProgress();
+      updateHintProgressDisplay();
+      const loop = point.querySelector(".repair-loop");
+      const statusText = loop ? loop.querySelector(".repair-loop-status") : null;
+
+      point.classList.toggle("repair-practise", status === "Line practised");
+      point.classList.toggle("repair-done", status === "Fixed once");
+
+      if (statusText) {
+        statusText.textContent = status;
+      }
+    }
+
+    function ensureHintLoop(point, targetId) {
+      let loop = point.querySelector(".repair-loop");
+
+      if (!loop) {
+        loop = document.createElement("div");
+        loop.className = "repair-loop";
+        loop.setAttribute("aria-label", "Hint actions");
+        loop.innerHTML = `
+          <div class="repair-loop-actions">
+            <button class="repair-loop-button primary" type="button" data-hint-action="practise">1. Practise line</button>
+            <a class="repair-loop-button" data-hint-action="run" href="#run-station">2. Run beat</a>
+            <button class="repair-loop-button done" type="button" data-hint-action="done">3. Mark fixed</button>
+          </div>
+          <p class="repair-loop-status" aria-live="polite">Not fixed</p>
+        `;
+        point.appendChild(loop);
+      }
+
+      const returnLink = point.querySelector(".return-link");
+      const runLink = loop.querySelector('[data-hint-action="run"]');
+      const practiseButton = loop.querySelector('[data-hint-action="practise"]');
+      const doneButton = loop.querySelector('[data-hint-action="done"]');
+      const returnHash = returnLink ? returnLink.getAttribute("href") : "#run-station";
+
+      if (runLink) {
+        runLink.href = returnHash || "#run-station";
+        runLink.textContent = returnHash === "#run-station" ? "2. Run station" : "2. Run beat";
+        runLink.onclick = function () {
+          const readButton = document.querySelector('.mode-button[data-mode="read"]');
+          if (readButton) {
+            setMode("read", readButton);
+          }
+        };
+      }
+
+      if (practiseButton) {
+        practiseButton.onclick = function () {
+          const sayRow = point.querySelector(".focus-row.say");
+          setHintProgress(point, targetId, "Line practised");
+          if (sayRow) {
+            sayRow.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        };
+      }
+
+      if (doneButton) {
+        doneButton.onclick = function () {
+          setHintProgress(point, targetId, "Fixed once");
+        };
+      }
+
+      setHintProgress(point, targetId, hintProgress[targetId] || "Not fixed");
     }
 
     function resetConfidenceRepair() {
@@ -3163,6 +4029,8 @@
       if (confidence) {
         confidence.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+
+      saveCasePlace("check");
     }
 
     function handleConfidence() {
@@ -3186,6 +4054,10 @@
         }
         feedback.textContent = "Good. Case 2 awaits transfer.";
         feedback.classList.add("show");
+        saveCasePlace("check", {
+          detail: "Completed well",
+          href: "case1.html#confidence-check"
+        });
         return;
       }
 
@@ -3203,24 +4075,44 @@
           selectedRoute.classList.add("chosen-route");
         }
         target.classList.add("active");
+        ensureHintLoop(target, targetId);
         focusPack.open = true;
-        feedback.textContent = "Say this line.";
+        saveCasePlace("check", {
+          detail: selectedRoute ? selectedRoute.textContent.replace(/\s+/g, " ").trim() : "One hint",
+          href: "case1.html#next-weak-point",
+          hintId: targetId
+        });
+        feedback.textContent = "";
+        feedback.classList.remove("show");
         target.scrollIntoView({ behavior: "smooth", block: "start" });
       } else {
         feedback.textContent = "Pick one line above. One hint opens below.";
+        feedback.classList.add("show");
       }
-
-      feedback.classList.add("show");
     }
 
     document.addEventListener("DOMContentLoaded", function () {
+      enhanceFullPackItems();
       initScriptPhases();
       initStationPanels();
+      updateHintProgressDisplay();
       window.addEventListener("hashchange", initStationPanels);
       document.querySelectorAll('input[name="confidence"]').forEach((input) => {
         input.addEventListener("change", handleConfidence);
       });
+      document.querySelectorAll("#caseNextWeakPoint, #hintNextWeakPoint").forEach((button) => {
+        button.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (window.location.hash !== "#next-weak-point") {
+            window.location.hash = "next-weak-point";
+            return;
+          }
+          openNextWeakPoint();
+        });
+      });
+      updateCaseResumeDisplay();
     });
   </script>
+  <script src="accessibility.js"></script>
 </body>
 </html>

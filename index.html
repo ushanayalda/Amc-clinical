@@ -255,6 +255,216 @@
       line-height: 1.25;
     }
 
+    .command-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .command-copy {
+      display: grid;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .command-status {
+      border: 1px solid var(--soft-line);
+      border-radius: var(--radius);
+      background: #F8FAFC;
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .status-title,
+    .command-label,
+    .route-label {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1;
+      text-transform: uppercase;
+      font-weight: 850;
+    }
+
+    .status-main {
+      margin: 0;
+      color: var(--navy);
+      font-size: 21px;
+      line-height: 1.15;
+      font-weight: 820;
+    }
+
+    .status-line {
+      margin: 0;
+      color: #475467;
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 620;
+    }
+
+    .resume-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      border-radius: var(--radius);
+      padding: 11px 14px;
+      background: var(--blue);
+      color: #FFFFFF;
+      border: 1px solid var(--blue);
+      font-size: 14px;
+      line-height: 1.15;
+      font-weight: 850;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .resume-button.secondary {
+      background: #FFFFFF;
+      color: var(--green);
+      border-color: rgba(6, 118, 71, 0.28);
+    }
+
+    .resume-mini-grid {
+      display: grid;
+      gap: 7px;
+    }
+
+    .resume-chip {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 8px 9px;
+      color: var(--navy);
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 760;
+    }
+
+    .hint-meter {
+      height: 8px;
+      border-radius: 999px;
+      background: #E4EAF2;
+      overflow: hidden;
+    }
+
+    .hint-meter span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+      transition: width 180ms ease;
+    }
+
+    .command-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .command-card {
+      min-height: 132px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      color: var(--ink);
+      padding: 13px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+      text-decoration: none;
+    }
+
+    .command-card.primary-command {
+      border-color: rgba(20, 85, 160, 0.24);
+      background: var(--blue);
+      color: #FFFFFF;
+    }
+
+    .command-card.repair-command {
+      border-color: rgba(6, 118, 71, 0.22);
+      background: var(--green-soft);
+    }
+
+    .command-card.map-command {
+      border-color: rgba(15, 118, 110, 0.2);
+      background: var(--teal-soft);
+    }
+
+    .command-number {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(20, 85, 160, 0.12);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .primary-command .command-number {
+      background: #FFFFFF;
+      color: var(--blue);
+    }
+
+    .command-title {
+      margin: 0;
+      color: inherit;
+      font-size: 18px;
+      line-height: 1.15;
+      font-weight: 850;
+    }
+
+    .command-detail {
+      margin: 0;
+      color: inherit;
+      opacity: 0.82;
+      font-size: 13px;
+      line-height: 1.3;
+      font-weight: 650;
+    }
+
+    .danger-cue {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .cue-panel {
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--red);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 14px;
+    }
+
+    .cue-panel.action {
+      border-left-color: var(--green);
+    }
+
+    .cue-line {
+      margin: 7px 0 0;
+      color: var(--navy);
+      font-size: 21px;
+      line-height: 1.18;
+      font-weight: 840;
+    }
+
+    .cue-small {
+      margin: 8px 0 0;
+      color: #475467;
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
     .cue-card .secondary-action {
       margin-top: 14px;
     }
@@ -606,9 +816,18 @@
       }
 
       .case-main,
+      .command-layout,
       .cue-grid,
       .memory-scene,
       .mastery-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .command-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .danger-cue {
         grid-template-columns: 1fr;
       }
 
@@ -644,8 +863,15 @@
       }
 
       .start-band,
+      .command-card,
+      .command-status,
+      .cue-panel,
       .cue-card {
         padding: 18px;
+      }
+
+      .command-grid {
+        grid-template-columns: 1fr;
       }
 
       .path-strip {
@@ -675,6 +901,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="accessibility.css" />
 </head>
 
 <body>
@@ -690,9 +917,9 @@
       </nav>
     </header>
 
-    <section class="start-band" aria-label="Current active unit">
+    <section class="start-band" aria-label="Command centre">
       <div class="path-strip" aria-label="Current learning layer">
-        <span class="path-label">You are here</span>
+        <span class="path-label">Current unit</span>
         <span class="path-step">
           <span class="path-code">Phase 1</span>
           <span class="path-name">Can Kill Fast</span>
@@ -703,98 +930,74 @@
         </span>
       </div>
 
-      <div class="case-main">
-        <section class="case-identity" aria-label="Current case">
+      <div class="command-layout">
+        <section class="command-copy" aria-label="Current case">
           <div class="case-badges">
             <span class="case-code">Case 1</span>
             <span class="setting-badge">General Practice</span>
           </div>
           <h2 class="case-title">Classic Chest Pain</h2>
+
+          <div class="mastery-loop" aria-label="Today's learning loop">
+            <p class="mastery-loop-title">Use this order</p>
+            <div class="mastery-steps">
+              <span class="mastery-step">Prime the pattern</span>
+              <span class="mastery-step">Run the station</span>
+              <span class="mastery-step">Fix one miss</span>
+              <span class="mastery-step">Repeat timed</span>
+            </div>
+          </div>
         </section>
 
-        <div class="action-row">
-          <a class="primary-action" href="case1.html">Start Case 1</a>
-          <a class="secondary-action" href="before-case.html">Review Before the Case</a>
-        </div>
+        <aside class="command-status" aria-label="Case 1 progress and resume">
+          <p class="status-title">Resume Case 1</p>
+          <p class="status-main" id="homeResumeTitle">Start Case 1</p>
+          <p class="status-line" id="homeResumeDetail">Begin with the station run.</p>
+          <a class="resume-button" id="homeResumeButton" href="case1.html#run-station">Start station</a>
+          <div class="resume-mini-grid" aria-label="Saved case state">
+            <span class="resume-chip" id="homeLastOpened">Last opened: Not started</span>
+            <span class="resume-chip" id="homeHintProgress">No fixes saved yet.</span>
+          </div>
+          <div class="hint-meter" aria-hidden="true"><span id="homeHintMeter"></span></div>
+          <a class="resume-button secondary" id="homeNextHintButton" href="case1.html#next-weak-point">Next weak point</a>
+        </aside>
       </div>
 
-      <div class="mastery-loop" aria-label="Today's learning loop">
-        <p class="mastery-loop-title">Today's loop</p>
-        <div class="mastery-steps">
-          <span class="mastery-step">1. Read door note</span>
-          <span class="mastery-step">2. Run one beat</span>
-          <span class="mastery-step">3. Fix one miss</span>
-          <span class="mastery-step">4. Repeat timed</span>
-        </div>
-      </div>
+      <nav class="command-grid" aria-label="Primary actions">
+        <a class="command-card" href="before-case.html">
+          <span class="command-number">1</span>
+          <p class="command-title">Prime</p>
+          <p class="command-detail">Four-step Before Case drill.</p>
+        </a>
+        <a class="command-card primary-command" href="case1.html#run-station">
+          <span class="command-number">2</span>
+          <p class="command-title">Run station</p>
+          <p class="command-detail">Practise Case 1 aloud.</p>
+        </a>
+        <a class="command-card repair-command" href="case1.html#confidence-check">
+          <span class="command-number">3</span>
+          <p class="command-title">Fix one miss</p>
+          <p class="command-detail">Open Hints and repair one weak point.</p>
+        </a>
+        <a class="command-card map-command" href="map.html">
+          <span class="command-number">4</span>
+          <p class="command-title">Map</p>
+          <p class="command-detail">See the case ladder.</p>
+        </a>
+      </nav>
     </section>
 
-    <section class="cue-grid" aria-label="Case cues">
-      <article class="cue-card cue-action">
-        <p class="cue-label">First action in General Practice</p>
-        <p class="cue-statement">Call ambulance now.</p>
-        <p class="cue-support">Do an electrocardiogram immediately if available and not delaying transfer.</p>
+    <section class="danger-cue" aria-label="Fast case cue">
+      <article class="cue-panel">
+        <p class="route-label">Danger trigger</p>
+        <p class="cue-line">Chest pressure plus sweating, nausea, breathlessness, radiation, collapse, or cardiac risk factors.</p>
+        <p class="cue-small">Treat as possible heart problem until proven otherwise.</p>
       </article>
 
-      <article class="cue-card cue-memory">
-        <p class="cue-label">Case 1 body map</p>
-        <p class="sr-only">Chest pressure with sweating, nausea, breathlessness, radiation, collapse, or cardiac risk factors is a possible heart problem until proven otherwise.</p>
-        <div class="memory-scene" aria-hidden="true">
-          <div class="body-model">
-            <span class="body-head"></span>
-            <span class="body-arm arm-left"></span>
-            <span class="body-arm arm-right"></span>
-            <span class="body-torso"></span>
-            <span class="lung lung-left"></span>
-            <span class="lung lung-right"></span>
-            <span class="heart-core"></span>
-            <span class="body-leg leg-left"></span>
-            <span class="body-leg leg-right"></span>
-            <span class="body-pin pin-1">1</span>
-            <span class="body-pin pin-2">2</span>
-            <span class="body-pin pin-3">3</span>
-            <span class="body-pin pin-4">4</span>
-            <span class="body-pin pin-5">5</span>
-            <span class="body-pin pin-6">6</span>
-            <span class="body-pin pin-7">7</span>
-          </div>
-
-          <div class="memory-route">
-            <div class="route-row primary">
-              <span class="route-number">1</span>
-              <span>Chest pressure</span>
-            </div>
-            <div class="route-row">
-              <span class="route-number">2</span>
-              <span>with sweating,</span>
-            </div>
-            <div class="route-row">
-              <span class="route-number">3</span>
-              <span>nausea,</span>
-            </div>
-            <div class="route-row">
-              <span class="route-number">4</span>
-              <span>breathlessness,</span>
-            </div>
-            <div class="route-row">
-              <span class="route-number">5</span>
-              <span>radiation,</span>
-            </div>
-            <div class="route-row">
-              <span class="route-number">6</span>
-              <span>collapse,</span>
-            </div>
-            <div class="route-row risk">
-              <span class="route-number">7</span>
-              <span>or cardiac risk factors</span>
-            </div>
-            <div class="route-result">
-              <span>is a possible heart problem</span>
-              <strong>until proven otherwise.</strong>
-            </div>
-          </div>
-        </div>
-        <a class="secondary-action" href="case1-focus-pack.html">Case 1 Repair Layer</a>
+      <article class="cue-panel action">
+        <p class="route-label">First action in General Practice</p>
+        <p class="cue-line">Call ambulance now.</p>
+        <p class="cue-small">ECG only if it does not delay transfer. Do not wait for troponin.</p>
       </article>
     </section>
 
@@ -804,5 +1007,57 @@
       Independent educational resource. Not affiliated with or endorsed by the Australian Medical Council.
     </footer>
   </main>
+  <script>
+    function updateHomeProgress() {
+      const resumeTitle = document.getElementById("homeResumeTitle");
+      const resumeDetail = document.getElementById("homeResumeDetail");
+      const resumeButton = document.getElementById("homeResumeButton");
+      const lastOpened = document.getElementById("homeLastOpened");
+      const status = document.getElementById("homeHintProgress");
+      const meter = document.getElementById("homeHintMeter");
+      const nextHintButton = document.getElementById("homeNextHintButton");
+      const progress = window.AMCProgress;
+      const hasResume = progress ? progress.hasResume() : false;
+      const resume = progress ? progress.readResume() : { label: "Run station", detail: "Station practice", href: "case1.html#run-station" };
+      const stats = progress ? progress.hintStats() : { fixed: 0, practised: 0, open: 13, score: 0 };
+      const nextHint = progress ? progress.nextHint() : null;
+
+      if (resumeTitle) {
+        resumeTitle.textContent = hasResume ? "Continue: " + resume.label : "Start Case 1";
+      }
+
+      if (resumeDetail) {
+        resumeDetail.textContent = hasResume ? resume.detail : "Begin with the station run.";
+      }
+
+      if (resumeButton) {
+        resumeButton.href = resume.href || "case1.html#run-station";
+        resumeButton.textContent = hasResume ? "Resume where I left off" : "Start station";
+      }
+
+      if (lastOpened) {
+        lastOpened.textContent = hasResume ? "Last opened: " + resume.label : "Last opened: Not started";
+      }
+
+      if (status) {
+        status.textContent = progress ? progress.progressLabel() : "No fixes saved yet.";
+      }
+
+      if (meter) {
+        meter.style.width = Math.min(stats.score, 100) + "%";
+      }
+
+      if (nextHintButton) {
+        nextHintButton.textContent = nextHint ? "Next weak point: " + nextHint.label : "All hints fixed";
+        nextHintButton.href = nextHint ? "case1.html#next-weak-point" : "case1.html#run-station";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", updateHomeProgress);
+    window.addEventListener("storage", updateHomeProgress);
+    window.addEventListener("amc:progress-updated", updateHomeProgress);
+  </script>
+  <script src="progress.js"></script>
+  <script src="accessibility.js"></script>
 </body>
 </html>

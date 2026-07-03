@@ -313,26 +313,6 @@
       font-weight: 820;
     }
 
-    .compact-row {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .compact-link {
-      min-height: 46px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: #F8FAFC;
-      color: var(--navy);
-      padding: 11px 12px;
-      font-size: 15px;
-      line-height: 1.2;
-      font-weight: 780;
-      text-align: center;
-    }
-
     .case-row {
       display: flex;
       flex-wrap: wrap;
@@ -1002,8 +982,7 @@
       .cue-grid,
       .memory-scene,
       .mastery-steps,
-      .safety-strip,
-      .compact-row {
+      .safety-strip {
         grid-template-columns: 1fr;
       }
 
@@ -1125,8 +1104,6 @@
             <a href="before-case.html">Warm up</a>
             <span aria-hidden="true">·</span>
             <a href="case1.html#confidence-check">Hints</a>
-            <span aria-hidden="true">·</span>
-            <a href="#case-details">Case details</a>
           </nav>
         </div>
       </div>
@@ -1142,16 +1119,6 @@
           <p class="safety-text">Call ambulance now. ECG only if it does not delay transfer. Do not wait for troponin.</p>
         </article>
       </section>
-    </section>
-
-    <section class="home-section" aria-label="Continue learning">
-      <h3>Continue learning</h3>
-      <nav class="compact-row" aria-label="Learning actions">
-        <a class="compact-link" href="before-case.html">Warm up</a>
-        <a class="compact-link" href="case1.html#speak-practice">Start speaking</a>
-        <a class="compact-link" href="case1.html#confidence-check">Hints</a>
-        <a class="compact-link" href="case1.html#full-timed-run">Repeat</a>
-      </nav>
     </section>
 
     <section class="home-section" aria-label="Cases">

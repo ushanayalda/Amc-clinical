@@ -25,7 +25,7 @@
       --gold: #B54708;
       --gold-soft: #FEF0C7;
       --shadow: 0 12px 30px rgba(16, 24, 40, 0.08);
-      --max: 1000px;
+      --max: 900px;
       --radius: 8px;
     }
 
@@ -52,15 +52,15 @@
     .page {
       width: min(100%, var(--max));
       margin: 0 auto;
-      padding: 28px;
+      padding: 24px;
     }
 
     .site-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 22px;
+      gap: 18px;
+      margin-bottom: 16px;
     }
 
     .brand-title {
@@ -100,11 +100,24 @@
 
     .start-band {
       border: 1px solid var(--line);
-      border-left: 8px solid var(--red);
+      border-left: 6px solid var(--red);
       background: var(--surface);
       box-shadow: var(--shadow);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 22px;
+      min-height: calc(100vh - 190px);
+      display: grid;
+      align-content: center;
+      gap: 18px;
+    }
+
+    .current-label {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1;
+      text-transform: uppercase;
+      font-weight: 850;
     }
 
     .path-strip {
@@ -187,11 +200,28 @@
 
     .case-title {
       margin: 0;
-      max-width: 640px;
+      max-width: 620px;
       color: var(--navy);
-      font-size: 48px;
-      line-height: 1.02;
+      font-size: 32px;
+      line-height: 1.08;
       font-weight: 760;
+    }
+
+    .case-lede {
+      margin: 12px 0 0;
+      max-width: 680px;
+      color: #344054;
+      font-size: 18px;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .home-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 18px;
     }
 
     .action-row {
@@ -210,6 +240,158 @@
       border: 1px solid var(--blue);
       font-size: 16px;
       box-shadow: 0 12px 24px rgba(20, 85, 160, 0.2);
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .quick-links a {
+      color: var(--blue);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .safety-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .safety-card {
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--red);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 16px;
+    }
+
+    .safety-card.action {
+      border-left-color: var(--green);
+    }
+
+    .safety-title {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1;
+      text-transform: uppercase;
+      font-weight: 850;
+    }
+
+    .safety-text {
+      margin: 0;
+      color: var(--navy);
+      font-size: 16px;
+      line-height: 1.42;
+      font-weight: 720;
+    }
+
+    .home-section {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 16px;
+    }
+
+    .home-section h3,
+    .case-details summary {
+      margin: 0;
+      color: var(--navy);
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 820;
+    }
+
+    .compact-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .compact-link {
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #F8FAFC;
+      color: var(--navy);
+      padding: 11px 12px;
+      font-size: 15px;
+      line-height: 1.2;
+      font-weight: 780;
+      text-align: center;
+    }
+
+    .case-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      border: 1px solid var(--soft-line);
+      border-radius: var(--radius);
+      background: #F8FAFC;
+      padding: 12px;
+    }
+
+    .case-row strong {
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    .status-pill {
+      border: 1px solid rgba(6, 118, 71, 0.22);
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 6px 10px;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .case-details {
+      margin-top: 14px;
+    }
+
+    .case-details summary {
+      cursor: pointer;
+    }
+
+    .detail-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid var(--soft-line);
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .detail-item strong {
+      color: var(--navy);
+      font-weight: 780;
+      text-align: right;
     }
 
     .secondary-action {
@@ -819,7 +1001,9 @@
       .command-layout,
       .cue-grid,
       .memory-scene,
-      .mastery-steps {
+      .mastery-steps,
+      .safety-strip,
+      .compact-row {
         grid-template-columns: 1fr;
       }
 
@@ -857,16 +1041,28 @@
 
       .nav-link,
       .action-row,
+      .home-actions,
       .primary-action,
       .secondary-action {
         width: 100%;
+      }
+
+      .start-band {
+        min-height: auto;
+      }
+
+      .quick-links {
+        width: 100%;
+        justify-content: center;
       }
 
       .start-band,
       .command-card,
       .command-status,
       .cue-panel,
-      .cue-card {
+      .cue-card,
+      .safety-card,
+      .home-section {
         padding: 18px;
       }
 
@@ -913,93 +1109,68 @@
       </section>
 
       <nav aria-label="Main navigation">
-        <a class="nav-link" href="map.html">Map</a>
+        <a class="nav-link" href="map.html">Cases</a>
       </nav>
     </header>
 
-    <section class="start-band" aria-label="Command centre">
-      <div class="path-strip" aria-label="Current learning layer">
-        <span class="path-label">Current unit</span>
-        <span class="path-step">
-          <span class="path-code">Phase 1</span>
-          <span class="path-name">Can Kill Fast</span>
-        </span>
-        <span class="path-step">
-          <span class="path-code">Pattern 1</span>
-          <span class="path-name">Dangerous Chest Pain</span>
-        </span>
+    <section class="start-band" aria-label="Current case">
+      <div>
+        <p class="current-label">Current case</p>
+        <h2 class="case-title">Classic Chest Pain</h2>
+        <p class="case-lede">Speak the station. Call the ambulance early. Do not wait for tests.</p>
+
+        <div class="home-actions">
+          <a class="primary-action" id="homeStartButton" href="case1.html#speak-practice">Start speaking</a>
+          <nav class="quick-links" aria-label="Case shortcuts">
+            <a href="before-case.html">Warm up</a>
+            <span aria-hidden="true">·</span>
+            <a href="case1.html#confidence-check">Hints</a>
+            <span aria-hidden="true">·</span>
+            <a href="#case-details">Case details</a>
+          </nav>
+        </div>
       </div>
 
-      <div class="command-layout">
-        <section class="command-copy" aria-label="Current case">
-          <div class="case-badges">
-            <span class="case-code">Case 1</span>
-            <span class="setting-badge">General Practice</span>
-          </div>
-          <h2 class="case-title">Classic Chest Pain</h2>
+      <section class="safety-strip" aria-label="Safety cue">
+        <article class="safety-card">
+          <p class="safety-title">Danger trigger</p>
+          <p class="safety-text">Chest pressure with sweating, nausea, breathlessness, arm or jaw spread, collapse, or heart risk factors.</p>
+        </article>
 
-          <div class="mastery-loop" aria-label="Today's learning loop">
-            <p class="mastery-loop-title">Use this order</p>
-            <div class="mastery-steps">
-              <span class="mastery-step">Prime the pattern</span>
-              <span class="mastery-step">Speak the case</span>
-              <span class="mastery-step">Fix one miss</span>
-              <span class="mastery-step">Repeat timed</span>
-            </div>
-          </div>
-        </section>
+        <article class="safety-card action">
+          <p class="safety-title">First action</p>
+          <p class="safety-text">Call ambulance now. ECG only if it does not delay transfer. Do not wait for troponin.</p>
+        </article>
+      </section>
+    </section>
 
-        <aside class="command-status" aria-label="Case 1 progress and resume">
-          <p class="status-title">Resume Case 1</p>
-          <p class="status-main" id="homeResumeTitle">Start Case 1</p>
-          <p class="status-line" id="homeResumeDetail">Start by speaking the case.</p>
-          <a class="resume-button" id="homeResumeButton" href="case1.html#speak-practice">Start speaking</a>
-          <div class="resume-mini-grid" aria-label="Saved case state">
-            <span class="resume-chip" id="homeLastOpened">Last opened: Not started</span>
-            <span class="resume-chip" id="homeHintProgress">No hints fixed yet.</span>
-          </div>
-          <div class="hint-meter" aria-hidden="true"><span id="homeHintMeter"></span></div>
-          <a class="resume-button secondary" id="homeNextHintButton" href="case1.html#next-weak-point">Next hint</a>
-        </aside>
-      </div>
-
-      <nav class="command-grid" aria-label="Primary actions">
-        <a class="command-card" href="before-case.html">
-          <span class="command-number">1</span>
-          <p class="command-title">Prime</p>
-          <p class="command-detail">Four-step Before Case drill.</p>
-        </a>
-        <a class="command-card primary-command" href="case1.html#speak-practice">
-          <span class="command-number">2</span>
-          <p class="command-title">Speak practice</p>
-          <p class="command-detail">Practise Case 1 aloud.</p>
-        </a>
-        <a class="command-card repair-command" href="case1.html#confidence-check">
-          <span class="command-number">3</span>
-          <p class="command-title">Fix one miss</p>
-          <p class="command-detail">Open one hint and fix one missed line.</p>
-        </a>
-        <a class="command-card map-command" href="map.html">
-          <span class="command-number">4</span>
-          <p class="command-title">Map</p>
-          <p class="command-detail">See the case ladder.</p>
-        </a>
+    <section class="home-section" aria-label="Continue learning">
+      <h3>Continue learning</h3>
+      <nav class="compact-row" aria-label="Learning actions">
+        <a class="compact-link" href="before-case.html">Warm up</a>
+        <a class="compact-link" href="case1.html#speak-practice">Start speaking</a>
+        <a class="compact-link" href="case1.html#confidence-check">Hints</a>
+        <a class="compact-link" href="case1.html#full-timed-run">Repeat</a>
       </nav>
     </section>
 
-    <section class="danger-cue" aria-label="Fast case cue">
-      <article class="cue-panel">
-        <p class="route-label">Danger trigger</p>
-        <p class="cue-line">Chest pressure plus sweating, nausea, breathlessness, radiation, collapse, or cardiac risk factors.</p>
-        <p class="cue-small">Treat as possible heart problem until proven otherwise.</p>
-      </article>
-
-      <article class="cue-panel action">
-        <p class="route-label">First action in General Practice</p>
-        <p class="cue-line">Call ambulance now.</p>
-        <p class="cue-small">ECG only if it does not delay transfer. Do not wait for troponin.</p>
-      </article>
+    <section class="home-section" aria-label="Cases">
+      <h3>Cases</h3>
+      <a class="case-row" href="case1.html#speak-practice">
+        <strong>Case 1 - Classic Chest Pain</strong>
+        <span class="status-pill">Ready</span>
+      </a>
     </section>
+
+    <details class="home-section case-details" id="case-details">
+      <summary>Case details</summary>
+      <div class="detail-list">
+        <div class="detail-item"><span>Phase</span><strong>Phase 1 - Can Kill Fast</strong></div>
+        <div class="detail-item"><span>Pattern</span><strong>Pattern 1 - Dangerous Chest Pain</strong></div>
+        <div class="detail-item"><span>Setting</span><strong>General Practice</strong></div>
+        <div class="detail-item"><span>Station type</span><strong>Patient Consultation</strong></div>
+      </div>
+    </details>
 
     <footer class="footer-card">
       <strong>© 2026 Dr. Ushana Yalda. All rights reserved.</strong><br />
@@ -1009,48 +1180,31 @@
   </main>
   <script>
     function updateHomeProgress() {
-      const resumeTitle = document.getElementById("homeResumeTitle");
-      const resumeDetail = document.getElementById("homeResumeDetail");
-      const resumeButton = document.getElementById("homeResumeButton");
-      const lastOpened = document.getElementById("homeLastOpened");
-      const status = document.getElementById("homeHintProgress");
-      const meter = document.getElementById("homeHintMeter");
-      const nextHintButton = document.getElementById("homeNextHintButton");
+      const startButton = document.getElementById("homeStartButton");
       const progress = window.AMCProgress;
       const hasResume = progress ? progress.hasResume() : false;
-      const resume = progress ? progress.readResume() : { label: "Speak practice", detail: "Say the case aloud", href: "case1.html#speak-practice" };
-      const stats = progress ? progress.hintStats() : { fixed: 0, practised: 0, open: 13, score: 0 };
-      const nextHint = progress ? progress.nextHint() : null;
+      const resume = progress ? progress.readResume() : null;
 
-      if (resumeTitle) {
-        resumeTitle.textContent = hasResume ? "Continue: " + resume.label : "Start Case 1";
+      if (startButton && hasResume && resume) {
+        startButton.href = resume.href || "case1.html#speak-practice";
+        startButton.textContent = "Continue";
+      } else if (startButton) {
+        startButton.href = "case1.html#speak-practice";
+        startButton.textContent = "Start speaking";
       }
+    }
 
-      if (resumeDetail) {
-        resumeDetail.textContent = hasResume ? resume.detail : "Start by speaking the case.";
-      }
+    function openCaseDetails() {
+      const details = document.getElementById("case-details");
+      if (details) details.open = true;
+    }
 
-      if (resumeButton) {
-        resumeButton.href = resume.href || "case1.html#speak-practice";
-        resumeButton.textContent = hasResume ? "Resume where I left off" : "Start speaking";
-      }
+    document.querySelectorAll('a[href="#case-details"]').forEach((link) => {
+      link.addEventListener("click", openCaseDetails);
+    });
 
-      if (lastOpened) {
-        lastOpened.textContent = hasResume ? "Last opened: " + resume.label : "Last opened: Not started";
-      }
-
-      if (status) {
-        status.textContent = progress ? progress.progressLabel() : "No hints fixed yet.";
-      }
-
-      if (meter) {
-        meter.style.width = Math.min(stats.score, 100) + "%";
-      }
-
-      if (nextHintButton) {
-        nextHintButton.textContent = nextHint ? "Next hint: " + nextHint.label : "All hints fixed";
-        nextHintButton.href = nextHint ? "case1.html#next-weak-point" : "case1.html#speak-practice";
-      }
+    if (window.location.hash === "#case-details") {
+      openCaseDetails();
     }
 
     document.addEventListener("DOMContentLoaded", updateHomeProgress);

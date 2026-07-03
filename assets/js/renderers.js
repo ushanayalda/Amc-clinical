@@ -356,25 +356,36 @@
       groups[hint.group].push(hint);
     });
 
+    function hintGroupLabel(group) {
+      if (group === "Recognise danger") return "Spot danger";
+      if (group === "Explain and act") return "Act clearly";
+      if (group === "Safety, time, close") return "Finish safely";
+      return group;
+    }
+
     var choices = Object.keys(groups).map(function (group) {
-      return '<div class="hint-group"><h4>' + esc(group) + '</h4>' + groups[group].map(function (hint) {
-        return '<button class="hint-choice" type="button" data-hint-choice="' + esc(hint.id) + '">' + esc(hint.label) + '</button>';
-      }).join("") + '</div>';
+      return '<section class="hint-group"><h4>' + esc(hintGroupLabel(group)) + '</h4><div class="hint-choice-list">' + groups[group].map(function (hint) {
+        return '<button class="hint-choice" type="button" data-hint-choice="' + esc(hint.id) + '"><span>' + esc(hint.label) + '</span></button>';
+      }).join("") + '</div></section>';
     }).join("");
 
     var cards = currentCase.hints.map(function (hint) {
-      return '<article class="hint-card" data-hint-card="' + esc(hint.id) + '" hidden>' +
+      return '<article class="hint-card" data-hint-card="' + esc(hint.id) + '" tabindex="-1" hidden>' +
+        '<p class="hint-card-label">Repair one line</p>' +
         '<h4>' + esc(hint.title) + '</h4>' +
-        '<dl>' +
-          '<dt>Look for</dt><dd>' + esc(hint.missed) + '</dd>' +
-          '<dt>Say</dt><dd class="say-line">' + esc(hint.say) + '</dd>' +
-          '<dt>Try again</dt><dd>' + esc(hint.practise) + '</dd>' +
-        '</dl>' +
-        '<button class="button secondary" type="button" data-hint-back>Back to hints</button>' +
+        '<p class="hint-missed">' + esc(hint.missed) + '</p>' +
+        '<div class="hint-say-line"><span>Say</span><p>' + esc(hint.say) + '</p></div>' +
+        '<div class="hint-note-row"><span>Why</span><p>' + esc(hint.why) + '</p></div>' +
+        '<div class="hint-note-row"><span>Try</span><p>' + esc(hint.practise) + '</p></div>' +
+        '<div class="hint-actions">' +
+          '<button class="button secondary" type="button" data-hint-back>Choose another</button>' +
+          '<a class="button primary" href="#speak-aloud" data-tools-close>Speak again</a>' +
+        '</div>' +
       '</article>';
     }).join("");
 
-    return '<section class="tool-panel" data-tool-panel="hints" hidden>' +
+    return '<section class="tool-panel hint-panel" data-tool-panel="hints" hidden>' +
+      '<div class="hint-start"><p>Pick the line that broke.</p></div>' +
       '<div class="hint-choices">' + choices + '</div>' +
       '<div class="hint-result" data-hint-result hidden>' + cards + '</div>' +
     '</section>';

@@ -333,7 +333,7 @@
           {
             id: "missed-diagnosis",
             group: "Recognise danger",
-            label: "I did not make the heart risk clear.",
+            label: "Heart risk was unclear.",
             title: "Heart risk",
             missed: "The heart concern was not clear enough yet.",
             why: "Mr Lewis has ongoing chest pressure with arm and jaw spread, sweating, nausea, breathlessness, and heart risk factors.",
@@ -343,7 +343,7 @@
           {
             id: "dangerous-alternatives",
             group: "Recognise danger",
-            label: "I did not name the other dangers.",
+            label: "Other dangers were missing.",
             title: "Other dangers",
             missed: "The other serious causes were not named yet.",
             why: "Chest pain can come from the heart, the main blood vessel, the lung, or a collapsed lung.",
@@ -353,7 +353,7 @@
           {
             id: "focused-danger-questions",
             group: "Recognise danger",
-            label: "I missed danger signs.",
+            label: "Danger signs were missed.",
             title: "Danger signs",
             missed: "The danger signs were not covered yet.",
             why: "You need to quickly check spread of pain, sweating, nausea, breathlessness, tearing back pain, clot risk, coughing blood, and sudden sharp breathlessness.",
@@ -363,7 +363,7 @@
           {
             id: "technical-language",
             group: "Explain and act",
-            label: "My language got too medical.",
+            label: "Too medical.",
             title: "Plain language",
             missed: "The explanation used too much hospital language.",
             why: "Mr Lewis needs clear urgent language, not terms like acute coronary syndrome, biomarkers, or risk stratification.",
@@ -373,7 +373,7 @@
           {
             id: "decision-point",
             group: "Explain and act",
-            label: "I did not explain why now.",
+            label: "Why now was unclear.",
             title: "Why act now",
             missed: "The reason for acting before confirmation was not clear yet.",
             why: "Ongoing chest pressure with spread, sweating, nausea, breathlessness, and risk factors is enough to act now.",
@@ -383,7 +383,7 @@
           {
             id: "first-action",
             group: "Explain and act",
-            label: "I called the ambulance late.",
+            label: "Ambulance came late.",
             title: "Safe first move",
             missed: "The ambulance decision came too late in the run.",
             why: "General Practice cannot safely rule this out, and transfer is the first safe action.",
@@ -393,7 +393,7 @@
           {
             id: "escalation",
             group: "Explain and act",
-            label: "I made the ambulance sound optional.",
+            label: "Ambulance sounded optional.",
             title: "Ambulance clarity",
             missed: "The ambulance plan did not sound firm enough.",
             why: "The ambulance can monitor him and act quickly if his condition changes.",
@@ -403,7 +403,7 @@
           {
             id: "delayed-transfer-tests",
             group: "Explain and act",
-            label: "I put tests first.",
+            label: "Tests came first.",
             title: "Tests before transfer",
             missed: "Tests took priority before transfer.",
             why: "Troponin and other blood tests belong in hospital and must not delay the ambulance.",
@@ -413,7 +413,7 @@
           {
             id: "medication-safety",
             group: "Explain and act",
-            label: "I missed medicine safety.",
+            label: "Medicine safety was missed.",
             title: "Medicine safety",
             missed: "Medicine safety checks were not clear yet.",
             why: "Aspirin, oxygen, and chest pain spray or tablet all need safe use.",
@@ -423,7 +423,7 @@
           {
             id: "safety-net",
             group: "Safety, time, close",
-            label: "I missed warning signs.",
+            label: "Warning signs were missed.",
             title: "Warning signs",
             missed: "The warning signs while waiting were not clear yet.",
             why: "He can get worse before the ambulance arrives.",
@@ -433,7 +433,7 @@
           {
             id: "understanding-check",
             group: "Safety, time, close",
-            label: "I did not check understanding.",
+            label: "Understanding check was missed.",
             title: "Understanding check",
             missed: "The patient's understanding was not checked yet.",
             why: "Understanding reduces resistance and confirms the urgent plan.",
@@ -443,7 +443,7 @@
           {
             id: "ran-over-time",
             group: "Safety, time, close",
-            label: "Time got away.",
+            label: "Time ran away.",
             title: "Time control",
             missed: "The run spent too long on background history or textbook explanation.",
             why: "This case rewards early action, focused questions, short explanation, and transfer.",

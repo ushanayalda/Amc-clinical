@@ -33,6 +33,10 @@
       selectToolPanel(initialPanel);
     }
 
+    if ((initialPanel || "hints") === "hints") {
+      clearHint();
+    }
+
     var closeButton = drawer.querySelector("[data-tools-close]");
     if (closeButton) closeButton.focus();
   }
@@ -68,16 +72,27 @@
   function selectHint(hintId) {
     var drawer = getDrawer();
     if (!drawer) return;
+    var panel = drawer.querySelector('[data-tool-panel="hints"]');
+    var activeCard = null;
     drawer.querySelectorAll("[data-hint-choice]").forEach(function (choice) {
       choice.classList.remove("is-selected");
     });
     drawer.querySelectorAll("[data-hint-card]").forEach(function (card) {
       card.hidden = card.dataset.hintCard !== hintId;
+      if (!card.hidden) activeCard = card;
     });
     var result = drawer.querySelector("[data-hint-result]");
     if (result) result.hidden = !hintId;
+    if (panel) panel.classList.toggle("is-hint-open", Boolean(hintId));
     var chosen = drawer.querySelector('[data-hint-choice="' + hintId + '"]');
     if (chosen) chosen.classList.add("is-selected");
+    if (activeCard && typeof activeCard.focus === "function") {
+      try {
+        activeCard.focus({ preventScroll: false });
+      } catch (error) {
+        activeCard.focus();
+      }
+    }
   }
 
   function clearHint() {
@@ -91,6 +106,12 @@
     });
     var result = drawer.querySelector("[data-hint-result]");
     if (result) result.hidden = true;
+    var panel = drawer.querySelector('[data-tool-panel="hints"]');
+    if (panel) panel.classList.remove("is-hint-open");
+    var firstChoice = drawer.querySelector("[data-hint-choice]");
+    if (firstChoice && typeof firstChoice.focus === "function" && !drawer.hidden) {
+      firstChoice.focus();
+    }
   }
 
   function keepPathwayCompact(opened) {

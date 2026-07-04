@@ -354,11 +354,13 @@
     var durations = getMockExamDurations(scope);
     var safeElapsed = Math.max(0, Math.min(durations.total, Math.floor(elapsedSeconds)));
     var phase = safeElapsed >= durations.total ? "finished" : safeElapsed >= durations.reading ? "speaking" : "reading";
+    var previousPhase = scope.getAttribute("data-mock-phase") || "";
     var flowProgress = phase === "reading" ? 0 : getMockExamFlowProgress(safeElapsed, durations);
     var time = scope.querySelector("[data-mock-time]");
     var state = scope.querySelector("[data-mock-state]");
     var reading = scope.querySelector("[data-mock-reading]");
     var speaking = scope.querySelector("[data-mock-speaking]");
+    var complete = scope.querySelector("[data-mock-complete]");
     var playButton = scope.querySelector("[data-mock-play]");
     var pauseButton = scope.querySelector("[data-mock-pause]");
     var stopButton = scope.querySelector("[data-mock-stop]");
@@ -383,7 +385,8 @@
       state.textContent = phase === "reading" ? "Reading time" : phase === "speaking" ? "Speak the case" : "Time finished";
     }
     if (reading) reading.hidden = phase !== "reading";
-    if (speaking) speaking.hidden = phase === "reading";
+    if (speaking) speaking.hidden = phase !== "speaking";
+    if (complete) complete.hidden = phase !== "finished";
     if (flowGuide) {
       flowGuide.setAttribute("data-flow-active", String(phase === "speaking" && running));
     }
@@ -401,6 +404,18 @@
 
     if (phase === "finished") {
       stopMockExamVoice(scope, "Patient voice stopped.");
+      if (previousPhase !== "finished" && complete && !options.skipCompletionFocus) {
+        window.setTimeout(function () {
+          try {
+            complete.focus({ preventScroll: true });
+          } catch (error) {
+            complete.focus();
+          }
+          if (typeof complete.scrollIntoView === "function") {
+            complete.scrollIntoView({ block: "start", behavior: "smooth" });
+          }
+        }, 0);
+      }
     } else if (!options.skipVoiceSync) {
       syncMockExamVoice(scope, safeElapsed, durations, running);
     }
@@ -501,6 +516,7 @@
     if (!shell || !tabId) return;
 
     var activeButton = null;
+    shell.setAttribute("data-active-case-tab", tabId);
     shell.querySelectorAll("[data-case-tab]").forEach(function (tab) {
       var active = tab.dataset.caseTab === tabId;
       tab.classList.toggle("is-active", active);

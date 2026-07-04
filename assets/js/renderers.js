@@ -96,7 +96,7 @@
           '<div class="home-primary-start">' +
             '<p>Open the current case and speak it out loud. If starting feels heavy, use Ignite first.</p>' +
             '<div class="home-action-row">' +
-              '<a class="home-start-link" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
+              '<a class="home-start-link" href="' + window.AMCRouter.href("case", "#speak-aloud") + '">Start speaking</a>' +
               '<a class="home-soft-link" href="' + window.AMCRouter.href("warmup") + '">Ignite</a>' +
             '</div>' +
           '</div>' +
@@ -111,62 +111,71 @@
     var currentCase = context.currentCase || window.AMCStore.getCurrentCase();
     var currentContext = window.AMCStore.getCaseContext(currentCase && currentCase.id);
     var currentPattern = currentContext && currentContext.pattern;
-    var phase = currentContext && currentContext.phase;
     var patternTitle = currentPattern && currentPattern.title ? currentPattern.title : "Dangerous Chest Pain";
     var caseTitle = currentCase && currentCase.title ? currentCase.title : "Classic Chest Pain";
-    var phaseTitle = phase && phase.title ? phase.title : "Can Kill Fast";
-    var task = "Speak the station. Call the ambulance early. Do not wait for tests.";
     var plannedCases = [
-      { number: 1, title: "Classic Chest Pain", status: "Ready", href: window.AMCRouter.href("case") },
-      { number: 2, title: "Case 2", status: "Not ready yet" },
-      { number: 3, title: "Case 3", status: "Not ready yet" },
-      { number: 4, title: "Case 4", status: "Not ready yet" },
-      { number: 5, title: "Case 5", status: "Not ready yet" }
+      {
+        name: "Classic Chest Pain",
+        pattern: patternTitle,
+        status: "Ready",
+        lastResult: "Not recorded yet",
+        nextAction: "Start speaking",
+        href: window.AMCRouter.href("case", "#speak-aloud")
+      }
     ];
 
-    var courseCases = plannedCases.map(function (item) {
-      var caseLabel = "Case " + esc(item.number) + " - " + esc(item.title);
-      var statusClass = item.status === "Ready" ? " ready" : "";
-      if (item.href) {
-        return '<li><a href="' + item.href + '"><span>' + caseLabel + '</span><em class="case-status' + statusClass + '">' + esc(item.status) + '</em></a></li>';
+    function renderCaseCard(item, actionHref, actionLabel) {
+      var href = actionHref || item.href || window.AMCRouter.href("case");
+      var label = actionLabel || item.nextAction;
+      return '<article class="case-card">' +
+        '<div class="case-card-main">' +
+          '<h3>' + esc(item.name) + '</h3>' +
+          '<p>' + esc(item.pattern) + '</p>' +
+        '</div>' +
+        '<dl class="case-card-facts">' +
+          '<div><dt>Status</dt><dd>' + esc(item.status) + '</dd></div>' +
+          '<div><dt>Last result</dt><dd>' + esc(item.lastResult) + '</dd></div>' +
+        '</dl>' +
+        '<a class="case-card-action" href="' + href + '">' + esc(label) + '</a>' +
+      '</article>';
+    }
+
+    function renderCaseQueue(title, items, emptyText, actionHref, actionLabel) {
+      if (!items.length) {
+        return '<section class="case-queue is-empty">' +
+          '<h2>' + esc(title) + '</h2>' +
+          '<p>' + esc(emptyText) + '</p>' +
+        '</section>';
       }
-      return '<li><span>' + caseLabel + '</span><em class="case-status">' + esc(item.status) + '</em></li>';
-    }).join("");
+      return '<section class="case-queue">' +
+        '<h2>' + esc(title) + '</h2>' +
+        '<div class="case-card-list">' + items.map(function (item) {
+          return renderCaseCard(item, actionHref, actionLabel);
+        }).join("") + '</div>' +
+      '</section>';
+    }
 
     appEl.innerHTML = shell(
       miniHeader(currentContext || context, "pathway") +
       '<section class="study-page cases-page pathway-page">' +
         '<header class="cases-head">' +
           '<h1>Cases</h1>' +
-          '<p class="lead">Pick up where you left off.</p>' +
+          '<p class="lead">Choose where to continue.</p>' +
         '</header>' +
-        '<section class="cases-current" aria-labelledby="cases-current-heading">' +
-          '<p class="section-kicker">Current case</p>' +
+        '<section class="cases-continue" aria-labelledby="cases-current-heading">' +
+          '<p class="section-kicker">Continue</p>' +
           '<h2 id="cases-current-heading">' + esc(caseTitle) + '</h2>' +
-          '<dl class="cases-current-facts">' +
-            '<div><dt>Pattern</dt><dd>' + esc(patternTitle) + '</dd></div>' +
-            '<div><dt>Status</dt><dd>Ready to practise</dd></div>' +
-          '</dl>' +
-          '<p class="cases-task">' + esc(task) + '</p>' +
-          '<div class="cases-actions">' +
-            '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
-            '<a class="small-action" href="' + window.AMCRouter.href("warmup") + '">Ignite</a>' +
-            '<a class="small-action" href="' + window.AMCRouter.href("case", "#hints") + '">Hints</a>' +
-            '<a class="small-action" href="' + window.AMCRouter.href("case", "#station-stem") + '">Stem</a>' +
+          '<p>' + esc(patternTitle) + '</p>' +
+          '<div class="cases-actions case-action-hierarchy">' +
+            '<a class="button primary" href="' + window.AMCRouter.href("case", "#speak-aloud") + '">Start speaking</a>' +
+            '<a class="button secondary" href="' + window.AMCRouter.href("case", "#timed-run") + '">Timed run</a>' +
+            '<a class="button secondary" href="' + window.AMCRouter.href("case", "#hints") + '">Hints</a>' +
+            '<a class="quiet-tool" href="' + window.AMCRouter.href("case", "#station-stem") + '">Stem</a>' +
           '</div>' +
         '</section>' +
-        '<details class="course-index">' +
-          '<summary><span>Full pathway</span><small>Open this only when you want the wider view.</small></summary>' +
-          '<div class="course-index-body">' +
-            '<section class="course-phase">' +
-              '<h2>Phase 1 - ' + esc(phaseTitle) + '</h2>' +
-              '<section class="course-pattern">' +
-                '<h3>Pattern 1 - ' + esc(patternTitle) + '</h3>' +
-                '<ol class="course-case-list">' + courseCases + '</ol>' +
-              '</section>' +
-            '</section>' +
-          '</div>' +
-        '</details>' +
+        renderCaseQueue("Due today", plannedCases, "Nothing due today.", window.AMCRouter.href("case", "#timed-run"), "Timed run") +
+        renderCaseQueue("Weak spots", [], "No weak spot saved yet.") +
+        renderCaseQueue("All cases", plannedCases, "No cases loaded yet.") +
       '</section>',
       currentContext || context,
       "pathway"
@@ -281,7 +290,7 @@
           '</article>';
         }).join("") + '</div>' +
         '<div class="cta-row single">' +
-          '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
+          '<a class="button primary" href="' + window.AMCRouter.href("case", "#speak-aloud") + '">Start speaking</a>' +
         '</div>' +
       '</section>',
       context,
@@ -329,7 +338,7 @@
     }).join("") +
       '<a class="case-tab case-tab-link" href="' + window.AMCRouter.href("pathway") + '">Cases</a>';
 
-    return '<section class="case-tabs-shell" data-case-tabs>' +
+    return '<section class="case-tabs-shell" data-case-tabs data-active-case-tab="stem">' +
       '<div class="case-tab-row" role="tablist" aria-label="Case sections">' + tabButtons + '</div>' +
       '<div class="case-tab-panels">' +
         renderCaseTabPanel("stem", "station-stem", true, renderStationStemContent(currentCase)) +
@@ -338,7 +347,16 @@
         renderCaseTabPanel("matters", "what-matters", false, renderWhatMattersContent(currentCase)) +
         renderCaseTabPanel("hints", "hints", false, renderHintsInlinePanel(currentCase)) +
       '</div>' +
+      renderCaseMobileActions() +
     '</section>';
+  }
+
+  function renderCaseMobileActions() {
+    return '<nav class="case-bottom-actions" aria-label="Quick case actions">' +
+      '<a class="case-bottom-action is-primary" href="#speak-aloud">Start speaking</a>' +
+      '<a class="case-bottom-action" href="#timed-run">Next</a>' +
+      '<a class="case-bottom-action" href="#hints">Hint</a>' +
+    '</nav>';
   }
 
   function renderCaseTabPanel(tabId, panelId, active, content) {
@@ -347,16 +365,16 @@
 
   function renderRunComplete() {
     var protectedLines = [
-      "Ambulance now.",
-      "No driving.",
-      "ECG only if it does not delay transfer.",
-      "No troponin delay.",
-      "Aspirin if safe.",
-      "Oxygen only if needed.",
-      "Medication safety before chest pain spray or tablet."
+      "This may be coming from your heart.",
+      "I am arranging an ambulance now.",
+      "You should not drive yourself.",
+      "I will not delay transfer for blood tests.",
+      "I will give aspirin if safe.",
+      "I will give oxygen only if needed.",
+      "I will check safety before chest pain spray or tablet."
     ];
 
-    return '<section class="run-complete" aria-labelledby="run-complete-heading">' +
+    return '<section class="run-complete mock-phase" data-mock-complete aria-labelledby="run-complete-heading" tabindex="-1" hidden>' +
       '<h2 id="run-complete-heading">Run complete.</h2>' +
       '<p>You protected the patient if you said:</p>' +
       '<ul class="protected-list">' + protectedLines.map(function (line) {
@@ -481,6 +499,7 @@
         '</div>' +
         renderSpeakAloudContent(currentCase, { examMode: true }) +
       '</section>' +
+      renderRunComplete() +
     '</div>';
   }
 
@@ -527,7 +546,12 @@
       return title;
     }
 
-    return '<div class="study-notes-body is-tabbed">' +
+    return '<div class="retrieval-card">' +
+      '<h2>Cover this.</h2>' +
+      '<p>Say the memory line aloud.</p>' +
+      '<a class="small-action" href="#timed-run">Then return to Timed run</a>' +
+    '</div>' +
+    '<div class="study-notes-body is-tabbed">' +
       currentCase.notes.map(function (section) {
         return '<section class="study-note-section is-' + esc(section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")) + '">' +
           '<div class="study-note-label">' + esc(noteLabel(section.title)) + '</div>' +
@@ -558,7 +582,7 @@
       ];
       panels = [
         '<section class="tool-panel" data-tool-panel="pathway"><h3>Cases</h3><p>Current area: ' + esc(context.phase.title) + '</p><p>Current pattern: ' + esc(context.pattern.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("pathway") + '">Open cases</a></section>',
-        '<section class="tool-panel" data-tool-panel="case" hidden><h3>Start speaking</h3><p>' + esc(currentCase.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("case") + '">Start speaking</a></section>'
+        '<section class="tool-panel" data-tool-panel="case" hidden><h3>Start speaking</h3><p>' + esc(currentCase.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("case", "#speak-aloud") + '">Start speaking</a></section>'
       ];
     } else {
       tabs = [
@@ -609,13 +633,14 @@
         '<div class="hint-note-row"><span>Why it matters</span><p>' + esc(hint.why) + '</p></div>' +
         '<div class="hint-note-row"><span>Practise now</span><p>Say this line three times, then return to Start speaking.</p></div>' +
         '<div class="hint-actions">' +
-          '<button class="button secondary" type="button" data-hint-back>Back</button>' +
+          '<a class="button primary" href="#speak-aloud">Back to Start speaking</a>' +
+          '<button class="button secondary" type="button" data-hint-back>Choose another</button>' +
         '</div>' +
       '</article>';
     }).join("");
 
     return '<section class="tool-panel hint-panel" data-tool-panel="hints" hidden>' +
-      '<div class="hint-start"><p>Choose one thing to improve.</p><small>Pick one weak spot. I&apos;ll open one focused hint.</small></div>' +
+      '<div class="hint-start"><p>Choose one thing to improve.</p><small>One Hint will open.</small></div>' +
       '<div class="hint-choices">' + choices + '</div>' +
       '<div class="hint-result" data-hint-result hidden>' + cards + '</div>' +
     '</section>';

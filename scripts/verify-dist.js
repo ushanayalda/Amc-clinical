@@ -69,7 +69,19 @@ if (!process.exitCode) {
     .map((file) => fs.readFileSync(file, "utf8"))
     .join("\n");
 
-  ["Timed run", "Do not miss", "Choose one thing to improve", "return to Start speaking"].forEach((term) => {
+  [
+    "Timed run",
+    "Do not miss",
+    "Choose one thing to improve",
+    "return to Start speaking",
+    "Run complete",
+    "Due today",
+    "Weak spots",
+    "All cases",
+    "Cover this",
+    "One Hint will open",
+    "Back to Start speaking"
+  ].forEach((term) => {
     if (!learnerFacingBundle.includes(term)) fail(`Built app is missing aligned learner-facing term: ${term}`);
   });
 

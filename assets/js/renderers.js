@@ -94,10 +94,10 @@
             '<p class="home-current-case"><span>Today&apos;s case</span><strong>' + esc(caseTitle) + '</strong><em>ready to practise</em></p>' +
           '</div>' +
           '<div class="home-primary-start">' +
-            '<p>Open the current case and speak it out loud. You can warm up first if your brain wants a softer start.</p>' +
+            '<p>Open the current case and speak it out loud. If starting feels heavy, use Ignite first.</p>' +
             '<div class="home-action-row">' +
               '<a class="home-start-link" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
-              '<a class="home-soft-link" href="' + window.AMCRouter.href("warmup") + '">Warm up first</a>' +
+              '<a class="home-soft-link" href="' + window.AMCRouter.href("warmup") + '">Ignite</a>' +
             '</div>' +
           '</div>' +
         '</section>' +
@@ -150,7 +150,7 @@
           '<p class="cases-task">' + esc(task) + '</p>' +
           '<div class="cases-actions">' +
             '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
-            '<a class="small-action" href="' + window.AMCRouter.href("warmup") + '">Ignite warm-up</a>' +
+            '<a class="small-action" href="' + window.AMCRouter.href("warmup") + '">Ignite</a>' +
             '<a class="small-action" href="' + window.AMCRouter.href("case", "#hints") + '">Hints</a>' +
             '<a class="small-action" href="' + window.AMCRouter.href("case", "#station-stem") + '">Stem</a>' +
           '</div>' +
@@ -317,8 +317,8 @@
   function renderCaseTabs(currentCase) {
     var tabs = [
       ["stem", "Stem", "station-stem"],
-      ["speak", "Practise", "speak-aloud"],
-      ["mock", "Timer", "mock-exam"],
+      ["speak", "Start speaking", "speak-aloud"],
+      ["mock", "Timed run", "timed-run"],
       ["matters", "Do not miss", "what-matters"],
       ["hints", "Hints", "hints"]
     ];
@@ -334,7 +334,7 @@
       '<div class="case-tab-panels">' +
         renderCaseTabPanel("stem", "station-stem", true, renderStationStemContent(currentCase)) +
         renderCaseTabPanel("speak", "speak-aloud", false, renderSpeakAloudContent(currentCase)) +
-        renderCaseTabPanel("mock", "mock-exam", false, renderMockExamContent(currentCase)) +
+        renderCaseTabPanel("mock", "timed-run", false, renderMockExamContent(currentCase)) +
         renderCaseTabPanel("matters", "what-matters", false, renderWhatMattersContent(currentCase)) +
         renderCaseTabPanel("hints", "hints", false, renderHintsInlinePanel(currentCase)) +
       '</div>' +
@@ -362,10 +362,10 @@
       '<ul class="protected-list">' + protectedLines.map(function (line) {
         return '<li>' + esc(line) + '</li>';
       }).join("") + '</ul>' +
-      '<p class="run-next-line">Choose your next repair.</p>' +
+      '<p class="run-next-line">Choose one thing to improve.</p>' +
       '<div class="run-complete-actions">' +
         '<button class="button primary" type="button" data-open-tools="hints">Hints</button>' +
-        '<a class="button secondary" href="#speak-aloud">Practise again</a>' +
+        '<a class="button secondary" href="#speak-aloud">Repeat</a>' +
         '<a class="small-action" href="' + window.AMCRouter.href("pathway") + '">Back to Cases</a>' +
       '</div>' +
     '</section>';
@@ -554,11 +554,11 @@
     if (mode === "warmup") {
       tabs = [
         ["pathway", "Cases"],
-        ["case", "Practise"]
+        ["case", "Start speaking"]
       ];
       panels = [
         '<section class="tool-panel" data-tool-panel="pathway"><h3>Cases</h3><p>Current area: ' + esc(context.phase.title) + '</p><p>Current pattern: ' + esc(context.pattern.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("pathway") + '">Open cases</a></section>',
-        '<section class="tool-panel" data-tool-panel="case" hidden><h3>Practise aloud</h3><p>' + esc(currentCase.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("case") + '">Start speaking</a></section>'
+        '<section class="tool-panel" data-tool-panel="case" hidden><h3>Start speaking</h3><p>' + esc(currentCase.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("case") + '">Start speaking</a></section>'
       ];
     } else {
       tabs = [
@@ -607,7 +607,7 @@
         '<div class="hint-note-row is-missed"><span>Missed</span><p>' + esc(hint.missed) + '</p></div>' +
         '<div class="hint-say-line"><span>Say this</span><p>' + esc(hint.say) + '</p></div>' +
         '<div class="hint-note-row"><span>Why it matters</span><p>' + esc(hint.why) + '</p></div>' +
-        '<div class="hint-note-row"><span>Practise now</span><p>Say this line three times, then return to Practise.</p></div>' +
+        '<div class="hint-note-row"><span>Practise now</span><p>Say this line three times, then return to Start speaking.</p></div>' +
         '<div class="hint-actions">' +
           '<button class="button secondary" type="button" data-hint-back>Back</button>' +
         '</div>' +
@@ -615,7 +615,7 @@
     }).join("");
 
     return '<section class="tool-panel hint-panel" data-tool-panel="hints" hidden>' +
-      '<div class="hint-start"><p>Choose your next repair.</p><small>Pick one weak spot. I&apos;ll open one focused hint.</small></div>' +
+      '<div class="hint-start"><p>Choose one thing to improve.</p><small>Pick one weak spot. I&apos;ll open one focused hint.</small></div>' +
       '<div class="hint-choices">' + choices + '</div>' +
       '<div class="hint-result" data-hint-result hidden>' + cards + '</div>' +
     '</section>';

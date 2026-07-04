@@ -118,10 +118,10 @@ function renderStaticHomeShell() {
           <p class="home-current-case"><span>Today&apos;s case</span><strong id="home-current-case">Classic Chest Pain</strong><em>ready to practise</em></p>
         </div>
         <div class="home-primary-start">
-          <p>Open the current case and speak it out loud. You can warm up first if your brain wants a softer start.</p>
+          <p>Open the current case and speak it out loud. If starting feels heavy, use Ignite first.</p>
           <div class="home-action-row">
             <a class="home-start-link" href="${escapeHtml(basePath)}index.html#station-stem">Start speaking</a>
-            <a class="home-soft-link" href="${escapeHtml(basePath)}index.html#ignite">Warm up first</a>
+            <a class="home-soft-link" href="${escapeHtml(basePath)}index.html#ignite">Ignite</a>
           </div>
         </div>
       </section>

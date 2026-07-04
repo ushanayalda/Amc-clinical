@@ -526,6 +526,7 @@
     var tabByHash = {
       "station-stem": "stem",
       "speak-aloud": "speak",
+      "timed-run": "mock",
       "mock-exam": "mock",
       "what-matters": "matters",
       "hints": "hints"

@@ -17,6 +17,14 @@ function exists(file) {
   return fs.existsSync(path.join(dist, file));
 }
 
+function walkFiles(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) return walkFiles(fullPath);
+    return fullPath;
+  });
+}
+
 function extractBuildId(html) {
   const match = html.match(/<meta name="x-build-id" content="([^"]+)"/);
   return match ? match[1] : "";
@@ -55,6 +63,19 @@ if (!process.exitCode) {
   if (/[?&]v=/.test(indexHtml) || /[?&]v=/.test(notFoundHtml)) {
     fail("Query-string cache busting remains in built HTML.");
   }
+
+  const learnerFacingBundle = walkFiles(dist)
+    .filter((file) => /\.(?:html|js)$/.test(file))
+    .map((file) => fs.readFileSync(file, "utf8"))
+    .join("\n");
+
+  ["Timed run", "Do not miss", "Choose one thing to improve", "return to Start speaking"].forEach((term) => {
+    if (!learnerFacingBundle.includes(term)) fail(`Built app is missing aligned learner-facing term: ${term}`);
+  });
+
+  ["Mock Exam", "Keys", "Before Case", "Before the Case", "Candidate", "What broke", "Choose your next repair", "return to Practise", "Warm up first"].forEach((term) => {
+    if (learnerFacingBundle.includes(term)) fail(`Built app still contains old learner-facing term: ${term}`);
+  });
 
   const assetRefs = Array.from(indexHtml.matchAll(/(?:src|href)="\/Amc-clinical\/([^"]+)"/g)).map((match) => match[1]);
   assetRefs.forEach((assetPath) => {

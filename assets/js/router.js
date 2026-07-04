@@ -15,6 +15,7 @@
     if (
       hash === "#station-stem" ||
       hash === "#speak-aloud" ||
+      hash === "#timed-run" ||
       hash === "#mock-exam" ||
       hash === "#what-matters" ||
       hash === "#hints"

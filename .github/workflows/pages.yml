@@ -1,0 +1,88 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check JavaScript
+        run: npm run check
+
+      - name: Build Pages artifact
+        run: npm run build
+        env:
+          BUILD_ID: ${{ github.sha }}
+          BASE_PATH: /Amc-clinical/
+
+      - name: Verify Pages artifact
+        run: npm run verify:dist
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Post-deploy health check
+        shell: bash
+        env:
+          BUILD_ID: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          BASE="https://ushanayalda.github.io/Amc-clinical"
+          for attempt in {1..12}; do
+            ok=true
+            for path in "/" "/index.html"; do
+              html="$(curl -fsSL "${BASE}${path}?health=${BUILD_ID}")" || ok=false
+              if [ "${ok}" = true ]; then
+                echo "$html" | grep -Fq "$BUILD_ID" || ok=false
+                ! echo "$html" | grep -Fq "Map" || ok=false
+                ! echo "$html" | grep -Fq "Before the Case" || ok=false
+                ! echo "$html" | grep -Fq "Progress" || ok=false
+                ! echo "$html" | grep -Fq "Demo progress" || ok=false
+                ! echo "$html" | grep -Fq "Case 1 awaiting transfer" || ok=false
+              fi
+            done
+            if [ "${ok}" = true ]; then
+              echo "Pages health check passed."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Pages health check failed after waiting for propagation."
+          exit 1

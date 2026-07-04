@@ -1,9 +1,12 @@
 (function () {
+  var currentScreen = "";
+
   function boot() {
     var app = document.getElementById("app");
     if (!app || !window.AMCRenderers || !window.AMCStore) return;
 
     var screen = window.AMCRouter.getScreen(app);
+    currentScreen = screen;
     document.body.dataset.screen = screen;
 
     if (screen === "pathway") {
@@ -26,4 +29,9 @@
   } else {
     boot();
   }
+
+  window.addEventListener("hashchange", function () {
+    var nextScreen = window.AMCRouter.screenFromPath();
+    if (nextScreen !== currentScreen) boot();
+  });
 })();

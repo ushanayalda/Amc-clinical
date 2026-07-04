@@ -4,6 +4,26 @@ AMC Clinical Pathway is a static clinical pattern-training web app by Dr. Ushana
 
 The site is designed to stay GitHub Pages compatible. It uses plain HTML, CSS, and JavaScript.
 
+## Publishing model
+
+GitHub Pages should publish only the generated `dist/` artifact from the Pages workflow.
+
+Build locally with:
+
+```powershell
+npm run build
+npm run verify:dist
+```
+
+The generated artifact contains:
+
+- `dist/index.html` as the canonical shell.
+- `dist/404.html` as the same shell for fallback routing.
+- Fingerprinted CSS, JavaScript, and data files.
+- A build marker in the shell: `x-build-id` and `window.__BUILD_ID__`.
+
+Do not publish source root pages such as `map.html`, `before-case.html`, or `case1.html` directly. They are source/development entry points only.
+
 ## Current structure
 
 Learning structure:
@@ -20,7 +40,7 @@ Key files:
 - `data/content.js` contains structured clinical content.
 - `assets/js/renderers.js` renders Home, Pathway, Warm-up, and Case screens.
 - `assets/js/content-store.js` provides content lookup helpers.
-- `assets/js/router.js` keeps the existing static URLs working.
+- `assets/js/router.js` keeps the app routed through the canonical shell.
 - `assets/js/ui.js` handles floating navigation and the Tools drawer.
 - `assets/css/styles.css` contains the shared mobile-first app styling.
 

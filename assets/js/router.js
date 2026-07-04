@@ -1,13 +1,27 @@
 (function () {
   var routes = {
     home: "index.html",
-    pathway: "map.html",
-    warmup: "before-case.html",
-    case: "case1.html"
+    pathway: "index.html#cases",
+    warmup: "index.html#ignite",
+    case: "index.html#station-stem"
   };
 
-  function screenFromPath(pathname) {
+  function screenFromPath(pathname, hashValue) {
     var path = (pathname || window.location.pathname).toLowerCase();
+    var hash = (hashValue || window.location.hash || "").toLowerCase();
+
+    if (hash === "#cases" || hash === "#pathway") return "pathway";
+    if (hash === "#ignite" || hash === "#warmup") return "warmup";
+    if (
+      hash === "#station-stem" ||
+      hash === "#speak-aloud" ||
+      hash === "#mock-exam" ||
+      hash === "#what-matters" ||
+      hash === "#hints"
+    ) {
+      return "case";
+    }
+
     if (path.indexOf("map.html") !== -1) return "pathway";
     if (path.indexOf("before-case.html") !== -1) return "warmup";
     if (path.indexOf("case1.html") !== -1) return "case";
@@ -15,11 +29,14 @@
   }
 
   function getScreen(appEl) {
-    return (appEl && appEl.dataset && appEl.dataset.screen) || screenFromPath();
+    var inferred = screenFromPath();
+    if (inferred !== "home") return inferred;
+    return (appEl && appEl.dataset && appEl.dataset.screen) || inferred;
   }
 
   function href(name, hash) {
-    return (routes[name] || routes.home) + (hash || "");
+    if (name === "case" && hash) return "index.html" + hash;
+    return routes[name] || routes.home;
   }
 
   window.AMCRouter = {

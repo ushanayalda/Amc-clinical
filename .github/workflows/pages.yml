@@ -88,7 +88,7 @@ jobs:
                   renderer="$(curl -fsSL "${BASE}/assets/js/renderers.js?health=${BUILD_ID}")" || ok=false
                   echo "$renderer" | grep -Fq "Run complete" || ok=false
                   ! echo "$renderer" | grep -Fq "Due today" || ok=false
-                  echo "$renderer" | grep -Fq "Weak spots" || ok=false
+                  ! echo "$renderer" | grep -Fq "Weak spots" || ok=false
                   echo "$renderer" | grep -Fq "All cases" || ok=false
                   echo "$renderer" | grep -Fq "One hint. One line. Back to speaking." || ok=false
                   echo "$renderer" | grep -Fq "Back to Hints" || ok=false

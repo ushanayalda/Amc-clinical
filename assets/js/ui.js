@@ -382,7 +382,7 @@
     }
     if (seekLabel) seekLabel.textContent = formatMockExamTime(safeElapsed);
     if (state) {
-      state.textContent = phase === "reading" ? "Reading time" : phase === "speaking" ? "Speak the case" : "Time finished";
+      state.textContent = phase === "reading" ? "Reading time" : phase === "speaking" ? "Speak the case" : "Run complete";
     }
     if (reading) reading.hidden = phase !== "reading";
     if (speaking) speaking.hidden = phase !== "speaking";

@@ -113,33 +113,6 @@
     var patternTitle = currentPattern && currentPattern.title ? currentPattern.title : "Dangerous Chest Pain";
     var caseTitle = currentCase && currentCase.title ? currentCase.title : "Classic Chest Pain";
 
-    function renderCaseQueue(title, items, emptyText, actionHref, actionLabel) {
-      if (!items.length) {
-        return '<section class="case-queue is-empty">' +
-          '<h2>' + esc(title) + '</h2>' +
-          '<p>' + esc(emptyText) + '</p>' +
-        '</section>';
-      }
-      return '<section class="case-queue">' +
-        '<h2>' + esc(title) + '</h2>' +
-        '<div class="case-card-list">' + items.map(function (item) {
-          var href = actionHref || item.href || window.AMCRouter.href("case");
-          var label = actionLabel || item.nextAction;
-          return '<article class="case-card">' +
-            '<div class="case-card-main">' +
-              '<h3><a class="case-title-link" href="' + href + '">' + esc(item.name) + '</a></h3>' +
-              '<p>' + esc(item.pattern) + '</p>' +
-            '</div>' +
-            '<dl class="case-card-facts">' +
-              '<div><dt>Status</dt><dd>' + esc(item.status) + '</dd></div>' +
-              '<div><dt>Last result</dt><dd>' + esc(item.lastResult) + '</dd></div>' +
-            '</dl>' +
-            '<a class="case-card-action" href="' + href + '">' + esc(label) + '</a>' +
-          '</article>';
-        }).join("") + '</div>' +
-      '</section>';
-    }
-
     function renderAllCasesIndex() {
       var phases = context.phases || [];
       var patterns = context.patterns || [];
@@ -210,7 +183,6 @@
           '<p class="section-kicker cases-current-path"><span>Continue</span><strong>' + esc(patternTitle) + '</strong></p>' +
           '<h2 id="cases-current-heading"><a class="case-title-link" href="' + window.AMCRouter.href("case", "#station-stem") + '">' + esc(caseTitle) + '</a></h2>' +
         '</section>' +
-        renderCaseQueue("Weak spots", [], "No weak spot saved yet.") +
         renderAllCasesIndex() +
       '</section>',
       currentContext || context,
@@ -412,16 +384,18 @@
 
     return '<section class="run-complete mock-phase" data-mock-complete aria-labelledby="run-complete-heading" tabindex="-1" hidden>' +
       '<h2 id="run-complete-heading">Run complete.</h2>' +
-      '<p>You protected the patient if you said:</p>' +
-      '<ul class="protected-list">' + protectedLines.map(function (line) {
-        return '<li>' + esc(line) + '</li>';
-      }).join("") + '</ul>' +
       '<p class="run-next-line">Choose one thing to improve.</p>' +
       '<div class="run-complete-actions">' +
         '<button class="button primary" type="button" data-open-tools="hints">Hints</button>' +
         '<a class="button secondary" href="#speak-aloud">Repeat</a>' +
         '<a class="small-action" href="' + window.AMCRouter.href("pathway") + '">Back to Cases</a>' +
       '</div>' +
+      '<details class="protected-lines-drawer">' +
+        '<summary>Safety lines</summary>' +
+        '<ul class="protected-list">' + protectedLines.map(function (line) {
+          return '<li>' + esc(line) + '</li>';
+        }).join("") + '</ul>' +
+      '</details>' +
     '</section>';
   }
 

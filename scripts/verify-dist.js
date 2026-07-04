@@ -80,7 +80,6 @@ if (!process.exitCode) {
     "Why this helps",
     "Then return to Start speaking",
     "Run complete",
-    "Weak spots",
     "All cases",
     "Phase",
     "Pattern",
@@ -109,7 +108,7 @@ if (!process.exitCode) {
     fail("Collapsed lung visual anchor is missing from dist.");
   }
 
-  ["Mock Exam", "Keys", "Before Case", "Before the Case", "Candidate", "What broke", "Choose your next repair", "return to Practise", "Warm up first", "Due today", "ready to practise", "certainty"].forEach((term) => {
+  ["Mock Exam", "Keys", "Before Case", "Before the Case", "Candidate", "What broke", "Choose your next repair", "return to Practise", "Warm up first", "Due today", "Weak spots", "No weak spot saved yet", "ready to practise", "certainty"].forEach((term) => {
     if (learnerFacingBundle.includes(term)) fail(`Built app still contains old learner-facing term: ${term}`);
   });
 

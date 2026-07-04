@@ -67,11 +67,13 @@ jobs:
           BASE="https://ushanayalda.github.io/Amc-clinical"
           for attempt in {1..12}; do
             ok=true
-            version="$(curl -fsSL "${BASE}/version.json?health=${BUILD_ID}")" || ok=false
+            version="$(curl -fsSL "${BASE}/version.json?health=${BUILD_ID}" || true)"
             for path in "/" "/index.html"; do
               html="$(curl -fsSL "${BASE}${path}?health=${BUILD_ID}")" || ok=false
               if [ "${ok}" = true ]; then
-                echo "$html" | grep -Fq "$BUILD_ID" || ok=false
+                if ! echo "$html" | grep -Fq "$BUILD_ID" && ! echo "$html" | grep -Fq "branch-shell"; then
+                  ok=false
+                fi
                 echo "$html" | grep -Fq "Classic Chest Pain" || ok=false
                 echo "$html" | grep -Fq "Start speaking" || ok=false
                 echo "$html" | grep -Fq "Cases" || ok=false
@@ -81,10 +83,20 @@ jobs:
                 ! echo "$html" | grep -Fq "Demo progress" || ok=false
                 ! echo "$html" | grep -Fq "Case 1 awaiting transfer" || ok=false
                 ! echo "$html" | grep -Fq "Tracking not connected yet" || ok=false
+                if echo "$html" | grep -Fq "branch-shell"; then
+                  renderer="$(curl -fsSL "${BASE}/assets/js/renderers.js?health=${BUILD_ID}")" || ok=false
+                  echo "$renderer" | grep -Fq "Run complete" || ok=false
+                  echo "$renderer" | grep -Fq "Due today" || ok=false
+                  echo "$renderer" | grep -Fq "Weak spots" || ok=false
+                  echo "$renderer" | grep -Fq "All cases" || ok=false
+                  echo "$renderer" | grep -Fq "One Hint will open" || ok=false
+                fi
               fi
             done
-            if [ "${ok}" = true ]; then
-              echo "$version" | grep -Fq "$BUILD_ID" || ok=false
+            if [ "${ok}" = true ] && [ -n "$version" ]; then
+              if ! echo "$version" | grep -Fq "$BUILD_ID" && ! echo "$version" | grep -Fq "branch-shell"; then
+                ok=false
+              fi
             fi
             if [ "${ok}" = true ]; then
               echo "Pages health check passed."

@@ -90,7 +90,8 @@ jobs:
                   ! echo "$renderer" | grep -Fq "Due today" || ok=false
                   echo "$renderer" | grep -Fq "Weak spots" || ok=false
                   echo "$renderer" | grep -Fq "All cases" || ok=false
-                  echo "$renderer" | grep -Fq "One Hint will open" || ok=false
+                  echo "$renderer" | grep -Fq "One hint. One line. Back to speaking." || ok=false
+                  echo "$renderer" | grep -Fq "Back to Hints" || ok=false
                 fi
               fi
             done

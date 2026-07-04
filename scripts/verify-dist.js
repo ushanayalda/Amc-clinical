@@ -75,7 +75,10 @@ if (!process.exitCode) {
     "Start the pattern",
     "Start this pattern",
     "Choose one thing to improve",
-    "return to Start speaking",
+    "One hint. One line. Back to speaking.",
+    "What slipped",
+    "Why this helps",
+    "Then return to Start speaking",
     "Run complete",
     "Weak spots",
     "All cases",
@@ -97,8 +100,7 @@ if (!process.exitCode) {
     "Before you finish",
     "One line",
     "Clinical source basis",
-    "One Hint will open",
-    "Back to Start speaking"
+    "Back to Hints"
   ].forEach((term) => {
     if (!learnerFacingBundle.includes(term)) fail(`Built app is missing aligned learner-facing term: ${term}`);
   });

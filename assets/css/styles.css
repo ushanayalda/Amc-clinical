@@ -3196,7 +3196,7 @@ h3 {
 }
 
 .hint-panel {
-  gap: 14px;
+  gap: 12px;
 }
 
 .hint-panel.is-hint-open .hint-start,
@@ -3206,66 +3206,117 @@ h3 {
 
 .hint-start {
   display: grid;
-  gap: 4px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--line);
+  gap: 3px;
+  padding-bottom: 6px;
   color: var(--ink);
   font-weight: 900;
 }
 
 .hint-start small {
   color: var(--muted);
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 750;
   line-height: 1.35;
 }
 
 .hint-choices {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
 
 .hint-group {
+  --hint-color: var(--focus);
   display: grid;
-  gap: 5px;
+  gap: 6px;
+}
+
+.hint-group-see {
+  --hint-color: #0f766e;
+}
+
+.hint-group-say {
+  --hint-color: #4f46e5;
+}
+
+.hint-group-act {
+  --hint-color: #a16207;
+}
+
+.hint-group-close {
+  --hint-color: #475569;
 }
 
 .hint-group h4 {
-  color: var(--focus-dark);
-  font-size: 0.86rem;
-  font-weight: 850;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  color: var(--ink);
   line-height: 1.2;
+}
+
+.hint-group h4 span {
+  min-width: 42px;
+  color: var(--hint-color);
+  font-size: 0.94rem;
+  font-weight: 950;
+}
+
+.hint-group h4 small {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 820;
 }
 
 .hint-choice-list {
   display: grid;
-  border-top: 1px solid rgba(215, 222, 215, 0.7);
+  gap: 2px;
+  padding-left: 12px;
 }
 
 .hint-choice {
   width: 100%;
-  min-height: 40px;
+  min-height: 36px;
+  display: grid;
+  grid-template-columns: 5px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
   border: 0;
-  border-bottom: 1px solid rgba(215, 222, 215, 0.7);
-  border-radius: 0;
-  padding: 8px 2px;
+  border-radius: 7px;
+  padding: 6px 8px 6px 0;
   background: transparent;
   color: var(--ink);
   font: inherit;
-  font-weight: 760;
+  font-weight: 780;
   text-align: left;
   cursor: pointer;
+  transition: background 0.14s ease, color 0.14s ease, transform 0.14s ease;
 }
 
-.hint-choice span {
+.hint-choice::before {
+  content: "";
+  width: 5px;
+  height: 70%;
+  min-height: 20px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--hint-color) 32%, transparent);
+}
+
+.hint-choice-text {
   display: block;
-  max-width: 34ch;
+  min-width: 0;
+  max-width: 38ch;
 }
 
 .hint-choice:hover,
 .hint-choice.is-selected {
-  color: var(--focus-dark);
-  background: linear-gradient(90deg, rgba(15, 118, 110, 0.08), transparent 82%);
+  color: var(--ink);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--hint-color) 10%, transparent), transparent 88%);
+  transform: translateX(2px);
+}
+
+.hint-choice:hover::before,
+.hint-choice.is-selected::before {
+  background: var(--hint-color);
 }
 
 .hint-card {
@@ -3288,17 +3339,17 @@ h3 {
 }
 
 .hint-card h4 {
-  color: var(--focus-dark);
+  color: var(--ink);
   font-size: 1.12rem;
   line-height: 1.15;
 }
 
 .hint-say-line {
-  margin: 8px 0 10px;
-  padding: 11px 12px;
+  margin: 10px 0 10px;
+  padding: 12px 12px;
   border-left: 3px solid rgba(15, 118, 110, 0.82);
   border-radius: 6px;
-  background: linear-gradient(90deg, rgba(15, 118, 110, 0.13), rgba(15, 118, 110, 0.04) 72%, transparent);
+  background: linear-gradient(90deg, rgba(15, 118, 110, 0.11), rgba(15, 118, 110, 0.035) 72%, transparent);
 }
 
 .hint-say-line span,
@@ -3311,16 +3362,16 @@ h3 {
 }
 
 .hint-say-line p {
-  color: var(--focus-dark);
-  font-size: 1.03rem;
-  font-weight: 850;
+  color: var(--ink);
+  font-size: 1.04rem;
+  font-weight: 880;
   line-height: 1.42;
 }
 
 .hint-note-row {
   display: grid;
   gap: 2px;
-  padding: 10px 0;
+  padding: 8px 0;
   border-top: 1px solid rgba(215, 222, 215, 0.7);
 }
 
@@ -3335,11 +3386,16 @@ h3 {
   line-height: 1.42;
 }
 
+.hint-note-row.is-practise p {
+  color: var(--focus-dark);
+  font-weight: 830;
+}
+
 .hint-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 9px;
-  margin-top: 14px;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .note-details + .note-details {

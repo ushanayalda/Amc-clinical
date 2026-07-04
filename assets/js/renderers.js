@@ -782,41 +782,56 @@
   }
 
   function renderHintsPanel(currentCase) {
-    var groups = {};
-    currentCase.hints.forEach(function (hint) {
-      groups[hint.group] = groups[hint.group] || [];
-      groups[hint.group].push(hint);
-    });
+    var stageOrder = [
+      { key: "see", label: "See", cue: "Spot danger" },
+      { key: "say", label: "Say", cue: "Make it clear" },
+      { key: "act", label: "Act", cue: "Move early" },
+      { key: "close", label: "Close", cue: "Land the plan" }
+    ];
+    var stages = stageOrder.reduce(function (memo, stage) {
+      memo[stage.key] = [];
+      return memo;
+    }, {});
 
-    function hintGroupLabel(group) {
-      if (group === "Recognise danger") return "Spot danger";
-      if (group === "Explain and act") return "Act early";
-      if (group === "Safety, time, close") return "Close safely";
-      return group;
+    function hintStage(hint) {
+      if (hint.id === "technical-language" || hint.id === "decision-point") return "say";
+      if (hint.id === "first-action" || hint.id === "escalation" || hint.id === "delayed-transfer-tests" || hint.id === "medication-safety") return "act";
+      if (hint.group === "Safety, time, close") return "close";
+      return "see";
     }
 
-    var choices = Object.keys(groups).map(function (group) {
-      return '<section class="hint-group"><h4>' + esc(hintGroupLabel(group)) + '</h4><div class="hint-choice-list">' + groups[group].map(function (hint) {
-        return '<button class="hint-choice" type="button" data-hint-choice="' + esc(hint.id) + '"><span>' + esc(hint.label) + '</span></button>';
-      }).join("") + '</div></section>';
+    currentCase.hints.forEach(function (hint) {
+      stages[hintStage(hint)].push(hint);
+    });
+
+    var choices = stageOrder.map(function (stage) {
+      if (!stages[stage.key].length) return "";
+      return '<section class="hint-group hint-group-' + esc(stage.key) + '">' +
+        '<h4><span>' + esc(stage.label) + '</span><small>' + esc(stage.cue) + '</small></h4>' +
+        '<div class="hint-choice-list">' + stages[stage.key].map(function (hint) {
+          return '<button class="hint-choice" type="button" data-hint-choice="' + esc(hint.id) + '">' +
+            '<span class="hint-choice-text">' + esc(hint.label) + '</span>' +
+          '</button>';
+        }).join("") + '</div>' +
+      '</section>';
     }).join("");
 
     var cards = currentCase.hints.map(function (hint) {
       return '<article class="hint-card" data-hint-card="' + esc(hint.id) + '" tabindex="-1" hidden>' +
         '<h4>' + esc(hint.title) + '</h4>' +
-        '<div class="hint-note-row is-missed"><span>Missed</span><p>' + esc(hint.missed) + '</p></div>' +
         '<div class="hint-say-line"><span>Say this</span><p>' + esc(hint.say) + '</p></div>' +
-        '<div class="hint-note-row"><span>Why it matters</span><p>' + esc(hint.why) + '</p></div>' +
-        '<div class="hint-note-row"><span>Practise now</span><p>Say this line three times, then return to Start speaking.</p></div>' +
+        '<div class="hint-note-row is-missed"><span>What slipped</span><p>' + esc(hint.missed) + '</p></div>' +
+        '<div class="hint-note-row"><span>Why this helps</span><p>' + esc(hint.why) + '</p></div>' +
+        '<div class="hint-note-row is-practise"><span>Practise now</span><p>Say this line three times. Then return to Start speaking.</p></div>' +
         '<div class="hint-actions">' +
-          '<a class="button primary" href="#speak-aloud">Back to Start speaking</a>' +
-          '<button class="button secondary" type="button" data-hint-back>Choose another</button>' +
+          '<button class="button secondary" type="button" data-hint-back>Back to Hints</button>' +
+          '<a class="button primary" href="#speak-aloud">Start speaking</a>' +
         '</div>' +
       '</article>';
     }).join("");
 
     return '<section class="tool-panel hint-panel" data-tool-panel="hints" hidden>' +
-      '<div class="hint-start"><p>Choose one thing to improve.</p><small>One Hint will open.</small></div>' +
+      '<div class="hint-start"><p>Choose one thing to improve.</p><small>One hint. One line. Back to speaking.</small></div>' +
       '<div class="hint-choices">' + choices + '</div>' +
       '<div class="hint-result" data-hint-result hidden>' + cards + '</div>' +
     '</section>';

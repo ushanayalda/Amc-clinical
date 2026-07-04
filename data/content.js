@@ -4,7 +4,7 @@
     app: {
       title: "AMC Clinical Pathway",
       shortTitle: "AMC Pathway",
-      preparedBy: "Dr. Ushana Yalda",
+      preparedBy: "Ushana Yalda",
       tagline: "One case at a time.",
       totalCases: 160,
       currentCaseId: "case-1-classic-chest-pain"
@@ -190,7 +190,7 @@
             purpose: "Ambulance before full history.",
             anchor: "I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?",
             turns: [
-              { speaker: "You", lines: ["Hello, I'm Dr Ushana, one of the doctors. How would you like me to address you?"] },
+              { speaker: "You", lines: ["Hello, I'm Ushana, one of the doctors. How would you like me to address you?"] },
               { speaker: "Patient", lines: ["Call me Mr Lewis."] },
               { speaker: "You", lines: ["Thank you, Mr Lewis. I can see you look pale and sweaty.", "I am worried this may be coming from your heart.", "I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?"] },
               { speaker: "Patient", lines: ["An ambulance? Is it that serious?"] },

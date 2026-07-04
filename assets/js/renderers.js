@@ -32,7 +32,7 @@
     var buildId = window.__BUILD_ID__ ? String(window.__BUILD_ID__) : "";
     var buildStamp = buildId ? '<p class="build-stamp">Build ' + esc(buildId.slice(0, 12)) + "</p>" : "";
     return '<footer class="site-footer">' +
-      '<p>(c) 2026 Dr. Ushana Yalda. All rights reserved.</p>' +
+      '<p>(c) 2026 Ushana Yalda. All rights reserved.</p>' +
       '<p>' + esc(app.title || "AMC Clinical Pathway") + ' is an independent educational resource. Not affiliated with or endorsed by the Australian Medical Council.</p>' +
       buildStamp +
       "</footer>";
@@ -91,19 +91,14 @@
           '<div class="home-current-truth">' +
             '<p class="home-case-label">Current pattern</p>' +
             '<h2 id="home-current-case">' + esc(patternTitle) + '</h2>' +
-            '<p class="home-current-case"><span>Current case</span><strong>' + esc(caseTitle) + '</strong><em>Status: Ready</em></p>' +
+            '<p class="home-current-case"><span>Today&apos;s case</span><strong>' + esc(caseTitle) + '</strong><em>ready to practise</em></p>' +
           '</div>' +
-          '<div class="home-choice-list">' +
-            '<article class="home-choice">' +
-            '<h3>New here?</h3>' +
-              '<p>Use Ignite before the case.</p>' +
-              '<a class="home-start-link" href="' + window.AMCRouter.href("warmup") + '">Read Ignite</a>' +
-            '</article>' +
-            '<article class="home-choice">' +
-              '<h3>Ready to speak?</h3>' +
-              '<p>Open the current case and speak it aloud.</p>' +
-              '<a class="home-start-link" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
-            '</article>' +
+          '<div class="home-primary-start">' +
+            '<p>Open the current case and speak it out loud. You can warm up first if your brain wants a softer start.</p>' +
+            '<div class="home-action-row">' +
+              '<a class="home-start-link" href="' + window.AMCRouter.href("case") + '">Practise aloud now</a>' +
+              '<a class="home-soft-link" href="' + window.AMCRouter.href("warmup") + '">Warm up first</a>' +
+            '</div>' +
           '</div>' +
         '</section>' +
       '</section>',
@@ -143,25 +138,25 @@
       '<section class="study-page cases-page pathway-page">' +
         '<header class="cases-head">' +
           '<h1>Cases</h1>' +
-          '<p class="lead">Pick where to continue.</p>' +
+          '<p class="lead">Pick up where you left off.</p>' +
         '</header>' +
         '<section class="cases-current" aria-labelledby="cases-current-heading">' +
           '<p class="section-kicker">Current case</p>' +
           '<h2 id="cases-current-heading">' + esc(caseTitle) + '</h2>' +
           '<dl class="cases-current-facts">' +
             '<div><dt>Pattern</dt><dd>' + esc(patternTitle) + '</dd></div>' +
-            '<div><dt>Status</dt><dd>Ready</dd></div>' +
+            '<div><dt>Status</dt><dd>Ready to practise</dd></div>' +
           '</dl>' +
           '<p class="cases-task">' + esc(task) + '</p>' +
           '<div class="cases-actions">' +
-            '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
-            '<a class="small-action" href="' + window.AMCRouter.href("warmup") + '">Ignite</a>' +
+            '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Practise aloud now</a>' +
+            '<a class="small-action" href="' + window.AMCRouter.href("warmup") + '">Ignite warm-up</a>' +
             '<a class="small-action" href="' + window.AMCRouter.href("case", "#hints") + '">Hints</a>' +
             '<a class="small-action" href="' + window.AMCRouter.href("case", "#station-stem") + '">Stem</a>' +
           '</div>' +
         '</section>' +
         '<details class="course-index">' +
-          '<summary><span>Course index</span><small>Open this when you want to see the wider pathway.</small></summary>' +
+          '<summary><span>Full pathway</span><small>Open this only when you want the wider view.</small></summary>' +
           '<div class="course-index-body">' +
             '<section class="course-phase">' +
               '<h2>Phase 1 - ' + esc(phaseTitle) + '</h2>' +
@@ -286,7 +281,7 @@
           '</article>';
         }).join("") + '</div>' +
         '<div class="cta-row single">' +
-          '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
+          '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Practise aloud now</a>' +
         '</div>' +
       '</section>',
       context,
@@ -322,15 +317,15 @@
   function renderCaseTabs(currentCase) {
     var tabs = [
       ["stem", "Stem", "station-stem"],
-      ["speak", "Start speaking", "speak-aloud"],
-      ["mock", "Timed run", "mock-exam"],
+      ["speak", "Practise", "speak-aloud"],
+      ["mock", "Timer", "mock-exam"],
       ["matters", "Do not miss", "what-matters"],
       ["hints", "Hints", "hints"]
     ];
 
     var tabButtons = tabs.map(function (tab, index) {
       var active = index === 0;
-      return '<button class="case-tab' + (active ? " is-active" : "") + '" type="button" role="tab" aria-selected="' + String(active) + '" aria-controls="' + esc(tab[2]) + '" data-case-tab="' + esc(tab[0]) + '" data-case-hash="' + esc(tab[2]) + '">' + esc(tab[1]) + '</button>';
+      return '<button class="case-tab' + (active ? " is-active" : "") + '" type="button" role="tab" aria-selected="' + String(active) + '" aria-controls="' + esc(tab[2]) + '" data-case-tab="' + esc(tab[0]) + '" data-case-hash="' + esc(tab[2]) + '"><span class="case-tab-step" aria-hidden="true"></span><span>' + esc(tab[1]) + '</span></button>';
     }).join("") +
       '<a class="case-tab case-tab-link" href="' + window.AMCRouter.href("pathway") + '">Cases</a>';
 
@@ -367,10 +362,10 @@
       '<ul class="protected-list">' + protectedLines.map(function (line) {
         return '<li>' + esc(line) + '</li>';
       }).join("") + '</ul>' +
-      '<p class="run-next-line">Choose one thing to improve.</p>' +
+      '<p class="run-next-line">Choose your next repair.</p>' +
       '<div class="run-complete-actions">' +
         '<button class="button primary" type="button" data-open-tools="hints">Hints</button>' +
-        '<a class="button secondary" href="#speak-aloud">Start speaking</a>' +
+        '<a class="button secondary" href="#speak-aloud">Practise again</a>' +
         '<a class="small-action" href="' + window.AMCRouter.href("pathway") + '">Back to Cases</a>' +
       '</div>' +
     '</section>';
@@ -448,7 +443,7 @@
           '<strong data-mock-time>00:00</strong>' +
         '</div>' +
         '<p data-mock-state>Reading time</p>' +
-        '<div class="mock-actions" aria-label="Timed run controls">' +
+        '<div class="mock-actions" aria-label="Timer controls">' +
           '<button class="mock-control-button mock-voice-toggle" type="button" data-mock-voice aria-pressed="true" aria-label="Patient voice on" title="Patient voice">' +
             '<span class="mock-icon mock-icon-speaker" data-mock-voice-icon aria-hidden="true">' +
               '<svg viewBox="0 0 24 24" focusable="false">' +
@@ -470,7 +465,8 @@
           '</button>' +
         '</div>' +
         '<label class="mock-time-control">' +
-          '<input type="range" min="0" max="600" step="1" value="0" data-mock-seek aria-label="Timed run time">' +
+          '<span>Time</span>' +
+          '<input type="range" min="0" max="600" step="1" value="0" data-mock-seek aria-label="Timer time">' +
           '<strong data-mock-seek-label>00:00</strong>' +
         '</label>' +
         '<p class="mock-voice-note" data-mock-voice-state>Patient voice starts at 2:00.</p>' +
@@ -558,11 +554,11 @@
     if (mode === "warmup") {
       tabs = [
         ["pathway", "Cases"],
-        ["case", "Start speaking"]
+        ["case", "Practise"]
       ];
       panels = [
         '<section class="tool-panel" data-tool-panel="pathway"><h3>Cases</h3><p>Current area: ' + esc(context.phase.title) + '</p><p>Current pattern: ' + esc(context.pattern.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("pathway") + '">Open cases</a></section>',
-        '<section class="tool-panel" data-tool-panel="case" hidden><h3>Start speaking</h3><p>' + esc(currentCase.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("case") + '">Start speaking</a></section>'
+        '<section class="tool-panel" data-tool-panel="case" hidden><h3>Practise aloud</h3><p>' + esc(currentCase.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("case") + '">Practise aloud now</a></section>'
       ];
     } else {
       tabs = [
@@ -611,7 +607,7 @@
         '<div class="hint-note-row is-missed"><span>Missed</span><p>' + esc(hint.missed) + '</p></div>' +
         '<div class="hint-say-line"><span>Say this</span><p>' + esc(hint.say) + '</p></div>' +
         '<div class="hint-note-row"><span>Why it matters</span><p>' + esc(hint.why) + '</p></div>' +
-        '<div class="hint-note-row"><span>Practise now</span><p>Say this line three times, then return to Start speaking.</p></div>' +
+        '<div class="hint-note-row"><span>Practise now</span><p>Say this line three times, then return to Practise.</p></div>' +
         '<div class="hint-actions">' +
           '<button class="button secondary" type="button" data-hint-back>Back</button>' +
         '</div>' +
@@ -619,7 +615,7 @@
     }).join("");
 
     return '<section class="tool-panel hint-panel" data-tool-panel="hints" hidden>' +
-      '<div class="hint-start"><p>Choose one thing to improve.</p><small>Choose one thing you missed. One Hint will open.</small></div>' +
+      '<div class="hint-start"><p>Choose your next repair.</p><small>Pick one weak spot. I&apos;ll open one focused hint.</small></div>' +
       '<div class="hint-choices">' + choices + '</div>' +
       '<div class="hint-result" data-hint-result hidden>' + cards + '</div>' +
     '</section>';

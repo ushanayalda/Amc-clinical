@@ -102,6 +102,32 @@ function serviceWorkerCleanupSnippet() {
 })();`;
 }
 
+function renderStaticHomeShell() {
+  return `    <section class="home-hero home-entry" data-static-shell>
+      <header class="home-top">
+        <div class="brand-block home-brand">
+          <p class="eyebrow">Prepared by Ushana Yalda</p>
+          <h1>AMC Clinical Pathway</h1>
+        </div>
+        <a class="home-soft-link home-cases-link" href="${escapeHtml(basePath)}index.html#cases">Cases</a>
+      </header>
+      <section class="home-launch" aria-labelledby="home-current-case">
+        <div class="home-current-truth">
+          <p class="home-case-label">Current pattern</p>
+          <h2>Dangerous Chest Pain</h2>
+          <p class="home-current-case"><span>Today&apos;s case</span><strong id="home-current-case">Classic Chest Pain</strong><em>ready to practise</em></p>
+        </div>
+        <div class="home-primary-start">
+          <p>Open the current case and speak it out loud. You can warm up first if your brain wants a softer start.</p>
+          <div class="home-action-row">
+            <a class="home-start-link" href="${escapeHtml(basePath)}index.html#station-stem">Start speaking</a>
+            <a class="home-soft-link" href="${escapeHtml(basePath)}index.html#ignite">Warm up first</a>
+          </div>
+        </div>
+      </section>
+    </section>`;
+}
+
 function renderShell(manifest) {
   const stylesheet = manifest.find((asset) => asset.tag === "style");
   const scripts = manifest.filter((asset) => asset.tag === "script");
@@ -123,7 +149,9 @@ function renderShell(manifest) {
   <link rel="stylesheet" href="${escapeHtml(stylesheet.url)}">
 </head>
 <body>
-  <main id="app" data-screen="home"></main>
+  <main id="app" data-screen="home">
+${renderStaticHomeShell()}
+  </main>
   <script>
     window.__BUILD_ID__ = ${jsString(buildId)};
     window.__APP_VERSION__ = ${JSON.stringify(version)};

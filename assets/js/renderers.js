@@ -96,7 +96,7 @@
           '<div class="home-primary-start">' +
             '<p>Open the current case and speak it out loud. You can warm up first if your brain wants a softer start.</p>' +
             '<div class="home-action-row">' +
-              '<a class="home-start-link" href="' + window.AMCRouter.href("case") + '">Practise aloud now</a>' +
+              '<a class="home-start-link" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
               '<a class="home-soft-link" href="' + window.AMCRouter.href("warmup") + '">Warm up first</a>' +
             '</div>' +
           '</div>' +
@@ -149,7 +149,7 @@
           '</dl>' +
           '<p class="cases-task">' + esc(task) + '</p>' +
           '<div class="cases-actions">' +
-            '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Practise aloud now</a>' +
+            '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
             '<a class="small-action" href="' + window.AMCRouter.href("warmup") + '">Ignite warm-up</a>' +
             '<a class="small-action" href="' + window.AMCRouter.href("case", "#hints") + '">Hints</a>' +
             '<a class="small-action" href="' + window.AMCRouter.href("case", "#station-stem") + '">Stem</a>' +
@@ -281,7 +281,7 @@
           '</article>';
         }).join("") + '</div>' +
         '<div class="cta-row single">' +
-          '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Practise aloud now</a>' +
+          '<a class="button primary" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
         '</div>' +
       '</section>',
       context,
@@ -558,7 +558,7 @@
       ];
       panels = [
         '<section class="tool-panel" data-tool-panel="pathway"><h3>Cases</h3><p>Current area: ' + esc(context.phase.title) + '</p><p>Current pattern: ' + esc(context.pattern.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("pathway") + '">Open cases</a></section>',
-        '<section class="tool-panel" data-tool-panel="case" hidden><h3>Practise aloud</h3><p>' + esc(currentCase.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("case") + '">Practise aloud now</a></section>'
+        '<section class="tool-panel" data-tool-panel="case" hidden><h3>Practise aloud</h3><p>' + esc(currentCase.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("case") + '">Start speaking</a></section>'
       ];
     } else {
       tabs = [

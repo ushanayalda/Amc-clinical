@@ -72,11 +72,15 @@ jobs:
               html="$(curl -fsSL "${BASE}${path}?health=${BUILD_ID}")" || ok=false
               if [ "${ok}" = true ]; then
                 echo "$html" | grep -Fq "$BUILD_ID" || ok=false
+                echo "$html" | grep -Fq "Classic Chest Pain" || ok=false
+                echo "$html" | grep -Fq "Start speaking" || ok=false
+                echo "$html" | grep -Fq "Cases" || ok=false
                 ! echo "$html" | grep -Fq "Map" || ok=false
                 ! echo "$html" | grep -Fq "Before the Case" || ok=false
                 ! echo "$html" | grep -Fq "Progress" || ok=false
                 ! echo "$html" | grep -Fq "Demo progress" || ok=false
                 ! echo "$html" | grep -Fq "Case 1 awaiting transfer" || ok=false
+                ! echo "$html" | grep -Fq "Tracking not connected yet" || ok=false
               fi
             done
             if [ "${ok}" = true ]; then

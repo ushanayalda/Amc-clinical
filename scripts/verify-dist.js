@@ -42,8 +42,14 @@ if (!process.exitCode) {
     fail("dist/version.json build ID does not match the shell build ID.");
   }
 
-  ["Map", "Before the Case", "Progress", "Demo progress", "Case 1 awaiting transfer"].forEach((term) => {
+  ["Classic Chest Pain", "Start speaking", "Cases"].forEach((term) => {
+    if (!indexHtml.includes(term)) fail(`Canonical shell is missing learner-facing term: ${term}`);
+    if (!notFoundHtml.includes(term)) fail(`404 shell is missing learner-facing term: ${term}`);
+  });
+
+  ["Map", "Before the Case", "Progress", "Demo progress", "Case 1 awaiting transfer", "Tracking not connected yet"].forEach((term) => {
     if (indexHtml.includes(term)) fail(`Canonical shell still contains legacy term: ${term}`);
+    if (notFoundHtml.includes(term)) fail(`404 shell still contains legacy term: ${term}`);
   });
 
   if (/[?&]v=/.test(indexHtml) || /[?&]v=/.test(notFoundHtml)) {

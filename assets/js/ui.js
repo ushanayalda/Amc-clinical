@@ -511,9 +511,44 @@
     setMockExamState(scope, mockExamElapsedSeconds, Boolean(mockExamTimerId));
   }
 
+  function setFinishCheckState(button, state) {
+    if (!button) return;
+
+    var label = button.getAttribute("data-finish-label") || button.textContent.trim();
+    var mark = button.querySelector(".finish-check-mark");
+    var safeState = state === "yes" || state === "no" ? state : "blank";
+    var stateLabel = safeState === "yes" ? "yes" : safeState === "no" ? "not yet" : "not marked";
+
+    button.setAttribute("data-state", safeState);
+    button.setAttribute("aria-pressed", String(safeState !== "blank"));
+    button.setAttribute("aria-label", label + ": " + stateLabel);
+    button.classList.toggle("is-yes", safeState === "yes");
+    button.classList.toggle("is-no", safeState === "no");
+
+    if (mark) {
+      mark.textContent = safeState === "yes" ? "\u2713" : safeState === "no" ? "\u00d7" : "";
+    }
+  }
+
+  function toggleFinishCheck(button) {
+    var state = button.getAttribute("data-state") || "blank";
+    setFinishCheckState(button, state === "blank" ? "yes" : state === "yes" ? "no" : "blank");
+  }
+
+  function resetFinishChecks(scope) {
+    (scope || document).querySelectorAll("[data-finish-check]").forEach(function (button) {
+      setFinishCheckState(button, "blank");
+    });
+  }
+
   function selectCaseTab(tabId, updateHash) {
     var shell = document.querySelector("[data-case-tabs]");
     if (!shell || !tabId) return;
+
+    var previousTab = shell.getAttribute("data-active-case-tab");
+    if (previousTab === "matters" && tabId !== "matters") {
+      resetFinishChecks(shell);
+    }
 
     var activeButton = null;
     shell.setAttribute("data-active-case-tab", tabId);
@@ -680,6 +715,14 @@
       var navToggle = event.target.closest("[data-nav-toggle]");
       if (navToggle) {
         toggleFloatingNav();
+        return;
+      }
+
+      var finishCheck = event.target.closest("[data-finish-check]");
+      if (finishCheck) {
+        event.preventDefault();
+        toggleFinishCheck(finishCheck);
+        closeFloatingNav();
         return;
       }
 

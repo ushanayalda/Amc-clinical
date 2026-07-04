@@ -91,13 +91,12 @@
           '<div class="home-current-truth">' +
             '<p class="home-case-label">Current pattern</p>' +
             '<h2 id="home-current-case">' + esc(patternTitle) + '</h2>' +
-            '<p class="home-current-case"><span>Today&apos;s case</span><strong>' + esc(caseTitle) + '</strong><em>ready to practise</em></p>' +
+            '<p class="home-current-case"><span>Today&apos;s case</span><strong>' + esc(caseTitle) + '</strong></p>' +
           '</div>' +
           '<div class="home-primary-start">' +
-            '<p>Open the current case and speak it out loud. If starting feels heavy, use Ignite first.</p>' +
+            '<p>Start with Ignite, then open the stem.</p>' +
             '<div class="home-action-row">' +
-              '<a class="home-start-link" href="' + window.AMCRouter.href("case", "#speak-aloud") + '">Start speaking</a>' +
-              '<a class="home-soft-link" href="' + window.AMCRouter.href("warmup") + '">Ignite</a>' +
+              '<a class="home-start-link" href="' + window.AMCRouter.href("warmup") + '">Start the pattern</a>' +
             '</div>' +
           '</div>' +
         '</section>' +
@@ -113,32 +112,6 @@
     var currentPattern = currentContext && currentContext.pattern;
     var patternTitle = currentPattern && currentPattern.title ? currentPattern.title : "Dangerous Chest Pain";
     var caseTitle = currentCase && currentCase.title ? currentCase.title : "Classic Chest Pain";
-    var plannedCases = [
-      {
-        name: "Classic Chest Pain",
-        pattern: patternTitle,
-        status: "Ready",
-        lastResult: "Not recorded yet",
-        nextAction: "Start speaking",
-        href: window.AMCRouter.href("case", "#speak-aloud")
-      }
-    ];
-
-    function renderCaseCard(item, actionHref, actionLabel) {
-      var href = actionHref || item.href || window.AMCRouter.href("case");
-      var label = actionLabel || item.nextAction;
-      return '<article class="case-card">' +
-        '<div class="case-card-main">' +
-          '<h3>' + esc(item.name) + '</h3>' +
-          '<p>' + esc(item.pattern) + '</p>' +
-        '</div>' +
-        '<dl class="case-card-facts">' +
-          '<div><dt>Status</dt><dd>' + esc(item.status) + '</dd></div>' +
-          '<div><dt>Last result</dt><dd>' + esc(item.lastResult) + '</dd></div>' +
-        '</dl>' +
-        '<a class="case-card-action" href="' + href + '">' + esc(label) + '</a>' +
-      '</article>';
-    }
 
     function renderCaseQueue(title, items, emptyText, actionHref, actionLabel) {
       if (!items.length) {
@@ -150,8 +123,79 @@
       return '<section class="case-queue">' +
         '<h2>' + esc(title) + '</h2>' +
         '<div class="case-card-list">' + items.map(function (item) {
-          return renderCaseCard(item, actionHref, actionLabel);
+          var href = actionHref || item.href || window.AMCRouter.href("case");
+          var label = actionLabel || item.nextAction;
+          return '<article class="case-card">' +
+            '<div class="case-card-main">' +
+              '<h3><a class="case-title-link" href="' + href + '">' + esc(item.name) + '</a></h3>' +
+              '<p>' + esc(item.pattern) + '</p>' +
+            '</div>' +
+            '<dl class="case-card-facts">' +
+              '<div><dt>Status</dt><dd>' + esc(item.status) + '</dd></div>' +
+              '<div><dt>Last result</dt><dd>' + esc(item.lastResult) + '</dd></div>' +
+            '</dl>' +
+            '<a class="case-card-action" href="' + href + '">' + esc(label) + '</a>' +
+          '</article>';
         }).join("") + '</div>' +
+      '</section>';
+    }
+
+    function renderAllCasesIndex() {
+      var phases = context.phases || [];
+      var patterns = context.patterns || [];
+      var cases = context.cases || [];
+
+      function caseHref(caseItem) {
+        return window.AMCRouter.href("case", "#station-stem");
+      }
+
+      function renderCaseItem(caseItem) {
+        var active = currentCase && caseItem.id === currentCase.id;
+        return '<li>' +
+          '<a class="case-index-case-link' + (active ? " is-current" : "") + '" href="' + caseHref(caseItem) + '">' +
+            '<span>' + esc(caseItem.displayNumber || "Case") + '</span>' +
+            '<strong>' + esc(caseItem.title) + '</strong>' +
+          '</a>' +
+        '</li>';
+      }
+
+      function renderPattern(pattern) {
+        var patternCases = cases.filter(function (caseItem) {
+          return (pattern.caseIds || []).indexOf(caseItem.id) !== -1;
+        });
+        var active = currentPattern && pattern.id === currentPattern.id;
+        var overviewLink = pattern.warmupId ? '<a class="pattern-overview-link" href="' + window.AMCRouter.href("warmup") + '">Overview</a>' : "";
+
+        return '<details class="case-index-pattern"' + (active ? " open" : "") + '>' +
+          '<summary><strong>' + esc(pattern.title) + '</strong>' + overviewLink + '</summary>' +
+          '<div class="case-index-pattern-body">' +
+            (patternCases.length
+              ? '<ul class="case-index-case-list">' + patternCases.map(renderCaseItem).join("") + '</ul>'
+              : '<p class="case-index-empty">No cases added yet.</p>') +
+          '</div>' +
+        '</details>';
+      }
+
+      function renderPhase(phase) {
+        var phasePatterns = patterns.filter(function (pattern) {
+          return (phase.patternIds || []).indexOf(pattern.id) !== -1 || pattern.phaseId === phase.id;
+        });
+        var active = currentContext && currentContext.phase && phase.id === currentContext.phase.id;
+
+        return '<details class="case-index-phase"' + (active ? " open" : "") + '>' +
+          '<summary><strong>' + esc(phase.title) + '</strong></summary>' +
+          '<div class="case-index-phase-body">' +
+            (phasePatterns.length
+              ? phasePatterns.map(renderPattern).join("")
+              : '<p class="case-index-empty">No patterns added yet.</p>') +
+          '</div>' +
+        '</details>';
+      }
+
+      return '<section class="case-index-shell" aria-labelledby="all-cases-heading">' +
+        '<h2 id="all-cases-heading">All cases</h2>' +
+        '<p class="case-index-legend" aria-hidden="true"><span>Phase</span><span>Pattern</span><span>Case</span></p>' +
+        '<div class="case-index-list">' + phases.map(renderPhase).join("") + '</div>' +
       '</section>';
     }
 
@@ -163,19 +207,11 @@
           '<p class="lead">Choose where to continue.</p>' +
         '</header>' +
         '<section class="cases-continue" aria-labelledby="cases-current-heading">' +
-          '<p class="section-kicker">Continue</p>' +
-          '<h2 id="cases-current-heading">' + esc(caseTitle) + '</h2>' +
-          '<p>' + esc(patternTitle) + '</p>' +
-          '<div class="cases-actions case-action-hierarchy">' +
-            '<a class="button primary" href="' + window.AMCRouter.href("case", "#speak-aloud") + '">Start speaking</a>' +
-            '<a class="button secondary" href="' + window.AMCRouter.href("case", "#timed-run") + '">Timed run</a>' +
-            '<a class="button secondary" href="' + window.AMCRouter.href("case", "#hints") + '">Hints</a>' +
-            '<a class="quiet-tool" href="' + window.AMCRouter.href("case", "#station-stem") + '">Stem</a>' +
-          '</div>' +
+          '<p class="section-kicker cases-current-path"><span>Continue</span><strong>' + esc(patternTitle) + '</strong></p>' +
+          '<h2 id="cases-current-heading"><a class="case-title-link" href="' + window.AMCRouter.href("case", "#station-stem") + '">' + esc(caseTitle) + '</a></h2>' +
         '</section>' +
-        renderCaseQueue("Due today", plannedCases, "Nothing due today.", window.AMCRouter.href("case", "#timed-run"), "Timed run") +
         renderCaseQueue("Weak spots", [], "No weak spot saved yet.") +
-        renderCaseQueue("All cases", plannedCases, "No cases loaded yet.") +
+        renderAllCasesIndex() +
       '</section>',
       currentContext || context,
       "pathway"
@@ -188,7 +224,7 @@
     var flow = [
       {
         title: "Today's Aim",
-        body: ["Recognise dangerous chest pain and act before certainty."]
+        body: ["Recognise dangerous chest pain. Do not wait to prove it."]
       },
       {
         title: "What This Pattern Is Testing",
@@ -290,7 +326,7 @@
           '</article>';
         }).join("") + '</div>' +
         '<div class="cta-row single">' +
-          '<a class="button primary" href="' + window.AMCRouter.href("case", "#speak-aloud") + '">Start speaking</a>' +
+          '<a class="button primary" href="' + window.AMCRouter.href("case", "#station-stem") + '">Start this pattern</a>' +
         '</div>' +
       '</section>',
       context,
@@ -539,11 +575,124 @@
   function renderWhatMattersContent(currentCase) {
     if (!currentCase.notes || !currentCase.notes.length) return '<p class="section-help">No extra detail for this case yet.</p>';
 
+    function noteSection(title) {
+      return currentCase.notes.find(function (section) {
+        return section.title === title;
+      });
+    }
+
     function noteLabel(title) {
       if (title === "Do not miss" || title === "What matters") return "Do not miss";
-      if (title === "Exam-safe lines") return "Say aloud";
+      if (title === "Exam-safe lines") return "Say aloud / Fail Points";
       if (title === "Memory drills") return "Memory line";
       return title;
+    }
+
+    function renderVisualMap() {
+      var map = currentCase.doNotMissMap;
+      var fullNotes = currentCase.notes.map(function (section) {
+        return '<section class="study-note-section is-' + esc(section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")) + '">' +
+          '<div class="study-note-label">' + esc(noteLabel(section.title)) + '</div>' +
+          '<div class="study-note-content">' +
+            '<ol class="study-note-list">' + section.items.map(function (item, index) {
+              return '<li><span>' + esc(index + 1) + '</span><p>' + esc(item) + '</p></li>';
+            }).join("") + '</ol>' +
+          '</div>' +
+        '</section>';
+      }).join("");
+
+      function stepIcon(label) {
+        if (label === "See") return "👀";
+        if (label === "Say") return "🗣";
+        if (label === "Do") return "✓";
+        return "";
+      }
+
+      function itemText(item) {
+        return item && typeof item === "object" ? item.text : item;
+      }
+
+      function itemMark(item) {
+        return item && typeof item === "object" ? item.mark : "";
+      }
+
+      function markedItem(item) {
+        var mark = itemMark(item);
+        return '<li>' + (mark ? '<span class="item-mark" aria-hidden="true">' + esc(mark) + '</span>' : "") + esc(itemText(item)) + '</li>';
+      }
+
+      function stepBlock(label, items) {
+        if (!items || !items.length) return "";
+        return '<div class="scene-step scene-step-' + esc(label.toLowerCase()) + '">' +
+          '<h3><span aria-hidden="true">' + esc(stepIcon(label)) + '</span>' + esc(label) + '</h3>' +
+          '<ul>' + items.map(function (item) {
+            return markedItem(item);
+          }).join("") + '</ul>' +
+        '</div>';
+      }
+
+      function sceneIcon(scene) {
+        if (scene.iconImage) {
+          return '<img class="scene-icon-image" src="' + esc(scene.iconImage) + '" alt="' + esc(scene.iconAlt || scene.title || "") + '">';
+        }
+        return '<strong aria-hidden="true">' + esc(scene.icon) + '</strong>';
+      }
+
+      return '<div class="do-not-miss-scenes">' +
+        '<section class="scene-prime" aria-label="Do not miss cue">' +
+          '<p>Do not miss</p>' +
+          '<ol>' + map.prime.map(function (item) {
+            return '<li>' + esc(item) + '</li>';
+          }).join("") + '</ol>' +
+        '</section>' +
+        '<section class="danger-scenes" aria-label="Danger scenes">' + map.scenes.map(function (scene) {
+          return '<article class="danger-scene tone-' + esc(scene.tone) + '">' +
+            '<header class="scene-head">' +
+              '<span class="scene-signal"><em>' + esc(scene.color) + '</em>' + sceneIcon(scene) + '</span>' +
+              '<div><h2>' + esc(scene.title) + '</h2><p>' + esc(scene.clinical) + '</p></div>' +
+            '</header>' +
+            '<div class="scene-steps">' +
+              stepBlock("See", scene.see) +
+              stepBlock("Say", scene.say) +
+              stepBlock("Do", scene.do) +
+            '</div>' +
+          '</article>';
+        }).join("") + '</section>' +
+        '<section class="support-zones">' +
+          '<article class="support-zone is-safe">' +
+            '<h2><span aria-hidden="true">🛏</span>' + esc(map.safe.title) + '</h2>' +
+            '<ul>' + map.safe.items.map(function (item) {
+              return markedItem(item);
+            }).join("") + '</ul>' +
+          '</article>' +
+          '<article class="support-zone is-medicines">' +
+            '<h2><span aria-hidden="true">💊</span>Medicines</h2>' +
+            '<div class="medicine-grid">' + map.medicines.map(function (group) {
+              return '<section><h3>' + esc(group.title) + '</h3><ul>' + group.items.map(function (item) {
+                return markedItem(item);
+              }).join("") + '</ul></section>';
+            }).join("") + '</div>' +
+          '</article>' +
+        '</section>' +
+        '<section class="finish-check">' +
+          '<h2><span aria-hidden="true">🛑</span>Before you finish</h2>' +
+          '<ul>' + map.finishCheck.map(function (item) {
+            return '<li><button class="finish-check-button" type="button" data-finish-check data-state="blank" data-finish-label="' + esc(item) + '" aria-pressed="false" aria-label="' + esc(item) + ': not marked"><span class="finish-check-mark" aria-hidden="true"></span><span class="finish-check-text">' + esc(item) + '</span></button></li>';
+          }).join("") + '</ul>' +
+        '</section>' +
+        '<section class="one-line">' +
+          '<h2><span aria-hidden="true">🎤</span>One line</h2>' +
+          '<p>' + map.oneLine.map(esc).join('<br>') + '</p>' +
+        '</section>' +
+        '<details class="full-notes-drawer">' +
+          '<summary>Full notes</summary>' +
+          '<div class="study-notes-body is-tabbed">' + fullNotes + '</div>' +
+        '</details>' +
+      '</div>';
+    }
+
+    if (currentCase.doNotMissMap) {
+      return renderVisualMap() + renderSourceBasis(currentCase);
     }
 
     return '<div class="retrieval-card">' +
@@ -562,7 +711,34 @@
           '</div>' +
         '</section>';
       }).join("") +
-    '</div>';
+    '</div>' +
+    renderSourceBasis(currentCase);
+  }
+
+  function renderSourceBasis(currentCase) {
+    var basis = currentCase.sourceBasis;
+    if (!basis && (!currentCase.references || !currentCase.references.length)) return "";
+
+    var basisRows = basis && basis.basis ? basis.basis.map(function (item) {
+      return '<li><span>' + esc(item.decision) + '</span><p>' + esc(item.match) + '</p></li>';
+    }).join("") : "";
+
+    var verifiedLinks = basis && basis.verifiedLinks ? basis.verifiedLinks.map(function (source) {
+      return '<li><a href="' + esc(source.url) + '" target="_blank" rel="noreferrer">' + esc(source.title) + '</a><span>' + esc(source.year) + '</span></li>';
+    }).join("") : "";
+
+    return '<details class="source-basis-card">' +
+      '<summary><span>Clinical source basis</span></summary>' +
+      '<div class="source-basis-body">' +
+        (basis ? '<dl class="source-basis-meta">' +
+          '<div><dt>Last checked</dt><dd>' + esc(basis.lastChecked) + '</dd></div>' +
+          '<div><dt>Website role</dt><dd>' + esc(basis.websiteRole) + '</dd></div>' +
+        '</dl>' : "") +
+        (basisRows ? '<ol class="source-basis-list">' + basisRows + '</ol>' : "") +
+        (verifiedLinks ? '<div class="source-link-block"><h3>Verified links</h3><ul>' + verifiedLinks + '</ul></div>' : "") +
+        (currentCase.references && currentCase.references.length ? '<details class="source-reference-list"><summary>Listed references</summary>' + list(currentCase.references, "plain-list") + '</details>' : "") +
+      '</div>' +
+    '</details>';
   }
 
   function renderHintsInlinePanel(currentCase) {

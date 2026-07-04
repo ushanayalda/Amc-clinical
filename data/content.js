@@ -20,7 +20,7 @@
         id: "phase-1",
         order: 1,
         title: "Can Kill Fast",
-        purpose: "Spot emergencies before certainty.",
+        purpose: "Spot emergencies before they are proven.",
         status: "active",
         patternIds: ["dangerous-chest-pain"]
       },
@@ -55,7 +55,7 @@
         phaseId: "phase-1",
         order: 1,
         title: "Dangerous Chest Pain",
-        purpose: "Chest pressure with danger signs. Act before certainty.",
+        purpose: "Chest pressure with danger signs. Do not wait to prove it.",
         warmupId: "warmup-dangerous-chest-pain",
         caseIds: ["case-1-classic-chest-pain"],
         status: "active"
@@ -121,7 +121,7 @@
         reference: [
           "Chest pressure with danger signs is a possible heart problem until proven otherwise.",
           "Reassurance comes later.",
-          "Act before certainty when the pattern is dangerous."
+          "Do not wait to prove it when the pattern is dangerous."
         ]
       }
     ],
@@ -294,7 +294,7 @@
             purpose: "Turn risk into action.",
             anchor: "I am arranging an ambulance now.",
             turns: [
-              { speaker: "You", lines: ["Because the pressure is still there, it spreads to your arm and jaw, and you feel sweaty, sick, and short of breath, I am treating this as a possible heart problem now.", "I am not waiting for certainty before acting.", "This is not safe to manage in this clinic.", "I am arranging an ambulance now.", "You should not drive yourself."] },
+              { speaker: "You", lines: ["Because the pressure is still there, it spreads to your arm and jaw, and you feel sweaty, sick, and short of breath, I am treating this as a possible heart problem now.", "I am not waiting until we are 100% sure. Your symptoms are dangerous enough to act now.", "This is not safe to manage in this clinic.", "I am arranging an ambulance now.", "You should not drive yourself."] },
               { speaker: "Patient", lines: ["Can my wife drive me? It is only nearby."] },
               { speaker: "You", lines: ["No. You need an ambulance because they can monitor you and act quickly if your condition changes.", "While we wait, we will keep you resting and check your blood pressure, pulse, oxygen level, breathing rate, temperature, and alertness.", "If we can do a heart tracing immediately without delaying the ambulance, we will do it.", "I will give aspirin if it is safe for you. You have no aspirin allergy and no bleeding concern, so I would give it now.", "I will give oxygen only if your oxygen level is low or you show signs that you need it.", "Before any chest pain spray or tablet under the tongue, I will check your blood pressure and make sure none of your recent medicines make it unsafe.", "I will not delay the ambulance for blood tests that need to happen in hospital.", "In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed."] }
             ]
@@ -377,7 +377,7 @@
             title: "Why act now",
             missed: "The reason for acting before confirmation was not clear yet.",
             why: "Ongoing chest pressure with spread, sweating, nausea, breathlessness, and risk factors is enough to act now.",
-            say: "I am not waiting for certainty before acting.",
+            say: "I am not waiting until we are 100% sure. Your symptoms are dangerous enough to act now.",
             practise: "Try the decision point in 15 seconds using Mr Lewis' features."
           },
           {
@@ -489,12 +489,195 @@
             ]
           }
         ],
+        doNotMissMap: {
+          prime: [
+            "Do not wait for the diagnosis.",
+            "See danger.",
+            "Act."
+          ],
+          scenes: [
+            {
+              tone: "red",
+              color: "Red",
+              icon: "❤️",
+              title: "Heart",
+              clinical: "Heart blood flow / ACS",
+              see: [
+                "Chest pressure",
+                "Sweating",
+                "Nausea",
+                "Breathless",
+                "Pain to arm or jaw"
+              ],
+              say: [
+                "This may be coming from your heart.",
+                "I am arranging an ambulance now."
+              ],
+              do: [
+                { mark: "✅", text: "Ambulance" },
+                { mark: "✅", text: "ECG only if it does not delay" },
+                { mark: "❌", text: "No driving" },
+                { mark: "❌", text: "No waiting for blood tests" }
+              ]
+            },
+            {
+              tone: "black",
+              color: "Black",
+              icon: "⚡",
+              title: "Tear",
+              clinical: "Main vessel tear / aortic dissection",
+              see: [
+                "Sudden",
+                "Worst pain",
+                "To the back",
+                "Collapse"
+              ],
+              say: [
+                "Hospital also needs to check for a tear in the main blood vessel."
+              ],
+              do: [
+                { mark: "✅", text: "Keep ambulance plan" },
+                { mark: "👀", text: "Watch for collapse" }
+              ]
+            },
+            {
+              tone: "blue",
+              color: "Blue",
+              icon: "🫁",
+              title: "Clot",
+              clinical: "Blood clot in lung / pulmonary embolism",
+              see: [
+                "Sharp pain",
+                "Sudden breathlessness",
+                "Blood when coughing",
+                "Swollen calf",
+                "Travel",
+                "Surgery",
+                "Cancer"
+              ],
+              say: [
+                "Hospital also needs to check for a blood clot in the lung."
+              ],
+              do: [
+                { mark: "✅", text: "Keep ambulance plan" },
+                { mark: "🫁", text: "Check oxygen level" }
+              ]
+            },
+            {
+              tone: "green",
+              color: "Green",
+              icon: "🌬",
+              iconImage: "assets/img/collapsed-lung.png",
+              iconAlt: "Collapsed lung visual anchor",
+              title: "Collapsed lung",
+              clinical: "Tension pneumothorax",
+              see: [
+                "Sudden",
+                "One-sided",
+                "Sharp",
+                "Breathless",
+                "Trauma"
+              ],
+              say: [
+                "Hospital also needs to check for a collapsed lung."
+              ],
+              do: [
+                { mark: "✅", text: "Keep ambulance plan" },
+                { mark: "🫁", text: "Check breathing and oxygen level" }
+              ]
+            }
+          ],
+          safe: {
+            title: "While waiting",
+            items: [
+              { mark: "🛏", text: "Rest" },
+              { mark: "🩺", text: "BP" },
+              { mark: "❤️", text: "Pulse" },
+              { mark: "🫁", text: "Oxygen level" },
+              { mark: "👀", text: "Stay with patient" }
+            ]
+          },
+          medicines: [
+            {
+              title: "Aspirin",
+              items: [
+                { mark: "✅", text: "If safe" },
+                { mark: "❌", text: "No allergy" },
+                { mark: "❌", text: "No bleeding concern" }
+              ]
+            },
+            {
+              title: "Oxygen",
+              items: [
+                { mark: "🫁", text: "Only if needed" }
+              ]
+            },
+            {
+              title: "Chest pain spray/tablet",
+              items: [
+                { mark: "🩺", text: "BP first" },
+                { mark: "💊", text: "Medicine safety first" }
+              ]
+            }
+          ],
+          finishCheck: [
+            "Heart",
+            "Ambulance",
+            "No driving",
+            "ECG only if no delay",
+            "No waiting for blood tests",
+            "Aspirin if safe",
+            "Oxygen only if needed",
+            "BP before spray/tablet",
+            "Warning signs",
+            "Check understanding"
+          ],
+          oneLine: [
+            "This may be coming from your heart.",
+            "I am arranging an ambulance now.",
+            "You should not drive yourself."
+          ]
+        },
         references: [
           "Heart Foundation Australia - Australian Acute Coronary Syndromes Guideline, 2025.",
           "Australian Commission on Safety and Quality in Health Care - Acute Coronary Syndromes Clinical Care Standard.",
           "ANZCOR Guideline 14.1 - Acute Coronary Syndromes: Presentation.",
           "ANZCOR Guideline 14.2 - Acute Coronary Syndromes: Initial Medical Therapy."
         ],
+        sourceBasis: {
+          lastChecked: "5 July 2026",
+          websiteRole: "layout only",
+          basis: [
+            {
+              decision: "Chest pain pathway",
+              match: "Acute chest pain with possible ACS needs immediate management through a documented chest pain pathway."
+            },
+            {
+              decision: "Early assessment",
+              match: "ECG belongs early in suspected ACS; this case keeps ambulance transfer first when clinic testing would slow safer care."
+            },
+            {
+              decision: "Explain the urgent plan",
+              match: "The learner must explain what is happening and why, without waiting to prove the diagnosis."
+            },
+            {
+              decision: "Medicine safety",
+              match: "Aspirin, oxygen, and chest pain spray or tablet stay tied to safety checks."
+            }
+          ],
+          verifiedLinks: [
+            {
+              title: "ACSQHC - Acute Coronary Syndromes Clinical Care Standard",
+              year: "2019",
+              url: "https://www.safetyandquality.gov.au/clinical-care-standards/acute-coronary-syndromes"
+            },
+            {
+              title: "ACSQHC - Acute Coronary Syndromes Clinical Care Standard resource page",
+              year: "2019",
+              url: "https://www.safetyandquality.gov.au/resources/acute-coronary-syndromes-clinical-care-standard-2019"
+            }
+          ]
+        },
         status: "active"
       }
     ]

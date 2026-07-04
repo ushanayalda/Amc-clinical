@@ -19,6 +19,10 @@ const assets = [
   { src: "assets/js/app.js", outDir: "assets/js", name: "app", ext: ".js", tag: "script" }
 ];
 
+const staticAssets = [
+  { src: "assets/img/collapsed-lung.png", output: "assets/img/collapsed-lung.png" }
+];
+
 function normalizeBasePath(value) {
   var clean = value || "/";
   if (!clean.startsWith("/")) clean = "/" + clean;
@@ -71,6 +75,21 @@ function copyFingerprintedAsset(asset) {
   };
 }
 
+function copyStaticAsset(asset) {
+  const sourcePath = path.join(root, asset.src);
+  const outputPath = path.join(dist, asset.output);
+
+  ensureDir(path.dirname(outputPath));
+  fs.copyFileSync(sourcePath, outputPath);
+
+  return {
+    source: asset.src,
+    output: asset.output.replace(/\\/g, "/"),
+    url: basePath + asset.output.replace(/\\/g, "/"),
+    tag: "static"
+  };
+}
+
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -115,13 +134,12 @@ function renderStaticHomeShell() {
         <div class="home-current-truth">
           <p class="home-case-label">Current pattern</p>
           <h2>Dangerous Chest Pain</h2>
-          <p class="home-current-case"><span>Today&apos;s case</span><strong id="home-current-case">Classic Chest Pain</strong><em>ready to practise</em></p>
+          <p class="home-current-case"><span>Today&apos;s case</span><strong id="home-current-case">Classic Chest Pain</strong></p>
         </div>
         <div class="home-primary-start">
-          <p>Open the current case and speak it out loud. If starting feels heavy, use Ignite first.</p>
+          <p>Start with Ignite, then open the stem.</p>
           <div class="home-action-row">
-            <a class="home-start-link" href="${escapeHtml(basePath)}index.html#speak-aloud">Start speaking</a>
-            <a class="home-soft-link" href="${escapeHtml(basePath)}index.html#ignite">Ignite</a>
+            <a class="home-start-link" href="${escapeHtml(basePath)}index.html#ignite">Start the pattern</a>
           </div>
         </div>
       </section>
@@ -166,12 +184,13 @@ ${scripts.map((asset) => `  <script src="${escapeHtml(asset.url)}"></script>`).j
 emptyDir(dist);
 
 const manifest = assets.map(copyFingerprintedAsset);
+const staticManifest = staticAssets.map(copyStaticAsset);
 const shell = renderShell(manifest);
 
 fs.writeFileSync(path.join(dist, "index.html"), shell);
 fs.writeFileSync(path.join(dist, "404.html"), shell);
 fs.writeFileSync(path.join(dist, ".nojekyll"), "");
-const versionManifest = { buildId, basePath, generatedAt, environment: "github-pages", assets: manifest };
+const versionManifest = { buildId, basePath, generatedAt, environment: "github-pages", assets: manifest.concat(staticManifest) };
 fs.writeFileSync(path.join(dist, "version.json"), JSON.stringify(versionManifest, null, 2) + "\n");
 
 console.log(`Built dist with build id ${buildId}`);

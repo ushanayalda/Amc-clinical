@@ -1,537 +1,63 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Case 1 Repair Layer | AMC Clinical Pathway</title>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="0; url=case1.html">
+  <meta name="robots" content="noindex">
+  <title>Case 1 | AMC Clinical Pathway</title>
+  <link rel="canonical" href="case1.html">
   <style>
-    :root {
-      --bg: #EEF2F6;
-      --paper: #FFFFFF;
-      --ink: #20242C;
-      --muted: #5E6673;
-      --blue: #173E7A;
-      --blue-soft: #EAF2FF;
-      --red: #8A1F1F;
-      --border: #D5DAE3;
-      --line: #EEF1F5;
-      --shadow: 0 18px 42px rgba(16, 24, 40, 0.08);
-      --max: 920px;
-      --radius: 12px;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
       margin: 0;
       min-height: 100vh;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: Aptos, "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button, input { font: inherit; }
-
-    .sitebar {
-      width: min(100%, var(--max));
-      margin: 0 auto;
-      padding: 22px 24px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .brand-title {
-      margin: 0;
-      color: var(--blue);
-      font-size: clamp(22px, 4vw, 30px);
-      line-height: 1.1;
-      font-weight: 760;
-    }
-
-    .brand-credit {
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .nav {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .nav-link {
-      border: 1px solid var(--border);
-      background: #FFFFFF;
-      color: var(--blue);
-      border-radius: 999px;
-      padding: 9px 14px;
-      font-size: 13px;
-      font-weight: 760;
-    }
-
-    .paper {
-      width: min(100% - 32px, var(--max));
-      margin: 12px auto 28px;
-      background: var(--paper);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: clamp(22px, 5vw, 44px);
-    }
-
-    .case-kicker {
-      margin: 0 0 8px;
-      color: var(--red);
-      font-size: 14px;
-      font-weight: 850;
-    }
-
-    .page-title {
-      margin: 0;
-      color: var(--blue);
-      font-size: clamp(28px, 5vw, 42px);
-      line-height: 1.05;
-      font-weight: 780;
-    }
-
-    .subline {
-      margin: 12px 0 0;
-      color: var(--muted);
-      font-size: 17px;
-      font-weight: 620;
-    }
-
-    .return-action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      margin-top: 16px;
-      border-radius: 999px;
-      padding: 10px 15px;
-      background: var(--blue);
-      color: #FFFFFF;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .meta-grid {
-      margin: 22px 0;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      place-items: center;
+      padding: 24px;
+      background: #f7f8f5;
+      color: #17211c;
+      font-family: Aptos, "Segoe UI", system-ui, sans-serif;
+      line-height: 1.45;
     }
 
-    .meta-card {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 11px 12px;
-      background: #FBFCFE;
-    }
-
-    .meta-label {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 820;
-      text-transform: uppercase;
-    }
-
-    .meta-value {
-      display: block;
-      margin-top: 4px;
-      color: var(--ink);
-      font-size: 15px;
-      font-weight: 720;
-    }
-
-    .risk-point {
-      margin: 0 0 22px;
-      border: 1px solid rgba(138, 31, 31, 0.24);
-      border-left: 6px solid var(--red);
-      border-radius: var(--radius);
-      padding: 14px 15px;
-      background: #FFF7F7;
-      color: var(--red);
-      font-size: 17px;
-      font-weight: 820;
-    }
-
-    .chooser {
-      margin-top: 22px;
-      border-top: 1px solid var(--border);
-      padding-top: 22px;
-    }
-
-    .section-title {
-      margin: 0 0 12px;
-      color: var(--blue);
-      font-size: 22px;
-      line-height: 1.2;
-      font-weight: 820;
-      text-transform: uppercase;
-    }
-
-    .hint {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 16px;
-      font-weight: 620;
-    }
-
-    .route-grid {
+    main {
+      max-width: 520px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 9px;
-    }
-
-    .route-button {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: #FBFCFE;
-      color: var(--ink);
-      padding: 10px 12px;
-      font-size: 15px;
-      line-height: 1.25;
-      font-weight: 720;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .route-button.active {
-      border-color: var(--blue);
-      background: var(--blue-soft);
-      color: var(--blue);
-      box-shadow: inset 4px 0 0 var(--blue);
-    }
-
-    .focus-area {
-      margin-top: 20px;
-    }
-
-    .focus-point {
-      display: none;
-      border: 1px solid var(--border);
-      border-left: 6px solid var(--blue);
-      border-radius: var(--radius);
-      padding: 16px;
-      background: #FFFFFF;
-    }
-
-    .focus-point.active { display: block; }
-
-    .focus-point h3 {
-      margin: 0 0 14px;
-      color: var(--blue);
-      font-size: 22px;
-      line-height: 1.2;
-      font-weight: 820;
-    }
-
-    .focus-row {
-      display: grid;
-      grid-template-columns: 132px minmax(0, 1fr);
       gap: 12px;
+    }
+
+    h1 {
       margin: 0;
-      padding: 10px 0;
-      border-top: 1px solid var(--line);
-      font-size: 16px;
-      line-height: 1.42;
+      font-size: 1.6rem;
+      line-height: 1.15;
     }
 
-    .focus-row dt {
-      color: var(--muted);
-      font-weight: 850;
-    }
-
-    .focus-row dd {
+    p {
       margin: 0;
-      color: var(--ink);
-      font-weight: 520;
+      color: #58645d;
     }
 
-    .focus-row.say dd {
-      color: var(--blue);
-      font-weight: 850;
-    }
-
-    .return-link {
+    a {
+      width: fit-content;
+      min-height: 44px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(23, 62, 122, 0.18);
-      border-radius: 999px;
-      background: var(--blue-soft);
-      color: var(--blue);
-      padding: 7px 11px;
-      font-size: 14px;
-      line-height: 1.2;
-      font-weight: 820;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #0f766e;
+      color: #fff;
+      font-weight: 800;
       text-decoration: none;
-    }
-
-    .empty-state {
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      background: #FBFCFE;
-      color: var(--muted);
-      font-size: 16px;
-      font-weight: 650;
-    }
-
-    .footer {
-      margin-top: 36px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .footer strong { color: var(--blue); }
-
-    @media (max-width: 700px) {
-      .sitebar { flex-direction: column; align-items: flex-start; }
-      .nav { width: 100%; }
-      .nav-link { flex: 1; text-align: center; }
-      .paper { width: min(100% - 20px, var(--max)); padding: 22px 18px; }
-      .meta-grid, .route-grid { grid-template-columns: 1fr; }
-      .focus-row { grid-template-columns: 1fr; gap: 3px; }
     }
   </style>
 </head>
-
 <body>
-  <header class="sitebar">
-    <section>
-      <h1 class="brand-title">AMC Clinical Pathway</h1>
-      <p class="brand-credit">Prepared by Dr. Ushana Yalda</p>
-    </section>
-
-    <nav class="nav" aria-label="Main navigation">
-      <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link" href="case1.html">Case 1</a>
-      <a class="nav-link" href="map.html">Map</a>
-    </nav>
-  </header>
-
-  <main class="paper">
-    <p class="case-kicker">Case 1 Repair Layer</p>
-    <h2 class="page-title">Dangerous Chest Pain Repair Layer</h2>
-    <p class="subline">Use after speaking once. One miss, one hint.</p>
-    <a class="return-action" href="case1.html#speak-practice">Back to Speak Practice</a>
-
-    <section class="meta-grid" aria-label="Hint page facts">
-      <div class="meta-card"><span class="meta-label">Case family</span><span class="meta-value">Dangerous Chest Pain</span></div>
-      <div class="meta-card"><span class="meta-label">Case version</span><span class="meta-value">Classic possible heart problem</span></div>
-      <div class="meta-card"><span class="meta-label">What you do</span><span class="meta-value">Talk with the patient</span></div>
-      <div class="meta-card"><span class="meta-label">Speak to</span><span class="meta-value">Patient</span></div>
-      <div class="meta-card"><span class="meta-label">Place</span><span class="meta-value">General Practice</span></div>
-    </section>
-
-    <p class="risk-point">Do not miss: do not delay ambulance transfer while trying to prove the diagnosis.</p>
-
-    <section class="chooser" aria-label="Confidence Check Routing">
-      <h2 class="section-title">Pick What You Missed</h2>
-      <p class="hint">Choose one item. One click opens one hint. This keeps the page short.</p>
-
-      <div class="route-grid">
-        <button class="route-button" type="button" data-target="missed-diagnosis">I did not recognise the heart risk.</button>
-        <button class="route-button" type="button" data-target="technical-language">I used too many medical words.</button>
-        <button class="route-button" type="button" data-target="dangerous-alternatives">I did not mention another serious cause.</button>
-        <button class="route-button" type="button" data-target="focused-danger-questions">I did not ask the danger questions.</button>
-        <button class="route-button" type="button" data-target="decision-point">I did not say why I acted now.</button>
-        <button class="route-button" type="button" data-target="first-action">I did not call the ambulance early.</button>
-        <button class="route-button" type="button" data-target="escalation">I did not make ambulance transfer clear.</button>
-        <button class="route-button" type="button" data-target="delayed-transfer-tests">I waited for tests before transfer.</button>
-        <button class="route-button" type="button" data-target="medication-safety">I did not check medicine safety.</button>
-        <button class="route-button" type="button" data-target="safety-net">I did not give warning signs.</button>
-        <button class="route-button" type="button" data-target="understanding-check">I did not check patient understanding.</button>
-        <button class="route-button" type="button" data-target="ran-over-time">I ran out of time.</button>
-        <button class="route-button" type="button" data-target="something-else">Something else.</button>
-      </div>
-    </section>
-
-    <section class="focus-area" aria-live="polite" aria-label="Hint output">
-      <p class="empty-state" id="emptyState">Choose one item above to open one hint.</p>
-
-      <article class="focus-point" id="missed-diagnosis">
-        <h3>Hint: Missed diagnosis</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You did not clearly recognise that this could be a heart problem.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>Mr Lewis has ongoing chest pressure with arm and jaw spread, sweating, nausea, breathlessness, and heart risk factors.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;I am treating this as a possible heart problem now.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Say the 10-second trigger rule once without medical jargon.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-6">Return to Part 6 - Diagnosis Explanation</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="technical-language">
-        <h3>Hint: Used too many medical words</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You used hospital language with the patient.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>Mr Lewis needs clear urgent language, not terms like acute coronary syndrome, biomarkers, or risk stratification.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;The main concern is that this may be coming from your heart.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Replace &quot;acute coronary syndrome&quot; with &quot;possible heart problem&quot; three times.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-6">Return to Part 6 - Diagnosis Explanation</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="dangerous-alternatives">
-        <h3>Hint: Missed another serious cause</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You did not mention the other serious causes hospital must check.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>Chest pain can come from the heart, the main blood vessel, the lung, or a collapsed lung.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;There are a few other serious causes of chest pain that hospital also needs to check.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Say the four causes not to miss in one breath.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-7">Return to Part 7 - Differential Explanation</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="focused-danger-questions">
-        <h3>Hint: Missed danger questions</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You did not ask the short danger questions.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>You need to quickly check spread of pain, sweating, nausea, breathlessness, tearing back pain, clot risk, coughing blood, and sudden sharp breathlessness.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;Thank you. I will keep the questions focused.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Ask the Must Ask list aloud in 45 seconds.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-3">Return to Part 3 - Focused History</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="decision-point">
-        <h3>Hint: Missed why you acted now</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You did not explain why you were acting before confirmation.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>Ongoing chest pressure with spread, sweating, nausea, breathlessness, and risk factors is enough to act now.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;I am not waiting for certainty before acting.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Give the Decision Point in 15 seconds using Mr Lewis&rsquo; features.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-8-decision">Return to Part 8A - Decision Point</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="first-action">
-        <h3>Hint: Missed first action</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You did not arrange the ambulance early.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>General Practice cannot safely rule this out, and transfer is the first safe action.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;I am arranging an ambulance now.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Start with ambulance action before the full history.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-1">Return to Part 1 - Introduction and Consent</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="escalation">
-        <h3>Hint: Missed ambulance clarity</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You allowed private transport or made the ambulance sound optional.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>The ambulance can monitor him and act quickly if his condition changes.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;You should not drive yourself.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Answer &quot;Can my wife drive me?&quot; in two short sentences.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-8-management">Return to Part 8B - Management Plan</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="delayed-transfer-tests">
-        <h3>Hint: Waited for tests</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You waited for blood tests or over-investigated before transfer.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>Troponin and other blood tests belong in hospital and must not delay the ambulance.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;I will not delay the ambulance for blood tests that need to happen in hospital.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Say the ECG rule: heart tracing only if it does not delay transfer.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-8-management">Return to Part 8B - Management Plan</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="medication-safety">
-        <h3>Hint: Missed medicine safety</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You gave or promised treatment without safety checks.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>Aspirin, oxygen, and chest pain spray or tablet all need safe use.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;Before any chest pain spray or tablet under the tongue, I will check your blood pressure and make sure none of your recent medicines make it unsafe.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Say aspirin safety, oxygen safety, and spray safety in 30 seconds.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-8-management">Return to Part 8B - Management Plan</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="safety-net">
-        <h3>Hint: Missed warning signs</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You did not tell Mr Lewis what to report while waiting.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>He can get worse before the ambulance arrives.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;Tell me immediately if the pain gets worse, you feel faint, become more breathless, feel very clammy, or feel like you might collapse.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Say the full warning line once, then shorten it to 15 seconds.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-10">Return to Part 10 - Safety Net</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="understanding-check">
-        <h3>Hint: Missed understanding check</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You did not check that the patient understood the ambulance decision.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>Understanding reduces resistance and confirms the urgent plan.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;Can you tell me what you understand about why I am arranging an ambulance?&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Ask the understanding check and respond to Mr Lewis&rsquo; answer.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#run-beat-11">Return to Part 11 - Check Understanding</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="ran-over-time">
-        <h3>Hint: Ran out of time</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>You spent too long on background history or textbook explanation.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>This case rewards early action, focused questions, short explanation, and transfer.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;Thank you. I have enough information to act safely now.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Speak the full run with a hard 8-minute stop.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#speak-practice">Return to Speak Practice</a></dd></div>
-        </dl>
-      </article>
-
-      <article class="focus-point" id="something-else">
-        <h3>Hint: Something else</h3>
-        <dl>
-          <div class="focus-row"><dt>What was missed</dt><dd>One performance point was unclear or incomplete.</dd></div>
-          <div class="focus-row"><dt>Why it matters</dt><dd>Your answer still needs urgent recognition, ambulance action, safe language, and time control.</dd></div>
-          <div class="focus-row say"><dt>Say this</dt><dd>&ldquo;We are acting early to keep you safe.&rdquo;</dd></div>
-          <div class="focus-row"><dt>Practise now</dt><dd>Repeat the full speaking run and identify one exact line to improve.</dd></div>
-          <div class="focus-row"><dt>Go back to</dt><dd><a class="return-link" href="case1.html#speak-practice">Return to Speak Practice</a></dd></div>
-        </dl>
-      </article>
-    </section>
-
-    <footer class="footer">
-      <strong>© 2026 Dr. Ushana Yalda. All rights reserved.</strong><br />
-      Prepared by Dr. Ushana Yalda.<br />
-      Independent educational resource. Not affiliated with or endorsed by the Australian Medical Council.
-    </footer>
+  <main>
+    <h1>Case 1 has moved.</h1>
+    <p>Open the current Case 1 rehearsal page.</p>
+    <a href="case1.html">Open Case 1</a>
   </main>
-
-  <script>
-    const buttons = document.querySelectorAll('.route-button');
-    const points = document.querySelectorAll('.focus-point');
-    const emptyState = document.getElementById('emptyState');
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        buttons.forEach((item) => item.classList.remove('active'));
-        points.forEach((item) => item.classList.remove('active'));
-
-        const target = document.getElementById(button.dataset.target);
-        button.classList.add('active');
-        emptyState.style.display = 'none';
-        if (target) target.classList.add('active');
-      });
-    });
-  </script>
+  <script>window.location.replace("case1.html");</script>
 </body>
 </html>

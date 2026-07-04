@@ -89,8 +89,8 @@
         id: "warmup-dangerous-chest-pain",
         phaseId: "phase-1",
         patternId: "dangerous-chest-pain",
-        title: "Chest Pain First Look",
-        subtitle: "Spot the danger shape, then start one case.",
+        title: "Ignite",
+        subtitle: "Before the chest pain cases.",
         trigger: "Chest pressure plus danger signs.",
         dangerFeatures: [
           "Sweating",
@@ -134,9 +134,9 @@
         order: 1,
         displayNumber: "Case 1",
         title: "Classic Chest Pain",
-        setting: "General Practice",
+        setting: "GP",
         duration: "8 minutes",
-        type: "Patient conversation",
+        type: "Consultation",
         goal: "This case is for the early ambulance decision in possible heart-related chest pain.",
         patientLabel: "60-year-old man",
         presentingProblem: "Central chest pressure",
@@ -156,13 +156,13 @@
         contextCards: [
           { label: "Patient", value: "60-year-old man" },
           { label: "Main symptom", value: "Central chest pressure" },
-          { label: "Clinic", value: "General Practice" },
+          { label: "Clinic", value: "GP consultation" },
           { label: "Looks risky", value: "Pale, sweaty, started while walking" },
           { label: "Danger causes", value: "ACS; aortic dissection; pulmonary embolism; tension pneumothorax" },
           { label: "Safe first move", value: "Call ambulance now" }
         ],
         stem: [
-          "You are a General Practitioner in a suburban clinic.",
+          "You are a GP in a suburban clinic.",
           "Mr Peter Lewis is a 60-year-old man who presents with central chest pressure.",
           "The pain started 40 minutes ago while he was walking from the car park to your clinic.",
           "He looks pale and sweaty.",
@@ -186,11 +186,11 @@
         ],
         script: [
           {
-            heading: "Start: ambulance",
+            heading: "Open",
             purpose: "Ambulance before full history.",
             anchor: "I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?",
             turns: [
-              { speaker: "You", lines: ["Hello, I am Dr ___. How would you like me to address you?"] },
+              { speaker: "You", lines: ["Hello, I'm Ushana, one of the doctors. How would you like me to address you?"] },
               { speaker: "Patient", lines: ["Call me Mr Lewis."] },
               { speaker: "You", lines: ["Thank you, Mr Lewis. I can see you look pale and sweaty.", "I am worried this may be coming from your heart.", "I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?"] },
               { speaker: "Patient", lines: ["An ambulance? Is it that serious?"] },
@@ -199,7 +199,7 @@
             ]
           },
           {
-            heading: "Hear the story",
+            heading: "Hear story",
             purpose: "Let him tell the start.",
             anchor: "Thank you. I will keep the questions focused.",
             turns: [
@@ -249,7 +249,7 @@
             ]
           },
           {
-            heading: "Say the risk",
+            heading: "Name risk",
             purpose: "Say the pattern clearly.",
             anchor: "That pattern is concerning. I am treating this as urgent.",
             turns: [
@@ -280,7 +280,7 @@
             ]
           },
           {
-            heading: "Other dangers",
+            heading: "Explain other dangers",
             purpose: "Name the other serious causes.",
             anchor: "There are a few other serious causes of chest pain that hospital also needs to check.",
             turns: [
@@ -290,7 +290,7 @@
             ]
           },
           {
-            heading: "Ambulance now",
+            heading: "Act early",
             purpose: "Turn risk into action.",
             anchor: "I am arranging an ambulance now.",
             turns: [
@@ -319,7 +319,7 @@
             ]
           },
           {
-            heading: "Check understanding",
+            heading: "Close",
             purpose: "Make sure the plan landed.",
             anchor: "Can you tell me what you understand about why I am arranging an ambulance?",
             turns: [
@@ -333,8 +333,8 @@
           {
             id: "missed-diagnosis",
             group: "Recognise danger",
-            label: "Heart risk was unclear.",
-            title: "Heart risk",
+            label: "Heart risk unclear",
+            title: "Heart risk unclear",
             missed: "The heart concern was not clear enough yet.",
             why: "Mr Lewis has ongoing chest pressure with arm and jaw spread, sweating, nausea, breathlessness, and heart risk factors.",
             say: "I am treating this as a possible heart problem now.",
@@ -343,8 +343,8 @@
           {
             id: "dangerous-alternatives",
             group: "Recognise danger",
-            label: "Other dangers were missing.",
-            title: "Other dangers",
+            label: "Other dangers missed",
+            title: "Other dangers missed",
             missed: "The other serious causes were not named yet.",
             why: "Chest pain can come from the heart, the main blood vessel, the lung, or a collapsed lung.",
             say: "There are a few other serious causes of chest pain that hospital also needs to check.",
@@ -353,8 +353,8 @@
           {
             id: "focused-danger-questions",
             group: "Recognise danger",
-            label: "Danger signs were missed.",
-            title: "Danger signs",
+            label: "Danger signs skipped",
+            title: "Danger signs skipped",
             missed: "The danger signs were not covered yet.",
             why: "You need to quickly check spread of pain, sweating, nausea, breathlessness, tearing back pain, clot risk, coughing blood, and sudden sharp breathlessness.",
             say: "Thank you. I will keep the questions focused.",
@@ -363,7 +363,7 @@
           {
             id: "technical-language",
             group: "Explain and act",
-            label: "Too medical.",
+            label: "Too medical",
             title: "Plain language",
             missed: "The explanation used too much hospital language.",
             why: "Mr Lewis needs clear urgent language, not terms like acute coronary syndrome, biomarkers, or risk stratification.",
@@ -373,7 +373,7 @@
           {
             id: "decision-point",
             group: "Explain and act",
-            label: "Why now was unclear.",
+            label: "Why now unclear",
             title: "Why act now",
             missed: "The reason for acting before confirmation was not clear yet.",
             why: "Ongoing chest pressure with spread, sweating, nausea, breathlessness, and risk factors is enough to act now.",
@@ -383,18 +383,18 @@
           {
             id: "first-action",
             group: "Explain and act",
-            label: "Ambulance came late.",
-            title: "Safe first move",
+            label: "Ambulance came late",
+            title: "Ambulance first",
             missed: "The ambulance decision came too late in the run.",
-            why: "General Practice cannot safely rule this out, and transfer is the first safe action.",
+            why: "In a GP consultation, you cannot safely rule this out. Transfer is the first safe action.",
             say: "I am arranging an ambulance now.",
             practise: "Try the ambulance line before the full history."
           },
           {
             id: "escalation",
             group: "Explain and act",
-            label: "Ambulance sounded optional.",
-            title: "Ambulance clarity",
+            label: "Ambulance sounded optional",
+            title: "Ambulance not optional",
             missed: "The ambulance plan did not sound firm enough.",
             why: "The ambulance can monitor him and act quickly if his condition changes.",
             say: "You should not drive yourself.",
@@ -403,8 +403,8 @@
           {
             id: "delayed-transfer-tests",
             group: "Explain and act",
-            label: "Tests came first.",
-            title: "Tests before transfer",
+            label: "Tests came first",
+            title: "Do not wait for tests",
             missed: "Tests took priority before transfer.",
             why: "Troponin and other blood tests belong in hospital and must not delay the ambulance.",
             say: "I will not delay the ambulance for blood tests that need to happen in hospital.",
@@ -413,7 +413,7 @@
           {
             id: "medication-safety",
             group: "Explain and act",
-            label: "Medicine safety was missed.",
+            label: "Medicine safety missed",
             title: "Medicine safety",
             missed: "Medicine safety checks were not clear yet.",
             why: "Aspirin, oxygen, and chest pain spray or tablet all need safe use.",
@@ -423,8 +423,8 @@
           {
             id: "safety-net",
             group: "Safety, time, close",
-            label: "Warning signs were missed.",
-            title: "Warning signs",
+            label: "Waiting warnings missed",
+            title: "While waiting",
             missed: "The warning signs while waiting were not clear yet.",
             why: "He can get worse before the ambulance arrives.",
             say: "Tell me immediately if the pain gets worse, you feel faint, become more breathless, feel very clammy, or feel like you might collapse.",
@@ -433,7 +433,7 @@
           {
             id: "understanding-check",
             group: "Safety, time, close",
-            label: "Understanding check was missed.",
+            label: "Check-back missed",
             title: "Understanding check",
             missed: "The patient's understanding was not checked yet.",
             why: "Understanding reduces resistance and confirms the urgent plan.",
@@ -443,7 +443,7 @@
           {
             id: "ran-over-time",
             group: "Safety, time, close",
-            label: "Time ran away.",
+            label: "Time ran away",
             title: "Time control",
             missed: "The run spent too long on background history or textbook explanation.",
             why: "This case rewards early action, focused questions, short explanation, and transfer.",
@@ -453,7 +453,7 @@
           {
             id: "something-else",
             group: "Safety, time, close",
-            label: "Something else.",
+            label: "Something else",
             title: "Something else",
             missed: "One part still needs tightening.",
             why: "Your answer still needs urgent recognition, ambulance action, safe language, and time control.",
@@ -463,28 +463,28 @@
         ],
         notes: [
           {
-            title: "Thinking map",
+            title: "Keys",
             items: [
               "Four causes not to miss: Acute coronary syndrome, aortic dissection, pulmonary embolism, tension pneumothorax.",
-              "General Practice logic: This cannot be safely ruled out in clinic. Call ambulance. Do a heart tracing only if immediate and not delaying transfer. Do not wait for troponin. Do not allow private transport.",
+              "GP consultation logic: This cannot be safely ruled out in clinic. Call ambulance. Do an ECG only if immediate and not delaying transfer. Do not wait for troponin. Do not allow private transport.",
               "Decision point: The moment central chest pressure is associated with radiation, sweating, nausea, breathlessness, ongoing symptoms, and cardiac risk factors, treat as possible acute coronary syndrome until proven otherwise."
             ]
           },
           {
-            title: "Exam lines",
+            title: "Exam-safe lines",
             items: [
               "My working diagnosis is possible acute coronary syndrome until proven otherwise.",
-              "I will arrange urgent ambulance transfer from General Practice.",
-              "I will perform a 12-lead electrocardiogram immediately if available and not delaying transfer.",
+              "I will arrange urgent ambulance transfer from the GP consultation.",
+              "I will perform a 12-lead ECG immediately if available and not delaying transfer.",
               "I will not delay transfer for troponin or other hospital-only investigations.",
               "I will actively consider aortic dissection, pulmonary embolism, and tension pneumothorax."
             ]
           },
           {
-            title: "Memory lines",
+            title: "Memory drills",
             items: [
               "Central chest pressure with sweating, radiation, nausea, breathlessness, or risk factors is a possible heart problem until proven otherwise.",
-              "In General Practice, arrange an ambulance now and do a heart tracing only if it does not delay transfer.",
+              "In the GP consultation, arrange an ambulance now and do an ECG only if it does not delay transfer.",
               "Reflux or muscle pain may be possible, but they do not safely explain exertional central chest pressure with arm and jaw radiation, sweating, nausea, breathlessness, and heart risk factors."
             ]
           }

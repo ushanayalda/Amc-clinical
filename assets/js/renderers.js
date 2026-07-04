@@ -92,12 +92,12 @@
           '</div>' +
           '<div class="home-choice-list">' +
             '<article class="home-choice">' +
-              '<h3>New here?</h3>' +
-              '<p>Use the short warm-up before the case.</p>' +
+            '<h3>New here?</h3>' +
+              '<p>Use Ignite before the case.</p>' +
               '<a class="home-start-link" href="' + window.AMCRouter.href("warmup") + '">Read Ignite</a>' +
             '</article>' +
             '<article class="home-choice">' +
-              '<h3>Already warmed up?</h3>' +
+              '<h3>Ready to speak?</h3>' +
               '<p>Open the current case and speak it aloud.</p>' +
               '<a class="home-start-link" href="' + window.AMCRouter.href("case") + '">Start speaking</a>' +
             '</article>' +
@@ -320,8 +320,8 @@
     var tabs = [
       ["stem", "Stem", "station-stem"],
       ["speak", "Start speaking", "speak-aloud"],
-      ["mock", "Mock Exam", "mock-exam"],
-      ["matters", "Keys", "what-matters"],
+      ["mock", "Timed run", "mock-exam"],
+      ["matters", "Do not miss", "what-matters"],
       ["hints", "Hints", "hints"]
     ];
 
@@ -445,7 +445,7 @@
           '<strong data-mock-time>00:00</strong>' +
         '</div>' +
         '<p data-mock-state>Reading time</p>' +
-        '<div class="mock-actions" aria-label="Mock exam controls">' +
+        '<div class="mock-actions" aria-label="Timed run controls">' +
           '<button class="mock-control-button mock-voice-toggle" type="button" data-mock-voice aria-pressed="true" aria-label="Patient voice on" title="Patient voice">' +
             '<span class="mock-icon mock-icon-speaker" data-mock-voice-icon aria-hidden="true">' +
               '<svg viewBox="0 0 24 24" focusable="false">' +
@@ -467,7 +467,7 @@
           '</button>' +
         '</div>' +
         '<label class="mock-time-control">' +
-          '<input type="range" min="0" max="600" step="1" value="0" data-mock-seek aria-label="Mock exam time">' +
+          '<input type="range" min="0" max="600" step="1" value="0" data-mock-seek aria-label="Timed run time">' +
           '<strong data-mock-seek-label>00:00</strong>' +
         '</label>' +
         '<p class="mock-voice-note" data-mock-voice-state>Patient voice starts at 2:00.</p>' +
@@ -489,8 +489,8 @@
     if (!currentCase.notes || !currentCase.notes.length) return "";
 
     function noteKind(title) {
-      if (title === "Keys" || title === "What matters") return "Do not miss";
-      if (title === "Exam-safe lines") return "Say in exam";
+      if (title === "Do not miss" || title === "What matters") return "Do not miss";
+      if (title === "Exam-safe lines") return "Say aloud";
       if (title === "Memory drills") return "Memory line";
       return "Note";
     }
@@ -522,8 +522,8 @@
     if (!currentCase.notes || !currentCase.notes.length) return '<p class="section-help">No extra detail for this case yet.</p>';
 
     function noteLabel(title) {
-      if (title === "Keys" || title === "What matters") return "Do not miss";
-      if (title === "Exam-safe lines") return "Say in exam";
+      if (title === "Do not miss" || title === "What matters") return "Do not miss";
+      if (title === "Exam-safe lines") return "Say aloud";
       if (title === "Memory drills") return "Memory line";
       return title;
     }
@@ -608,6 +608,7 @@
         '<div class="hint-note-row is-missed"><span>Missed</span><p>' + esc(hint.missed) + '</p></div>' +
         '<div class="hint-say-line"><span>Say this</span><p>' + esc(hint.say) + '</p></div>' +
         '<div class="hint-note-row"><span>Why it matters</span><p>' + esc(hint.why) + '</p></div>' +
+        '<div class="hint-note-row"><span>Practise now</span><p>Say this line three times, then return to Start speaking.</p></div>' +
         '<div class="hint-actions">' +
           '<button class="button secondary" type="button" data-hint-back>Back</button>' +
         '</div>' +
@@ -615,7 +616,7 @@
     }).join("");
 
     return '<section class="tool-panel hint-panel" data-tool-panel="hints" hidden>' +
-      '<div class="hint-start"><p>What broke?</p></div>' +
+      '<div class="hint-start"><p>Choose one thing to improve.</p><small>Choose one thing you missed. One Hint will open.</small></div>' +
       '<div class="hint-choices">' + choices + '</div>' +
       '<div class="hint-result" data-hint-result hidden>' + cards + '</div>' +
     '</section>';

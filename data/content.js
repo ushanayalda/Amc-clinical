@@ -190,7 +190,7 @@
             purpose: "Ambulance before full history.",
             anchor: "I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?",
             turns: [
-              { speaker: "You", lines: ["Hello, I'm Ushana, one of the doctors. How would you like me to address you?"] },
+              { speaker: "You", lines: ["Hello, I'm Dr Ushana, one of the doctors. How would you like me to address you?"] },
               { speaker: "Patient", lines: ["Call me Mr Lewis."] },
               { speaker: "You", lines: ["Thank you, Mr Lewis. I can see you look pale and sweaty.", "I am worried this may be coming from your heart.", "I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?"] },
               { speaker: "Patient", lines: ["An ambulance? Is it that serious?"] },
@@ -333,8 +333,8 @@
           {
             id: "missed-diagnosis",
             group: "Recognise danger",
-            label: "Heart risk unclear",
-            title: "Heart risk unclear",
+            label: "I did not make the heart risk clear",
+            title: "I did not make the heart risk clear",
             missed: "The heart concern was not clear enough yet.",
             why: "Mr Lewis has ongoing chest pressure with arm and jaw spread, sweating, nausea, breathlessness, and heart risk factors.",
             say: "I am treating this as a possible heart problem now.",
@@ -343,8 +343,8 @@
           {
             id: "dangerous-alternatives",
             group: "Recognise danger",
-            label: "Other dangers missed",
-            title: "Other dangers missed",
+            label: "I missed other serious causes",
+            title: "I missed other serious causes",
             missed: "The other serious causes were not named yet.",
             why: "Chest pain can come from the heart, the main blood vessel, the lung, or a collapsed lung.",
             say: "There are a few other serious causes of chest pain that hospital also needs to check.",
@@ -353,8 +353,8 @@
           {
             id: "focused-danger-questions",
             group: "Recognise danger",
-            label: "Danger signs skipped",
-            title: "Danger signs skipped",
+            label: "I missed the danger questions",
+            title: "I missed the danger questions",
             missed: "The danger signs were not covered yet.",
             why: "You need to quickly check spread of pain, sweating, nausea, breathlessness, tearing back pain, clot risk, coughing blood, and sudden sharp breathlessness.",
             say: "Thank you. I will keep the questions focused.",
@@ -363,7 +363,7 @@
           {
             id: "technical-language",
             group: "Explain and act",
-            label: "Too medical",
+            label: "I used too many medical words",
             title: "Plain language",
             missed: "The explanation used too much hospital language.",
             why: "Mr Lewis needs clear urgent language, not terms like acute coronary syndrome, biomarkers, or risk stratification.",
@@ -373,7 +373,7 @@
           {
             id: "decision-point",
             group: "Explain and act",
-            label: "Why now unclear",
+            label: "I did not explain why I acted now",
             title: "Why act now",
             missed: "The reason for acting before confirmation was not clear yet.",
             why: "Ongoing chest pressure with spread, sweating, nausea, breathlessness, and risk factors is enough to act now.",
@@ -383,7 +383,7 @@
           {
             id: "first-action",
             group: "Explain and act",
-            label: "Ambulance came late",
+            label: "I called the ambulance too late",
             title: "Ambulance first",
             missed: "The ambulance decision came too late in the run.",
             why: "In a GP consultation, you cannot safely rule this out. Transfer is the first safe action.",
@@ -393,7 +393,7 @@
           {
             id: "escalation",
             group: "Explain and act",
-            label: "Ambulance sounded optional",
+            label: "I made the ambulance sound optional",
             title: "Ambulance not optional",
             missed: "The ambulance plan did not sound firm enough.",
             why: "The ambulance can monitor him and act quickly if his condition changes.",
@@ -403,7 +403,7 @@
           {
             id: "delayed-transfer-tests",
             group: "Explain and act",
-            label: "Tests came first",
+            label: "I waited for tests",
             title: "Do not wait for tests",
             missed: "Tests took priority before transfer.",
             why: "Troponin and other blood tests belong in hospital and must not delay the ambulance.",
@@ -413,7 +413,7 @@
           {
             id: "medication-safety",
             group: "Explain and act",
-            label: "Medicine safety missed",
+            label: "I missed medicine safety",
             title: "Medicine safety",
             missed: "Medicine safety checks were not clear yet.",
             why: "Aspirin, oxygen, and chest pain spray or tablet all need safe use.",
@@ -423,7 +423,7 @@
           {
             id: "safety-net",
             group: "Safety, time, close",
-            label: "Waiting warnings missed",
+            label: "I missed the warning signs",
             title: "While waiting",
             missed: "The warning signs while waiting were not clear yet.",
             why: "He can get worse before the ambulance arrives.",
@@ -433,7 +433,7 @@
           {
             id: "understanding-check",
             group: "Safety, time, close",
-            label: "Check-back missed",
+            label: "I did not check understanding",
             title: "Understanding check",
             missed: "The patient's understanding was not checked yet.",
             why: "Understanding reduces resistance and confirms the urgent plan.",
@@ -443,7 +443,7 @@
           {
             id: "ran-over-time",
             group: "Safety, time, close",
-            label: "Time ran away",
+            label: "I ran out of time",
             title: "Time control",
             missed: "The run spent too long on background history or textbook explanation.",
             why: "This case rewards early action, focused questions, short explanation, and transfer.",
@@ -463,7 +463,7 @@
         ],
         notes: [
           {
-            title: "Keys",
+            title: "Do not miss",
             items: [
               "Four causes not to miss: Acute coronary syndrome, aortic dissection, pulmonary embolism, tension pneumothorax.",
               "GP consultation logic: This cannot be safely ruled out in clinic. Call ambulance. Do an ECG only if immediate and not delaying transfer. Do not wait for troponin. Do not allow private transport.",

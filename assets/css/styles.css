@@ -2310,10 +2310,19 @@ h3 {
 }
 
 .hint-start {
+  display: grid;
+  gap: 4px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--line);
   color: var(--ink);
   font-weight: 900;
+}
+
+.hint-start small {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 750;
+  line-height: 1.35;
 }
 
 .hint-choices {
@@ -2443,13 +2452,26 @@ h3 {
 }
 
 .site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 18px;
   padding: 16px 0 86px;
   color: var(--muted);
   font-size: 0.82rem;
 }
 
+.site-footer p:first-child {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.site-footer p:last-child {
+  flex: 1 1 420px;
+}
+
 .site-footer p + p {
-  margin-top: 4px;
+  margin-top: 0;
 }
 
 @keyframes rise {
@@ -2734,6 +2756,27 @@ h3 {
 
   .study-note-sources {
     padding-left: 0;
+  }
+
+  .site-footer {
+    align-items: flex-start;
+    gap: 4px 12px;
+    padding-bottom: 104px;
+  }
+
+  .site-footer p:first-child {
+    white-space: normal;
+  }
+}
+
+@media print {
+  .site-footer {
+    width: 100%;
+    padding: 10px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 12px;
+    font-size: 9pt;
   }
 }
 

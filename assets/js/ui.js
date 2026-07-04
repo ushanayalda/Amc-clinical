@@ -5,6 +5,7 @@
   var mockExamElapsedSeconds = 0;
   var mockExamVoiceEnabled = true;
   var mockExamVoiceSpeaking = false;
+  var mockExamVoiceAudio = null;
   var mockExamVoiceSpokenIndexes = {};
 
   function closeFloatingNav() {
@@ -74,6 +75,7 @@
         element: line,
         index: Number.isFinite(index) ? index : fallbackIndex,
         text: line.getAttribute("data-voice-line"),
+        audioSrc: line.getAttribute("data-voice-audio") || "",
         triggerY: rect.top + Math.min(10, rect.height * 0.4)
       };
     }).filter(function (target) {
@@ -111,16 +113,25 @@
     });
   }
 
-  function supportsMockExamVoice() {
+  function hasMockExamVoiceClips(scope) {
+    return Boolean(scope && scope.querySelector("[data-voice-audio]"));
+  }
+
+  function supportsMockExamSpeechFallback() {
     return Boolean(window.speechSynthesis && window.SpeechSynthesisUtterance);
   }
 
+  function supportsMockExamVoice(scope) {
+    return hasMockExamVoiceClips(scope) || supportsMockExamSpeechFallback();
+  }
+
   function chooseMockExamVoice(scope) {
-    if (!supportsMockExamVoice()) return null;
+    if (!supportsMockExamSpeechFallback()) return null;
 
     var voices = window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
     var patientSex = (scope.getAttribute("data-patient-sex") || "").toLowerCase();
-    var maleHints = ["david", "daniel", "george", "mark", "michael", "james", "guy", "ryan", "liam", "oliver", "jack", "lee"];
+    var maleHints = ["david", "daniel", "george", "mark", "michael", "james", "guy", "ryan", "liam", "oliver", "jack", "lee", "william", "thomas"];
+    var naturalHints = ["natural", "neural", "online", "premium"];
 
     if (!voices.length) return null;
 
@@ -134,12 +145,16 @@
       else if (lang.indexOf("en-us") === 0) score += 20;
       else if (lang.indexOf("en") === 0) score += 12;
 
+      if (naturalHints.some(function (hint) { return name.indexOf(hint) !== -1; })) {
+        score += 46;
+      }
+
       if (patientSex === "male" && maleHints.some(function (hint) { return name.indexOf(hint) !== -1; })) {
         score += 35;
       }
 
       if (name.indexOf("male") !== -1) score += 20;
-      if (voice.localService) score += 4;
+      if (voice.localService) score -= 3;
       return score;
     }
 
@@ -156,7 +171,7 @@
   function updateMockExamVoiceButton(scope) {
     var button = scope && scope.querySelector("[data-mock-voice]");
     if (!button) return;
-    if (!supportsMockExamVoice()) {
+    if (!supportsMockExamVoice(scope)) {
       button.disabled = true;
       button.setAttribute("aria-pressed", "false");
       button.setAttribute("aria-label", "Voice unavailable");
@@ -173,15 +188,60 @@
   }
 
   function stopMockExamVoice(scope, message) {
-    if (supportsMockExamVoice()) {
+    if (mockExamVoiceAudio) {
+      mockExamVoiceAudio.pause();
+      mockExamVoiceAudio.removeAttribute("src");
+      mockExamVoiceAudio.load();
+      mockExamVoiceAudio = null;
+    }
+    if (supportsMockExamSpeechFallback()) {
       window.speechSynthesis.cancel();
     }
     mockExamVoiceSpeaking = false;
     if (message) setMockExamVoiceStatus(scope, message);
   }
 
-  function speakMockExamLine(scope, line) {
-    if (!supportsMockExamVoice() || !line) return;
+  function playMockExamVoiceClip(scope, target) {
+    if (!target || !target.audioSrc) return false;
+
+    stopMockExamVoice(scope);
+
+    var audio = new Audio(target.audioSrc);
+    mockExamVoiceAudio = audio;
+    mockExamVoiceSpeaking = true;
+    setMockExamVoiceStatus(scope, "Patient voice active.");
+
+    audio.onended = function () {
+      mockExamVoiceSpeaking = false;
+    };
+    audio.onerror = function () {
+      mockExamVoiceSpeaking = false;
+      mockExamVoiceAudio = null;
+      if (target.text && supportsMockExamSpeechFallback()) {
+        speakMockExamLineFallback(scope, target.text);
+      } else {
+        setMockExamVoiceStatus(scope, "Voice file unavailable.");
+      }
+    };
+
+    var playAttempt = audio.play();
+    if (playAttempt && typeof playAttempt.catch === "function") {
+      playAttempt.catch(function () {
+        mockExamVoiceSpeaking = false;
+        mockExamVoiceAudio = null;
+        if (target.text && supportsMockExamSpeechFallback()) {
+          speakMockExamLineFallback(scope, target.text);
+        } else {
+          setMockExamVoiceStatus(scope, "Tap play to allow voice.");
+        }
+      });
+    }
+
+    return true;
+  }
+
+  function speakMockExamLineFallback(scope, line) {
+    if (!supportsMockExamSpeechFallback() || !line) return;
 
     var utterance = new window.SpeechSynthesisUtterance(line);
     var selectedVoice = chooseMockExamVoice(scope);
@@ -192,8 +252,8 @@
       utterance.lang = "en-AU";
     }
 
-    utterance.rate = 0.84;
-    utterance.pitch = 0.78;
+    utterance.rate = 0.9;
+    utterance.pitch = 0.84;
     utterance.volume = 1;
     mockExamVoiceSpeaking = true;
     setMockExamVoiceStatus(scope, "Patient voice active.");
@@ -209,6 +269,12 @@
     window.speechSynthesis.speak(utterance);
   }
 
+  function speakMockExamLine(scope, target) {
+    if (!supportsMockExamVoice(scope) || !target) return;
+    if (playMockExamVoiceClip(scope, target)) return;
+    speakMockExamLineFallback(scope, target.text);
+  }
+
   function syncMockExamVoice(scope, elapsedSeconds, durations, running) {
     if (!scope || !running) return;
 
@@ -217,7 +283,7 @@
       return;
     }
 
-    if (!supportsMockExamVoice()) {
+    if (!supportsMockExamVoice(scope)) {
       setMockExamVoiceStatus(scope, "Voice unavailable in this browser.");
       return;
     }
@@ -251,7 +317,7 @@
 
     setMockExamVoiceCue(scope, nextTarget);
     mockExamVoiceSpokenIndexes[nextTarget.index] = true;
-    speakMockExamLine(scope, nextTarget.text);
+    speakMockExamLine(scope, nextTarget);
 
     if (targets.every(function (target) { return mockExamVoiceSpokenIndexes[target.index]; })) {
       setMockExamVoiceStatus(scope, "Patient voice complete.");
@@ -424,7 +490,7 @@
     var scope = getMockExam();
     if (!scope || scope.getAttribute("data-mock-ready") === "true") return;
     scope.setAttribute("data-mock-ready", "true");
-    if (supportsMockExamVoice() && window.speechSynthesis.getVoices) {
+    if (supportsMockExamSpeechFallback() && window.speechSynthesis.getVoices) {
       window.speechSynthesis.getVoices();
     }
     setMockExamState(scope, mockExamElapsedSeconds, Boolean(mockExamTimerId));

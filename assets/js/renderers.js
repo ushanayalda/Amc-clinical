@@ -399,6 +399,7 @@
   function renderSpeakAloudContent(currentCase, options) {
     options = options || {};
     var voiceLineIndex = 0;
+    var voiceClips = currentCase.mockExamVoiceClips || [];
     var protectedLines = {
       "I am worried this may be coming from your heart.": true,
       "I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?": true,
@@ -422,6 +423,9 @@
               var voiceAttr = "";
               if (turn.speaker === "Patient") {
                 voiceAttr = ' data-voice-line="' + esc(line) + '" data-voice-index="' + esc(String(voiceLineIndex)) + '"';
+                if (options.examMode && voiceClips[voiceLineIndex]) {
+                  voiceAttr += ' data-voice-audio="' + esc(voiceClips[voiceLineIndex]) + '"';
+                }
                 voiceLineIndex += 1;
               }
               return '<p class="script-line' + anchorClass + '"' + voiceAttr + '><span class="line-quote">' + (options.examMode ? esc(line) : '&quot;' + esc(line) + '&quot;') + '</span></p>';

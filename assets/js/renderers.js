@@ -29,9 +29,12 @@
 
   function footer(context) {
     var app = (context && context.app) || {};
+    var buildId = window.__BUILD_ID__ ? String(window.__BUILD_ID__) : "";
+    var buildStamp = buildId ? '<p class="build-stamp">Build ' + esc(buildId.slice(0, 12)) + "</p>" : "";
     return '<footer class="site-footer">' +
       '<p>(c) 2026 Dr. Ushana Yalda. All rights reserved.</p>' +
       '<p>' + esc(app.title || "AMC Clinical Pathway") + ' is an independent educational resource. Not affiliated with or endorsed by the Australian Medical Council.</p>' +
+      buildStamp +
       "</footer>";
   }
 

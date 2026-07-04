@@ -67,6 +67,7 @@ jobs:
           BASE="https://ushanayalda.github.io/Amc-clinical"
           for attempt in {1..12}; do
             ok=true
+            version="$(curl -fsSL "${BASE}/version.json?health=${BUILD_ID}")" || ok=false
             for path in "/" "/index.html"; do
               html="$(curl -fsSL "${BASE}${path}?health=${BUILD_ID}")" || ok=false
               if [ "${ok}" = true ]; then
@@ -79,10 +80,13 @@ jobs:
               fi
             done
             if [ "${ok}" = true ]; then
+              echo "$version" | grep -Fq "$BUILD_ID" || ok=false
+            fi
+            if [ "${ok}" = true ]; then
               echo "Pages health check passed."
               exit 0
             fi
             sleep 10
           done
-          echo "Pages health check failed after waiting for propagation."
+          echo "Pages health check failed after waiting for propagation. Check that repository Pages source is set to GitHub Actions, not Deploy from branch."
           exit 1

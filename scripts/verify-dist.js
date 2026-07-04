@@ -24,10 +24,12 @@ function extractBuildId(html) {
 
 if (!exists("index.html")) fail("dist/index.html is missing.");
 if (!exists("404.html")) fail("dist/404.html is missing.");
+if (!exists("version.json")) fail("dist/version.json is missing.");
 
 if (!process.exitCode) {
   const indexHtml = read("index.html");
   const notFoundHtml = read("404.html");
+  const version = JSON.parse(read("version.json"));
   const indexBuildId = extractBuildId(indexHtml);
   const notFoundBuildId = extractBuildId(notFoundHtml);
 
@@ -35,6 +37,9 @@ if (!process.exitCode) {
   if (!notFoundBuildId) fail("dist/404.html is missing x-build-id.");
   if (indexBuildId && notFoundBuildId && indexBuildId !== notFoundBuildId) {
     fail("dist/index.html and dist/404.html have different build IDs.");
+  }
+  if (version.buildId !== indexBuildId) {
+    fail("dist/version.json build ID does not match the shell build ID.");
   }
 
   ["Map", "Before the Case", "Progress", "Demo progress", "Case 1 awaiting transfer"].forEach((term) => {

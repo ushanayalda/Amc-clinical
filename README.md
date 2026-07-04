@@ -19,10 +19,13 @@ The generated artifact contains:
 
 - `dist/index.html` as the canonical shell.
 - `dist/404.html` as the same shell for fallback routing.
+- `dist/version.json` with the build ID, build time, and fingerprinted asset manifest.
 - Fingerprinted CSS, JavaScript, and data files.
 - A build marker in the shell: `x-build-id` and `window.__BUILD_ID__`.
 
-Do not publish source root pages such as `map.html`, `before-case.html`, or `case1.html` directly. They are source/development entry points only.
+Do not publish source root pages such as `map.html`, `before-case.html`, or `case1.html` directly. The public routes should go through `index.html` and hash routes until the Pages artifact is active.
+
+If the workflow builds successfully but the live root still shows old HTML, open repository Settings -> Pages and set Source to GitHub Actions. The health check intentionally fails when branch publishing is still serving the site.
 
 ## Current structure
 

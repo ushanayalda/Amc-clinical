@@ -3,16 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="x-build-id" content="source-20260705-01">
   <title>AMC Clinical Pathway</title>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260704-43">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260705-01">
 </head>
 <body>
   <main id="app" data-screen="home"></main>
-  <script src="data/content.js?v=20260704-43"></script>
-  <script src="assets/js/content-store.js?v=20260704-43"></script>
-  <script src="assets/js/router.js?v=20260704-43"></script>
-  <script src="assets/js/ui.js?v=20260704-43"></script>
-  <script src="assets/js/renderers.js?v=20260704-43"></script>
-  <script src="assets/js/app.js?v=20260704-43"></script>
+  <script>
+    window.__BUILD_ID__ = "source-20260705-01";
+    window.__APP_VERSION__ = {
+      buildId: "source-20260705-01",
+      generatedAt: "2026-07-05T00:00:00+10:00",
+      source: "branch-shell"
+    };
+    (function () {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+          registrations.forEach(function (registration) {
+            registration.unregister();
+          });
+        });
+      }
+      if (window.caches && window.caches.keys) {
+        window.caches.keys().then(function (keys) {
+          keys.forEach(function (key) {
+            window.caches.delete(key);
+          });
+        });
+      }
+    })();
+  </script>
+  <script src="data/content.js?v=20260705-01"></script>
+  <script src="assets/js/content-store.js?v=20260705-01"></script>
+  <script src="assets/js/router.js?v=20260705-01"></script>
+  <script src="assets/js/ui.js?v=20260705-01"></script>
+  <script src="assets/js/renderers.js?v=20260705-01"></script>
+  <script src="assets/js/app.js?v=20260705-01"></script>
 </body>
 </html>

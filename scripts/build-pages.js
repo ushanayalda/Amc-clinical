@@ -7,6 +7,7 @@ const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
 const basePath = normalizeBasePath(process.env.BASE_PATH || "/Amc-clinical/");
 const buildId = process.env.BUILD_ID || getGitSha() || new Date().toISOString();
+const generatedAt = new Date().toISOString();
 
 const assets = [
   { src: "assets/css/styles.css", outDir: "assets/css", name: "styles", ext: ".css", tag: "style" },
@@ -104,6 +105,12 @@ function serviceWorkerCleanupSnippet() {
 function renderShell(manifest) {
   const stylesheet = manifest.find((asset) => asset.tag === "style");
   const scripts = manifest.filter((asset) => asset.tag === "script");
+  const version = {
+    buildId,
+    generatedAt,
+    basePath,
+    source: "github-pages-artifact"
+  };
 
   return `<!doctype html>
 <html lang="en">
@@ -119,6 +126,7 @@ function renderShell(manifest) {
   <main id="app" data-screen="home"></main>
   <script>
     window.__BUILD_ID__ = ${jsString(buildId)};
+    window.__APP_VERSION__ = ${JSON.stringify(version)};
     ${serviceWorkerCleanupSnippet()}
   </script>
 ${scripts.map((asset) => `  <script src="${escapeHtml(asset.url)}"></script>`).join("\n")}
@@ -135,9 +143,7 @@ const shell = renderShell(manifest);
 fs.writeFileSync(path.join(dist, "index.html"), shell);
 fs.writeFileSync(path.join(dist, "404.html"), shell);
 fs.writeFileSync(path.join(dist, ".nojekyll"), "");
-fs.writeFileSync(
-  path.join(dist, "build.json"),
-  JSON.stringify({ buildId, basePath, generatedAt: new Date().toISOString(), assets: manifest }, null, 2) + "\n"
-);
+const versionManifest = { buildId, basePath, generatedAt, environment: "github-pages", assets: manifest };
+fs.writeFileSync(path.join(dist, "version.json"), JSON.stringify(versionManifest, null, 2) + "\n");
 
 console.log(`Built dist with build id ${buildId}`);

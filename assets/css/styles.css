@@ -2470,6 +2470,14 @@ h3 {
   flex: 1 1 420px;
 }
 
+.site-footer .build-stamp {
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  opacity: 0.72;
+  white-space: nowrap;
+}
+
 .site-footer p + p {
   margin-top: 0;
 }

@@ -1734,6 +1734,59 @@ h3 {
   display: none;
 }
 
+.mock-breath-stage {
+  min-height: min(58vh, 420px);
+  display: grid;
+  place-items: center;
+  padding: clamp(28px, 8vh, 70px) 18px;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(120, 171, 214, 0.28), transparent 38%),
+    linear-gradient(145deg, #0d2a45 0%, #12385c 52%, #071a2d 100%);
+  box-shadow: inset 0 0 0 1px rgba(199, 222, 241, 0.16);
+  text-align: center;
+}
+
+.breath-card {
+  max-width: 520px;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.breath-card h2 {
+  margin: 0;
+  color: #f3f8fc;
+  font-size: clamp(1.45rem, 4vw, 2.1rem);
+  line-height: 1.08;
+  font-weight: 860;
+}
+
+.breath-caption {
+  max-width: 25rem;
+  margin: -2px 0 4px;
+  color: rgba(186, 216, 243, 0.78);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  font-weight: 640;
+}
+
+.breath-steps {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breath-steps li {
+  color: rgba(235, 244, 252, 0.92);
+  font-size: 1.06rem;
+  line-height: 1.34;
+  font-weight: 560;
+}
+
 .mock-speaking-stage {
   position: relative;
   padding-top: 4px;

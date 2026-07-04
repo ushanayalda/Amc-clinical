@@ -89,14 +89,14 @@
         '</header>' +
         '<section class="home-launch" aria-labelledby="home-current-case">' +
           '<div class="home-current-truth">' +
-            '<p class="home-case-label">Current pattern</p>' +
+            '<p class="home-case-label">Current position</p>' +
             '<h2 id="home-current-case">' + esc(patternTitle) + '</h2>' +
-            '<p class="home-current-case"><span>Today&apos;s case</span><strong>' + esc(caseTitle) + '</strong></p>' +
+            '<p class="home-current-case"><span>Today&apos;s case</span><strong>' + esc(caseTitle) + '</strong><em>current</em></p>' +
           '</div>' +
           '<div class="home-primary-start">' +
-            '<p>Start with Ignite, then open the stem.</p>' +
+            '<p>Start with the stem. Give it a go.</p>' +
             '<div class="home-action-row">' +
-              '<a class="home-start-link" href="' + window.AMCRouter.href("warmup") + '">Start the pattern</a>' +
+              '<a class="home-start-link" href="' + window.AMCRouter.href("case", "#station-stem") + '">Continue Case 1</a>' +
             '</div>' +
           '</div>' +
         '</section>' +
@@ -298,7 +298,7 @@
           '</article>';
         }).join("") + '</div>' +
         '<div class="cta-row single">' +
-          '<a class="button primary" href="' + window.AMCRouter.href("case", "#station-stem") + '">Start this pattern</a>' +
+          '<a class="button primary" href="' + window.AMCRouter.href("case", "#station-stem") + '">Continue to stem</a>' +
         '</div>' +
       '</section>',
       context,
@@ -464,13 +464,13 @@
   }
 
   function renderMockExamContent(currentCase) {
-    return '<div class="mock-exam" data-mock-exam data-reading-seconds="120" data-total-seconds="600" data-patient-sex="male" data-patient-state="acute chest pain" data-mock-phase="reading">' +
+    return '<div class="mock-exam" data-mock-exam data-breath-seconds="5" data-reading-seconds="120" data-total-seconds="600" data-patient-sex="male" data-patient-state="acute chest pain" data-mock-phase="settle">' +
       '<div class="mock-timer-bar" aria-live="polite">' +
         '<div class="mock-time-block">' +
           '<span class="mock-timer-label">Timer</span>' +
           '<strong data-mock-time>00:00</strong>' +
         '</div>' +
-        '<p data-mock-state>Reading time</p>' +
+        '<p data-mock-state>First breath</p>' +
         '<div class="mock-actions" aria-label="Timer controls">' +
           '<button class="mock-control-button mock-voice-toggle" type="button" data-mock-voice aria-pressed="true" aria-label="Patient voice on" title="Patient voice">' +
             '<span class="mock-icon mock-icon-speaker" data-mock-voice-icon aria-hidden="true">' +
@@ -499,7 +499,18 @@
         '</label>' +
         '<p class="mock-voice-note" data-mock-voice-state>Patient voice starts at 2:00.</p>' +
       '</div>' +
-      '<section class="mock-phase is-reading" data-mock-reading>' +
+      '<section class="mock-phase mock-breath-stage" data-mock-breath>' +
+        '<div class="breath-card">' +
+          '<h2>Take one calm breath.</h2>' +
+          '<p class="breath-caption">The stem appears 5 seconds after you start.</p>' +
+          '<ol class="breath-steps">' +
+            '<li>Breathe in through your nose.</li>' +
+            '<li>Add a tiny second breath.</li>' +
+            '<li>Let it out slowly through your mouth.</li>' +
+          '</ol>' +
+        '</div>' +
+      '</section>' +
+      '<section class="mock-phase is-reading" data-mock-reading hidden>' +
         renderStationStemContent(currentCase) +
       '</section>' +
       '<section class="mock-phase is-speaking mock-speaking-stage" data-mock-speaking hidden>' +
@@ -731,7 +742,7 @@
         ["case", "Start speaking"]
       ];
       panels = [
-        '<section class="tool-panel" data-tool-panel="pathway"><h3>Cases</h3><p>Current area: ' + esc(context.phase.title) + '</p><p>Current pattern: ' + esc(context.pattern.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("pathway") + '">Open cases</a></section>',
+        '<section class="tool-panel" data-tool-panel="pathway"><h3>Cases</h3><p>Current position: ' + esc(context.phase.title) + ' / ' + esc(context.pattern.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("pathway") + '">Open cases</a></section>',
         '<section class="tool-panel" data-tool-panel="case" hidden><h3>Start speaking</h3><p>' + esc(currentCase.title) + '</p><a class="button secondary" href="' + window.AMCRouter.href("case", "#speak-aloud") + '">Start speaking</a></section>'
       ];
     } else {

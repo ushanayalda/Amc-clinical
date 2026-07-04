@@ -75,7 +75,7 @@ jobs:
                   ok=false
                 fi
                 echo "$html" | grep -Fq "Classic Chest Pain" || ok=false
-                echo "$html" | grep -Fq "Start the pattern" || ok=false
+                echo "$html" | grep -Fq "Continue Case 1" || ok=false
                 echo "$html" | grep -Fq "Cases" || ok=false
                 ! echo "$html" | grep -Fq "Map" || ok=false
                 ! echo "$html" | grep -Fq "Before the Case" || ok=false

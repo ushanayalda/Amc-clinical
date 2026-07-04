@@ -50,7 +50,7 @@ if (!process.exitCode) {
     fail("dist/version.json build ID does not match the shell build ID.");
   }
 
-  ["Classic Chest Pain", "Start the pattern", "Cases"].forEach((term) => {
+  ["Classic Chest Pain", "Continue Case 1", "Cases"].forEach((term) => {
     if (!indexHtml.includes(term)) fail(`Canonical shell is missing learner-facing term: ${term}`);
     if (!notFoundHtml.includes(term)) fail(`404 shell is missing learner-facing term: ${term}`);
   });
@@ -72,8 +72,10 @@ if (!process.exitCode) {
   [
     "Timed run",
     "Do not miss",
-    "Start the pattern",
-    "Start this pattern",
+    "Continue Case 1",
+    "Current position",
+    "Start with the stem. Give it a go.",
+    "Continue to stem",
     "Choose one thing to improve",
     "One hint. One line. Back to speaking.",
     "What slipped",
@@ -108,7 +110,7 @@ if (!process.exitCode) {
     fail("Collapsed lung visual anchor is missing from dist.");
   }
 
-  ["Mock Exam", "Keys", "Before Case", "Before the Case", "Candidate", "What broke", "Choose your next repair", "return to Practise", "Warm up first", "Due today", "Weak spots", "No weak spot saved yet", "ready to practise", "certainty"].forEach((term) => {
+  ["Mock Exam", "Keys", "Before Case", "Before the Case", "Candidate", "What broke", "Choose your next repair", "return to Practise", "Warm up first", "Due today", "Weak spots", "No weak spot saved yet", "ready to practise", "certainty", "Start this pattern", "Current pattern", "Current area"].forEach((term) => {
     if (learnerFacingBundle.includes(term)) fail(`Built app still contains old learner-facing term: ${term}`);
   });
 

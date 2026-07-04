@@ -132,14 +132,14 @@ function renderStaticHomeShell() {
       </header>
       <section class="home-launch" aria-labelledby="home-current-case">
         <div class="home-current-truth">
-          <p class="home-case-label">Current pattern</p>
+          <p class="home-case-label">Current position</p>
           <h2>Dangerous Chest Pain</h2>
-          <p class="home-current-case"><span>Today&apos;s case</span><strong id="home-current-case">Classic Chest Pain</strong></p>
+          <p class="home-current-case"><span>Today&apos;s case</span><strong id="home-current-case">Classic Chest Pain</strong><em>current</em></p>
         </div>
         <div class="home-primary-start">
-          <p>Start with Ignite, then open the stem.</p>
+          <p>Start with the stem. Give it a go.</p>
           <div class="home-action-row">
-            <a class="home-start-link" href="${escapeHtml(basePath)}index.html#ignite">Start the pattern</a>
+            <a class="home-start-link" href="${escapeHtml(basePath)}index.html#station-stem">Continue Case 1</a>
           </div>
         </div>
       </section>

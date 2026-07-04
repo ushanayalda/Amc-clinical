@@ -41,9 +41,12 @@
   }
 
   function getMockExamDurations(scope) {
+    var breathSeconds = Number(scope.getAttribute("data-breath-seconds"));
     var readingSeconds = Number(scope.getAttribute("data-reading-seconds")) || 120;
     var totalSeconds = Number(scope.getAttribute("data-total-seconds")) || 600;
+    if (!Number.isFinite(breathSeconds)) breathSeconds = 1;
     return {
+      breath: Math.max(0, Math.floor(breathSeconds)),
       reading: Math.max(1, readingSeconds),
       total: Math.max(readingSeconds + 1, totalSeconds)
     };
@@ -353,11 +356,12 @@
     options = options || {};
     var durations = getMockExamDurations(scope);
     var safeElapsed = Math.max(0, Math.min(durations.total, Math.floor(elapsedSeconds)));
-    var phase = safeElapsed >= durations.total ? "finished" : safeElapsed >= durations.reading ? "speaking" : "reading";
+    var phase = safeElapsed >= durations.total ? "finished" : safeElapsed >= durations.reading ? "speaking" : safeElapsed < durations.breath ? "settle" : "reading";
     var previousPhase = scope.getAttribute("data-mock-phase") || "";
     var flowProgress = phase === "reading" ? 0 : getMockExamFlowProgress(safeElapsed, durations);
     var time = scope.querySelector("[data-mock-time]");
     var state = scope.querySelector("[data-mock-state]");
+    var breath = scope.querySelector("[data-mock-breath]");
     var reading = scope.querySelector("[data-mock-reading]");
     var speaking = scope.querySelector("[data-mock-speaking]");
     var complete = scope.querySelector("[data-mock-complete]");
@@ -382,8 +386,9 @@
     }
     if (seekLabel) seekLabel.textContent = formatMockExamTime(safeElapsed);
     if (state) {
-      state.textContent = phase === "reading" ? "Reading time" : phase === "speaking" ? "Speak the case" : "Run complete";
+      state.textContent = phase === "settle" ? "First breath" : phase === "reading" ? "Reading time" : phase === "speaking" ? "Speak the case" : "Run complete";
     }
+    if (breath) breath.hidden = phase !== "settle";
     if (reading) reading.hidden = phase !== "reading";
     if (speaking) speaking.hidden = phase !== "speaking";
     if (complete) complete.hidden = phase !== "finished";

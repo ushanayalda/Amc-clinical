@@ -11,7 +11,7 @@
     },
     settings: {
       defaultCaseId: "case-1-classic-chest-pain",
-      enableProgress: false,
+      enableProgress: true,
       enableOffline: false,
       enableSearch: false
     },

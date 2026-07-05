@@ -7,6 +7,7 @@
   var mockExamVoiceSpeaking = false;
   var mockExamVoiceAudio = null;
   var mockExamVoiceSpokenIndexes = {};
+  var progressStorageKey = "amc.caseProgress.v1";
 
   function closeFloatingNav() {
     var nav = document.querySelector("[data-floating-nav]");
@@ -38,6 +39,122 @@
 
   function getMockExam() {
     return document.querySelector("[data-mock-exam]");
+  }
+
+  function readProgress() {
+    try {
+      var raw = window.localStorage && window.localStorage.getItem(progressStorageKey);
+      var parsed = raw ? JSON.parse(raw) : {};
+      if (!parsed || typeof parsed !== "object") return { cases: {} };
+      if (!parsed.cases || typeof parsed.cases !== "object") parsed.cases = {};
+      return parsed;
+    } catch (error) {
+      return { cases: {} };
+    }
+  }
+
+  function writeProgress(progress) {
+    try {
+      if (!window.localStorage) return false;
+      window.localStorage.setItem(progressStorageKey, JSON.stringify(progress));
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function saveCaseRun(caseId, result) {
+    if (!caseId || (result !== "completed" && result !== "needs-repeat")) return false;
+
+    var progress = readProgress();
+    var previous = progress.cases[caseId] || {};
+    progress.cases[caseId] = {
+      status: result,
+      attempts: (Number(previous.attempts) || 0) + 1,
+      lastRunAt: new Date().toISOString()
+    };
+    return writeProgress(progress);
+  }
+
+  function getCaseProgress(caseId) {
+    return readProgress().cases[caseId] || null;
+  }
+
+  function compactProgressText(entry) {
+    if (!entry) return "";
+    if (entry.status === "completed") return "Saved";
+    if (entry.status === "needs-repeat") return "Repeat";
+    return "";
+  }
+
+  function homeProgressText(entry) {
+    if (!entry) return "";
+    if (entry.status === "completed") return "Run saved. Repeat when ready.";
+    if (entry.status === "needs-repeat") return "Run saved. One thing to improve.";
+    return "";
+  }
+
+  function refreshProgressUi() {
+    document.querySelectorAll("[data-progress-summary]").forEach(function (summary) {
+      var text = homeProgressText(getCaseProgress(summary.getAttribute("data-case-id")));
+      summary.textContent = text;
+      summary.hidden = !text;
+    });
+
+    document.querySelectorAll("[data-progress-pill]").forEach(function (pill) {
+      var text = compactProgressText(getCaseProgress(pill.getAttribute("data-case-id")));
+      pill.textContent = text;
+      pill.hidden = !text;
+    });
+
+    document.querySelectorAll("[data-progress-cta]").forEach(function (cta) {
+      var entry = getCaseProgress(cta.getAttribute("data-case-id"));
+      var label = cta.getAttribute("data-case-label") || "Case 1";
+      if (entry && (entry.status === "completed" || entry.status === "needs-repeat")) {
+        cta.textContent = "Repeat " + label;
+        if (window.AMCRouter) cta.setAttribute("href", window.AMCRouter.href("case", "#timed-run"));
+      }
+    });
+  }
+
+  function setRunResult(scope, result) {
+    if (!scope) return;
+    scope.setAttribute("data-selected-run-result", result);
+    scope.querySelectorAll("[data-run-result]").forEach(function (button) {
+      var selected = button.dataset.runResult === result;
+      button.classList.toggle("is-selected", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+    var saveButton = scope.querySelector("[data-save-run]");
+    if (saveButton) saveButton.disabled = false;
+  }
+
+  function openRunSavePanel(button) {
+    var scope = button && button.closest("[data-run-save]");
+    if (!scope) return;
+    var panel = scope.querySelector("[data-run-save-panel]");
+    if (panel) panel.hidden = false;
+    button.hidden = true;
+    var firstChoice = scope.querySelector("[data-run-result]");
+    if (firstChoice && typeof firstChoice.focus === "function") firstChoice.focus();
+  }
+
+  function saveRunFromPanel(button) {
+    var scope = button && button.closest("[data-run-save]");
+    if (!scope) return;
+
+    var result = scope.getAttribute("data-selected-run-result");
+    var status = scope.querySelector("[data-run-save-status]");
+    var saved = saveCaseRun(scope.getAttribute("data-case-id"), result);
+    if (status) {
+      status.textContent = saved
+        ? (result === "completed" ? "Saved. This run counts." : "Saved. Pick one hint, then repeat.")
+        : "Could not save in this browser.";
+    }
+    if (saved) {
+      button.disabled = true;
+      refreshProgressUi();
+    }
   }
 
   function getMockExamDurations(scope) {
@@ -731,6 +848,30 @@
         return;
       }
 
+      var runFinished = event.target.closest("[data-run-finished]");
+      if (runFinished) {
+        event.preventDefault();
+        openRunSavePanel(runFinished);
+        closeFloatingNav();
+        return;
+      }
+
+      var runResult = event.target.closest("[data-run-result]");
+      if (runResult) {
+        event.preventDefault();
+        setRunResult(runResult.closest("[data-run-save]"), runResult.dataset.runResult);
+        closeFloatingNav();
+        return;
+      }
+
+      var saveRun = event.target.closest("[data-save-run]");
+      if (saveRun) {
+        event.preventDefault();
+        saveRunFromPanel(saveRun);
+        closeFloatingNav();
+        return;
+      }
+
       var caseTab = event.target.closest("[data-case-tab]");
       if (caseTab) {
         event.preventDefault();
@@ -821,6 +962,7 @@
 
     window.addEventListener("hashchange", selectCaseTabFromHash);
     selectCaseTabFromHash();
+    refreshProgressUi();
   }
 
   window.AMC_UI = {

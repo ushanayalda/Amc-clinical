@@ -95,8 +95,9 @@
           '</div>' +
           '<div class="home-primary-start">' +
             '<p>Start with the stem. Give it a go.</p>' +
+            '<p class="home-progress-note" data-progress-summary data-case-id="' + esc(currentCase.id) + '" hidden></p>' +
             '<div class="home-action-row">' +
-              '<a class="home-start-link" href="' + window.AMCRouter.href("case", "#station-stem") + '">Continue Case 1</a>' +
+              '<a class="home-start-link" href="' + window.AMCRouter.href("case", "#station-stem") + '" data-progress-cta data-case-id="' + esc(currentCase.id) + '" data-case-label="' + esc(currentCase.displayNumber || "Case 1") + '">Continue Case 1</a>' +
             '</div>' +
           '</div>' +
         '</section>' +
@@ -128,6 +129,7 @@
           '<a class="case-index-case-link' + (active ? " is-current" : "") + '" href="' + caseHref(caseItem) + '">' +
             '<span>' + esc(caseItem.displayNumber || "Case") + '</span>' +
             '<strong>' + esc(caseItem.title) + '</strong>' +
+            '<em class="case-progress-pill" data-progress-pill data-case-id="' + esc(caseItem.id) + '" hidden></em>' +
           '</a>' +
         '</li>';
       }
@@ -371,7 +373,7 @@
     return '<section class="case-tab-panel" id="' + esc(panelId) + '" role="tabpanel" data-case-tab-panel="' + esc(tabId) + '"' + (active ? "" : " hidden") + '>' + content + '</section>';
   }
 
-  function renderRunComplete() {
+  function renderRunComplete(currentCase) {
     var protectedLines = [
       "This may be coming from your heart.",
       "I am arranging an ambulance now.",
@@ -384,6 +386,18 @@
 
     return '<section class="run-complete mock-phase" data-mock-complete aria-labelledby="run-complete-heading" tabindex="-1" hidden>' +
       '<h2 id="run-complete-heading">Run complete.</h2>' +
+      '<div class="run-save" data-run-save data-case-id="' + esc(currentCase.id) + '">' +
+        '<button class="button primary" type="button" data-run-finished>I finished my run</button>' +
+        '<div class="run-save-panel" data-run-save-panel hidden>' +
+          '<p class="run-save-prompt">How did it go?</p>' +
+          '<div class="run-result-options" role="group" aria-label="Run result">' +
+            '<button type="button" data-run-result="completed" aria-pressed="false">I did this well</button>' +
+            '<button type="button" data-run-result="needs-repeat" aria-pressed="false">I missed something</button>' +
+          '</div>' +
+          '<button class="button primary" type="button" data-save-run disabled>Save this run</button>' +
+        '</div>' +
+        '<p class="run-save-status" data-run-save-status aria-live="polite"></p>' +
+      '</div>' +
       '<p class="run-next-line">Choose one thing to improve.</p>' +
       '<div class="run-complete-actions">' +
         '<button class="button primary" type="button" data-open-tools="hints">Hints</button>' +
@@ -520,7 +534,7 @@
         '</div>' +
         renderSpeakAloudContent(currentCase, { examMode: true }) +
       '</section>' +
-      renderRunComplete() +
+      renderRunComplete(currentCase) +
     '</div>';
   }
 

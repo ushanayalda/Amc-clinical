@@ -7,6 +7,7 @@
   var mockExamVoiceSpeaking = false;
   var mockExamVoiceAudio = null;
   var mockExamVoiceSpokenIndexes = {};
+  var mockExamLastFollowedIndex = null;
   var progressStorageKey = "amc.caseProgress.v1";
 
   function closeFloatingNav() {
@@ -185,7 +186,7 @@
     var speaking = scope.querySelector("[data-mock-speaking]");
     if (!speaking) return null;
     var speakingRect = speaking.getBoundingClientRect();
-    return speakingRect.top + speakingRect.height * flowProgress;
+    return speakingRect.top + window.scrollY + speakingRect.height * flowProgress;
   }
 
   function getMockExamVoiceTargets(scope) {
@@ -197,7 +198,7 @@
         index: Number.isFinite(index) ? index : fallbackIndex,
         text: line.getAttribute("data-voice-line"),
         audioSrc: line.getAttribute("data-voice-audio") || "",
-        triggerY: rect.top + Math.min(10, rect.height * 0.4)
+        triggerY: rect.top + window.scrollY + Math.min(10, rect.height * 0.4)
       };
     }).filter(function (target) {
       return target.text;
@@ -220,9 +221,29 @@
     }
   }
 
+  function followMockExamGuide(target, running) {
+    if (!target || !target.element || !running) return;
+    if (mockExamLastFollowedIndex === target.index) return;
+
+    var rect = target.element.getBoundingClientRect();
+    var viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    var topBand = Math.max(104, viewportHeight * 0.28);
+    var bottomBand = Math.max(170, viewportHeight * 0.72);
+    var alreadyComfortable = rect.top >= topBand && rect.bottom <= bottomBand;
+
+    mockExamLastFollowedIndex = target.index;
+    if (alreadyComfortable) return;
+
+    window.scrollTo({
+      top: Math.max(0, rect.top + window.scrollY - viewportHeight * 0.42),
+      behavior: "smooth"
+    });
+  }
+
   function primeMockExamVoicePosition(scope, elapsedSeconds, durations) {
     var guideY = getMockExamGuideY(scope, getMockExamFlowProgress(elapsedSeconds, durations));
     mockExamVoiceSpokenIndexes = {};
+    mockExamLastFollowedIndex = null;
     clearMockExamVoiceCue(scope);
 
     if (guideY === null || elapsedSeconds < durations.reading) return;
@@ -437,6 +458,7 @@
     }
 
     setMockExamVoiceCue(scope, nextTarget);
+    followMockExamGuide(nextTarget, running);
     mockExamVoiceSpokenIndexes[nextTarget.index] = true;
     speakMockExamLine(scope, nextTarget);
 
@@ -560,6 +582,7 @@
 
     stopMockExamVoice(scope, safeElapsed >= durations.reading ? "Patient voice ready." : "Patient voice starts at 2:00.");
     mockExamElapsedSeconds = safeElapsed;
+    mockExamLastFollowedIndex = null;
     setMockExamState(scope, safeElapsed, running, { forceSeekUpdate: true, skipVoiceSync: true });
     primeMockExamVoicePosition(scope, safeElapsed, durations);
 
@@ -620,6 +643,7 @@
     mockExamStartedAt = null;
     mockExamElapsedSeconds = 0;
     mockExamVoiceSpokenIndexes = {};
+    mockExamLastFollowedIndex = null;
     clearMockExamVoiceCue(scope);
     setMockExamState(scope, 0, false, { forceSeekUpdate: true });
   }

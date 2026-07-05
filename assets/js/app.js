@@ -11,7 +11,7 @@
     document.body.dataset.screen = screen;
 
     if (screen === "pathway") {
-      window.AMCRenderers.renderPathway(app, window.AMCStore.getPathwayContext());
+      window.AMCRenderers.renderPathway(app, window.AMCStore.getPathwayContext(routeCaseId));
     } else if (screen === "warmup") {
       var warmupId = app.dataset.warmupId || "warmup-dangerous-chest-pain";
       window.AMCRenderers.renderWarmup(app, window.AMCStore.getWarmupContext(warmupId));

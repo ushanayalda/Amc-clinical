@@ -71,7 +71,7 @@
     };
   }
 
-  function getPathwayContext() {
+  function getPathwayContext(caseId) {
     return {
       app: content().app || {},
       phases: list("phases"),
@@ -79,7 +79,7 @@
       warmups: list("warmups"),
       cases: list("cases"),
       futurePathway: Array.isArray(content().futurePathway) ? content().futurePathway : [],
-      currentCase: getCurrentCase()
+      currentCase: getCaseById(caseId) || getCurrentCase()
     };
   }
 

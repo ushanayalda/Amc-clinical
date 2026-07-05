@@ -49,6 +49,7 @@
 
   function href(name, hash, caseId) {
     if (name === "case") return "index.html" + caseQuery(caseId || currentCaseId()) + (hash || "#station-stem");
+    if (name === "pathway") return "index.html" + caseQuery(caseId || currentCaseId()) + "#cases";
     return routes[name] || routes.home;
   }
 

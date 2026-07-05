@@ -521,8 +521,8 @@ h3 {
 
 .case-index-shell {
   display: grid;
-  gap: 8px;
-  padding: 16px 0 12px;
+  gap: 7px;
+  padding: 14px 0 10px;
 }
 
 .case-index-shell h2 {
@@ -548,7 +548,7 @@ h3 {
 
 .case-index-list {
   display: grid;
-  gap: 2px;
+  gap: 4px;
 }
 
 .case-index-phase,
@@ -561,11 +561,11 @@ h3 {
   list-style: none;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 8px;
+  gap: 7px;
   align-items: baseline;
-  min-height: 40px;
+  min-height: 34px;
   border-radius: 7px;
-  padding: 7px 0;
+  padding: 5px 0;
   cursor: pointer;
   transition: color 0.14s ease, background 0.14s ease;
 }
@@ -578,7 +578,7 @@ h3 {
 .case-index-phase > summary strong,
 .case-index-pattern > summary strong {
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 910;
   line-height: 1.2;
 }
@@ -591,99 +591,125 @@ h3 {
 
 .case-index-pattern > summary {
   grid-template-columns: minmax(0, auto) auto;
-  min-height: 36px;
-  padding: 6px 0;
+  min-height: 30px;
+  padding: 3px 0 4px;
   justify-content: start;
 }
 
 .case-index-pattern > summary strong {
-  color: var(--focus-dark);
-  font-size: 0.94rem;
+  color: var(--ink);
+  font-size: 0.92rem;
 }
 
 .case-index-phase[open] > summary strong,
 .case-index-pattern[open] > summary strong {
-  color: var(--focus-dark);
+  color: var(--ink);
 }
 
 .case-index-phase-body {
   display: grid;
-  gap: 4px;
-  padding: 0 0 8px 32px;
+  gap: 3px;
+  padding: 0 0 6px 28px;
 }
 
 .case-index-pattern-body {
   display: grid;
-  gap: 7px;
-  padding: 0 0 9px 46px;
+  gap: 2px;
+  padding: 0 0 6px 38px;
 }
 
 .pattern-overview-link {
-  min-height: 28px;
+  min-height: 23px;
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(15, 118, 110, 0.18);
+  border: 1px solid rgba(178, 188, 181, 0.42);
   border-radius: 999px;
-  padding: 4px 10px;
-  color: var(--focus-dark);
-  background: rgba(255, 255, 255, 0.62);
-  font-size: 0.8rem;
+  padding: 2px 8px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.42);
+  font-size: 0.76rem;
   font-weight: 900;
   text-decoration: none;
 }
 
 .pattern-overview-link:hover {
-  border-color: rgba(15, 118, 110, 0.34);
+  border-color: rgba(88, 100, 93, 0.28);
   background: rgba(255, 255, 255, 0.9);
 }
 
 .case-index-case-list {
   display: grid;
-  gap: 4px;
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .case-index-case-link {
-  min-height: 38px;
+  position: relative;
+  min-height: 31px;
   display: grid;
-  grid-template-columns: 58px minmax(0, 1fr);
-  gap: 10px;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  gap: 8px;
   align-items: center;
-  border-radius: 7px;
-  padding: 4px 0;
+  border-radius: 6px;
+  padding: 2px 8px 2px 0;
   color: var(--ink);
   text-decoration: none;
+  transition: background 0.14s ease, color 0.14s ease;
 }
 
 .case-index-case-link span {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 900;
 }
 
 .case-index-case-link strong {
   min-width: 0;
-  font-size: 0.94rem;
+  color: var(--ink);
+  font-size: 0.9rem;
   font-weight: 900;
 }
 
 .case-progress-pill {
-  justify-self: start;
+  justify-self: end;
   border: 1px solid rgba(178, 188, 181, 0.52);
   border-radius: 999px;
-  padding: 2px 7px;
+  padding: 1px 6px;
   color: rgba(88, 100, 93, 0.84);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-style: normal;
   font-weight: 850;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
-.case-index-case-link:hover,
+.case-index-case-link:hover {
+  background: linear-gradient(90deg, rgba(15, 118, 110, 0.055), transparent 92%);
+}
+
 .case-index-case-link.is-current {
+  background: transparent;
+}
+
+.case-index-case-link:hover strong {
   color: var(--focus-dark);
-  background: linear-gradient(90deg, rgba(15, 118, 110, 0.08), transparent 82%);
+}
+
+.case-index-case-link.is-current strong {
+  color: var(--ink);
+}
+
+.case-index-case-link.is-current::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: -10px;
+  width: 3px;
+  border-radius: 999px;
+  background: rgba(88, 100, 93, 0.34);
 }
 
 .case-index-empty {
@@ -3752,7 +3778,9 @@ h3 {
   }
 
   .case-index-case-link {
-    grid-template-columns: 58px minmax(0, 1fr);
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    min-height: 31px;
+    padding: 2px 8px 2px 0;
   }
 
   .case-index-pattern > summary {
@@ -3764,7 +3792,7 @@ h3 {
   }
 
   .case-index-pattern-body {
-    padding-left: 34px;
+    padding-left: 30px;
   }
 
   .case-tab-row {

@@ -661,7 +661,7 @@
         }).join("") + '</section>' +
         '<section class="support-zones">' +
           '<article class="support-zone is-safe">' +
-            '<h2><span aria-hidden="true">🛏</span>' + esc(map.safe.title) + '</h2>' +
+            '<h2><span aria-hidden="true">&#128657;</span>' + esc(map.safe.title) + '</h2>' +
             '<ul>' + map.safe.items.map(function (item) {
               return markedItem(item);
             }).join("") + '</ul>' +
@@ -818,16 +818,54 @@
       '</section>';
     }).join("");
 
+    function cuePills(items, label) {
+      return '<div class="cue-row" aria-label="' + esc(label || "Memory cues") + '">' +
+        items.map(function (cue) {
+          return '<span class="cue-pill">' + esc(cue) + '</span>';
+        }).join("") +
+      '</div>';
+    }
+
+    function whyContent(hint) {
+      var why = String(hint.why || "").toLowerCase();
+      if (
+        why.indexOf("spread of pain") !== -1 &&
+        why.indexOf("sudden sharp breathlessness") !== -1
+      ) {
+        return '<p>Danger cues to check quickly:</p>' +
+          cuePills([
+            "spread of pain",
+            "sweating",
+            "nausea",
+            "breathlessness",
+            "tearing back pain",
+            "clot risk",
+            "coughing blood",
+            "sudden sharp breathlessness"
+          ], "Danger cues to check quickly");
+      }
+
+      if (
+        why.indexOf("chest pressure") === -1 ||
+        why.indexOf("heart risk") === -1
+      ) {
+        return '<p>' + esc(hint.why) + '</p>';
+      }
+
+      return '<p>' + esc(hint.why) + '</p>' +
+        cuePills(["Chest pressure", "Arm/jaw spread", "Sweating", "Nausea", "Breathless", "Heart risk factors"], "Risk pattern");
+    }
+
     var cards = currentCase.hints.map(function (hint) {
       return '<article class="hint-card" data-hint-card="' + esc(hint.id) + '" tabindex="-1" hidden>' +
-        '<h4>' + esc(hint.title) + '</h4>' +
-        '<div class="hint-say-line"><span>Say this</span><p>' + esc(hint.say) + '</p></div>' +
-        '<div class="hint-note-row is-missed"><span>What slipped</span><p>' + esc(hint.missed) + '</p></div>' +
-        '<div class="hint-note-row"><span>Why this helps</span><p>' + esc(hint.why) + '</p></div>' +
-        '<div class="hint-note-row is-practise"><span>Practise now</span><p>' + esc(hint.practise || "Say this line three times. Then return to Start speaking.") + '</p></div>' +
-        '<div class="hint-actions">' +
-          '<button class="button secondary" type="button" data-hint-back>Back to Hints</button>' +
-          '<a class="button primary" href="#speak-aloud">Start speaking</a>' +
+        '<h4 class="hint-title">' + esc(hint.title) + '</h4>' +
+        '<div class="hint-say-line"><span class="section-label">Say this</span><p class="action-box">' + esc(hint.say) + '</p></div>' +
+        '<div class="hint-note-row is-missed"><span class="section-label">What slipped</span><p>' + esc(hint.missed) + '</p></div>' +
+        '<div class="hint-note-row"><span class="section-label">Why this helps</span>' + whyContent(hint) + '</div>' +
+        '<div class="hint-note-row is-practise"><span class="section-label">Practice now</span><p class="practice-box">' + esc(hint.practise || "Say this line three times. Then go back to Start speaking.") + '</p></div>' +
+        '<div class="hint-actions button-row">' +
+          '<a class="button primary button-primary" href="#speak-aloud">Start speaking</a>' +
+          '<button class="button secondary button-secondary" type="button" data-hint-back>Back to Hints</button>' +
         '</div>' +
       '</article>';
     }).join("");

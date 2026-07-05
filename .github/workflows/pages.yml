@@ -91,7 +91,7 @@ jobs:
             for path in "/" "/index.html"; do
               html="$(fetch "${BASE}${path}?health=${BUILD_ID}")" || ok=false
               if [ "${ok}" = true ]; then
-                if ! contains "$html" "$BUILD_ID" && ! contains "$html" "branch-shell"; then
+                if ! contains "$html" "$BUILD_ID"; then
                   ok=false
                 fi
                 contains "$html" "Classic Chest Pain" || ok=false
@@ -104,19 +104,10 @@ jobs:
                 missing "$html" "Case 1 awaiting transfer" || ok=false
                 missing "$html" "Tracking not connected yet" || ok=false
                 missing "$html" "ready to practise" || ok=false
-                if contains "$html" "branch-shell"; then
-                  renderer="$(fetch "${BASE}/assets/js/renderers.js?health=${BUILD_ID}")" || ok=false
-                  contains "$renderer" "Run complete" || ok=false
-                  missing "$renderer" "Due today" || ok=false
-                  missing "$renderer" "Weak spots" || ok=false
-                  contains "$renderer" "All cases" || ok=false
-                  contains "$renderer" "One hint. One line. Back to speaking." || ok=false
-                  contains "$renderer" "Back to Hints" || ok=false
-                fi
               fi
             done
             if [ "${ok}" = true ] && [ -n "$version" ]; then
-              if ! contains "$version" "$BUILD_ID" && ! contains "$version" "branch-shell"; then
+              if ! contains "$version" "$BUILD_ID"; then
                 ok=false
               fi
             fi

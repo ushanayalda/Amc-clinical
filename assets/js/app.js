@@ -6,6 +6,7 @@
     if (!app || !window.AMCRenderers || !window.AMCStore) return;
 
     var screen = window.AMCRouter.getScreen(app);
+    var routeCaseId = window.AMCRouter.currentCaseId ? window.AMCRouter.currentCaseId() : "";
     currentScreen = screen;
     document.body.dataset.screen = screen;
 
@@ -15,7 +16,7 @@
       var warmupId = app.dataset.warmupId || "warmup-dangerous-chest-pain";
       window.AMCRenderers.renderWarmup(app, window.AMCStore.getWarmupContext(warmupId));
     } else if (screen === "case") {
-      var caseId = app.dataset.caseId || "case-1-classic-chest-pain";
+      var caseId = routeCaseId || app.dataset.caseId || "case-1-classic-chest-pain";
       window.AMCRenderers.renderCase(app, window.AMCStore.getCaseContext(caseId));
     } else {
       window.AMCRenderers.renderHome(app, window.AMCStore.getPathwayContext());

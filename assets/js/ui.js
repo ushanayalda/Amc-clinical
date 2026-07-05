@@ -108,11 +108,12 @@
     });
 
     document.querySelectorAll("[data-progress-cta]").forEach(function (cta) {
-      var entry = getCaseProgress(cta.getAttribute("data-case-id"));
+      var caseId = cta.getAttribute("data-case-id");
+      var entry = getCaseProgress(caseId);
       var label = cta.getAttribute("data-case-label") || "Case 1";
       if (entry && (entry.status === "completed" || entry.status === "needs-repeat")) {
         cta.textContent = "Repeat " + label;
-        if (window.AMCRouter) cta.setAttribute("href", window.AMCRouter.href("case", "#timed-run"));
+        if (window.AMCRouter) cta.setAttribute("href", window.AMCRouter.href("case", "#timed-run", caseId));
       }
     });
   }
@@ -686,7 +687,7 @@
     });
 
     if (updateHash && activeButton && activeButton.dataset.caseHash) {
-      window.history.replaceState(null, "", "#" + activeButton.dataset.caseHash);
+      window.history.replaceState(null, "", window.location.pathname + window.location.search + "#" + activeButton.dataset.caseHash);
     }
 
     if (tabId === "mock") {
@@ -707,6 +708,12 @@
 
     if (tabByHash[hash]) {
       selectCaseTab(tabByHash[hash], false);
+      window.setTimeout(function () {
+        var panel = document.getElementById(hash);
+        if (panel && typeof panel.scrollIntoView === "function") {
+          panel.scrollIntoView({ block: "start", behavior: "auto" });
+        }
+      }, 0);
     }
   }
 

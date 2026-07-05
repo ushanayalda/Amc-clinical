@@ -97,7 +97,7 @@
             '<p>Start with the stem. Give it a go.</p>' +
             '<p class="home-progress-note" data-progress-summary data-case-id="' + esc(currentCase.id) + '" hidden></p>' +
             '<div class="home-action-row">' +
-              '<a class="home-start-link" href="' + window.AMCRouter.href("case", "#station-stem") + '" data-progress-cta data-case-id="' + esc(currentCase.id) + '" data-case-label="' + esc(currentCase.displayNumber || "Case 1") + '">Continue Case 1</a>' +
+              '<a class="home-start-link" href="' + window.AMCRouter.href("case", "#station-stem", currentCase && currentCase.id) + '" data-progress-cta data-case-id="' + esc(currentCase.id) + '" data-case-label="' + esc(currentCase.displayNumber || "Case 1") + '">Continue Case 1</a>' +
             '</div>' +
           '</div>' +
         '</section>' +
@@ -120,7 +120,7 @@
       var cases = context.cases || [];
 
       function caseHref(caseItem) {
-        return window.AMCRouter.href("case", "#station-stem");
+        return window.AMCRouter.href("case", "#station-stem", caseItem && caseItem.id);
       }
 
       function renderCaseItem(caseItem) {
@@ -183,7 +183,7 @@
         '</header>' +
         '<section class="cases-continue" aria-labelledby="cases-current-heading">' +
           '<p class="section-kicker cases-current-path"><span>Continue</span><strong>' + esc(patternTitle) + '</strong></p>' +
-          '<h2 id="cases-current-heading"><a class="case-title-link" href="' + window.AMCRouter.href("case", "#station-stem") + '">' + esc(caseTitle) + '</a></h2>' +
+          '<h2 id="cases-current-heading"><a class="case-title-link" href="' + window.AMCRouter.href("case", "#station-stem", currentCase && currentCase.id) + '">' + esc(caseTitle) + '</a></h2>' +
         '</section>' +
         renderAllCasesIndex() +
       '</section>',
@@ -374,7 +374,7 @@
   }
 
   function renderRunComplete(currentCase) {
-    var protectedLines = [
+    var protectedLines = currentCase.runComplete || [
       "This may be coming from your heart.",
       "I am arranging an ambulance now.",
       "You should not drive yourself.",
@@ -455,8 +455,10 @@
           '<div><h3>' + esc(block.heading) + '</h3></div>' +
         '</div>' +
         block.turns.map(function (turn) {
-          return '<div class="rehearsal-turn ' + (turn.speaker === "Patient" ? "patient" : "you") + '">' +
-            '<span class="speaker-label">' + (turn.speaker === "Patient" ? "Patient" : "You") + '</span>' +
+          var speakerClass = turn.speaker === "Patient" ? "patient" : turn.speaker === "Examiner" ? "examiner" : "you";
+          var speakerLabel = turn.speaker === "Patient" ? "Patient" : turn.speaker === "Examiner" ? "Examiner" : "You";
+          return '<div class="rehearsal-turn ' + speakerClass + '">' +
+            '<span class="speaker-label">' + speakerLabel + '</span>' +
             '<div class="turn-lines">' +
             turn.lines.map(function (line) {
               var anchorClass = protectedLines[line] ? ' is-anchor' : "";
@@ -793,6 +795,7 @@
     }, {});
 
     function hintStage(hint) {
+      if (hint.stage && stages[hint.stage]) return hint.stage;
       if (hint.id === "technical-language" || hint.id === "decision-point") return "say";
       if (hint.id === "first-action" || hint.id === "escalation" || hint.id === "delayed-transfer-tests" || hint.id === "medication-safety") return "act";
       if (hint.group === "Safety, time, close") return "close";
@@ -821,7 +824,7 @@
         '<div class="hint-say-line"><span>Say this</span><p>' + esc(hint.say) + '</p></div>' +
         '<div class="hint-note-row is-missed"><span>What slipped</span><p>' + esc(hint.missed) + '</p></div>' +
         '<div class="hint-note-row"><span>Why this helps</span><p>' + esc(hint.why) + '</p></div>' +
-        '<div class="hint-note-row is-practise"><span>Practise now</span><p>Say this line three times. Then return to Start speaking.</p></div>' +
+        '<div class="hint-note-row is-practise"><span>Practise now</span><p>' + esc(hint.practise || "Say this line three times. Then return to Start speaking.") + '</p></div>' +
         '<div class="hint-actions">' +
           '<button class="button secondary" type="button" data-hint-back>Back to Hints</button>' +
           '<a class="button primary" href="#speak-aloud">Start speaking</a>' +

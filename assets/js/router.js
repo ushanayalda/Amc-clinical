@@ -35,8 +35,20 @@
     return (appEl && appEl.dataset && appEl.dataset.screen) || inferred;
   }
 
-  function href(name, hash) {
-    if (name === "case" && hash) return "index.html" + hash;
+  function caseQuery(caseId) {
+    return caseId ? "?case=" + encodeURIComponent(caseId) : "";
+  }
+
+  function currentCaseId() {
+    try {
+      return new URLSearchParams(window.location.search).get("case") || "";
+    } catch (error) {
+      return "";
+    }
+  }
+
+  function href(name, hash, caseId) {
+    if (name === "case") return "index.html" + caseQuery(caseId || currentCaseId()) + (hash || "#station-stem");
     return routes[name] || routes.home;
   }
 
@@ -44,6 +56,7 @@
     routes: routes,
     screenFromPath: screenFromPath,
     getScreen: getScreen,
-    href: href
+    href: href,
+    currentCaseId: currentCaseId
   };
 })();

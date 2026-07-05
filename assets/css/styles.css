@@ -21,6 +21,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 128px;
 }
 
 body {
@@ -1526,7 +1527,7 @@ h3 {
 .case-tab-panel {
   display: grid;
   gap: 4px;
-  scroll-margin-top: 112px;
+  scroll-margin-top: 132px;
 }
 
 .case-tab-panel[hidden] {
@@ -2640,21 +2641,20 @@ h3 {
 
 .do-not-miss-scenes {
   display: grid;
-  gap: 16px;
+  gap: 14px;
 }
 
 .scene-prime {
   display: grid;
-  grid-template-columns: 112px minmax(0, 1fr);
-  gap: 12px;
-  align-items: start;
-  padding: 2px 0 12px;
-  border-bottom: 1px solid rgba(215, 222, 215, 0.78);
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 0 0 10px;
+  border-bottom: 1px solid rgba(215, 222, 215, 0.62);
 }
 
 .scene-prime p {
-  border-left: 3px solid rgba(23, 33, 28, 0.3);
-  padding-left: 8px;
+  padding: 2px 0;
   color: var(--muted);
   font-size: 0.78rem;
   font-weight: 900;
@@ -2671,16 +2671,17 @@ h3 {
 }
 
 .scene-prime li {
-  min-height: 30px;
+  min-height: 28px;
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(178, 188, 181, 0.58);
+  border: 1px solid rgba(178, 188, 181, 0.44);
   border-radius: 999px;
-  padding: 4px 10px;
-  background: rgba(255, 255, 255, 0.62);
+  padding: 4px 11px;
+  background: rgba(255, 255, 255, 0.74);
   color: var(--ink);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 850;
+  box-shadow: 0 6px 16px rgba(18, 32, 24, 0.035);
 }
 
 .danger-scenes {
@@ -2691,11 +2692,19 @@ h3 {
 .danger-scene {
   --scene-color: var(--focus);
   display: grid;
-  gap: 12px;
-  border-left: 5px solid var(--scene-color);
-  border-top: 1px solid rgba(215, 222, 215, 0.7);
-  padding: 13px 0 13px 14px;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--scene-color) 8%, transparent), transparent 48%);
+  gap: 13px;
+  border: 1px solid color-mix(in srgb, var(--scene-color) 18%, rgba(215, 222, 215, 0.72));
+  border-radius: 14px;
+  padding: 12px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--scene-color) 9%, transparent), transparent 44%),
+    rgba(255, 255, 255, 0.48);
+  box-shadow: 0 12px 32px rgba(18, 32, 24, 0.045);
+}
+
+.danger-scene:first-child {
+  border-color: color-mix(in srgb, var(--scene-color) 28%, rgba(215, 222, 215, 0.72));
+  box-shadow: 0 16px 36px rgba(18, 32, 24, 0.07);
 }
 
 .danger-scene.tone-red {
@@ -2716,18 +2725,18 @@ h3 {
 
 .scene-head {
   display: grid;
-  grid-template-columns: 68px minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 11px;
   align-items: center;
 }
 
 .scene-signal {
-  min-height: 62px;
+  min-height: 56px;
   display: grid;
   place-items: center;
   gap: 2px;
   border: 1px solid color-mix(in srgb, var(--scene-color) 36%, #d7ded7);
-  border-radius: 8px;
+  border-radius: 12px;
   background: color-mix(in srgb, var(--scene-color) 10%, #ffffff);
   color: var(--scene-color);
 }
@@ -2768,14 +2777,14 @@ h3 {
 .scene-steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 9px;
 }
 
 .scene-step {
   display: grid;
   gap: 6px;
   min-width: 0;
-  border-top: 1px solid rgba(215, 222, 215, 0.72);
+  border-top: 1px solid rgba(215, 222, 215, 0.58);
   padding-top: 8px;
 }
 
@@ -2845,6 +2854,45 @@ h3 {
   height: 5px;
   border-radius: 999px;
   background: var(--scene-color);
+}
+
+.scene-step-see ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.scene-step-see li {
+  min-height: 28px;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--scene-color) 13%, rgba(215, 222, 215, 0.72));
+  border-radius: 999px;
+  padding: 4px 9px 4px 20px;
+  background: color-mix(in srgb, var(--scene-color) 6%, rgba(255, 255, 255, 0.72));
+  font-size: 0.84rem;
+  font-weight: 820;
+}
+
+.scene-step-see li::before {
+  left: 9px;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translateY(-50%);
+}
+
+.scene-step-say,
+.scene-step-do {
+  border-radius: 10px;
+}
+
+.scene-step-say {
+  padding: 8px 9px;
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.scene-step-say li {
+  font-weight: 860;
 }
 
 .support-zones {
@@ -3839,7 +3887,9 @@ h3 {
     box-shadow: 0 14px 38px rgba(18, 32, 24, 0.18);
   }
 
-  .case-tabs-shell[data-active-case-tab="mock"] .case-bottom-actions {
+  .case-tabs-shell[data-active-case-tab="mock"] .case-bottom-actions,
+  .case-tabs-shell[data-active-case-tab="matters"] .case-bottom-actions,
+  .case-tabs-shell[data-active-case-tab="hints"] .case-bottom-actions {
     display: none;
   }
 

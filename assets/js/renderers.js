@@ -344,7 +344,7 @@
 
     var tabButtons = tabs.map(function (tab, index) {
       var active = index === 0;
-      return '<button class="case-tab' + (active ? " is-active" : "") + '" type="button" role="tab" aria-selected="' + String(active) + '" aria-controls="' + esc(tab[2]) + '" data-case-tab="' + esc(tab[0]) + '" data-case-hash="' + esc(tab[2]) + '"><span class="case-tab-step" aria-hidden="true"></span><span>' + esc(tab[1]) + '</span></button>';
+      return '<button class="case-tab' + (active ? " is-active" : "") + '" type="button" role="tab" aria-selected="' + String(active) + '" aria-controls="' + esc(tab[2]) + '" data-case-tab="' + esc(tab[0]) + '" data-case-hash="' + esc(tab[2]) + '"><span>' + esc(tab[1]) + '</span></button>';
     }).join("") +
       '<a class="case-tab case-tab-link" href="' + window.AMCRouter.href("pathway") + '">Cases</a>';
 

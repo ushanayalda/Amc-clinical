@@ -5,7 +5,8 @@
   "description": "Static AMC Clinical Pathway app shell for GitHub Pages.",
   "scripts": {
     "build": "node scripts/build-pages.js",
-    "check": "node --check data/content.js && node --check assets/js/content-store.js && node --check assets/js/router.js && node --check assets/js/ui.js && node --check assets/js/renderers.js && node --check assets/js/app.js && node --check scripts/build-pages.js && node --check scripts/verify-dist.js && node --check scripts/purge-cloudflare.js",
+    "generate:audio": "node scripts/generatePatientAudio.js",
+    "check": "node --check data/content.js && node --check data/audio-manifest.js && node --check assets/js/content-store.js && node --check assets/js/router.js && node --check assets/js/ui.js && node --check assets/js/renderers.js && node --check assets/js/app.js && node --check scripts/build-pages.js && node --check scripts/verify-dist.js && node --check scripts/purge-cloudflare.js && node --check scripts/generatePatientAudio.js",
     "verify:dist": "node scripts/verify-dist.js"
   },
   "devDependencies": {}

@@ -12,6 +12,7 @@ const generatedAt = new Date().toISOString();
 const assets = [
   { src: "assets/css/styles.css", outDir: "assets/css", name: "styles", ext: ".css", tag: "style" },
   { src: "data/content.js", outDir: "data", name: "content", ext: ".js", tag: "script" },
+  { src: "data/audio-manifest.js", outDir: "data", name: "audio-manifest", ext: ".js", tag: "script" },
   { src: "assets/js/content-store.js", outDir: "assets/js", name: "content-store", ext: ".js", tag: "script" },
   { src: "assets/js/router.js", outDir: "assets/js", name: "router", ext: ".js", tag: "script" },
   { src: "assets/js/ui.js", outDir: "assets/js", name: "ui", ext: ".js", tag: "script" },
@@ -88,6 +89,30 @@ function copyStaticAsset(asset) {
     url: basePath + asset.output.replace(/\\/g, "/"),
     tag: "static"
   };
+}
+
+function copyDirectory(sourceDir, outputDir) {
+  if (!fs.existsSync(sourceDir)) return [];
+  const copied = [];
+
+  function walk(currentSource, currentOutput) {
+    ensureDir(currentOutput);
+    fs.readdirSync(currentSource, { withFileTypes: true }).forEach((entry) => {
+      const sourcePath = path.join(currentSource, entry.name);
+      const outputPath = path.join(currentOutput, entry.name);
+
+      if (entry.isDirectory()) {
+        walk(sourcePath, outputPath);
+        return;
+      }
+
+      fs.copyFileSync(sourcePath, outputPath);
+      copied.push(path.relative(dist, outputPath).replace(/\\/g, "/"));
+    });
+  }
+
+  walk(sourceDir, outputDir);
+  return copied;
 }
 
 function escapeHtml(value) {
@@ -185,12 +210,21 @@ emptyDir(dist);
 
 const manifest = assets.map(copyFingerprintedAsset);
 const staticManifest = staticAssets.map(copyStaticAsset);
+const audioManifest = copyDirectory(path.join(root, "audio"), path.join(dist, "audio")).map((assetPath) => ({
+  source: assetPath,
+  output: assetPath,
+  url: basePath + assetPath,
+  tag: "static"
+}));
 const shell = renderShell(manifest);
 
 fs.writeFileSync(path.join(dist, "index.html"), shell);
 fs.writeFileSync(path.join(dist, "404.html"), shell);
+if (fs.existsSync(path.join(root, "audio-preview.html"))) {
+  fs.copyFileSync(path.join(root, "audio-preview.html"), path.join(dist, "audio-preview.html"));
+}
 fs.writeFileSync(path.join(dist, ".nojekyll"), "");
-const versionManifest = { buildId, basePath, generatedAt, environment: "github-pages", assets: manifest.concat(staticManifest) };
+const versionManifest = { buildId, basePath, generatedAt, environment: "github-pages", assets: manifest.concat(staticManifest, audioManifest) };
 fs.writeFileSync(path.join(dist, "version.json"), JSON.stringify(versionManifest, null, 2) + "\n");
 
 console.log(`Built dist with build id ${buildId}`);

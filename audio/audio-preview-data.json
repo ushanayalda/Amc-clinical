@@ -1,0 +1,473 @@
+{
+  "disclosure": "Patient voices are AI-generated for clinical rehearsal.",
+  "generated_at": "2026-07-05T13:39:08.983Z",
+  "cases": [
+    {
+      "case_id": "case-002",
+      "selected_voice": "cedar",
+      "clips": [
+        {
+          "trigger": "address-name",
+          "spoken_text": "David is fine.",
+          "voice_direction": "Slightly strained but polite. Natural Australian accent.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-address-name.mp3"
+        },
+        {
+          "trigger": "ambulance-concern",
+          "spoken_text": "An ambulance? Is it that bad?",
+          "voice_direction": "Worried, uncomfortable, mildly breathless. Not dramatic.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-ambulance-question.mp3"
+        },
+        {
+          "trigger": "consent-ok",
+          "spoken_text": "Okay.",
+          "voice_direction": "Short, worried, accepting.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-consent-ok.mp3"
+        },
+        {
+          "trigger": "opening-story",
+          "spoken_text": "I was lifting a heavy box from my car about 25 minutes ago. Suddenly I got this awful pain in the middle of my chest.",
+          "voice_direction": "Strained. Painful but clear. Slight breathlessness.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-opening-story.mp3"
+        },
+        {
+          "trigger": "pain-still-present",
+          "spoken_text": "Yes.",
+          "voice_direction": "Short, uncomfortable.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-pain-still-there.mp3"
+        },
+        {
+          "trigger": "pain-site",
+          "spoken_text": "In the centre of my chest.",
+          "voice_direction": "Matter-of-fact, strained.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-pain-site.mp3"
+        },
+        {
+          "trigger": "pain-score",
+          "spoken_text": "Ten. It was terrible straight away.",
+          "voice_direction": "Pained, brief, frightened.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-pain-score.mp3"
+        },
+        {
+          "trigger": "pain-onset",
+          "spoken_text": "Suddenly. It hit me all at once.",
+          "voice_direction": "Clear, worried, slightly breathless.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-pain-onset.mp3"
+        },
+        {
+          "trigger": "pain-quality",
+          "spoken_text": "It feels like something tearing.",
+          "voice_direction": "Strained, frightened, not theatrical.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-pain-quality.mp3"
+        },
+        {
+          "trigger": "pain-radiation-back",
+          "spoken_text": "Yes. It goes through to my back, between my shoulder blades.",
+          "voice_direction": "Pained, clear, mildly breathless.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-pain-radiation-back.mp3"
+        },
+        {
+          "trigger": "no-jaw-arm-radiation",
+          "spoken_text": "Not really to my jaw. Mostly straight through to my back.",
+          "voice_direction": "Natural pace. Slightly strained.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-no-jaw-arm-radiation.mp3"
+        },
+        {
+          "trigger": "faint-feeling",
+          "spoken_text": "I felt like I might faint when it started.",
+          "voice_direction": "Worried, slightly shaky but controlled.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-faint-feeling.mp3"
+        },
+        {
+          "trigger": "brief-arm-weakness",
+          "spoken_text": "My left arm felt a bit weak and strange for a few minutes. It feels better now.",
+          "voice_direction": "Concerned, clear, slightly anxious.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-brief-arm-weakness.mp3"
+        },
+        {
+          "trigger": "no-leg-symptoms",
+          "spoken_text": "No.",
+          "voice_direction": "Short answer. Uncomfortable.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-no-leg-symptoms.mp3"
+        },
+        {
+          "trigger": "shortness-of-breath",
+          "spoken_text": "A little, but I think it is because the pain is so bad.",
+          "voice_direction": "Mild breathlessness. Controlled discomfort.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-shortness-of-breath.mp3"
+        },
+        {
+          "trigger": "no-coughing-blood",
+          "spoken_text": "No.",
+          "voice_direction": "Short, clear.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-no-coughing-blood.mp3"
+        },
+        {
+          "trigger": "no-clot-risk",
+          "spoken_text": "No.",
+          "voice_direction": "Brief and certain.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-no-clot-risk.mp3"
+        },
+        {
+          "trigger": "no-one-sided-sharp-pain",
+          "spoken_text": "No. It is central and through to my back.",
+          "voice_direction": "Mildly breathless, explanatory.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-no-one-sided-sharp-pain.mp3"
+        },
+        {
+          "trigger": "no-infection-symptoms",
+          "spoken_text": "No.",
+          "voice_direction": "Short, clear.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-no-infection-symptoms.mp3"
+        },
+        {
+          "trigger": "risk-factors",
+          "spoken_text": "I have high blood pressure. I used to smoke.",
+          "voice_direction": "Matter-of-fact, slightly tired.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-risk-factors.mp3"
+        },
+        {
+          "trigger": "medication",
+          "spoken_text": "Amlodipine.",
+          "voice_direction": "Clear, short answer.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-medication.mp3"
+        },
+        {
+          "trigger": "no-known-vessel-problem",
+          "spoken_text": "No.",
+          "voice_direction": "Short, neutral discomfort.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-no-known-aortic-problem.mp3"
+        },
+        {
+          "trigger": "family-history-aneurysm",
+          "spoken_text": "My older brother had an aneurysm in his belly, but I don't know much about it.",
+          "voice_direction": "Reflective, worried, natural pace.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-family-history-aneurysm.mp3"
+        },
+        {
+          "trigger": "aspirin-allergy",
+          "spoken_text": "No.",
+          "voice_direction": "Brief, clear.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-no-aspirin-allergy.mp3"
+        },
+        {
+          "trigger": "bleeding-risk",
+          "spoken_text": "No.",
+          "voice_direction": "Short, matter-of-fact.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-no-bleeding-risk.mp3"
+        },
+        {
+          "trigger": "bp-difference-question",
+          "spoken_text": "What does that mean?",
+          "voice_direction": "Worried, confused, controlled.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-bp-difference-question.mp3"
+        },
+        {
+          "trigger": "summary-confirmation",
+          "spoken_text": "Yes.",
+          "voice_direction": "Short, accepting.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-summary-confirmation.mp3"
+        },
+        {
+          "trigger": "tear-fear-question",
+          "spoken_text": "A tear? Am I going to die?",
+          "voice_direction": "Frightened but not panicked. Slight breathlessness.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-tear-fear-question.mp3"
+        },
+        {
+          "trigger": "muscle-strain-concern",
+          "spoken_text": "I thought maybe I pulled a muscle lifting the box.",
+          "voice_direction": "Anxious, hopeful, uncomfortable.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-muscle-strain-concern.mp3"
+        },
+        {
+          "trigger": "private-transport-question",
+          "spoken_text": "My wife is outside. Can she just drive me?",
+          "voice_direction": "Worried, practical, mildly resistant.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-wife-drive-question.mp3"
+        },
+        {
+          "trigger": "medicine-safety-question",
+          "spoken_text": "What do you mean?",
+          "voice_direction": "Worried, confused, seeking explanation.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-medicine-question.mp3"
+        },
+        {
+          "trigger": "patient-scared",
+          "spoken_text": "I'm scared.",
+          "voice_direction": "Quiet fear. Controlled, not theatrical.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-scared.mp3"
+        },
+        {
+          "trigger": "safety-net-acceptance",
+          "spoken_text": "Okay.",
+          "voice_direction": "Short, subdued, accepting.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-safety-net-acceptance.mp3"
+        },
+        {
+          "trigger": "understanding-check",
+          "spoken_text": "You are worried this could be a tear in a main blood vessel or another serious chest problem, and I need hospital now.",
+          "voice_direction": "Clear, slightly breathless, understanding the plan.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-002/case-002-understanding-check.mp3"
+        }
+      ]
+    },
+    {
+      "case_id": "case-001",
+      "selected_voice": "cedar",
+      "clips": [
+        {
+          "trigger": "address-name",
+          "spoken_text": "Call me Mr Lewis.",
+          "voice_direction": "Polite, slightly strained, natural Australian accent.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-address-name.mp3"
+        },
+        {
+          "trigger": "ambulance-concern",
+          "spoken_text": "An ambulance? Is it that serious?",
+          "voice_direction": "Worried but controlled. Mild breathlessness. Not dramatic.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-ambulance-concern.mp3"
+        },
+        {
+          "trigger": "consent-ok",
+          "spoken_text": "Okay.",
+          "voice_direction": "Short, subdued, accepting.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-consent-ok.mp3"
+        },
+        {
+          "trigger": "opening-story",
+          "spoken_text": "I was walking from the car park about 40 minutes ago and felt pressure in the middle of my chest.",
+          "voice_direction": "Uncomfortable but clear. Mild breathlessness near the end.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-opening-story.mp3"
+        },
+        {
+          "trigger": "pain-still-present",
+          "spoken_text": "Yes.",
+          "voice_direction": "Short answer. Slightly strained.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-pain-still-present.mp3"
+        },
+        {
+          "trigger": "pain-site",
+          "spoken_text": "In the centre of my chest.",
+          "voice_direction": "Matter-of-fact, uncomfortable.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-pain-site.mp3"
+        },
+        {
+          "trigger": "pain-radiation-left-arm",
+          "spoken_text": "To my left arm.",
+          "voice_direction": "Clear, concerned, brief.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-pain-radiation-left-arm.mp3"
+        },
+        {
+          "trigger": "pain-radiation-jaw",
+          "spoken_text": "A bit to my jaw. Not to my back.",
+          "voice_direction": "Natural pace. Slight discomfort.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-pain-radiation-jaw.mp3"
+        },
+        {
+          "trigger": "pain-score",
+          "spoken_text": "About eight.",
+          "voice_direction": "Brief, strained, controlled.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-pain-score.mp3"
+        },
+        {
+          "trigger": "pain-onset",
+          "spoken_text": "It built up over a few minutes while I was walking.",
+          "voice_direction": "Clear. Mild breathlessness. No exaggeration.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-pain-onset.mp3"
+        },
+        {
+          "trigger": "sweaty-sick",
+          "spoken_text": "I am sweaty and feel sick.",
+          "voice_direction": "Mildly breathless, worried but steady.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-sweaty-sick.mp3"
+        },
+        {
+          "trigger": "short-of-breath",
+          "spoken_text": "I am a bit short of breath.",
+          "voice_direction": "Mild breathlessness, controlled.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-short-of-breath.mp3"
+        },
+        {
+          "trigger": "no-fainting",
+          "spoken_text": "I have not fainted.",
+          "voice_direction": "Short, clear, matter-of-fact.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-no-fainting.mp3"
+        },
+        {
+          "trigger": "no-tearing-back-pain",
+          "spoken_text": "No.",
+          "voice_direction": "Short, clear, neutral discomfort.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-no-tearing-back-pain.mp3"
+        },
+        {
+          "trigger": "no-coughing-blood",
+          "spoken_text": "No.",
+          "voice_direction": "Short and certain.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-no-coughing-blood.mp3"
+        },
+        {
+          "trigger": "no-clot-risk",
+          "spoken_text": "No.",
+          "voice_direction": "Brief, clear, cooperative.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-no-clot-risk.mp3"
+        },
+        {
+          "trigger": "pressure-not-sharp",
+          "spoken_text": "No. It feels more like pressure.",
+          "voice_direction": "Mildly breathless. Explanatory, not dramatic.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-pressure-not-sharp.mp3"
+        },
+        {
+          "trigger": "heart-risk-factors",
+          "spoken_text": "I have high blood pressure. I used to smoke but stopped five years ago.",
+          "voice_direction": "Matter-of-fact. Slightly tired.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-heart-risk-factors.mp3"
+        },
+        {
+          "trigger": "family-history",
+          "spoken_text": "My father had a heart attack in his fifties.",
+          "voice_direction": "Concerned, reflective, natural.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-family-history.mp3"
+        },
+        {
+          "trigger": "medication",
+          "spoken_text": "Perindopril for blood pressure.",
+          "voice_direction": "Clear, short answer.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-medication.mp3"
+        },
+        {
+          "trigger": "aspirin-allergy",
+          "spoken_text": "No.",
+          "voice_direction": "Brief and clear.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-aspirin-allergy.mp3"
+        },
+        {
+          "trigger": "bleeding-risk",
+          "spoken_text": "No.",
+          "voice_direction": "Short, matter-of-fact.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-bleeding-risk.mp3"
+        },
+        {
+          "trigger": "red-flag-confirmation",
+          "spoken_text": "Yes.",
+          "voice_direction": "Quietly worried. Short answer.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-red-flag-confirmation.mp3"
+        },
+        {
+          "trigger": "negative-danger-confirmation",
+          "spoken_text": "Correct.",
+          "voice_direction": "Clear, cooperative.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-negative-danger-confirmation.mp3"
+        },
+        {
+          "trigger": "summary-confirmation",
+          "spoken_text": "Yes.",
+          "voice_direction": "Short, accepting.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-summary-confirmation.mp3"
+        },
+        {
+          "trigger": "heart-concern-question",
+          "spoken_text": "So you think it could be my heart?",
+          "voice_direction": "Worried but controlled. Natural Australian intonation.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-heart-concern-question.mp3"
+        },
+        {
+          "trigger": "indigestion-concern",
+          "spoken_text": "I thought it might just be indigestion.",
+          "voice_direction": "Anxious and hopeful. Understated.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-indigestion-concern.mp3"
+        },
+        {
+          "trigger": "private-transport-question",
+          "spoken_text": "Can my wife drive me? It is only nearby.",
+          "voice_direction": "Practical concern. Mild resistance. Still cooperative.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-private-transport-question.mp3"
+        },
+        {
+          "trigger": "patient-worried",
+          "spoken_text": "I am worried.",
+          "voice_direction": "Quiet anxiety. Controlled, not panicked.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-patient-worried.mp3"
+        },
+        {
+          "trigger": "safety-net-acceptance",
+          "spoken_text": "Okay.",
+          "voice_direction": "Subdued, compliant.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-safety-net-acceptance.mp3"
+        },
+        {
+          "trigger": "understanding-check",
+          "spoken_text": "You are worried this could be my heart, and I need hospital urgently.",
+          "voice_direction": "Clear, slightly breathless, understanding the plan.",
+          "selected_voice": "cedar",
+          "audio_src": "audio/case-001/case-001-understanding-check.mp3"
+        }
+      ]
+    }
+  ]
+}

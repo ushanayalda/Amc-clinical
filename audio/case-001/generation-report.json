@@ -1,0 +1,199 @@
+{
+  "case_id": "case-001",
+  "model": "gpt-4o-mini-tts",
+  "selected_voice": "cedar",
+  "voice_selection_reason": "Selected cedar from patient_voice_profile.sex=male.",
+  "generated_files": [],
+  "skipped_files": [
+    {
+      "reason": "exists",
+      "file_name": "case-001-address-name.mp3",
+      "trigger": "address-name",
+      "path": "audio/case-001/case-001-address-name.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-ambulance-concern.mp3",
+      "trigger": "ambulance-concern",
+      "path": "audio/case-001/case-001-ambulance-concern.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-consent-ok.mp3",
+      "trigger": "consent-ok",
+      "path": "audio/case-001/case-001-consent-ok.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-opening-story.mp3",
+      "trigger": "opening-story",
+      "path": "audio/case-001/case-001-opening-story.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-pain-still-present.mp3",
+      "trigger": "pain-still-present",
+      "path": "audio/case-001/case-001-pain-still-present.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-pain-site.mp3",
+      "trigger": "pain-site",
+      "path": "audio/case-001/case-001-pain-site.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-pain-radiation-left-arm.mp3",
+      "trigger": "pain-radiation-left-arm",
+      "path": "audio/case-001/case-001-pain-radiation-left-arm.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-pain-radiation-jaw.mp3",
+      "trigger": "pain-radiation-jaw",
+      "path": "audio/case-001/case-001-pain-radiation-jaw.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-pain-score.mp3",
+      "trigger": "pain-score",
+      "path": "audio/case-001/case-001-pain-score.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-pain-onset.mp3",
+      "trigger": "pain-onset",
+      "path": "audio/case-001/case-001-pain-onset.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-sweaty-sick.mp3",
+      "trigger": "sweaty-sick",
+      "path": "audio/case-001/case-001-sweaty-sick.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-short-of-breath.mp3",
+      "trigger": "short-of-breath",
+      "path": "audio/case-001/case-001-short-of-breath.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-no-fainting.mp3",
+      "trigger": "no-fainting",
+      "path": "audio/case-001/case-001-no-fainting.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-no-tearing-back-pain.mp3",
+      "trigger": "no-tearing-back-pain",
+      "path": "audio/case-001/case-001-no-tearing-back-pain.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-no-coughing-blood.mp3",
+      "trigger": "no-coughing-blood",
+      "path": "audio/case-001/case-001-no-coughing-blood.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-no-clot-risk.mp3",
+      "trigger": "no-clot-risk",
+      "path": "audio/case-001/case-001-no-clot-risk.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-pressure-not-sharp.mp3",
+      "trigger": "pressure-not-sharp",
+      "path": "audio/case-001/case-001-pressure-not-sharp.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-heart-risk-factors.mp3",
+      "trigger": "heart-risk-factors",
+      "path": "audio/case-001/case-001-heart-risk-factors.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-family-history.mp3",
+      "trigger": "family-history",
+      "path": "audio/case-001/case-001-family-history.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-medication.mp3",
+      "trigger": "medication",
+      "path": "audio/case-001/case-001-medication.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-aspirin-allergy.mp3",
+      "trigger": "aspirin-allergy",
+      "path": "audio/case-001/case-001-aspirin-allergy.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-bleeding-risk.mp3",
+      "trigger": "bleeding-risk",
+      "path": "audio/case-001/case-001-bleeding-risk.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-red-flag-confirmation.mp3",
+      "trigger": "red-flag-confirmation",
+      "path": "audio/case-001/case-001-red-flag-confirmation.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-negative-danger-confirmation.mp3",
+      "trigger": "negative-danger-confirmation",
+      "path": "audio/case-001/case-001-negative-danger-confirmation.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-summary-confirmation.mp3",
+      "trigger": "summary-confirmation",
+      "path": "audio/case-001/case-001-summary-confirmation.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-heart-concern-question.mp3",
+      "trigger": "heart-concern-question",
+      "path": "audio/case-001/case-001-heart-concern-question.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-indigestion-concern.mp3",
+      "trigger": "indigestion-concern",
+      "path": "audio/case-001/case-001-indigestion-concern.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-private-transport-question.mp3",
+      "trigger": "private-transport-question",
+      "path": "audio/case-001/case-001-private-transport-question.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-patient-worried.mp3",
+      "trigger": "patient-worried",
+      "path": "audio/case-001/case-001-patient-worried.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-safety-net-acceptance.mp3",
+      "trigger": "safety-net-acceptance",
+      "path": "audio/case-001/case-001-safety-net-acceptance.mp3"
+    },
+    {
+      "reason": "exists",
+      "file_name": "case-001-understanding-check.mp3",
+      "trigger": "understanding-check",
+      "path": "audio/case-001/case-001-understanding-check.mp3"
+    }
+  ],
+  "failed_files": [],
+  "total_audio_lines": 31,
+  "warnings": [],
+  "timestamp": "2026-07-05T13:39:08.919Z"
+}

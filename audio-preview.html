@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patient Audio Preview</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f6f1;
+      --card: #fffdf7;
+      --text: #20251f;
+      --muted: #596259;
+      --line: #ddd8cc;
+      --accent: #0c7773;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Atkinson Hyperlegible", Inter, system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      margin: 32px auto;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.1;
+    }
+
+    .disclosure {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .case-block {
+      margin: 24px 0;
+    }
+
+    .clip-card {
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+      margin: 12px 0;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .clip-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .spoken {
+      max-width: 58ch;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .direction {
+      max-width: 62ch;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    audio {
+      width: min(100%, 520px);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111713;
+        --card: #1a211c;
+        --text: #f1f4ef;
+        --muted: #b8c2b8;
+        --line: #364038;
+        --accent: #6fd0c8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Patient Audio Preview</h1>
+    <p class="disclosure">Patient voices are AI-generated for clinical rehearsal.</p>
+    <div id="preview-root">Loading audio preview...</div>
+  </main>
+  <script>
+    (function () {
+      var root = document.getElementById("preview-root");
+
+      function esc(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function render(data) {
+        if (!data || !Array.isArray(data.cases) || !data.cases.length) {
+          root.textContent = "No generated audio preview data found yet.";
+          return;
+        }
+
+        root.innerHTML = data.cases.map(function (caseData) {
+          return '<section class="case-block">' +
+            '<h2>' + esc(caseData.case_id) + '</h2>' +
+            caseData.clips.map(function (clip) {
+              return '<article class="clip-card">' +
+                '<div class="clip-meta"><span>' + esc(clip.trigger) + '</span><span>' + esc(clip.selected_voice) + '</span></div>' +
+                '<p class="spoken">' + esc(clip.spoken_text) + '</p>' +
+                '<p class="direction">' + esc(clip.voice_direction) + '</p>' +
+                '<audio controls src="' + esc(clip.audio_src) + '"></audio>' +
+              '</article>';
+            }).join("") +
+          '</section>';
+        }).join("");
+      }
+
+      fetch("audio/audio-preview-data.json", { cache: "no-store" })
+        .then(function (response) {
+          if (!response.ok) throw new Error("Preview data not found.");
+          return response.json();
+        })
+        .then(render)
+        .catch(function () {
+          root.textContent = "No generated audio preview data found yet.";
+        });
+    })();
+  </script>
+</body>
+</html>

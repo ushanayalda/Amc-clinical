@@ -436,10 +436,25 @@
     '</section>';
   }
 
+  function getAudioManifestForCase(currentCase) {
+    var manifest = window.AMC_AUDIO_MANIFEST || {};
+    var candidateIds = [];
+
+    if (currentCase.audioCaseId) candidateIds.push(currentCase.audioCaseId);
+    if (currentCase.id) candidateIds.push(currentCase.id);
+    if (currentCase.order) candidateIds.push("case-" + String(currentCase.order).padStart(3, "0"));
+
+    for (var index = 0; index < candidateIds.length; index += 1) {
+      if (manifest[candidateIds[index]]) return manifest[candidateIds[index]];
+    }
+
+    return [];
+  }
+
   function renderSpeakAloudContent(currentCase, options) {
     options = options || {};
     var voiceLineIndex = 0;
-    var voiceClips = currentCase.mockExamVoiceClips || [];
+    var voiceClips = currentCase.mockExamVoiceClips || getAudioManifestForCase(currentCase);
     var protectedLines = {
       "I am worried this may be coming from your heart.": true,
       "I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?": true,

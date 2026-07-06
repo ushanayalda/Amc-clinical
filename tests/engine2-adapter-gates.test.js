@@ -129,6 +129,23 @@ test("audio_manifest_status hold blocks audio", () => {
   expectReasons(result, ["audio_manifest_not_locked"]);
 });
 
+test("approved_to_generate is not generated audio and cannot play", () => {
+  const engineCase = cloneCase(byName.audio_manifest_hold_blocks_audio.case);
+  engineCase.status.audio_manifest_status = "locked";
+  engineCase.status.audio_generation_status = "approved_to_generate";
+  engineCase.status.audio_dry_run_status = "pass";
+  engineCase.status.listen_test_status = "pass";
+  engineCase.status.audio_release_status = "pass";
+
+  const result = evaluateEngine2Gates(engineCase);
+
+  assert.equal(result.audioPlayback, false);
+  assert.equal(result.audioRelease, false);
+  assert.equal(result.effectiveAudioReleaseStatus, "blocked");
+  assert.equal(isEngine2AudioEligible(engineCase), false);
+  expectReasons(result, ["audio_generation_not_generated"]);
+});
+
 test("listen_test_status fail blocks audio release", () => {
   const result = evaluateEngine2Gates(byName.listen_test_fail_blocks_audio_release.case);
   assert.equal(result.audioPlayback, false);

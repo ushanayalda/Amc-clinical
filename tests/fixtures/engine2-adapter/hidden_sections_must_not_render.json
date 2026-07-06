@@ -1,0 +1,56 @@
+{
+  "fixture_name": "hidden_sections_must_not_render",
+  "description": "Hidden sections must never become learner-facing output.",
+  "case": {
+    "case_id": "CP-P1-C910",
+    "engine_version": "v3.3.3",
+    "patch_version": "v3.3.3-P3",
+    "scaffold_patch_version": "v3.3.3-P4",
+    "metadata": {
+      "clinical_variant": "Synthetic hidden section placeholder",
+      "risk_level": "standard"
+    },
+    "sections": {
+      "station_stem": "Visible learner-safe placeholder.",
+      "visible_summary": "Visible learner-safe placeholder.",
+      "hints_hidden": "DO_NOT_RENDER_HIDDEN_HINT_PLACEHOLDER",
+      "source_basis_map_hidden": "DO_NOT_RENDER_HIDDEN_SOURCE_PLACEHOLDER",
+      "sources_hidden": "DO_NOT_RENDER_HIDDEN_SOURCES_PLACEHOLDER",
+      "doctor_thinking_hidden": "DO_NOT_RENDER_HIDDEN_REASONING_PLACEHOLDER",
+      "examiner_lines_hidden": "DO_NOT_RENDER_HIDDEN_EXAMINER_PLACEHOLDER",
+      "future_hidden": "DO_NOT_RENDER_FUTURE_HIDDEN_PLACEHOLDER"
+    },
+    "status": {
+      "source_status": "pass",
+      "schema_status": "pass",
+      "renderer_status": "pass",
+      "clinical_status": "pass",
+      "accessibility_status": "pass",
+      "audio_manifest_status": "not_required",
+      "audio_generation_status": "not_required",
+      "audio_dry_run_status": "not_required",
+      "listen_test_status": "not_required",
+      "audio_release_status": "not_required",
+      "release_status": "hold",
+      "bypass_used": false,
+      "last_human_reviewer": "Reviewer Placeholder",
+      "source_review_due": "2027-01-01"
+    },
+    "audio": {
+      "required": false,
+      "has_audio": false,
+      "transcript_available": false,
+      "keyboard_controls": false,
+      "speed_control": false,
+      "autoplay": false
+    },
+    "source_basis_map": {
+      "present": true,
+      "valid": true
+    }
+  },
+  "expected": {
+    "hidden_tokens_absent_from_learner_output": true,
+    "release_ready": false
+  }
+}

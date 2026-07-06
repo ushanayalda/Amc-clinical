@@ -1,0 +1,57 @@
+{
+  "fixture_name": "case3_missing_source_lock_blocks_release",
+  "description": "Case 3 requires source lock packet and canonical bundle.",
+  "case": {
+    "case_id": "CP-P1-C003",
+    "engine_version": "v3.3.3",
+    "patch_version": "v3.3.3-P3",
+    "scaffold_patch_version": "v3.3.3-P4",
+    "metadata": {
+      "clinical_variant": "Synthetic Case 3 placeholder",
+      "risk_level": "high"
+    },
+    "sections": {
+      "station_stem": "Visible learner-safe placeholder.",
+      "visible_summary": "Visible learner-safe placeholder."
+    },
+    "source_locks": {
+      "lock_packet": false,
+      "canonical_bundle": false
+    },
+    "status": {
+      "source_status": "pass",
+      "schema_status": "pass",
+      "renderer_status": "pass",
+      "clinical_status": "pass",
+      "accessibility_status": "pass",
+      "audio_manifest_status": "not_required",
+      "audio_generation_status": "not_required",
+      "audio_dry_run_status": "not_required",
+      "listen_test_status": "not_required",
+      "audio_release_status": "not_required",
+      "release_status": "hold",
+      "bypass_used": false,
+      "last_human_reviewer": "Reviewer Placeholder",
+      "source_review_due": "2027-01-01"
+    },
+    "audio": {
+      "required": false,
+      "has_audio": false,
+      "transcript_available": false,
+      "keyboard_controls": false,
+      "speed_control": false,
+      "autoplay": false
+    },
+    "source_basis_map": {
+      "present": true,
+      "valid": true
+    }
+  },
+  "expected": {
+    "release_ready": false,
+    "public_display": false,
+    "blocked_reasons": [
+      "case3_source_lock_missing"
+    ]
+  }
+}

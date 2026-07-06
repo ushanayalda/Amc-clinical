@@ -1,0 +1,53 @@
+{
+  "fixture_name": "source_status_hold_blocks_public_display",
+  "description": "Source hold must block learner-facing display.",
+  "case": {
+    "case_id": "CP-P1-C901",
+    "engine_version": "v3.3.3",
+    "patch_version": "v3.3.3-P3",
+    "scaffold_patch_version": "v3.3.3-P4",
+    "metadata": {
+      "clinical_variant": "Synthetic source hold placeholder",
+      "risk_level": "standard"
+    },
+    "sections": {
+      "station_stem": "Visible learner-safe placeholder.",
+      "visible_summary": "Visible learner-safe placeholder."
+    },
+    "status": {
+      "source_status": "hold",
+      "schema_status": "pass",
+      "renderer_status": "pass",
+      "clinical_status": "pass",
+      "accessibility_status": "pass",
+      "audio_manifest_status": "not_required",
+      "audio_generation_status": "not_required",
+      "audio_dry_run_status": "not_required",
+      "listen_test_status": "not_required",
+      "audio_release_status": "not_required",
+      "release_status": "hold",
+      "bypass_used": false,
+      "last_human_reviewer": "Reviewer Placeholder",
+      "source_review_due": "2027-01-01"
+    },
+    "audio": {
+      "required": false,
+      "has_audio": false,
+      "transcript_available": false,
+      "keyboard_controls": false,
+      "speed_control": false,
+      "autoplay": false
+    },
+    "source_basis_map": {
+      "present": true,
+      "valid": true
+    }
+  },
+  "expected": {
+    "public_display": false,
+    "release_ready": false,
+    "blocked_reasons": [
+      "source_status_not_pass"
+    ]
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/qa.schema.json",
+  "title": "QA Schema",
+  "type": "object",
+  "required": [
+    "case_id",
+    "qa_version",
+    "review_records",
+    "checks",
+    "final_decision"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "qa_version": {
+      "const": "v3.3.3-P3"
+    },
+    "scaffold_patch_version": {
+      "type": "string"
+    },
+    "review_records": {
+      "type": "object",
+      "required": [
+        "clinical_review",
+        "accessibility_review",
+        "renderer_review"
+      ],
+      "properties": {
+        "clinical_review": {
+          "type": "object",
+          "required": [
+            "reviewer_name",
+            "reviewer_role",
+            "review_date",
+            "decision",
+            "blockers"
+          ],
+          "properties": {
+            "reviewer_name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reviewer_role": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "review_date": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "decision": {
+              "enum": [
+                "hold",
+                "pass",
+                "changes_required",
+                "blocked"
+              ]
+            },
+            "blockers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "accessibility_review": {
+          "type": "object",
+          "required": [
+            "reviewer_name",
+            "reviewer_role",
+            "review_date",
+            "decision",
+            "blockers"
+          ],
+          "properties": {
+            "reviewer_name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reviewer_role": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "review_date": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "decision": {
+              "enum": [
+                "hold",
+                "pass",
+                "changes_required",
+                "blocked"
+              ]
+            },
+            "blockers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "renderer_review": {
+          "type": "object",
+          "required": [
+            "reviewer_name",
+            "reviewer_role",
+            "review_date",
+            "decision",
+            "blockers"
+          ],
+          "properties": {
+            "reviewer_name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reviewer_role": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "review_date": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "decision": {
+              "enum": [
+                "hold",
+                "pass",
+                "changes_required",
+                "blocked"
+              ]
+            },
+            "blockers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "check_id",
+          "status"
+        ],
+        "properties": {
+          "check_id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "hold",
+              "pass",
+              "fail",
+              "changes_required",
+              "blocked"
+            ]
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "final_decision": {
+      "enum": [
+        "hold",
+        "pass",
+        "changes_required",
+        "blocked"
+      ]
+    }
+  }
+}

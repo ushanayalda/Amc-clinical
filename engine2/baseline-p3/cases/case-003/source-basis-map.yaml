@@ -1,0 +1,9 @@
+case_id: CP-P1-C003
+engine_version: v3.3.3
+patch_version: v3.3.3-P3
+last_checked: null
+review_due: null
+jurisdiction: Australia
+rules: []
+status: hold
+note: "Source Basis Map scaffold only. Missing source map blocks high-risk release."

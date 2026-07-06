@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/voice.schema.json",
+  "title": "Voice Pack Text Manifest Schema",
+  "type": "object",
+  "required": [
+    "case_id",
+    "audio_manifest_status",
+    "audio_generation_status",
+    "listen_test_status",
+    "audio_release_status",
+    "patient_voice_profile",
+    "audio_lines",
+    "codex_audio_manifest"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "audio_manifest_status": {
+      "enum": [
+        "hold",
+        "draft",
+        "locked",
+        "blocked"
+      ]
+    },
+    "audio_generation_status": {
+      "enum": [
+        "hold",
+        "approved_to_generate",
+        "generated",
+        "blocked"
+      ]
+    },
+    "audio_dry_run_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "fail"
+      ]
+    },
+    "listen_test_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "fail"
+      ]
+    },
+    "audio_release_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "not_required",
+        "blocked"
+      ]
+    },
+    "patient_voice_profile": {
+      "type": "object"
+    },
+    "audio_lines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "file_name",
+          "trigger",
+          "spoken_text",
+          "voice_direction"
+        ]
+      }
+    },
+    "codex_audio_manifest": {
+      "type": "array"
+    }
+  }
+}

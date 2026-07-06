@@ -1,0 +1,19 @@
+{
+  "case_id": "CP-P1-C004",
+  "engine_version": "v3.3.3",
+  "patch_version": "v3.3.3-P3",
+  "source_status": "hold",
+  "schema_status": "hold",
+  "renderer_status": "hold",
+  "clinical_status": "hold",
+  "accessibility_status": "hold",
+  "audio_manifest_status": "hold",
+  "audio_generation_status": "hold",
+  "audio_dry_run_status": "hold",
+  "listen_test_status": "hold",
+  "audio_release_status": "hold",
+  "release_status": "blocked",
+  "bypass_used": false,
+  "last_human_reviewer": null,
+  "source_review_due": null
+}

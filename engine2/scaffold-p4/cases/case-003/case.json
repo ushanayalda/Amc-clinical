@@ -1,0 +1,30 @@
+{
+  "case_id": "CP-P1-C003",
+  "engine_version": "v3.3.3",
+  "patch_version": "v3.3.3-P3",
+  "scaffold_patch_version": "v3.3.3-P4",
+  "metadata": {},
+  "sections": {},
+  "status_reference": "status.json",
+  "status": {
+    "case_id": "CP-P1-C003",
+    "engine_version": "v3.3.3",
+    "patch_version": "v3.3.3-P3",
+    "scaffold_patch_version": "v3.3.3-P4",
+    "source_status": "hold",
+    "schema_status": "hold",
+    "renderer_status": "hold",
+    "clinical_status": "hold",
+    "accessibility_status": "hold",
+    "audio_manifest_status": "hold",
+    "audio_generation_status": "hold",
+    "audio_dry_run_status": "hold",
+    "listen_test_status": "hold",
+    "audio_release_status": "hold",
+    "release_status": "hold",
+    "bypass_used": false,
+    "last_human_reviewer": null,
+    "source_review_due": null
+  },
+  "note": "Scaffold placeholder only. Do not infer clinical content."
+}

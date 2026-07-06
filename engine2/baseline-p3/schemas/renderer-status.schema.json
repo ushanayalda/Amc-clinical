@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/renderer-status.schema.json",
+  "title": "Renderer Status Schema",
+  "type": "object",
+  "required": [
+    "case_id",
+    "renderer_status",
+    "rendered_sections",
+    "missing_sections",
+    "blocks_release"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "renderer_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "pass_with_adapter",
+        "partial",
+        "build_failed",
+        "repository_unavailable",
+        "changes_required",
+        "blocked"
+      ]
+    },
+    "rendered_sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocks_release": {
+      "type": "boolean"
+    }
+  }
+}

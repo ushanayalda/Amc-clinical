@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/qa.schema.json",
+  "title": "QA Schema",
+  "type": "object",
+  "required": [
+    "case_id",
+    "qa_version",
+    "checks",
+    "final_decision"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "qa_version": {
+      "const": "v3.3.3-P3"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "check_id",
+          "status"
+        ]
+      }
+    },
+    "final_decision": {
+      "enum": [
+        "hold",
+        "pass",
+        "changes_required",
+        "blocked"
+      ]
+    }
+  }
+}

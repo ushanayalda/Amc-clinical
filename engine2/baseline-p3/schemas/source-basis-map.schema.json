@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/source-basis-map.schema.json",
+  "title": "Source Basis Map Schema",
+  "type": "object",
+  "required": [
+    "case_id",
+    "engine_version",
+    "patch_version",
+    "last_checked",
+    "review_due",
+    "jurisdiction",
+    "rules"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "engine_version": {
+      "const": "v3.3.3"
+    },
+    "patch_version": {
+      "const": "v3.3.3-P3"
+    },
+    "last_checked": {
+      "type": "string",
+      "format": "date"
+    },
+    "review_due": {
+      "type": "string",
+      "format": "date"
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "rule_id",
+          "learner_line",
+          "layer",
+          "claim_type",
+          "source_tier",
+          "repo_path",
+          "source_title",
+          "source_year",
+          "jurisdiction",
+          "source_location",
+          "claim_supported",
+          "confidence",
+          "last_checked",
+          "review_due"
+        ],
+        "properties": {
+          "rule_id": {
+            "type": "string"
+          },
+          "learner_line": {
+            "type": "string"
+          },
+          "layer": {
+            "type": "string"
+          },
+          "claim_type": {
+            "enum": [
+              "amc_task_structure",
+              "first_action",
+              "escalation",
+              "transfer",
+              "medication_safety",
+              "oxygen_safety",
+              "investigation_timing",
+              "do_not_delay",
+              "diagnosis",
+              "differential",
+              "trap",
+              "patient_language",
+              "accessibility",
+              "voice_pack"
+            ]
+          },
+          "source_tier": {
+            "enum": [
+              "current_amc",
+              "uploaded_amc_handbook",
+              "current_australian_clinical",
+              "murtagh",
+              "uploaded_feedback_sanitised"
+            ]
+          },
+          "repo_path": {
+            "type": "string"
+          },
+          "source_title": {
+            "type": "string"
+          },
+          "source_year": {
+            "type": [
+              "string",
+              "integer"
+            ]
+          },
+          "jurisdiction": {
+            "type": "string"
+          },
+          "source_location": {
+            "type": "string"
+          },
+          "claim_supported": {
+            "type": "string"
+          },
+          "confidence": {
+            "enum": [
+              "high",
+              "moderate",
+              "low"
+            ]
+          },
+          "caveat": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "last_checked": {
+            "type": "string",
+            "format": "date"
+          },
+          "review_due": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    }
+  }
+}

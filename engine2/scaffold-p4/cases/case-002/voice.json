@@ -1,0 +1,11 @@
+{
+  "case_id": "CP-P1-C002",
+  "audio_manifest_status": "hold",
+  "audio_generation_status": "hold",
+  "audio_dry_run_status": "hold",
+  "listen_test_status": "hold",
+  "audio_release_status": "hold",
+  "patient_voice_profile": {},
+  "audio_lines": [],
+  "codex_audio_manifest": []
+}

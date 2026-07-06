@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/status.schema.json",
+  "title": "AMC Clinical Pathway Status Schema",
+  "type": "object",
+  "required": [
+    "case_id",
+    "engine_version",
+    "patch_version",
+    "source_status",
+    "schema_status",
+    "renderer_status",
+    "clinical_status",
+    "accessibility_status",
+    "audio_manifest_status",
+    "audio_generation_status",
+    "audio_dry_run_status",
+    "listen_test_status",
+    "audio_release_status",
+    "release_status",
+    "bypass_used"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "engine_version": {
+      "const": "v3.3.3"
+    },
+    "patch_version": {
+      "const": "v3.3.3-P3"
+    },
+    "source_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "changes_required",
+        "blocked"
+      ]
+    },
+    "schema_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "changes_required",
+        "blocked"
+      ]
+    },
+    "renderer_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "pass_with_adapter",
+        "partial",
+        "build_failed",
+        "repository_unavailable",
+        "changes_required",
+        "blocked"
+      ]
+    },
+    "clinical_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "changes_required",
+        "blocked"
+      ]
+    },
+    "accessibility_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "changes_required",
+        "blocked"
+      ]
+    },
+    "audio_manifest_status": {
+      "enum": [
+        "hold",
+        "draft",
+        "locked",
+        "blocked"
+      ]
+    },
+    "audio_generation_status": {
+      "enum": [
+        "hold",
+        "approved_to_generate",
+        "generated",
+        "blocked"
+      ]
+    },
+    "audio_dry_run_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "fail"
+      ]
+    },
+    "listen_test_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "fail"
+      ]
+    },
+    "audio_release_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "not_required",
+        "blocked"
+      ]
+    },
+    "release_status": {
+      "enum": [
+        "hold",
+        "release_ready",
+        "live",
+        "review_due",
+        "blocked",
+        "retired"
+      ]
+    },
+    "bypass_used": {
+      "type": "boolean"
+    },
+    "last_human_reviewer": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_review_due": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "renderer_status": {
+            "const": "partial"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "release_status": {
+            "enum": [
+              "hold",
+              "blocked"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "listen_test_status": {
+            "const": "fail"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "audio_release_status": {
+            "const": "blocked"
+          }
+        }
+      }
+    }
+  ]
+}

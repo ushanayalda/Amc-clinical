@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/case.schema.json",
+  "title": "AMC Clinical Pathway Case Schema",
+  "type": "object",
+  "required": [
+    "case_id",
+    "engine_version",
+    "patch_version",
+    "metadata",
+    "sections"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "pattern": "^CP-P[0-9]+-C[0-9]{3}$"
+    },
+    "engine_version": {
+      "const": "v3.3.3"
+    },
+    "patch_version": {
+      "const": "v3.3.3-P3"
+    },
+    "scaffold_patch_version": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "sections": {
+      "type": "object"
+    },
+    "status_reference": {
+      "type": "string"
+    },
+    "status": {
+      "type": "object"
+    },
+    "note": {
+      "type": "string"
+    }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "status_reference"
+      ]
+    },
+    {
+      "required": [
+        "status"
+      ]
+    }
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "sections": {
+            "minProperties": 1
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "metadata": {
+            "required": [
+              "phase",
+              "pattern",
+              "clinical_variant",
+              "station_type",
+              "task_recipient",
+              "setting",
+              "acuity_class",
+              "main_risk_point",
+              "dominant_trap"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

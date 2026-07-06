@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/case.schema.json",
+  "title": "AMC Clinical Pathway Case Schema",
+  "type": "object",
+  "required": [
+    "case_id",
+    "engine_version",
+    "patch_version",
+    "metadata",
+    "sections",
+    "status"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "pattern": "^CP-P[0-9]+-C[0-9]{3}$"
+    },
+    "engine_version": {
+      "const": "v3.3.3"
+    },
+    "patch_version": {
+      "const": "v3.3.3-P3"
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "phase",
+        "pattern",
+        "clinical_variant",
+        "station_type",
+        "task_recipient",
+        "setting",
+        "acuity_class",
+        "main_risk_point",
+        "dominant_trap"
+      ],
+      "properties": {
+        "phase": {
+          "type": "string"
+        },
+        "pattern": {
+          "type": "string"
+        },
+        "clinical_variant": {
+          "type": "string"
+        },
+        "station_type": {
+          "enum": [
+            "Patient Consultation",
+            "Physical Examination",
+            "Investigation Interpretation",
+            "Procedure / Consent",
+            "Mental State / Risk",
+            "Acute Resuscitation"
+          ]
+        },
+        "task_recipient": {
+          "enum": [
+            "Patient",
+            "Relative",
+            "Examiner",
+            "Student"
+          ]
+        },
+        "setting": {
+          "type": "string"
+        },
+        "acuity_class": {
+          "enum": [
+            "high_risk_emergency",
+            "moderate_risk_diagnostic",
+            "low_risk_counselling"
+          ]
+        },
+        "main_risk_point": {
+          "type": "string"
+        },
+        "dominant_trap": {
+          "type": "string"
+        }
+      }
+    },
+    "sections": {
+      "type": "object",
+      "required": [
+        "station_stem",
+        "task_snapshot",
+        "safety_layer",
+        "pattern_recognition_card",
+        "focused_performance_script",
+        "patient_explanation_script",
+        "differential_and_trap_recovery",
+        "live_station_script",
+        "recall_check",
+        "confidence_check",
+        "hints_hidden",
+        "source_basis_map_hidden"
+      ],
+      "properties": {
+        "station_stem": {
+          "type": "string"
+        },
+        "task_snapshot": {
+          "type": "string"
+        },
+        "safety_layer": {
+          "type": "string"
+        },
+        "pattern_recognition_card": {
+          "type": "string"
+        },
+        "focused_performance_script": {
+          "type": "string"
+        },
+        "patient_explanation_script": {
+          "type": "string"
+        },
+        "examiner_student_script": {
+          "type": "string"
+        },
+        "differential_and_trap_recovery": {
+          "type": "string"
+        },
+        "live_station_script": {
+          "type": "string"
+        },
+        "doctor_thinking_hidden": {
+          "type": "string"
+        },
+        "examiner_lines_hidden": {
+          "type": "string"
+        },
+        "must_say_lines": {
+          "type": "string"
+        },
+        "practice_drill": {
+          "type": "string"
+        },
+        "full_timed_run": {
+          "type": "string"
+        },
+        "recall_check": {
+          "type": "string"
+        },
+        "confidence_check": {
+          "type": "string"
+        },
+        "hints_hidden": {
+          "type": "string"
+        },
+        "source_basis_map_hidden": {
+          "type": "string"
+        },
+        "sources_hidden": {
+          "type": "string"
+        },
+        "voice_pack": {
+          "type": "string"
+        }
+      }
+    },
+    "status": {
+      "$ref": "status.schema.json"
+    }
+  }
+}

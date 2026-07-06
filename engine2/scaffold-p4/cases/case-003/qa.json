@@ -1,0 +1,30 @@
+{
+  "case_id": "CP-P1-C003",
+  "qa_version": "v3.3.3-P3",
+  "scaffold_patch_version": "v3.3.3-P4",
+  "review_records": {
+    "clinical_review": {
+      "reviewer_name": null,
+      "reviewer_role": null,
+      "review_date": null,
+      "decision": "hold",
+      "blockers": []
+    },
+    "accessibility_review": {
+      "reviewer_name": null,
+      "reviewer_role": null,
+      "review_date": null,
+      "decision": "hold",
+      "blockers": []
+    },
+    "renderer_review": {
+      "reviewer_name": null,
+      "reviewer_role": null,
+      "review_date": null,
+      "decision": "hold",
+      "blockers": []
+    }
+  },
+  "checks": [],
+  "final_decision": "hold"
+}

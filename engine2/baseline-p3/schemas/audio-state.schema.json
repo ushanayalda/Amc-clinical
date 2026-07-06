@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/audio-state.schema.json",
+  "title": "Audio State Schema",
+  "type": "object",
+  "required": [
+    "case_id",
+    "audio_manifest_status",
+    "audio_generation_status",
+    "audio_dry_run_status",
+    "listen_test_status",
+    "audio_release_status"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "audio_manifest_status": {
+      "enum": [
+        "hold",
+        "draft",
+        "locked",
+        "blocked"
+      ]
+    },
+    "audio_generation_status": {
+      "enum": [
+        "hold",
+        "approved_to_generate",
+        "generated",
+        "blocked"
+      ]
+    },
+    "audio_dry_run_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "fail"
+      ]
+    },
+    "listen_test_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "fail"
+      ]
+    },
+    "audio_release_status": {
+      "enum": [
+        "hold",
+        "pass",
+        "not_required",
+        "blocked"
+      ]
+    }
+  }
+}

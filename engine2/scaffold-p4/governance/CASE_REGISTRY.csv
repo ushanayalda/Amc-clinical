@@ -1,0 +1,5 @@
+case_id,case_number,pattern,clinical_variant,status,source_status,schema_status,renderer_status,clinical_status,accessibility_status,audio_release_status,release_status,bypass_used
+CP-P1-C001,1,Dangerous Chest Pain,Classic ACS,hold,hold,hold,hold,hold,hold,hold,hold,false
+CP-P1-C002,2,Dangerous Chest Pain,Aortic dissection,source_lock_required,hold,hold,hold,hold,hold,hold,hold,false
+CP-P1-C003,3,Dangerous Chest Pain,Pulmonary embolism,source_lock_required,hold,hold,hold,hold,hold,hold,hold,false
+CP-P1-C004,4,Dangerous Chest Pain,not_generated,blocked,hold,hold,hold,hold,hold,hold,blocked,false

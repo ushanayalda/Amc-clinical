@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/source-basis-map-hold.schema.json",
+  "title": "Source Basis Map HOLD Schema",
+  "description": "HOLD-compatible scaffold schema. last_checked and review_due may be null; rules may be empty. High-risk release remains blocked until rules are complete.",
+  "allOf": [
+    {
+      "$ref": "source-basis-map.schema.json"
+    }
+  ],
+  "properties": {
+    "status": {
+      "const": "hold"
+    }
+  }
+}

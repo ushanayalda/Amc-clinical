@@ -2,6 +2,8 @@
 
 Status: documentation-only contract.
 
+Encoding: ASCII-only Markdown.
+
 Date: 2026-07-06
 
 This document defines the future contract for an adapter between the sealed Engine 2 model under `engine2/` and the existing handcrafted live website renderer.
@@ -563,4 +565,3 @@ Scope:
 Purpose:
 
 Prove the fail-closed gate rules with small fixtures before writing the adapter that would touch the live renderer path.
-

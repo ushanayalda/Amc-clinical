@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/display-contract.schema.json",
+  "title": "ADHD Display Contract Schema",
+  "type": "object",
+  "required": [
+    "adhd_display_gate"
+  ],
+  "properties": {
+    "adhd_display_gate": {
+      "type": "object",
+      "required": [
+        "default_mode",
+        "homepage",
+        "case_page",
+        "cue_cards",
+        "typography",
+        "interaction",
+        "audio"
+      ],
+      "properties": {
+        "default_mode": {
+          "const": "adhd_safe"
+        },
+        "homepage": {
+          "type": "object",
+          "required": [
+            "max_primary_actions_first_view",
+            "max_secondary_choices_first_view",
+            "carousel_allowed",
+            "autoplay_allowed",
+            "dense_feature_grid_allowed"
+          ],
+          "properties": {
+            "max_primary_actions_first_view": {
+              "const": 1
+            },
+            "max_secondary_choices_first_view": {
+              "type": "integer",
+              "maximum": 3
+            },
+            "carousel_allowed": {
+              "const": false
+            },
+            "autoplay_allowed": {
+              "const": false
+            },
+            "dense_feature_grid_allowed": {
+              "const": false
+            }
+          }
+        },
+        "case_page": {
+          "type": "object",
+          "required": [
+            "primary_path_columns",
+            "station_stem_before_teaching",
+            "task_snapshot_before_teaching",
+            "safety_layer_hidden_allowed",
+            "model_answer_before_attempt_allowed",
+            "cue_cards_prompt_recall_not_script"
+          ],
+          "properties": {
+            "primary_path_columns": {
+              "const": 1
+            },
+            "station_stem_before_teaching": {
+              "const": true
+            },
+            "task_snapshot_before_teaching": {
+              "const": true
+            },
+            "safety_layer_hidden_allowed": {
+              "const": false
+            },
+            "model_answer_before_attempt_allowed": {
+              "const": false
+            },
+            "cue_cards_prompt_recall_not_script": {
+              "const": true
+            }
+          }
+        },
+        "cue_cards": {
+          "type": "object",
+          "required": [
+            "max_words_per_card",
+            "max_ideas_per_card",
+            "action_prompt_required"
+          ],
+          "properties": {
+            "max_words_per_card": {
+              "type": "integer",
+              "maximum": 45
+            },
+            "max_ideas_per_card": {
+              "const": 1
+            },
+            "action_prompt_required": {
+              "const": true
+            }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "required": [
+            "body_min_px",
+            "learning_body_preferred_px",
+            "line_height_min",
+            "max_case_width_ch",
+            "text_align",
+            "justify_text"
+          ],
+          "properties": {
+            "body_min_px": {
+              "type": "integer",
+              "minimum": 16
+            },
+            "learning_body_preferred_px": {
+              "type": "integer",
+              "minimum": 18
+            },
+            "line_height_min": {
+              "type": "number",
+              "minimum": 1.5
+            },
+            "max_case_width_ch": {
+              "type": "integer",
+              "maximum": 72
+            },
+            "text_align": {
+              "const": "left"
+            },
+            "justify_text": {
+              "const": false
+            }
+          }
+        },
+        "interaction": {
+          "type": "object",
+          "required": [
+            "primary_touch_target_px",
+            "wcag_min_target_px",
+            "keyboard_required",
+            "visible_focus_required",
+            "focus_not_obscured_required",
+            "hover_only_content_forbidden",
+            "gesture_only_controls_forbidden"
+          ],
+          "properties": {
+            "primary_touch_target_px": {
+              "type": "integer",
+              "minimum": 44
+            },
+            "wcag_min_target_px": {
+              "type": "integer",
+              "minimum": 24
+            },
+            "keyboard_required": {
+              "const": true
+            },
+            "visible_focus_required": {
+              "const": true
+            },
+            "focus_not_obscured_required": {
+              "const": true
+            },
+            "hover_only_content_forbidden": {
+              "const": true
+            },
+            "gesture_only_controls_forbidden": {
+              "const": true
+            }
+          }
+        },
+        "audio": {
+          "type": "object",
+          "required": [
+            "autoplay_allowed",
+            "transcript_required_when_audio_present",
+            "keyboard_controls_required",
+            "playback_speed_control_required"
+          ],
+          "properties": {
+            "autoplay_allowed": {
+              "const": false
+            },
+            "transcript_required_when_audio_present": {
+              "const": true
+            },
+            "keyboard_controls_required": {
+              "const": true
+            },
+            "playback_speed_control_required": {
+              "const": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

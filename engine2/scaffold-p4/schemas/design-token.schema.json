@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/design-token.schema.json",
+  "title": "ADHD-Safe Design Token Schema",
+  "type": "object",
+  "required": [
+    "font",
+    "spacing",
+    "layout",
+    "touch_targets",
+    "motion",
+    "colour"
+  ],
+  "properties": {
+    "font": {
+      "type": "object",
+      "required": [
+        "family_body",
+        "body_min_px",
+        "learning_body_preferred_px",
+        "line_height_min",
+        "allow_user_resize",
+        "text_align",
+        "justify_text"
+      ],
+      "properties": {
+        "family_body": {
+          "type": "string"
+        },
+        "body_min_px": {
+          "type": "integer",
+          "minimum": 16
+        },
+        "learning_body_preferred_px": {
+          "type": "integer",
+          "minimum": 18
+        },
+        "line_height_min": {
+          "type": "number",
+          "minimum": 1.5
+        },
+        "allow_user_resize": {
+          "const": true
+        },
+        "text_align": {
+          "const": "left"
+        },
+        "justify_text": {
+          "const": false
+        }
+      }
+    },
+    "spacing": {
+      "type": "object",
+      "required": [
+        "paragraph_gap_min_rem",
+        "card_padding_min_rem"
+      ],
+      "properties": {
+        "paragraph_gap_min_rem": {
+          "type": "number",
+          "minimum": 0.75
+        },
+        "card_padding_min_rem": {
+          "type": "number",
+          "minimum": 1
+        }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "required": [
+        "primary_path_columns",
+        "max_content_width_ch",
+        "max_primary_actions_per_view"
+      ],
+      "properties": {
+        "primary_path_columns": {
+          "const": 1
+        },
+        "max_content_width_ch": {
+          "type": "integer",
+          "maximum": 75
+        },
+        "max_primary_actions_per_view": {
+          "const": 1
+        }
+      }
+    },
+    "touch_targets": {
+      "type": "object",
+      "required": [
+        "project_min_px",
+        "wcag_min_px"
+      ],
+      "properties": {
+        "project_min_px": {
+          "type": "integer",
+          "minimum": 44
+        },
+        "wcag_min_px": {
+          "type": "integer",
+          "minimum": 24
+        }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "required": [
+        "autoplay_forbidden",
+        "decorative_animation_forbidden",
+        "respect_reduced_motion"
+      ],
+      "properties": {
+        "autoplay_forbidden": {
+          "const": true
+        },
+        "decorative_animation_forbidden": {
+          "const": true
+        },
+        "respect_reduced_motion": {
+          "const": true
+        }
+      }
+    },
+    "colour": {
+      "type": "object",
+      "required": [
+        "colour_alone_forbidden",
+        "patterned_text_background_forbidden",
+        "visible_focus_required"
+      ],
+      "properties": {
+        "colour_alone_forbidden": {
+          "const": true
+        },
+        "patterned_text_background_forbidden": {
+          "const": true
+        },
+        "visible_focus_required": {
+          "const": true
+        }
+      }
+    }
+  }
+}

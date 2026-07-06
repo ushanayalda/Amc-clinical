@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical-pathway.local/schemas/section-display.schema.json",
+  "title": "Section Display Metadata Schema",
+  "type": "object",
+  "required": [
+    "section_id",
+    "display_label",
+    "display_priority",
+    "critical",
+    "hidden_allowed",
+    "primary_path",
+    "max_visible_words"
+  ],
+  "properties": {
+    "section_id": {
+      "type": "string"
+    },
+    "display_label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "display_priority": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "critical": {
+      "type": "boolean"
+    },
+    "hidden_allowed": {
+      "type": "boolean"
+    },
+    "primary_path": {
+      "type": "boolean"
+    },
+    "max_visible_words": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 250
+    },
+    "render_component": {
+      "enum": [
+        "brief",
+        "task_card",
+        "safety_card",
+        "cue_card",
+        "script_block",
+        "practice_panel",
+        "recall_check",
+        "confidence_check",
+        "disclosure",
+        "source_panel",
+        "audio_player"
+      ]
+    },
+    "disclosure_label": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "requires_attempt_before_reveal": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "critical": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "hidden_allowed": {
+            "const": false
+          }
+        }
+      }
+    }
+  ]
+}

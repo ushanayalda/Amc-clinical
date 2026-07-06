@@ -162,6 +162,51 @@
               }
             }
           }
+        },
+        "adhd_display_review": {
+          "type": "object",
+          "required": [
+            "reviewer_name",
+            "reviewer_role",
+            "review_date",
+            "decision",
+            "blockers"
+          ],
+          "properties": {
+            "reviewer_name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reviewer_role": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "review_date": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "decision": {
+              "enum": [
+                "hold",
+                "pass",
+                "changes_required",
+                "blocked"
+              ]
+            },
+            "blockers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
         }
       },
       "additionalProperties": false

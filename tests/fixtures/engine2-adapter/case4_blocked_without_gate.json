@@ -1,0 +1,57 @@
+{
+  "fixture_name": "case4_blocked_without_gate",
+  "description": "Case 4 is blocked unless the repository gate passes or exact bypass phrase is present.",
+  "case": {
+    "case_id": "CP-P1-C004",
+    "engine_version": "v3.3.3",
+    "patch_version": "v3.3.3-P3",
+    "scaffold_patch_version": "v3.3.3-P4",
+    "metadata": {
+      "clinical_variant": "Synthetic Case 4 placeholder",
+      "risk_level": "high"
+    },
+    "sections": {
+      "station_stem": "Visible learner-safe placeholder.",
+      "visible_summary": "Visible learner-safe placeholder."
+    },
+    "case4_gate": {
+      "gate_passed": false,
+      "bypass_phrase": null
+    },
+    "status": {
+      "source_status": "pass",
+      "schema_status": "pass",
+      "renderer_status": "pass",
+      "clinical_status": "pass",
+      "accessibility_status": "pass",
+      "audio_manifest_status": "not_required",
+      "audio_generation_status": "not_required",
+      "audio_dry_run_status": "not_required",
+      "listen_test_status": "not_required",
+      "audio_release_status": "not_required",
+      "release_status": "hold",
+      "bypass_used": false,
+      "last_human_reviewer": "Reviewer Placeholder",
+      "source_review_due": "2027-01-01"
+    },
+    "audio": {
+      "required": false,
+      "has_audio": false,
+      "transcript_available": false,
+      "keyboard_controls": false,
+      "speed_control": false,
+      "autoplay": false
+    },
+    "source_basis_map": {
+      "present": true,
+      "valid": true
+    }
+  },
+  "expected": {
+    "release_ready": false,
+    "public_display": false,
+    "blocked_reasons": [
+      "case4_gate_missing"
+    ]
+  }
+}

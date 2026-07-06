@@ -1,0 +1,60 @@
+{
+  "fixture_name": "valid_internal_preview_case",
+  "description": "Synthetic placeholder case that can be inspected internally only.",
+  "case": {
+    "case_id": "CP-P1-C900",
+    "engine_version": "v3.3.3",
+    "patch_version": "v3.3.3-P3",
+    "scaffold_patch_version": "v3.3.3-P4",
+    "metadata": {
+      "clinical_variant": "Synthetic preview placeholder",
+      "risk_level": "standard"
+    },
+    "sections": {
+      "station_stem": "Visible learner-safe placeholder.",
+      "visible_summary": "Visible learner-safe placeholder.",
+      "hints_hidden": "Hidden maintainer placeholder.",
+      "source_basis_map_hidden": "Hidden source placeholder.",
+      "sources_hidden": "Hidden source list placeholder.",
+      "doctor_thinking_hidden": "Hidden reasoning placeholder.",
+      "examiner_lines_hidden": "Hidden examiner placeholder."
+    },
+    "status": {
+      "source_status": "pass",
+      "schema_status": "pass",
+      "renderer_status": "pass_with_adapter",
+      "clinical_status": "hold",
+      "accessibility_status": "hold",
+      "audio_manifest_status": "hold",
+      "audio_generation_status": "hold",
+      "audio_dry_run_status": "hold",
+      "listen_test_status": "hold",
+      "audio_release_status": "hold",
+      "release_status": "hold",
+      "bypass_used": false,
+      "last_human_reviewer": null,
+      "source_review_due": null
+    },
+    "audio": {
+      "required": false,
+      "has_audio": false,
+      "transcript_available": false,
+      "keyboard_controls": false,
+      "speed_control": false,
+      "autoplay": false
+    },
+    "source_basis_map": {
+      "present": true,
+      "valid": true
+    }
+  },
+  "expected": {
+    "internal_preview": true,
+    "public_display": false,
+    "release_ready": false,
+    "audio_playback": false,
+    "blocked_reasons": [
+      "preview_only"
+    ]
+  }
+}

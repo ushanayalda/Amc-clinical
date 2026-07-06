@@ -1,0 +1,38 @@
+{
+  "fixture_name": "malformed_status_blocks_display",
+  "description": "Malformed status fails closed.",
+  "case": {
+    "case_id": "CP-P1-C911",
+    "engine_version": "v3.3.3",
+    "patch_version": "v3.3.3-P3",
+    "scaffold_patch_version": "v3.3.3-P4",
+    "metadata": {
+      "clinical_variant": "Synthetic malformed status placeholder",
+      "risk_level": "standard"
+    },
+    "sections": {
+      "station_stem": "Visible learner-safe placeholder.",
+      "visible_summary": "Visible learner-safe placeholder."
+    },
+    "status": "malformed placeholder status",
+    "audio": {
+      "required": false,
+      "has_audio": false,
+      "transcript_available": false,
+      "keyboard_controls": false,
+      "speed_control": false,
+      "autoplay": false
+    },
+    "source_basis_map": {
+      "present": true,
+      "valid": true
+    }
+  },
+  "expected": {
+    "public_display": false,
+    "release_ready": false,
+    "blocked_reasons": [
+      "malformed_status"
+    ]
+  }
+}

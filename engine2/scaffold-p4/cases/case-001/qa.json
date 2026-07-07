@@ -8,23 +8,55 @@
       "reviewer_role": null,
       "review_date": null,
       "decision": "hold",
-      "blockers": []
+      "blockers": [
+        "No explicit clinical review evidence in this PR."
+      ]
     },
     "accessibility_review": {
       "reviewer_name": null,
       "reviewer_role": null,
       "review_date": null,
       "decision": "hold",
-      "blockers": []
+      "blockers": [
+        "No explicit accessibility review evidence in this PR."
+      ]
     },
     "renderer_review": {
       "reviewer_name": null,
       "reviewer_role": null,
       "review_date": null,
       "decision": "hold",
-      "blockers": []
+      "blockers": [
+        "Automated adapter preview test is not a human renderer release review."
+      ]
     }
   },
-  "checks": [],
+  "checks": [
+    {
+      "check_id": "case1-source-lock-present",
+      "status": "pass",
+      "notes": "LOCK_PACKET.md and LOCKED_CANONICAL_BUNDLE.md are present for CP-P1-C001."
+    },
+    {
+      "check_id": "adapter-internal-preview",
+      "status": "pass",
+      "notes": "Automated test proves adapter internal preview only; public display, release, and audio remain blocked."
+    },
+    {
+      "check_id": "clinical-review",
+      "status": "hold",
+      "notes": "Clinical review not performed in this PR."
+    },
+    {
+      "check_id": "accessibility-review",
+      "status": "hold",
+      "notes": "Accessibility review not performed in this PR."
+    },
+    {
+      "check_id": "audio-release",
+      "status": "hold",
+      "notes": "Audio was not generated or released in this PR."
+    }
+  ],
   "final_decision": "hold"
 }

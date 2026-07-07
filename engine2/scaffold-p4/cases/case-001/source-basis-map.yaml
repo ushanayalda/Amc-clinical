@@ -7,4 +7,4 @@ last_checked: null
 review_due: null
 jurisdiction: Australia
 rules: []
-note: "Source Basis Map scaffold only. High-risk release remains blocked until rules are complete."
+note: "Locked source was added in source-locks/case-001, but complete approved source-map evidence for high-risk release is not present in this PR. Source status remains hold."

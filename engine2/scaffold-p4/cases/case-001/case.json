@@ -3,8 +3,740 @@
   "engine_version": "v3.3.3",
   "patch_version": "v3.3.3-P3",
   "scaffold_patch_version": "v3.3.3-P4",
-  "metadata": {},
-  "sections": {},
+  "metadata": {
+    "phase": "Can Kill Fast",
+    "pattern": "Dangerous Chest Pain",
+    "clinical_variant": "Classic ACS",
+    "title": "Classic Chest Pain",
+    "station_type": "Consultation",
+    "task_recipient": "60-year-old man",
+    "setting": "GP",
+    "acuity_class": "high risk chest pain",
+    "risk_level": "high",
+    "main_risk_point": "Do not delay ambulance transfer while trying to prove the diagnosis.",
+    "dominant_trap": "indigestion or test-delay trap",
+    "source_case_id": "case-1-classic-chest-pain",
+    "live_phase_id": "phase-1",
+    "live_pattern_id": "dangerous-chest-pain",
+    "display_number": "Case 1",
+    "duration": "8 minutes",
+    "trap_detail": "Calling exertional central chest pressure indigestion or waiting for tests before ambulance transfer.",
+    "source_authority": "current live website Case 1 text in data/content.js"
+  },
+  "source_locks": {
+    "lock_packet": true,
+    "canonical_bundle": true,
+    "lock_packet_path": "engine2/scaffold-p4/source-locks/case-001/LOCK_PACKET.md",
+    "canonical_bundle_path": "engine2/scaffold-p4/source-locks/case-001/LOCKED_CANONICAL_BUNDLE.md"
+  },
+  "source_basis_map": {
+    "present": true,
+    "valid": false,
+    "status": "hold",
+    "reason": "Locked bundle includes source notes but not a complete approved Source Basis Map for release."
+  },
+  "audio": {
+    "required": false,
+    "has_audio": false,
+    "transcript_available": false,
+    "keyboard_controls": false,
+    "speed_control": false,
+    "autoplay": false
+  },
+  "sections": {
+    "station_stem": [
+      "You are a General Practitioner in a suburban clinic.",
+      "Mr Peter Lewis is a 60-year-old man who presents with central chest pressure.",
+      "The pain started 40 minutes ago while he was walking from the car park to your clinic.",
+      "He looks pale and sweaty.",
+      "Past history: Hypertension.",
+      "Medication: Perindopril.",
+      "No investigation results are available at the start of the station.",
+      "You have 8 minutes."
+    ],
+    "tasks": [
+      "Take a focused history.",
+      "Explain your most likely dangerous working diagnosis.",
+      "Explain important differential diagnoses.",
+      "Outline your immediate management plan."
+    ],
+    "task_snapshot": {
+      "setting": "General Practice",
+      "patient": "60-year-old man",
+      "problem": "Central chest pressure for 40 minutes",
+      "alreadyConcerning": [
+        "Pale",
+        "Sweaty",
+        "Started with walking",
+        "Ongoing pain"
+      ],
+      "mostLikelyDangerousWorkingDiagnosis": "Heart-related chest pain",
+      "firstAction": "Arrange ambulance transfer now. Do a heart tracing if available and not delaying transfer.",
+      "mainRiskPoint": "Do not delay transfer while trying to prove the diagnosis.",
+      "dominantTrap": "Do not wait for troponin, serial heart tracings, or a perfect diagnosis before arranging transfer.",
+      "mustAsk": [
+        "Where is the pain?",
+        "Does it spread?",
+        "Sweating, nausea, breathlessness, fainting?",
+        "Severe pain to the back?",
+        "Coughing blood or clot risk?",
+        "Sudden sharp pain with severe breathlessness?",
+        "Heart risk factors?",
+        "Aspirin allergy or bleeding risk?"
+      ],
+      "mustSay": "This is not safe to manage in this clinic. I am arranging an ambulance now."
+    },
+    "visible_summary": [
+      "Classic Chest Pain",
+      "Do not delay ambulance transfer while trying to prove the diagnosis.",
+      "Pale, sweaty, started while walking, ongoing pain"
+    ],
+    "safety_layer": {
+      "mustNotMiss": [
+        "Acute coronary syndrome",
+        "Aortic dissection",
+        "Pulmonary embolism",
+        "Tension pneumothorax"
+      ],
+      "firstAction": [
+        "Arrange ambulance transfer now",
+        "Do a heart tracing if available and not delaying transfer",
+        "Do not wait for the diagnosis, troponin, or serial heart tracings",
+        "Do not let the patient drive"
+      ],
+      "doNotMissMap": {
+        "prime": [
+          "Chest pain is not one diagnosis",
+          "See danger",
+          "Act safely"
+        ],
+        "scenes": [
+          {
+            "tone": "red",
+            "color": "Red",
+            "title": "Heart",
+            "clinical": "Heart problem",
+            "see": [
+              "Central chest pressure",
+              "Pain started with walking",
+              "Pain is still there",
+              "Pale and sweaty",
+              "Pain spreading to left arm or jaw",
+              "Nausea",
+              "Breathlessness",
+              "Heart risk factors"
+            ],
+            "say": [
+              "This may be coming from your heart.",
+              "This is not safe to manage in this clinic.",
+              "I am arranging an ambulance now."
+            ],
+            "do": [
+              "Call ambulance now",
+              "Keep him resting",
+              "Do not let him drive",
+              "Give aspirin if safe",
+              "Do a heart tracing only if immediate and not delaying transfer",
+              "Do not delay transfer for blood tests"
+            ]
+          },
+          {
+            "tone": "black",
+            "color": "Black",
+            "title": "Aortic dissection",
+            "clinical": "Tear in the main blood vessel",
+            "see": [
+              "Sudden severe pain",
+              "Tearing pain",
+              "Pain through to the back",
+              "Collapse or fainting",
+              "Weakness, numbness, speech or vision change"
+            ],
+            "say": [
+              "Hospital also needs to check for a tear in the main blood vessel from the heart."
+            ],
+            "do": [
+              "Ask the danger questions",
+              "Do not ignore this before giving chest pain medicine"
+            ]
+          },
+          {
+            "tone": "blue",
+            "color": "Blue",
+            "title": "Pulmonary embolism",
+            "clinical": "Blood clot in the lung",
+            "see": [
+              "Sharp pain",
+              "Sudden breathlessness",
+              "Coughing blood",
+              "Swollen calf",
+              "Recent travel",
+              "Recent surgery",
+              "Immobility",
+              "Cancer",
+              "Previous clot"
+            ],
+            "say": [
+              "Hospital also needs to check for a blood clot in the lung."
+            ],
+            "do": [
+              "Ask clot-risk questions",
+              "Escalate if unsafe"
+            ]
+          },
+          {
+            "tone": "green",
+            "color": "Green",
+            "title": "Tension pneumothorax",
+            "clinical": "Collapsed lung",
+            "see": [
+              "Sudden one-sided sharp pain",
+              "Severe breathlessness",
+              "Trauma",
+              "One-sided chest signs",
+              "Very unwell appearance"
+            ],
+            "say": [
+              "Hospital also needs to check for a collapsed lung."
+            ],
+            "do": [
+              "Check breathing",
+              "Escalate urgently if severe"
+            ]
+          }
+        ],
+        "safe": {
+          "title": "Safe transfer",
+          "items": [
+            "GP setting",
+            "Call ambulance now",
+            "Do not wait to be 100% sure",
+            "Do not let the patient drive"
+          ]
+        },
+        "medicines": [
+          {
+            "title": "Aspirin",
+            "items": [
+              "Give if safe",
+              "No aspirin allergy",
+              "No active bleeding",
+              "No stomach bleeding, bleeding disorder, or blood thinner medicine"
+            ]
+          },
+          {
+            "title": "Oxygen",
+            "items": [
+              "Only if low oxygen, heart failure, shock, severe breathing distress, or poor perfusion"
+            ]
+          },
+          {
+            "title": "Chest pain spray/tablet",
+            "items": [
+              "Blood pressure first",
+              "Medicine safety first",
+              "Do not give blindly"
+            ]
+          }
+        ],
+        "finishCheck": [
+          "Possible heart problem",
+          "Ambulance now",
+          "Do not drive",
+          "Rest while waiting",
+          "Check blood pressure, pulse, oxygen level, breathing rate, temperature, and conscious state",
+          "Heart tracing only if no delay",
+          "No waiting for blood tests",
+          "Aspirin if safe",
+          "Oxygen only if needed",
+          "Blood pressure and medicine safety before chest pain spray",
+          "Warning signs",
+          "Check understanding"
+        ],
+        "oneLine": [
+          "This may be coming from your heart.",
+          "I am arranging an ambulance now.",
+          "You should not drive yourself."
+        ]
+      },
+      "sourceBasis": {
+        "lastChecked": "5 July 2026",
+        "websiteRole": "layout only",
+        "basis": [
+          {
+            "decision": "Chest pain danger sorting",
+            "match": "Central chest pressure with exertional onset, ongoing pain, radiation, sweating, nausea, breathlessness, and risk factors is treated as possible acute coronary syndrome until proven otherwise."
+          },
+          {
+            "decision": "General Practice transfer",
+            "match": "The clinic cannot safely rule this out. Ambulance transfer is arranged now; heart tracing is only done if immediate and not delaying transfer."
+          },
+          {
+            "decision": "No test delay",
+            "match": "Troponin and other hospital-only investigations must not delay ambulance transfer."
+          },
+          {
+            "decision": "Medication safety",
+            "match": "Aspirin, oxygen, and chest pain spray/tablet are tied to safety checks and clinical need."
+          }
+        ],
+        "verifiedLinks": [
+          {
+            "title": "ACSQHC - Acute Coronary Syndromes Clinical Care Standard",
+            "year": "2019",
+            "url": "https://www.safetyandquality.gov.au/clinical-care-standards/acute-coronary-syndromes"
+          },
+          {
+            "title": "ACSQHC - Acute Coronary Syndromes Clinical Care Standard resource page",
+            "year": "2019",
+            "url": "https://www.safetyandquality.gov.au/resources/acute-coronary-syndromes-clinical-care-standard-2019"
+          }
+        ]
+      }
+    },
+    "pattern_recognition_card": {
+      "prime": [
+        "See danger",
+        "Act early"
+      ],
+      "anchors": [
+        {
+          "danger": "Heart",
+          "see": "central chest pressure, sweating, nausea, breathlessness, arm or jaw spread",
+          "say": "This may be coming from your heart.",
+          "do": "Call ambulance now."
+        },
+        {
+          "danger": "Aortic dissection",
+          "see": "sudden severe tearing pain to back, collapse, neurological change",
+          "say": "Hospital also needs to check the main blood vessel."
+        },
+        {
+          "danger": "Pulmonary embolism",
+          "see": "sharp pain, sudden breathlessness, coughing blood, clot risks",
+          "say": "Hospital also needs to check for a blood clot in the lung."
+        },
+        {
+          "danger": "Tension pneumothorax",
+          "see": "one-sided sharp pain, severe breathlessness, trauma, one-sided signs",
+          "say": "Hospital also needs to check for a collapsed lung."
+        }
+      ],
+      "firstAction": [
+        "Ambulance now",
+        "Do not drive",
+        "Do not delay transfer for blood tests"
+      ]
+    },
+    "focused_performance_script": {
+      "must_say": [
+        "This is not safe to manage in this clinic.",
+        "I am arranging an ambulance now.",
+        "You should not drive yourself.",
+        "I am treating this as a possible heart problem now.",
+        "I am not waiting to be 100% sure before acting.",
+        "I will do a heart tracing only if it does not delay transfer.",
+        "I will not delay transfer for troponin.",
+        "I will give aspirin if safe.",
+        "I will give oxygen only if oxygen is low or there are signs it is needed.",
+        "I will check blood pressure and medication safety before any chest pain spray or tablet."
+      ],
+      "notes": [
+        {
+          "title": "Do not miss",
+          "items": [
+            "Dangerous working diagnosis: possible acute coronary syndrome.",
+            "Patient wording: possible heart problem, possible heart attack, or reduced blood flow to the heart.",
+            "Why it is likely: central chest pressure, exertional onset, ongoing pain, radiation to left arm and jaw, sweating, nausea, breathlessness, age 60, hypertension, past smoking, and family history.",
+            "Four causes not to miss: acute coronary syndrome, aortic dissection, pulmonary embolism, tension pneumothorax.",
+            "General Practice logic: this cannot be safely ruled out in clinic. Call ambulance. Do a heart tracing only if immediate and not delaying transfer. Do not wait for troponin. Do not allow private transport.",
+            "Decision point: the moment central chest pressure is associated with radiation, sweating, nausea, breathlessness, ongoing symptoms, and cardiac risk factors, treat as possible acute coronary syndrome until proven otherwise."
+          ]
+        },
+        {
+          "title": "Exam-safe lines",
+          "items": [
+            "My working diagnosis is possible acute coronary syndrome until proven otherwise.",
+            "I will assess stability first, including observations, oxygen saturation, perfusion, and conscious state.",
+            "I will arrange urgent ambulance transfer from General Practice.",
+            "I will perform a 12-lead electrocardiogram immediately if available and not delaying transfer.",
+            "I will not delay transfer for troponin or other hospital-only investigations.",
+            "I will give aspirin 300 mg orally, chewed or dissolved, if suspected acute coronary syndrome and there is no contraindication.",
+            "I will give oxygen only if the patient is hypoxic, in heart failure, in shock, severely breathless, or poorly perfused.",
+            "I will check blood pressure and recent sildenafil or tadalafil before glyceryl trinitrate.",
+            "I will actively consider aortic dissection, pulmonary embolism, and tension pneumothorax."
+          ]
+        },
+        {
+          "title": "Memory drills",
+          "items": [
+            "30-second compression: Mr Lewis has possible heart-related chest pain because he has central chest pressure for 40 minutes, spreading to the left arm and jaw, with sweating, nausea, breathlessness, exertional onset, ongoing pain, and heart risk factors. In General Practice, I will arrange an ambulance now, give aspirin if safe, do a heart tracing only if it does not delay transfer, give oxygen only if oxygen is low or there are signs it is needed, check safety before any chest pain spray or tablet, and not delay transfer for troponin.",
+            "10-second trigger rule: Central chest pressure with sweating, radiation, nausea, breathlessness, or risk factors is a possible heart problem until proven otherwise.",
+            "Differential ranking: most likely acute coronary syndrome; dangerous alternatives are aortic dissection, pulmonary embolism, and tension pneumothorax; main mimic is reflux or muscle pain.",
+            "Why not the main mimic: Reflux or muscle pain may be possible, but they do not safely explain exertional central chest pressure with arm and jaw radiation, sweating, nausea, breathlessness, and heart risk factors.",
+            "First action rule: In General Practice, arrange an ambulance now and do a heart tracing only if it does not delay transfer."
+          ]
+        }
+      ]
+    },
+    "patient_explanation_script": "### Diagnosis Explanation\n\n- You:\n  - The main concern is that this may be coming from your heart.\n  - That includes a possible heart attack or reduced blood flow to the heart.\n  - I cannot confirm that here in the clinic.\n  - But your symptoms are serious enough that I need to treat this as a possible heart problem now.\n- Patient:\n  - So you think it could be my heart?\n- You:\n  - Yes.\n  - That is why I am arranging urgent hospital care.\n\n### Differential Explanation\n\n- You:\n  - There are a few other serious causes of chest pain that hospital also needs to check.\n  - One is a tear in the main blood vessel from the heart.\n  - One is a blood clot in the lung.\n  - One is a collapsed lung.\n  - Indigestion or muscle pain can happen too.\n  - But with your symptoms, I cannot safely call it that here.\n- Patient:\n  - I thought it might just be indigestion.\n- You:\n  - It may turn out to be something less serious.\n  - But we need to check the dangerous causes first.\n\n### Decision Point and Management Plan\n\n- You:\n  - Because the pressure is still there, it spreads to your arm and jaw, and you feel sweaty, sick, and short of breath, I am treating this as a possible heart problem now.\n  - I am not waiting to be 100% sure before acting.\n- You:\n  - This is not safe to manage in this clinic.\n  - I am arranging an ambulance now.\n  - You should not drive yourself.\n- Patient:\n  - Can my wife drive me? It is only nearby.\n- You:\n  - No.\n  - You need an ambulance because they can monitor you and act quickly if your condition changes.\n- You:\n  - While we wait, we will keep you resting.\n  - We will check your blood pressure, pulse, oxygen level, breathing rate, temperature, and conscious state.\n  - If we can do a heart tracing immediately without delaying the ambulance, we will do it.\n  - I will give aspirin if it is safe for you.\n  - You have no aspirin allergy and no bleeding concern, so I would give it now.\n  - I will give oxygen only if your oxygen level is low or you show signs that you need it.\n  - Before any chest pain spray or tablet under the tongue, I will check your blood pressure and make sure none of your recent medicines make it unsafe.\n  - I will not delay the ambulance for blood tests that need to happen in hospital.\n  - In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed.\n\n### Urgency Classification\n\n- You:\n  - This is urgent.\n  - The safest plan is ambulance transfer now.\n- Patient:\n  - I am worried.\n- You:\n  - I understand.\n  - We are acting early to keep you safe.\n\n### Warning Signs While Waiting\n\n- You:\n  - While we wait, tell me immediately if the pain gets worse.\n  - Also tell me if you feel faint, become more breathless, feel very clammy, or feel like you might collapse.\n  - Please stay seated or lying down.\n  - Do not walk around.\n- Patient:\n  - Okay.\n\n### Check Understanding\n\n- You:\n  - Can you tell me what you understand about why I am arranging an ambulance?\n- Patient:\n  - You are worried this could be my heart, and I need hospital urgently.\n- You:\n  - That is right.\n  - I will stay with you and hand over clearly to the ambulance team.",
+    "differential_and_trap_recovery": {
+      "mustNotMiss": [
+        "Acute coronary syndrome",
+        "Aortic dissection",
+        "Pulmonary embolism",
+        "Tension pneumothorax"
+      ],
+      "differentialExplanation": [
+        {
+          "heading": "Differential Explanation",
+          "turns": [
+            {
+              "speaker": "You",
+              "lines": [
+                "There are a few other serious causes of chest pain that hospital also needs to check.",
+                "One is a tear in the main blood vessel from the heart.",
+                "One is a blood clot in the lung.",
+                "One is a collapsed lung.",
+                "Indigestion or muscle pain can happen too.",
+                "But with your symptoms, I cannot safely call it that here."
+              ]
+            },
+            {
+              "speaker": "Patient",
+              "lines": [
+                "I thought it might just be indigestion."
+              ]
+            },
+            {
+              "speaker": "You",
+              "lines": [
+                "It may turn out to be something less serious.",
+                "But we need to check the dangerous causes first."
+              ]
+            }
+          ]
+        }
+      ],
+      "doNotMissScenes": [
+        {
+          "tone": "red",
+          "color": "Red",
+          "title": "Heart",
+          "clinical": "Heart problem",
+          "see": [
+            "Central chest pressure",
+            "Pain started with walking",
+            "Pain is still there",
+            "Pale and sweaty",
+            "Pain spreading to left arm or jaw",
+            "Nausea",
+            "Breathlessness",
+            "Heart risk factors"
+          ],
+          "say": [
+            "This may be coming from your heart.",
+            "This is not safe to manage in this clinic.",
+            "I am arranging an ambulance now."
+          ],
+          "do": [
+            "Call ambulance now",
+            "Keep him resting",
+            "Do not let him drive",
+            "Give aspirin if safe",
+            "Do a heart tracing only if immediate and not delaying transfer",
+            "Do not delay transfer for blood tests"
+          ]
+        },
+        {
+          "tone": "black",
+          "color": "Black",
+          "title": "Aortic dissection",
+          "clinical": "Tear in the main blood vessel",
+          "see": [
+            "Sudden severe pain",
+            "Tearing pain",
+            "Pain through to the back",
+            "Collapse or fainting",
+            "Weakness, numbness, speech or vision change"
+          ],
+          "say": [
+            "Hospital also needs to check for a tear in the main blood vessel from the heart."
+          ],
+          "do": [
+            "Ask the danger questions",
+            "Do not ignore this before giving chest pain medicine"
+          ]
+        },
+        {
+          "tone": "blue",
+          "color": "Blue",
+          "title": "Pulmonary embolism",
+          "clinical": "Blood clot in the lung",
+          "see": [
+            "Sharp pain",
+            "Sudden breathlessness",
+            "Coughing blood",
+            "Swollen calf",
+            "Recent travel",
+            "Recent surgery",
+            "Immobility",
+            "Cancer",
+            "Previous clot"
+          ],
+          "say": [
+            "Hospital also needs to check for a blood clot in the lung."
+          ],
+          "do": [
+            "Ask clot-risk questions",
+            "Escalate if unsafe"
+          ]
+        },
+        {
+          "tone": "green",
+          "color": "Green",
+          "title": "Tension pneumothorax",
+          "clinical": "Collapsed lung",
+          "see": [
+            "Sudden one-sided sharp pain",
+            "Severe breathlessness",
+            "Trauma",
+            "One-sided chest signs",
+            "Very unwell appearance"
+          ],
+          "say": [
+            "Hospital also needs to check for a collapsed lung."
+          ],
+          "do": [
+            "Check breathing",
+            "Escalate urgently if severe"
+          ]
+        }
+      ],
+      "relevantHints": [
+        {
+          "id": "i-used-too-many-medical-words",
+          "stage": "say",
+          "group": "Say",
+          "label": "I used too many medical words",
+          "title": "I used too many medical words",
+          "missed": "I used hospital language with the patient.",
+          "say": "The main concern is that this may be coming from your heart.",
+          "why": "Mr Lewis needs clear urgent language, not terms like acute coronary syndrome, biomarkers, or risk stratification.",
+          "practise": "Replace \"acute coronary syndrome\" with \"possible heart problem\" three times. Then return to Start speaking."
+        },
+        {
+          "id": "i-did-not-mention-another-serious-cause",
+          "stage": "see",
+          "group": "See",
+          "label": "I did not mention another serious cause",
+          "title": "I did not mention another serious cause",
+          "missed": "I did not mention the other serious causes hospital must check.",
+          "say": "There are a few other serious causes of chest pain that hospital also needs to check.",
+          "why": "Chest pain can come from the heart, the main blood vessel from the heart, a blood clot in the lung, or a collapsed lung.",
+          "practise": "Say the four causes not to miss in one breath. Then return to Start speaking."
+        },
+        {
+          "id": "i-did-not-ask-the-danger-questions",
+          "stage": "see",
+          "group": "See",
+          "label": "I did not ask the danger questions",
+          "title": "I did not ask the danger questions",
+          "missed": "I did not ask the short danger questions.",
+          "say": "Thank you. I will keep the questions focused.",
+          "why": "You need to quickly check spread of pain, sweating, nausea, breathlessness, tearing back pain, clot risk, coughing blood, and sudden sharp breathlessness.",
+          "practise": "Ask the Must Ask list aloud in 45 seconds. Then go back to Start speaking."
+        },
+        {
+          "id": "i-did-not-say-why-i-acted-now",
+          "stage": "say",
+          "group": "Say",
+          "label": "I did not say why I acted now",
+          "title": "I did not say why I acted now",
+          "missed": "I did not explain why I was acting before confirmation.",
+          "say": "I am not waiting to be 100% sure before acting.",
+          "why": "Ongoing chest pressure with spread, sweating, nausea, breathlessness, and risk factors is enough to act now.",
+          "practise": "Give the decision point in 15 seconds using Mr Lewis' features. Then return to Start speaking."
+        }
+      ]
+    },
+    "live_station_script": "### Introduction and Immediate Safety\n\n- You:\n  - Hello, I'm Ushana, one of the doctors.\n  - How would you like me to address you?\n- Patient:\n  - Call me Mr Lewis.\n- You:\n  - Thank you, Mr Lewis. I can see you look pale and sweaty.\n  - I am worried this may be coming from your heart.\n  - I am going to arrange an ambulance while I ask you a few focused questions. Is that okay?\n- Patient:\n  - An ambulance? Is it that serious?\n- You:\n  - It may be serious.\n  - It does not mean you definitely have a heart attack, but it is serious enough that we should not wait.\n- Patient:\n  - Okay.\n\n### Open Question\n\n- You:\n  - Tell me what happened today.\n- Patient:\n  - I was walking from the car park about 40 minutes ago and felt pressure in the middle of my chest.\n- You:\n  - Thank you. I will keep the questions focused.\n\n### Focused History\n\n- You:\n  - Is the pressure still there now?\n- Patient:\n  - Yes.\n- You:\n  - Where exactly is it?\n- Patient:\n  - In the centre of my chest.\n- You:\n  - Does it spread anywhere?\n- Patient:\n  - To my left arm.\n- You:\n  - Does it go to your jaw, neck, back, shoulder, or upper tummy?\n- Patient:\n  - A bit to my jaw. Not to my back.\n- You:\n  - How bad is it out of ten?\n- Patient:\n  - About eight.\n- You:\n  - Did it start suddenly or build up?\n- Patient:\n  - It built up over a few minutes while I was walking.\n- You:\n  - Have you felt sweaty, sick, vomited, short of breath, faint, or had a racing heartbeat?\n- Patient:\n  - I am sweaty and feel sick.\n  - I am a bit short of breath.\n  - I have not fainted.\n- You:\n  - Any severe tearing pain going through to your back?\n- Patient:\n  - No.\n- You:\n  - Any coughing blood?\n- Patient:\n  - No.\n- You:\n  - Any calf pain, leg swelling, recent long travel, recent surgery, being stuck in bed, cancer, or previous blood clot?\n- Patient:\n  - No.\n- You:\n  - Any sudden sharp chest pain with severe breathlessness?\n- Patient:\n  - No. It feels more like pressure.\n- You:\n  - Do you have diabetes, high cholesterol, kidney disease, previous heart disease, or smoking history?\n- Patient:\n  - I have high blood pressure. I used to smoke but stopped five years ago.\n- You:\n  - Any close family history of heart disease?\n- Patient:\n  - My father had a heart attack in his fifties.\n- You:\n  - What medicines do you take?\n- Patient:\n  - Perindopril for blood pressure.\n- You:\n  - Are you allergic to aspirin?\n- Patient:\n  - No.\n- You:\n  - Any active bleeding, stomach bleeding, bleeding disorder, or blood thinner medicine?\n- Patient:\n  - No.\n- You:\n  - Thank you. I have enough information to act safely now.\n\n### Red Flag Sweep\n\n- You:\n  - Just to check the danger signs clearly: the pain is still there, it spreads to your left arm and jaw, and you feel sweaty, sick, and a bit short of breath. Correct?\n- Patient:\n  - Yes.\n- You:\n  - And no severe tearing pain to the back, no collapse, no coughing blood, and no one-sided leg swelling?\n- Patient:\n  - Correct.\n- You:\n  - That pattern is concerning.\n  - I am treating this as urgent.\n\n### Structured Summary\n\n- You:\n  - Let me summarise.\n  - You developed central chest pressure about 40 minutes ago while walking.\n  - It is still there.\n  - It spreads to your left arm and jaw.\n  - You feel sweaty, sick, and a bit short of breath.\n  - You have high blood pressure, past smoking, and a family history of heart disease.\n  - Is that right?\n- Patient:\n  - Yes.\n\n### Diagnosis Explanation\n\n- You:\n  - The main concern is that this may be coming from your heart.\n  - That includes a possible heart attack or reduced blood flow to the heart.\n  - I cannot confirm that here in the clinic.\n  - But your symptoms are serious enough that I need to treat this as a possible heart problem now.\n- Patient:\n  - So you think it could be my heart?\n- You:\n  - Yes.\n  - That is why I am arranging urgent hospital care.\n\n### Differential Explanation\n\n- You:\n  - There are a few other serious causes of chest pain that hospital also needs to check.\n  - One is a tear in the main blood vessel from the heart.\n  - One is a blood clot in the lung.\n  - One is a collapsed lung.\n  - Indigestion or muscle pain can happen too.\n  - But with your symptoms, I cannot safely call it that here.\n- Patient:\n  - I thought it might just be indigestion.\n- You:\n  - It may turn out to be something less serious.\n  - But we need to check the dangerous causes first.\n\n### Decision Point and Management Plan\n\n- You:\n  - Because the pressure is still there, it spreads to your arm and jaw, and you feel sweaty, sick, and short of breath, I am treating this as a possible heart problem now.\n  - I am not waiting to be 100% sure before acting.\n- You:\n  - This is not safe to manage in this clinic.\n  - I am arranging an ambulance now.\n  - You should not drive yourself.\n- Patient:\n  - Can my wife drive me? It is only nearby.\n- You:\n  - No.\n  - You need an ambulance because they can monitor you and act quickly if your condition changes.\n- You:\n  - While we wait, we will keep you resting.\n  - We will check your blood pressure, pulse, oxygen level, breathing rate, temperature, and conscious state.\n  - If we can do a heart tracing immediately without delaying the ambulance, we will do it.\n  - I will give aspirin if it is safe for you.\n  - You have no aspirin allergy and no bleeding concern, so I would give it now.\n  - I will give oxygen only if your oxygen level is low or you show signs that you need it.\n  - Before any chest pain spray or tablet under the tongue, I will check your blood pressure and make sure none of your recent medicines make it unsafe.\n  - I will not delay the ambulance for blood tests that need to happen in hospital.\n  - In hospital, they can monitor your heart, repeat heart tracings, do urgent blood tests, and give treatment if needed.\n\n### Urgency Classification\n\n- You:\n  - This is urgent.\n  - The safest plan is ambulance transfer now.\n- Patient:\n  - I am worried.\n- You:\n  - I understand.\n  - We are acting early to keep you safe.\n\n### Warning Signs While Waiting\n\n- You:\n  - While we wait, tell me immediately if the pain gets worse.\n  - Also tell me if you feel faint, become more breathless, feel very clammy, or feel like you might collapse.\n  - Please stay seated or lying down.\n  - Do not walk around.\n- Patient:\n  - Okay.\n\n### Check Understanding\n\n- You:\n  - Can you tell me what you understand about why I am arranging an ambulance?\n- Patient:\n  - You are worried this could be my heart, and I need hospital urgently.\n- You:\n  - That is right.\n  - I will stay with you and hand over clearly to the ambulance team.",
+    "recall_check": {
+      "runComplete": [
+        "SEE: Central chest pressure with sweating, nausea, breathlessness, arm and jaw spread, exertional onset, ongoing pain, and heart risk factors.",
+        "This may be coming from your heart.",
+        "Ambulance now.",
+        "No driving.",
+        "Aspirin if safe.",
+        "Oxygen only if needed.",
+        "Heart tracing only if it does not delay transfer.",
+        "No delay for troponin or clinic blood tests.",
+        "Blood pressure and medicine safety before chest pain spray or tablet.",
+        "Warning signs while waiting.",
+        "Check understanding."
+      ],
+      "finishCheck": [
+        "Possible heart problem",
+        "Ambulance now",
+        "Do not drive",
+        "Rest while waiting",
+        "Check blood pressure, pulse, oxygen level, breathing rate, temperature, and conscious state",
+        "Heart tracing only if no delay",
+        "No waiting for blood tests",
+        "Aspirin if safe",
+        "Oxygen only if needed",
+        "Blood pressure and medicine safety before chest pain spray",
+        "Warning signs",
+        "Check understanding"
+      ],
+      "oneLine": [
+        "This may be coming from your heart.",
+        "I am arranging an ambulance now.",
+        "You should not drive yourself."
+      ]
+    },
+    "confidence_check": "MISSING FROM LOCKED SOURCE - HOLD",
+    "voice_pack_source_lines": [
+      {
+        "section": "Introduction and Immediate Safety",
+        "line": "Call me Mr Lewis."
+      },
+      {
+        "section": "Introduction and Immediate Safety",
+        "line": "An ambulance? Is it that serious?"
+      },
+      {
+        "section": "Introduction and Immediate Safety",
+        "line": "Okay."
+      },
+      {
+        "section": "Open Question",
+        "line": "I was walking from the car park about 40 minutes ago and felt pressure in the middle of my chest."
+      },
+      {
+        "section": "Focused History",
+        "line": "Yes."
+      },
+      {
+        "section": "Focused History",
+        "line": "In the centre of my chest."
+      },
+      {
+        "section": "Focused History",
+        "line": "To my left arm."
+      },
+      {
+        "section": "Focused History",
+        "line": "A bit to my jaw. Not to my back."
+      },
+      {
+        "section": "Focused History",
+        "line": "About eight."
+      },
+      {
+        "section": "Focused History",
+        "line": "It built up over a few minutes while I was walking."
+      },
+      {
+        "section": "Focused History",
+        "line": "I am sweaty and feel sick."
+      },
+      {
+        "section": "Focused History",
+        "line": "I am a bit short of breath."
+      },
+      {
+        "section": "Focused History",
+        "line": "I have not fainted."
+      },
+      {
+        "section": "Focused History",
+        "line": "No."
+      },
+      {
+        "section": "Focused History",
+        "line": "No."
+      },
+      {
+        "section": "Focused History",
+        "line": "No."
+      },
+      {
+        "section": "Focused History",
+        "line": "No. It feels more like pressure."
+      },
+      {
+        "section": "Focused History",
+        "line": "I have high blood pressure. I used to smoke but stopped five years ago."
+      },
+      {
+        "section": "Focused History",
+        "line": "My father had a heart attack in his fifties."
+      },
+      {
+        "section": "Focused History",
+        "line": "Perindopril for blood pressure."
+      },
+      {
+        "section": "Focused History",
+        "line": "No."
+      },
+      {
+        "section": "Focused History",
+        "line": "No."
+      },
+      {
+        "section": "Red Flag Sweep",
+        "line": "Yes."
+      },
+      {
+        "section": "Red Flag Sweep",
+        "line": "Correct."
+      },
+      {
+        "section": "Structured Summary",
+        "line": "Yes."
+      },
+      {
+        "section": "Diagnosis Explanation",
+        "line": "So you think it could be my heart?"
+      },
+      {
+        "section": "Differential Explanation",
+        "line": "I thought it might just be indigestion."
+      },
+      {
+        "section": "Decision Point and Management Plan",
+        "line": "Can my wife drive me? It is only nearby."
+      },
+      {
+        "section": "Urgency Classification",
+        "line": "I am worried."
+      },
+      {
+        "section": "Warning Signs While Waiting",
+        "line": "Okay."
+      },
+      {
+        "section": "Check Understanding",
+        "line": "You are worried this could be my heart, and I need hospital urgently."
+      }
+    ],
+    "hints_hidden": {
+      "sentinel": "HIDDEN_HINTS_SOURCE_FOR_CASE_001",
+      "source": "engine2/scaffold-p4/source-locks/case-001/LOCKED_CANONICAL_BUNDLE.md#5-key-clinical-traps"
+    },
+    "source_basis_map_hidden": {
+      "sentinel": "HIDDEN_SOURCE_BASIS_MAP_FOR_CASE_001",
+      "source": "engine2/scaffold-p4/source-locks/case-001/LOCKED_CANONICAL_BUNDLE.md#12-source-notes-if-any"
+    },
+    "sources_hidden": {
+      "sentinel": "HIDDEN_SOURCES_FOR_CASE_001",
+      "source": "engine2/scaffold-p4/source-locks/case-001/LOCKED_CANONICAL_BUNDLE.md#12-source-notes-if-any"
+    },
+    "doctor_thinking_hidden": "HIDDEN_DOCTOR_THINKING_FOR_CASE_001",
+    "examiner_lines_hidden": "HIDDEN_EXAMINER_LINES_FOR_CASE_001"
+  },
   "status_reference": "status.json",
   "status": {
     "case_id": "CP-P1-C001",
@@ -12,8 +744,8 @@
     "patch_version": "v3.3.3-P3",
     "scaffold_patch_version": "v3.3.3-P4",
     "source_status": "hold",
-    "schema_status": "hold",
-    "renderer_status": "hold",
+    "schema_status": "pass",
+    "renderer_status": "pass_with_adapter",
     "clinical_status": "hold",
     "accessibility_status": "hold",
     "audio_manifest_status": "hold",
@@ -26,5 +758,5 @@
     "last_human_reviewer": null,
     "source_review_due": null
   },
-  "note": "Scaffold placeholder only. Do not infer clinical content."
+  "note": "Migrated from locked source for internal adapter preview only. Not public, not clinically reviewed, not accessibility reviewed, not audio released, and not release_ready."
 }

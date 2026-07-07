@@ -5,7 +5,198 @@
   "audio_dry_run_status": "hold",
   "listen_test_status": "hold",
   "audio_release_status": "hold",
-  "patient_voice_profile": {},
-  "audio_lines": [],
+  "patient_voice_profile": {
+    "source": "locked canonical bundle patient lines",
+    "patient_label": "60-year-old man",
+    "generation_status": "hold"
+  },
+  "audio_lines": [
+    {
+      "file_name": "case-001-source-line-01.mp3",
+      "trigger": "source-line-01",
+      "spoken_text": "Call me Mr Lewis.",
+      "voice_direction": "Patient line from Introduction and Immediate Safety. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-02.mp3",
+      "trigger": "source-line-02",
+      "spoken_text": "An ambulance? Is it that serious?",
+      "voice_direction": "Patient line from Introduction and Immediate Safety. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-03.mp3",
+      "trigger": "source-line-03",
+      "spoken_text": "Okay.",
+      "voice_direction": "Patient line from Introduction and Immediate Safety. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-04.mp3",
+      "trigger": "source-line-04",
+      "spoken_text": "I was walking from the car park about 40 minutes ago and felt pressure in the middle of my chest.",
+      "voice_direction": "Patient line from Open Question. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-05.mp3",
+      "trigger": "source-line-05",
+      "spoken_text": "Yes.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-06.mp3",
+      "trigger": "source-line-06",
+      "spoken_text": "In the centre of my chest.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-07.mp3",
+      "trigger": "source-line-07",
+      "spoken_text": "To my left arm.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-08.mp3",
+      "trigger": "source-line-08",
+      "spoken_text": "A bit to my jaw. Not to my back.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-09.mp3",
+      "trigger": "source-line-09",
+      "spoken_text": "About eight.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-10.mp3",
+      "trigger": "source-line-10",
+      "spoken_text": "It built up over a few minutes while I was walking.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-11.mp3",
+      "trigger": "source-line-11",
+      "spoken_text": "I am sweaty and feel sick.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-12.mp3",
+      "trigger": "source-line-12",
+      "spoken_text": "I am a bit short of breath.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-13.mp3",
+      "trigger": "source-line-13",
+      "spoken_text": "I have not fainted.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-14.mp3",
+      "trigger": "source-line-14",
+      "spoken_text": "No.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-15.mp3",
+      "trigger": "source-line-15",
+      "spoken_text": "No.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-16.mp3",
+      "trigger": "source-line-16",
+      "spoken_text": "No.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-17.mp3",
+      "trigger": "source-line-17",
+      "spoken_text": "No. It feels more like pressure.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-18.mp3",
+      "trigger": "source-line-18",
+      "spoken_text": "I have high blood pressure. I used to smoke but stopped five years ago.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-19.mp3",
+      "trigger": "source-line-19",
+      "spoken_text": "My father had a heart attack in his fifties.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-20.mp3",
+      "trigger": "source-line-20",
+      "spoken_text": "Perindopril for blood pressure.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-21.mp3",
+      "trigger": "source-line-21",
+      "spoken_text": "No.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-22.mp3",
+      "trigger": "source-line-22",
+      "spoken_text": "No.",
+      "voice_direction": "Patient line from Focused History. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-23.mp3",
+      "trigger": "source-line-23",
+      "spoken_text": "Yes.",
+      "voice_direction": "Patient line from Red Flag Sweep. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-24.mp3",
+      "trigger": "source-line-24",
+      "spoken_text": "Correct.",
+      "voice_direction": "Patient line from Red Flag Sweep. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-25.mp3",
+      "trigger": "source-line-25",
+      "spoken_text": "Yes.",
+      "voice_direction": "Patient line from Structured Summary. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-26.mp3",
+      "trigger": "source-line-26",
+      "spoken_text": "So you think it could be my heart?",
+      "voice_direction": "Patient line from Diagnosis Explanation. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-27.mp3",
+      "trigger": "source-line-27",
+      "spoken_text": "I thought it might just be indigestion.",
+      "voice_direction": "Patient line from Differential Explanation. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-28.mp3",
+      "trigger": "source-line-28",
+      "spoken_text": "Can my wife drive me? It is only nearby.",
+      "voice_direction": "Patient line from Decision Point and Management Plan. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-29.mp3",
+      "trigger": "source-line-29",
+      "spoken_text": "I am worried.",
+      "voice_direction": "Patient line from Urgency Classification. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-30.mp3",
+      "trigger": "source-line-30",
+      "spoken_text": "Okay.",
+      "voice_direction": "Patient line from Warning Signs While Waiting. Text-only draft source; do not generate audio in this PR."
+    },
+    {
+      "file_name": "case-001-source-line-31.mp3",
+      "trigger": "source-line-31",
+      "spoken_text": "You are worried this could be my heart, and I need hospital urgently.",
+      "voice_direction": "Patient line from Check Understanding. Text-only draft source; do not generate audio in this PR."
+    }
+  ],
   "codex_audio_manifest": []
 }

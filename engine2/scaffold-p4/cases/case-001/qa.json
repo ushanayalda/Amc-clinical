@@ -9,7 +9,7 @@
       "review_date": null,
       "decision": "hold",
       "blockers": [
-        "No explicit clinical review evidence in this PR."
+        "Human clinical review not recorded."
       ]
     },
     "accessibility_review": {
@@ -18,7 +18,7 @@
       "review_date": null,
       "decision": "hold",
       "blockers": [
-        "No explicit accessibility review evidence in this PR."
+        "Accessibility review not recorded."
       ]
     },
     "renderer_review": {
@@ -27,7 +27,7 @@
       "review_date": null,
       "decision": "hold",
       "blockers": [
-        "Automated adapter preview test is not a human renderer release review."
+        "Internal adapter preview test passed, but public renderer release compatibility is not proven."
       ]
     }
   },
@@ -43,14 +43,24 @@
       "notes": "Automated test proves adapter internal preview only; public display, release, and audio remain blocked."
     },
     {
+      "check_id": "wave3-review-gate-report",
+      "status": "pass",
+      "notes": "review-gate-report.md records Wave 3 gate evidence and blockers."
+    },
+    {
+      "check_id": "source-basis-map",
+      "status": "hold",
+      "notes": "Source Basis Map is incomplete for high-risk release; source_status remains hold."
+    },
+    {
       "check_id": "clinical-review",
       "status": "hold",
-      "notes": "Clinical review not performed in this PR."
+      "notes": "Human clinical review is not recorded."
     },
     {
       "check_id": "accessibility-review",
       "status": "hold",
-      "notes": "Accessibility review not performed in this PR."
+      "notes": "Accessibility review is not recorded."
     },
     {
       "check_id": "audio-release",

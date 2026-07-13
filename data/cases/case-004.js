@@ -6,7 +6,7 @@
     id: "case-004",
     registryId: "CP-P1-C004",
     displayNumber: "Case 4",
-    title: "Severe breathlessness after a motorcycle collision",
+    title: "Breathlessness after a motorcycle collision",
     status: "exam_complete",
     statusLabel: "Exam case complete",
     reasoningAvailable: false,
@@ -16,7 +16,7 @@
     format: {
       readingTime: "2 minutes",
       assessmentTime: "8 minutes",
-      predominantArea: "Emergency medicine"
+      predominantArea: "Management/Counselling/Education"
     },
     note: "Original practice station aligned to the current AMC format. It is not an AMC examination station or official marking script.",
     stem: {

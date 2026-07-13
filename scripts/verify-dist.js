@@ -56,11 +56,11 @@ if (!failed) {
     "Chest discomfort after lunch",
     "Sudden chest and back pain",
     "Sharp chest discomfort after dinner",
-    "Severe breathlessness after a motorcycle collision",
+    "Breathlessness after a motorcycle collision",
     "Worsening breathlessness despite reliever use",
     "Sudden breathlessness and light-headedness",
     "Cough and worsening breathlessness over three days",
-    "Worsening breathlessness and drowsiness with COPD",
+    "Worsening breathlessness with COPD",
     "Sudden facial droop, arm weakness and speech difficulty",
     "Sudden slurred speech, weakness and confusion",
     "Headache, vomiting and weakness after a collapse",
@@ -69,7 +69,10 @@ if (!failed) {
     "Chills and tiredness after chemotherapy",
     "Lower abdominal and hip pain after an e-bike collision",
     "Breathlessness, nausea and marked fatigue",
-    "Neck pain and limb weakness after a diving injury"
+    "Neck pain and limb weakness after a diving injury",
+    "Dark vomit and black bowel motions",
+    "Vomiting blood twice in one evening",
+    "Repeated red bowel motions"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

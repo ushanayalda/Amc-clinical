@@ -17,7 +17,7 @@
     format: {
       readingTime: "2 minutes",
       assessmentTime: "8 minutes",
-      predominantArea: "General practice"
+      predominantArea: "History Taking"
     },
     note: "Original practice station aligned to the current AMC format. It is not an AMC examination station or official marking script.",
     stem: {

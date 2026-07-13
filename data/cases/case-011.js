@@ -17,7 +17,7 @@
     format: {
       readingTime: "2 minutes",
       assessmentTime: "8 minutes",
-      predominantArea: "Adult emergency medicine"
+      predominantArea: "Management/Counselling/Education"
     },
     note: "Original practice station aligned to the current AMC format. It is not an AMC examination station or official marking script.",
     stem: {
@@ -32,7 +32,7 @@
         },
         {
           id: "c011-stem-start",
-          text: "Leila is drowsy but opens her eyes when spoken to. Nadia is present. The examiner will provide findings and investigation results when requested."
+          text: "Nadia is present. The examiner will provide findings and investigation results when requested."
         }
       ],
       tasks: [

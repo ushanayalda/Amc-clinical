@@ -33,9 +33,10 @@ test("Case 1 remains the protected canonical four-view case", () => {
 
 test("cases without completed reasoning remain canonical exam-only sources", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
+  const examOnlyCases = cases.filter((item) => item.reasoningAvailable === false);
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
-  cases.slice(3).forEach((item) => {
-    assert.equal(item.reasoningAvailable, false, `${item.id} must remain exam-only in this branch`);
+  assert.ok(examOnlyCases.length > 0, "at least one canonical exam-only case is required");
+  examOnlyCases.forEach((item) => {
     assert.equal(item.reasoningCompass, undefined, `${item.id} contains a reasoning compass`);
     assert.equal(item.hints, undefined, `${item.id} contains Hints`);
     assert.equal(item.sources, undefined, `${item.id} contains learner-facing reasoning sources`);
@@ -47,13 +48,15 @@ test("cases without completed reasoning remain canonical exam-only sources", () 
 });
 
 test("case selection exposes completed reasoning and falls back for exam-only cases", () => {
+  const examOnlyCase = cases.find((item) => item.reasoningAvailable === false);
+  assert.ok(examOnlyCase, "an exam-only fallback case is required");
   assert.equal(viewModel.selectCase(cases, "case-002").id, "case-002");
   assert.equal(viewModel.selectCase(cases, "case-003").id, "case-003");
   assert.equal(viewModel.selectCase(cases, "missing-case"), null);
   assert.equal(viewModel.selectCase(cases, "").id, "case-001");
   assert.equal(viewModel.viewForCase(caseTwo, "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase(caseThree, "#reasoning-full-run").id, "reasoning-full-run");
-  assert.equal(viewModel.viewForCase(cases[3], "#reasoning-full-run").id, "exam-full-run");
+  assert.equal(viewModel.viewForCase(examOnlyCase, "#reasoning-full-run").id, "exam-full-run");
   assert.equal(viewModel.viewForCase(caseData, "#reasoning-full-run").id, "reasoning-full-run");
 });
 
@@ -125,7 +128,7 @@ test("Case 3 publishes the audited 41-Hint reasoning journey", () => {
   assert.equal(caseThree.reasoningAvailable, true);
   assert.equal(caseThree.status, "reasoning_complete");
   assert.equal(caseThree.statusLabel, "Exam and reasoning complete");
-  assert.equal(caseThree.format.predominantArea, "History taking");
+  assert.equal(caseThree.format.predominantArea, "History Taking");
   assert.equal(caseThree.reasoningCompass.stem.steps.length, 3);
   assert.equal(caseThree.reasoningCompass.run.steps.length, 3);
   assert.equal(caseThree.hints.length, 41);
@@ -238,8 +241,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("Case 3 publication metadata uses one cache-safe release marker", () => {
-  const releaseMarker = "case3-reasoning-v1";
+test("current publication metadata preserves Case 3 reasoning under one cache-safe release marker", () => {
+  const releaseMarker = "autonomous-exam-p6-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -249,13 +252,13 @@ test("Case 3 publication metadata uses one cache-safe release marker", () => {
   assert.match(indexSource, new RegExp(`name="x-build-id" content="${releaseMarker}"`));
   assert.match(indexSource, new RegExp(`window[.]__BUILD_ID__ = "${releaseMarker}"`));
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
-  assert.doesNotMatch(indexSource, /case2-reasoning-v1/);
+  assert.doesNotMatch(indexSource, /case3-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "case-003-reasoning-published");
+  assert.equal(version.checkpoint, "autonomous-exam-pattern-6-core-complete");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "case3-reasoning-v1" index[.]html/);
+  assert.match(workflow, /grep -q "autonomous-exam-p6-v1" index[.]html/);
   assert.match(readme, /Cases 1, 2 and 3 contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: case-003-reasoning-v1/);
+  assert.match(refresh, /Checkpoint: autonomous-exam-p6-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {
@@ -304,9 +307,74 @@ test("new case files contain complete station voices without learner-facing reas
       .trim()
       .split(/\s+/).length;
     assert.ok(audibleWords >= 750 && audibleWords <= 1300, `${item.id} is not realistic for an 8-minute run`);
-    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017"].includes(item.id)) {
+    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020"].includes(item.id)) {
       assert.ok(audibleWords <= 1050, `${item.id} is too dense for an 8-minute run`);
     }
+  });
+});
+
+test("case identifiers, task clocks and patient names remain internally consistent", () => {
+  const patternCounts = new Map();
+  const allowedAssessmentAreas = new Set([
+    "History Taking",
+    "Examination",
+    "Diagnostic Formulation",
+    "Management/Counselling/Education"
+  ]);
+
+  cases.forEach((item) => {
+    const caseNumber = Number.parseInt(item.id.replace("case-", ""), 10);
+    const paddedCaseNumber = String(caseNumber).padStart(3, "0");
+    const patternId = item.pattern?.id || 1;
+    if (!item.pattern) assert.equal(item.id, "case-001", `${item.id} is unexpectedly missing pattern metadata`);
+    const patternOrdinal = (patternCounts.get(patternId) || 0) + 1;
+    patternCounts.set(patternId, patternOrdinal);
+
+    assert.ok(
+      allowedAssessmentAreas.has(item.format.predominantArea),
+      `${item.id} has a non-AMC predominant assessment area`
+    );
+
+    assert.equal(item.displayNumber, `Case ${caseNumber}`, `${item.id} has an inconsistent display number`);
+    if (caseNumber >= 5) {
+      assert.equal(item.globalId, `CP-C${paddedCaseNumber}`, `${item.id} has an inconsistent global ID`);
+    }
+    if (caseNumber >= 2) {
+      assert.equal(
+        item.registryId,
+        `CP-P${patternId}-C${String(patternOrdinal).padStart(3, "0")}`,
+        `${item.id} has an inconsistent registry ID`
+      );
+    }
+
+    const taskMinutes = item.stem.tasks.reduce((total, task) => {
+      const match = task.timing.match(/^(\d+) minutes?$/);
+      assert.ok(match, `${item.id}/${task.id} has an invalid task timing`);
+      return total + Number.parseInt(match[1], 10);
+    }, 0);
+    assert.equal(taskMinutes, 8, `${item.id} task timings do not total eight minutes`);
+
+    const namespaces = {
+      stem: item.stem.lines.concat(item.stem.tasks).map((entry) => entry.id),
+      sections: item.run.sections.map((section) => section.id),
+      turns: item.run.sections.flatMap((section) => section.turns).map((turn) => turn.id),
+      lines: item.run.sections.flatMap((section) => section.turns).flatMap((turn) => turn.lines).map((line) => line.id)
+    };
+    Object.entries(namespaces).forEach(([namespace, ids]) => {
+      assert.ok(ids.every(Boolean), `${item.id} contains a missing ${namespace} ID`);
+      assert.equal(new Set(ids).size, ids.length, `${item.id} contains a duplicate ${namespace} ID`);
+    });
+
+    const stemText = item.stem.lines.map((line) => line.text).join(" ");
+    const name = stemText.match(/\b(?:Mr|Mrs|Ms) ([A-Za-z]+(?:-[A-Za-z]+)?) ([A-Za-z][A-Za-z'-]*)/);
+    assert.ok(name, `${item.id} has no identifiable patient surname in the stem`);
+    const runText = item.run.sections
+      .flatMap((section) => section.turns)
+      .flatMap((turn) => turn.lines)
+      .map((line) => line.text)
+      .join(" ");
+    assert.ok(runText.includes(name[1]), `${item.id} changes or omits the patient's first name in the Full Run`);
+    assert.ok(runText.includes(name[2]), `${item.id} changes or omits the patient's surname in the Full Run`);
   });
 });
 
@@ -667,12 +735,93 @@ test("Case 17 distinguishes neurogenic from spinal shock while continuing the tr
   assert.match(case17.clinicalSources.map((source) => source.url).join("\n"), /21925682231202348/);
 });
 
+test("Case 18 treats active ulcer bleeding from physiology and progresses through endoscopic source control", () => {
+  const case18 = cases.find((item) => item.id === "case-018");
+  assert.ok(case18, "Case 18 is missing");
+
+  const text = case18.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const nearNormalIndex = text.indexOf("first haemoglobin may remain near normal");
+  const deteriorationIndex = text.indexOf("blood pressure 82/48");
+  const mhpIndex = text.indexOf("Activate the local major-haemorrhage protocol");
+  const endoscopyIndex = text.indexOf("Endoscopy follows haemodynamic resuscitation");
+  const combinationIndex = text.indexOf("combined endoscopic haemostasis");
+  const rebleedIndex = text.indexOf("If she rebleeds, repeat endoscopy");
+  const embolisationIndex = text.indexOf("transcatheter arterial embolisation");
+
+  assert.ok(nearNormalIndex >= 0 && deteriorationIndex > nearNormalIndex, "Case 18 does not expose the initially reassuring haemoglobin trap");
+  assert.ok(mhpIndex > deteriorationIndex, "Case 18 does not escalate critical bleeding after deterioration");
+  assert.ok(endoscopyIndex > mhpIndex && combinationIndex > endoscopyIndex, "Case 18 does not resuscitate before combined endoscopic source control");
+  assert.ok(rebleedIndex > combinationIndex && embolisationIndex > rebleedIndex, "Case 18 does not escalate recurrent bleeding safely");
+  assert.match(text, /active bleeding is treated from physiology; I will not wait for haemoglobin to fall/);
+  assert.match(text, /Do not give tranexamic acid routinely/);
+  assert.match(text, /within 24 hours/);
+  assert.match(text, /Adrenaline injection must not be used alone/);
+  assert.match(text, /Helicobacter pylori/);
+  assert.match(case18.clinicalSources.map((source) => source.url).join("\n"), /2863-8314/);
+});
+
+test("Case 19 begins the variceal bundle before proof and protects a newly unsafe airway", () => {
+  const case19 = cases.find((item) => item.id === "case-019");
+  assert.ok(case19, "Case 19 is missing");
+
+  const text = case19.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const vasoactiveIndex = text.indexOf("Start terlipressin");
+  const ceftriaxoneIndex = text.indexOf("ceftriaxone now");
+  const deteriorationIndex = text.indexOf("no longer follows instructions consistently");
+  const airwayIndex = text.indexOf("airway is now unsafe");
+  const endoscopyResultIndex = text.indexOf("large oesophageal varices with active bleeding");
+  const bandIndex = text.indexOf("band ligation controls the bleeding");
+
+  assert.ok(vasoactiveIndex >= 0 && ceftriaxoneIndex > vasoactiveIndex, "Case 19 omits pre-endoscopy vasoactive or antibiotic treatment");
+  assert.ok(deteriorationIndex > ceftriaxoneIndex && airwayIndex > deteriorationIndex, "Case 19 does not select airway protection after deterioration");
+  assert.ok(endoscopyResultIndex > airwayIndex && bandIndex > endoscopyResultIndex, "Case 19 does not control confirmed oesophageal variceal bleeding with banding");
+  assert.match(text, /within 12 hours of presentation after haemodynamic resuscitation/);
+  assert.match(text, /Do not give fresh frozen plasma solely to correct the cirrhotic INR/);
+  assert.match(text, /aim for haemoglobin 70 to 90/);
+  assert.match(text, /pre-emptive TIPS within 72 hours, preferably within 24 hours/);
+  assert.match(text, /self-expanding metal stent.*balloon tamponade/);
+  assert.match(case19.clinicalSources.map((source) => source.url).join("\n"), /1939-4887/);
+});
+
+test("Case 20 localises ongoing major haematochezia with CTA before colonoscopy", () => {
+  const case20 = cases.find((item) => item.id === "case-020");
+  assert.ok(case20, "Case 20 is missing");
+
+  const text = case20.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const mhpIndex = text.indexOf("Activate the local major haemorrhage protocol");
+  const apixabanIndex = text.indexOf("Withhold apixaban");
+  const upperSourceIndex = text.indexOf("Brisk upper gastrointestinal bleeding can also present as red bowel motions");
+  const ctaIndex = text.indexOf("requires CT angiography before colonoscopy");
+  const embolisationIndex = text.indexOf("superselective embolisation");
+  const colonoscopyIndex = text.indexOf("After stabilisation, gastroenterology should perform a properly bowel-prepared colonoscopy");
+
+  assert.ok(mhpIndex >= 0 && apixabanIndex > mhpIndex, "Case 20 does not begin physiology-led critical bleeding management before anticoagulant reversal");
+  assert.ok(upperSourceIndex > apixabanIndex && ctaIndex > upperSourceIndex, "Case 20 assumes a lower source or sends the patient directly to colonoscopy");
+  assert.ok(embolisationIndex > ctaIndex && colonoscopyIndex > embolisationIndex, "Case 20 does not sequence embolisation before post-stabilisation colonoscopy");
+  assert.match(text, /specific factor Xa reversal agent or four-factor prothrombin complex concentrate/);
+  assert.match(text, /Do not use tranexamic acid routinely/);
+  assert.match(text, /operate only if endoscopic and radiological control fails/);
+  assert.match(case20.clinicalSources.map((source) => source.url).join("\n"), /1496-8969/);
+});
+
 test("every case keeps the station stem clinically neutral", () => {
   cases.forEach((item) => {
     const stemAndTasks = JSON.stringify(item.stem);
     assert.doesNotMatch(
       stemAndTasks,
-      /\burgent\b|\bimmediate\b|\bsame-day\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|oxygen saturation (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
+      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
       `${item.id} stem or tasks disclose the diagnosis or management priority`
     );
   });

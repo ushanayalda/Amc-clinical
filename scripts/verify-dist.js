@@ -59,7 +59,8 @@ if (!failed) {
     "Severe breathlessness after a motorcycle collision",
     "Worsening breathlessness despite reliever use",
     "Sudden breathlessness and light-headedness",
-    "Cough and worsening breathlessness over three days"
+    "Cough and worsening breathlessness over three days",
+    "Worsening breathlessness and drowsiness with COPD"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

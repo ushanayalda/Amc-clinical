@@ -254,6 +254,34 @@ test("Case 10 treats hypoglycaemia before deciding whether the deficit is a stro
   assert.match(text, /monitored hospital care/);
 });
 
+test("Case 11 confirms haemorrhage before reversal and protects a deteriorating airway", () => {
+  const case11 = cases.find((item) => item.id === "case-011");
+  assert.ok(case11, "Case 11 is missing");
+
+  const text = case11.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const glucoseIndex = text.indexOf("check capillary blood glucose now");
+  const imagingIndex = text.indexOf("Arrange non-contrast CT brain now");
+  const haemorrhageIndex = text.indexOf("scan confirms a left basal-ganglia intracerebral haemorrhage");
+  const reversalIndex = text.indexOf("give four-factor prothrombin complex concentrate");
+  const airwayIndex = text.indexOf("She can no longer protect her airway");
+  const repeatImagingIndex = text.indexOf("obtain repeat brain imaging");
+
+  assert.ok(glucoseIndex >= 0 && imagingIndex > glucoseIndex, "Case 11 omits glucose before the imaging pathway");
+  assert.ok(haemorrhageIndex > imagingIndex, "Case 11 labels haemorrhage before imaging");
+  assert.ok(reversalIndex > haemorrhageIndex, "Case 11 reverses warfarin before confirming haemorrhage");
+  assert.match(text, /Give no aspirin, anticoagulant or thrombolysis until imaging identifies the stroke type/);
+  assert.match(text, /Beriplex, 50 international units per kilogram/);
+  assert.match(text, /intravenous vitamin K 5 to 10 milligrams/);
+  assert.match(text, /repeat the INR in 20 minutes/);
+  assert.match(text, /systolic pressure of 130 to 140 mmHg within one hour/);
+  assert.ok(airwayIndex >= 0 && repeatImagingIndex > airwayIndex, "Case 11 does not reimage after neurological deterioration");
+  assert.match(text, /Routine removal of a deep basal-ganglia bleed is not automatically beneficial/);
+});
+
 test("autonomously generated cases keep the station stem clinically neutral", () => {
   cases
     .filter((item) => Number(item.id.slice(-3)) >= 2)

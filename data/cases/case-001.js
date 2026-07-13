@@ -1250,402 +1250,401 @@
       where: "Reading the stem",
       popUp: "GP clinic. Am I supposed to sort all of this out here?",
       say: [
-        "Not all of it. The setting tells you what you can safely do.",
-        "Here, you can spot danger, start simple safe treatment and arrange transfer. Serial blood tests and definitive heart treatment belong in hospital."
+        "In a GP clinic, I would assess him, recognise any immediate risk, begin treatment that is safe here and arrange transfer if needed.",
+        "A full cardiac work-up, including serial blood tests, needs to happen in hospital."
       ],
-      pause: "Do not diagnose from the setting. Use it to set your limits.",
-      recap: "Clinic means limited tools. If danger builds, the patient may need to leave early.",
-      reorient: "Now meet the person. Age changes the background risk."
+      pause: "This clinic cannot complete the whole assessment.",
+      recap: "The immediate job is to assess stability, identify serious causes and decide whether he needs hospital transfer.",
+      reorient: "Use his age and symptom to decide which causes need attention first."
     },
     "hint-age": {
       where: "Reading the stem",
       popUp: "Sixty, with chest discomfort. Is this already the heart?",
       say: [
-        "That makes the heart jump forward. Fair.",
-        "But age is only background risk. It tells you where to look first, not what the answer is. The symptom pattern still has to fit."
+        "At 60, I would consider a heart-related cause early.",
+        "Age makes coronary disease more likely, but age alone cannot explain today's discomfort. We still need the details of the symptom."
       ],
-      pause: "Heart near the front. No diagnosis yet.",
-      recap: "Heart and circulation lead for now. Lungs, aorta and gut stay open.",
-      reorient: "Keep reading. Why was this booked urgently, and what does he mean by discomfort?"
+      pause: "Consider the heart early, but do not decide yet.",
+      recap: "A heart-related cause needs early attention. I would also consider aortic dissection, pulmonary embolism, reflux and chest wall pain.",
+      reorient: "Clarify why the visit was urgent and what he means by chest discomfort."
     },
     "hint-urgent-booking": {
       where: "Reading the stem",
       popUp: "Urgent booking. Do I need to rush?",
       say: [
-        "Speed up the safety check, not your mouth.",
-        "Find out what changed today and whether he could be unstable. Then let each answer choose the next question."
+        "This was booked urgently, so I would first check whether he is unwell now.",
+        "If he is stable, I can continue the focused history in order and find out what changed today."
       ],
-      pause: "Urgent is about pace. It is not a diagnosis.",
-      recap: "We need a quick route to danger, without becoming scattered.",
-      reorient: "Now look closely at the words chest discomfort."
+      pause: "Check his current stability first. There is no need to rush the conversation.",
+      recap: "We know the problem changed today. We do not yet know the cause or whether he is stable.",
+      reorient: "Clarify exactly what he means by chest discomfort."
     },
     "hint-discomfort": {
       where: "Reading the stem",
       popUp: "He said discomfort, not pain. Is that less worrying?",
       say: [
-        "No. People may call heart symptoms pressure, heaviness, tightness, burning or even indigestion.",
-        "For now, put heart and circulation first. Keep the aorta and lungs beside it because they can also be dangerous. Gut and chest wall causes stay in the background."
+        "No. A heart-related symptom may be described as pressure, heaviness, tightness, burning or indigestion rather than pain.",
+        "I would also consider the aorta and lungs because those causes can be serious. Reflux and chest wall pain are possible, but less urgent."
       ],
-      pause: "You are choosing an order, not announcing an answer.",
-      recap: "Dangerous chest causes first. Common causes still open.",
-      reorient: "Now add the lunch clue. Do not let it wipe the board clean."
+      pause: "The word discomfort does not make this low risk.",
+      recap: "First consider serious cardiac, aortic and pulmonary causes. Reflux and chest wall pain can be assessed as the history develops.",
+      reorient: "Decide how much the timing after lunch changes those possibilities."
     },
     "hint-after-lunch": {
       where: "Reading the stem",
       popUp: "Ah, lunch. Reflux?",
       say: [
-        "Possibly. Put reflux on the map.",
-        "But after lunch only tells you when it happened. It does not tell you why. The activity, feeling, duration, spread and body-warning symptoms will decide how much the meal matters."
+        "Reflux is possible because the symptom followed a meal.",
+        "Meal timing alone cannot distinguish reflux from a cardiac cause. I would still ask about activity, the exact sensation, duration, radiation and associated symptoms."
       ],
-      pause: "Add reflux. Do not replace the safety map with reflux.",
-      recap: "Heart, aorta and lungs remain open. Digestion has joined them.",
-      reorient: "The tasks now tell you how to sort these possibilities."
+      pause: "Ask about reflux, but continue checking for serious cardiac, aortic and pulmonary causes.",
+      recap: "I am considering a heart-related cause, aortic dissection, pulmonary embolism, reflux and chest wall pain.",
+      reorient: "Read the tasks and decide what the examiner wants you to do with these possibilities."
     },
     "hint-missing-start-data": {
       where: "Reading the stem",
       popUp: "No observations or tests. Do I assume he looks okay?",
       say: [
-        "No. Missing means unknown.",
-        "Do not invent normal observations, and do not imagine collapse. Carry the gap into your opening safety check."
+        "No. We have not been given his observations, so his current stability is unknown.",
+        "I cannot judge his stability until I see him and check his observations."
       ],
-      pause: "Unknown is allowed. Invented information is not.",
-      recap: "We have a concerning story, but we do not know his current stability.",
-      reorient: "Lock the tasks before the station starts."
+      pause: "Do not add findings that are not in the stem.",
+      recap: "The symptom may be serious, and his current observations are not yet known.",
+      reorient: "Identify the exact tasks before the station begins."
     },
     "hint-focused-history": {
-      where: "Locking the tasks",
+      where: "Reading task 1: focused history",
       popUp: "Focused history. Where do I start, and what can I leave out?",
       say: [
-        "Do not run a full medical checklist.",
-        "Open the story. Shape the symptom. Check immediate dangers. Then ask about risks and medicine safety. If an answer changes nothing, it probably does not belong here."
+        "Start by letting him describe what happened. Then clarify onset, activity, sensation, site, radiation, duration and associated symptoms.",
+        "Ask directly about sudden severe pain to the back, pleuritic pain, sudden breathlessness and clot risk. Then check coronary risk factors, medicines and whether aspirin or GTN could be unsafe."
       ],
-      logic: ["Open story", "Shape the symptom", "Check danger", "Risks and medicine safety"],
-      pause: "Focused means decision-led, not rushed.",
-      recap: "Task one is to build and test the chest-discomfort story.",
-      reorient: "During the run, ask: what question changes my map most?",
-      clock: "0 to 4 minutes. If danger appears, act, then come back to the history."
+      logic: ["Patient's account", "Symptom details", "Dangerous alternatives", "Risks and treatment safety"],
+      pause: "Keep the questions that help you judge the cause, the urgency or treatment safety.",
+      recap: "Task one is a focused chest-discomfort history, not a complete medical history.",
+      reorient: "During the consultation, choose the next question from the answer you have just heard.",
+      clock: "Use about 4 minutes. If he appears unstable, call for help and then return to the unfinished history."
     },
     "hint-most-likely": {
-      where: "Locking the tasks",
+      where: "Reading task 2: explain the diagnosis",
       popUp: "Do they want one diagnosis or a whole list?",
       say: [
-        "One lead. Say why it fits this person.",
-        "Then add the few alternatives that are dangerous or genuinely plausible. For each one, say what makes it more or less likely."
+        "Give one most likely diagnosis and explain which findings support it.",
+        "Then discuss the important alternatives. For each one, mention the finding that makes it more or less likely here."
       ],
-      pause: "Provisional does not mean vague. It means you can update.",
-      recap: "Task two is one lead, your reason, then a short ranked differential.",
-      reorient: "Keep this separate from the treatment plan.",
-      clock: "4 to 6 minutes. Explain; do not unload a memorised list."
+      pause: "You may not know the exact subtype yet. Still say clearly what you think is happening.",
+      recap: "Task two is the most likely diagnosis, the supporting evidence and a short relevant differential.",
+      reorient: "Finish the diagnostic explanation before moving to management.",
+      clock: "Use about 2 minutes, from minute 4 to minute 6."
     },
     "hint-concerns": {
-      where: "Locking the tasks",
+      where: "Reading task 3: concerns and management",
       popUp: "Concerns and management are together. Easy to forget one.",
       say: [
-        "Mentally circle both.",
-        "First answer why he thinks it is indigestion. Then explain why that idea is not safe enough yet. After that, give the plan."
+        "There are two parts here. First respond to his concern about indigestion. Then explain the management plan.",
+        "Acknowledge why indigestion occurred to him, then explain why the history still requires urgent assessment."
       ],
-      pause: "Concern first. Plan second. Do not bury the concern inside a lecture.",
-      recap: "Task three has two jobs: answer him, then manage him.",
-      reorient: "End by checking what he understood.",
-      clock: "6 to 8 minutes. Concern, plan, understanding."
+      pause: "Answer his concern before giving the plan.",
+      recap: "Task three requires both a response to his concern and immediate management.",
+      reorient: "After explaining the plan, check what he has understood.",
+      clock: "Use the final 2 minutes for his concern, management and understanding."
     },
     "hint-immediate-management": {
-      where: "Locking the tasks",
+      where: "Reading task 3: immediate management",
       popUp: "Is saying ambulance enough for management?",
       say: [
-        "No. Ambulance is one decision.",
-        "Management also means what you do now, what you watch while waiting, which treatments are safe, how he travels, and what the next team needs to know."
+        "No. Transfer is only one part of the plan.",
+        "Include what you would do immediately, what you would monitor while waiting, which treatments are appropriate, how he should travel and what you would hand over."
       ],
-      pause: "Think now, while waiting, transfer, hospital.",
-      recap: "Your task map is history, explain, then concern plus management.",
-      reorient: "If you drift during the run, return to the next unfinished verb.",
-      clock: "History 0 to 4. Explain 4 to 6. Concern and management 6 to 8."
+      pause: "State what you will do in the clinic, while waiting for the ambulance and during handover.",
+      recap: "The station order is: focused history, diagnostic explanation, patient concern, then management.",
+      reorient: "If you lose your place, return to the next part of the task that you have not completed.",
+      clock: "History to minute 4. Explanation to minute 6. Concern and management to minute 8."
     },
     "hint-opening-story": {
-      where: "Building the story",
-      popUp: "Lunch and walking happened together. Which one wins?",
+      where: "Clarifying what triggered the symptom",
+      popUp: "Did walking cause it, or was it the meal?",
       say: [
-        "Neither wins from timing alone.",
-        "Walking makes the heart work harder. If blood flow cannot rise with the demand, symptoms may appear. Lunch still supports reflux, but it no longer owns the story."
+        "The timing alone cannot decide the cause.",
+        "Walking makes the heart work harder. If a coronary artery is narrowed, blood flow may not increase enough and discomfort can begin. Eating makes reflux possible, so I would clarify the other features before deciding."
       ],
-      logic: ["Walking", "Heart works harder", "Blood flow may not keep up", "Pressure appears"],
-      pause: "Keep both ideas, then weight them.",
-      recap: "The heart explanation has gained weight. Reflux is still open.",
-      reorient: "Ask whether the pressure is still there."
+      logic: ["Walking", "Heart works harder", "Blood flow may not keep up", "Symptoms may begin"],
+      pause: "Exertion supports a heart cause. The meal supports reflux. Neither finding is diagnostic by itself.",
+      recap: "A heart cause is more concerning because the symptom began with exertion. Reflux remains possible.",
+      reorient: "Ask whether the pressure is still present and how long it has lasted."
     },
     "hint-heavy-pressure": {
-      where: "Building the story",
-      popUp: "Heavy pressure sounds cardiac. Can I lock it now?",
+      where: "Interpreting heavy pressure",
+      popUp: "Heavy pressure sounds cardiac. Is that enough to decide?",
       say: [
-        "Not from one word.",
-        "Broad pressure fits pain coming from a deep organ. Sharp pain with breathing points more toward pleura. Pain that is instantly severe and tears to the back raises the aorta. These are clues, not passwords."
+        "Heavy pressure supports a heart-related cause, but it is not enough to diagnose one.",
+        "Sharp pain that worsens with breathing suggests pleural irritation. Pain that is severe from the start and radiates to the back raises concern about the aorta."
       ],
-      pause: "Let the words guide you. Do not let one word decide for you.",
-      recap: "Pressure supports the heart lane, but the map is still open.",
-      reorient: "Now add site, spread, associated symptoms and time."
+      pause: "Heavy pressure matters more when it occurs with exertion, radiation, sweating or nausea.",
+      recap: "Heavy pressure makes cardiac ischaemia more likely. Dissection, pulmonary embolism, reflux and chest wall pain still need to be checked.",
+      reorient: "Clarify the site, radiation, duration and associated symptoms."
     },
     "hint-ongoing": {
-      where: "Safety interrupts the history",
+      where: "Responding to ongoing discomfort",
       popUp: "It is still there. Must I finish the history before I act?",
       say: [
-        "No. This is the point where safety can interrupt the task order.",
-        "Call for help, then continue the short history while help is coming. You do not need a finished label before protecting him."
+        "No. Persistent high-risk chest discomfort requires action before the history is complete.",
+        "Call for help and arrange urgent transfer. While help is coming, continue only the history that affects immediate risk or treatment."
       ],
-      pause: "Act, then return. Do not abandon the rest of the task.",
-      recap: "The danger threshold may be crossed before the diagnosis is complete.",
-      reorient: "Keep only questions that change danger, alternatives or treatment safety.",
-      clock: "You are still in the history lane. Safety briefly came first."
+      pause: "Arrange help now, then return to the focused history.",
+      recap: "The diagnosis is not complete, but waiting to finish the history could be unsafe.",
+      reorient: "Ask the remaining questions about immediate risk, dangerous alternatives and treatment contraindications.",
+      clock: "The history task continues while help is on the way."
     },
     "hint-radiation": {
-      where: "Linking anatomy to the story",
+      where: "Understanding arm and jaw radiation",
       popUp: "Why the left arm and jaw? Why do PE and dissection usually feel different?",
       say: [
-        "The heart sends danger signals into nerve pathways that also receive signals from the chest, arm, neck and jaw. The brain can guess the wrong starting place, so heart pain is felt somewhere else.",
-        "PE often irritates the lung lining, so the pain is sharper and worse with breathing. Dissection pain comes from the aortic wall and often shoots to the back. Both can vary, so this is weighting, not a rule."
+        "Heart and arm pain signals enter overlapping areas of the spinal cord. The brain may therefore feel cardiac pain in the arm. Connections higher in the nervous system help explain pain felt in the neck or jaw.",
+        "A pulmonary embolus often causes pleural irritation, so the pain may be sharp and worse on breathing. Aortic dissection causes pain from the aortic wall and often radiates to the back. These are usual patterns, not absolute rules."
       ],
-      logic: ["Heart alarm", "Shared nerve pathway", "Brain feels arm, neck or jaw"],
-      pause: "Left arm is common. It is not required.",
-      recap: "This spread strengthens the heart pattern. It does not prove it.",
-      reorient: "Now listen for the body's alarm symptoms: sweat, nausea, breathlessness."
+      logic: ["Heart pain signal", "Shared spinal entry", "Pain felt in the arm, neck or jaw"],
+      pause: "Arm or jaw radiation supports a heart cause, but its absence would not exclude one.",
+      recap: "His radiation makes a heart-related cause more likely. The rest of the history still matters.",
+      reorient: "Ask about sweating, nausea and breathlessness."
     },
     "hint-autonomic": {
-      where: "Linking the body's alarm system",
+      where: "Explaining sweating and nausea",
       popUp: "Why sweaty and sick? Inferior wall because it sits near the diaphragm?",
       say: [
-        "You are linking the right systems, but do not turn it into that shortcut.",
-        "When heart muscle is short of blood, chemical danger signals trigger the autonomic system. The sympathetic side helps produce the pale, clammy sweat. Vagal and brainstem pathways can bring nausea or vomiting.",
-        "Nausea is often taught with inferior infarction, but it also happens with other infarct locations. It cannot tell you which wall is involved, and it is not simply the heart touching the diaphragm."
+        "When heart muscle is short of blood, it releases chemicals that activate autonomic pathways. Sympathetic activation contributes to pallor and sweating. Vagal and brainstem pathways contribute to nausea and vomiting.",
+        "Nausea is associated with inferior infarction, but it also occurs with infarction in other locations. It cannot identify which wall is affected, and it is not explained simply by the heart lying near the diaphragm."
       ],
-      logic: ["Low heart-muscle blood flow", "Chemical alarm", "Autonomic response", "Sweat and nausea"],
-      pause: "Use nausea to raise concern, not to name the wall.",
-      recap: "Pressure, exertion, spread, sweat and nausea now fit one connected heart pattern.",
-      reorient: "Check how the pattern changed over the last few days."
+      logic: ["Reduced heart-muscle blood flow", "Chemical signals", "Autonomic response", "Sweating and nausea"],
+      pause: "Nausea supports cardiac ischaemia, but it cannot tell you which wall is affected.",
+      recap: "Exertional pressure with arm and jaw radiation, sweating and nausea supports reduced blood flow to the heart.",
+      reorient: "Ask whether the episodes have changed over the last few days."
     },
     "hint-crescendo": {
-      where: "Following the timeline",
+      where: "Comparing earlier and current episodes",
       popUp: "The earlier episodes went away. Is that reassuring?",
       say: [
-        "Not when the pattern is getting worse.",
-        "He first had brief pressure with rushing. Now the pressure is longer and has not settled. The change matters more than the earlier relief."
+        "Not in this history.",
+        "Earlier episodes were brief and occurred with exertion. Today's episode is longer and has not settled. That progression increases the concern."
       ],
       logic: ["Brief episodes", "Now longer", "Now persistent"],
-      pause: "Do not reset the story each time pain stops.",
-      recap: "This looks like one evolving process, not three separate events.",
-      reorient: "Now test the dangerous alternatives before treatment."
+      pause: "Compare today's episode with the earlier episodes.",
+      recap: "The episodes are becoming more prolonged and now persist at rest. This is concerning for worsening myocardial ischaemia.",
+      reorient: "Ask directly about aortic dissection, pulmonary embolism and pneumothorax before giving treatment."
     },
     "hint-dissection-question": {
-      where: "Testing a dangerous alternative",
+      where: "Checking for aortic dissection",
       popUp: "Why ask whether it was instantly severe and went to the back?",
       say: [
-        "Because that pattern would push aortic dissection upward.",
-        "That matters before aspirin. If the aorta is tearing and bleeding, an anti-platelet medicine could make things worse."
+        "Pain that is severe from the start and radiates to the back would increase concern about aortic dissection.",
+        "That question matters before aspirin because antiplatelet treatment could worsen bleeding if dissection is present."
       ],
-      pause: "This question changes both diagnosis and treatment safety.",
-      recap: "Dissection stays open, but this gradual pressure pattern makes it less convincing.",
-      reorient: "Now test lung clot and pneumothorax just as directly."
+      pause: "The answer changes how likely dissection is and whether aspirin is safe.",
+      recap: "Aortic dissection is less likely because the pressure developed gradually and did not radiate to the back.",
+      reorient: "Ask about pleuritic pain, sudden breathlessness, clot risk and features of pneumothorax."
     },
     "hint-risk-factors": {
-      where: "Adding background risk",
+      where: "Checking coronary risk factors",
       popUp: "High blood pressure and cholesterol. Does that confirm the heart?",
       say: [
-        "No. They make coronary disease more likely in the background.",
-        "Today's symptom pattern creates the urgency. Risk factors only strengthen or weaken that pattern. A person can still have a dangerous heart event without them."
+        "No. Hypertension and high cholesterol increase the likelihood of coronary disease, but they do not diagnose today's problem.",
+        "The character and progression of today's symptoms determine the immediate concern. A serious cardiac event can also occur without recognised risk factors."
       ],
-      pause: "Risk factors support. They do not diagnose.",
-      recap: "The heart pattern was already strong. The background now supports it further.",
-      reorient: "Move to medicines, aspirin safety and nitrate safety."
+      pause: "Risk factors make coronary disease more likely, but today's symptoms determine the urgency.",
+      recap: "His age, hypertension and high cholesterol make coronary disease more likely in this presentation.",
+      reorient: "Check his medicines and contraindications to aspirin and nitrates."
     },
     "hint-antacid": {
-      where: "Avoiding a treatment shortcut",
+      where: "Interpreting the antacid response",
       popUp: "The antacid did nothing. Does that prove it is the heart?",
       say: [
         "No. Antacid failure does not prove a heart cause. Relief would not safely exclude one either.",
-        "Treatment response only helps diagnosis when it clearly separates causes. This one does not."
+        "Response to an antacid does not reliably distinguish reflux from cardiac ischaemia."
       ],
-      pause: "Do not let a tablet become a diagnostic test.",
-      recap: "The whole pattern still carries the decision, not the antacid response.",
-      reorient: "Finish medicine safety, then move when the examiner gives the time cue."
+      pause: "Do not use the antacid response to confirm or exclude a cardiac cause.",
+      recap: "The diagnosis still depends on the full history, examination, ECG and troponin results.",
+      reorient: "Complete the medicine-safety questions, then move to the explanation when prompted."
     },
     "hint-escalation": {
-      where: "Acting before certainty",
+      where: "Deciding on ambulance transfer",
       popUp: "I have not finished. Will calling the ambulance look premature?",
       say: [
-        "No. Ask a different question: could waiting cause more harm than transfer? Here, yes.",
-        "Ongoing pressure with spread and autonomic symptoms is enough to protect him now. You can continue reasoning while the ambulance is coming."
+        "No. The diagnosis is not confirmed, but keeping him in the clinic while you complete the assessment could be unsafe.",
+        "Ongoing pressure with radiation, sweating and nausea is enough to arrange monitored ambulance transfer now. Continue the essential history while waiting."
       ],
-      pause: "Uncertain diagnosis. Clear safe action.",
-      recap: "The final label is open, but the clinic is no longer the right place to keep him.",
-      reorient: "Return to the unfinished history questions.",
-      clock: "Safety interruption done. Re-enter the history lane."
+      pause: "You can act before the exact diagnosis is known.",
+      recap: "He requires urgent monitored transfer because a serious cardiac cause is likely and symptoms are ongoing.",
+      reorient: "While waiting, complete only the history questions that affect immediate care.",
+      clock: "Transfer has been arranged. Continue the remaining focused history."
     },
     "hint-time-prompt": {
-      where: "Changing task lanes",
-      popUp: "Four minutes. My mind just went blank. What now?",
+      where: "Moving to the diagnosis explanation",
+      popUp: "Four minutes. I still have history questions. What now?",
       say: [
-        "Do not replay the history or search for the question you missed.",
-        "Breathe out once. Find the next task verb: explain. Start with one clean line: 'My leading diagnosis is… because…'"
+        "History time has ended. Leave any missed question and start the explanation now.",
+        "Begin with: 'My most likely diagnosis is…' Then state the findings that support it and the important alternatives."
       ],
-      pause: "The old lane is closed enough. Move.",
-      recap: "You already have the pattern needed for an explanation.",
-      reorient: "One lead, why it fits, then the important alternatives.",
+      pause: "Stop taking the history and change tasks.",
+      recap: "You have enough information to explain the most likely diagnosis.",
+      reorient: "State the diagnosis, why it fits, then the important alternatives.",
       clock: "4 minutes. History stops. Explanation starts."
     },
     "hint-observations": {
-      where: "Using the examination properly",
+      where: "Choosing the focused examination",
       popUp: "Why not do a complete examination?",
       say: [
-        "Because each examination item needs a job.",
-        "Airway, breathing, circulation and perfusion tell you whether he is unstable. Heart, lungs, both-arm pressure and calves help you check complications and the dangerous alternatives."
+        "Because the examination should answer the immediate questions in this presentation.",
+        "Assess airway, breathing, circulation and perfusion. Look for heart failure, unequal arm pressures, unequal air entry and signs of deep-vein thrombosis."
       ],
-      pause: "Do not examine by habit. Examine to answer a question.",
-      recap: "We need stability, complications and clues that could reorder the map.",
-      reorient: "Now interpret the results without letting normal numbers erase the story."
+      pause: "Choose findings that assess stability, complications and the dangerous alternatives.",
+      recap: "Check for shock, hypoxaemia, heart failure, aortic dissection, pneumothorax and venous thrombosis.",
+      reorient: "Interpret the observations together with the history."
     },
     "hint-stable-findings": {
-      where: "Reading normal observations",
+      where: "Interpreting stable observations",
       popUp: "Blood pressure and oxygen are okay. Can I relax now?",
       say: [
-        "You can say he is stable right now. You cannot say he is safe.",
-        "Normal observations do not explain away 35 minutes of high-risk symptoms. They help you choose treatment safely while transfer continues."
+        "His observations are stable at present, but the ongoing high-risk symptoms still require urgent assessment.",
+        "Normal observations do not exclude a serious cause of 35 minutes of ongoing symptoms. They help you choose treatment safely while transfer continues."
       ],
-      pause: "Stable now is not the same as low risk.",
-      recap: "No shock, severe hypoxaemia or obvious heart failure. The urgent heart concern remains.",
+      pause: "His current observations are stable, but the history remains high risk.",
+      recap: "There is no shock, severe hypoxaemia or obvious heart failure. Acute coronary syndrome remains the main concern.",
       reorient: "Move to the working diagnosis and explain the uncertainty."
     },
     "hint-provisional-diagnosis": {
-      where: "Naming the working diagnosis",
+      where: "Stating the working diagnosis",
       popUp: "Do I call this a heart attack, unstable angina or something else?",
       say: [
-        "Use the family you can support now: acute coronary syndrome.",
-        "It means a sudden problem with blood flow to heart muscle. The ECG and serial troponins are still needed to define the type."
+        "The current working diagnosis is acute coronary syndrome.",
+        "This means a sudden reduction in blood flow to heart muscle. The ECG and serial troponins are needed to determine whether this is unstable angina, NSTEMI or STEMI."
       ],
-      pause: "Be clear about what you know and what is still open.",
-      recap: "The action is firm. The exact subtype is not yet known.",
-      reorient: "Explain why this leads, then compare the dangerous alternatives."
+      pause: "State the working diagnosis and the remaining uncertainty separately.",
+      recap: "Acute coronary syndrome is most likely. The exact subtype is not yet known.",
+      reorient: "Explain which findings support acute coronary syndrome, then discuss the dangerous alternatives."
     },
     "hint-dangerous-alternatives": {
-      where: "Keeping the differential useful",
+      where: "Discussing important alternatives",
       popUp: "How many differentials should I say? I can think of ten.",
       say: [
-        "Do not empty the whole list.",
-        "Choose what is dangerous or genuinely fits. Aorta: sudden maximal pain or unequal findings. PE: pleuritic pain, sudden breathlessness or clot risk. Pneumothorax: sudden pleuritic pain and unequal air entry."
+        "Mention only the alternatives that are dangerous or reasonably likely here.",
+        "For dissection, mention the onset, back radiation and arm findings. For pulmonary embolism, mention pleuritic pain, sudden breathlessness and clot risk. For pneumothorax, mention sudden pleuritic pain and unequal air entry."
       ],
-      pause: "A differential is a comparison, not a memory display.",
-      recap: "These remain important, but the current evidence gives them less weight.",
-      reorient: "Mention reflux and chest wall pain after showing that danger came first."
+      pause: "For each alternative, state the finding that supports or argues against it.",
+      recap: "Dissection, pulmonary embolism and pneumothorax are less likely from the current history and findings.",
+      reorient: "Then mention reflux and chest wall pain as less dangerous alternatives."
     },
     "hint-indigestion-concern": {
-      where: "Answering the patient's concern",
+      where: "Responding to his indigestion concern",
       popUp: "If I say his indigestion idea makes sense, am I agreeing with it?",
       say: [
-        "No. You are agreeing that his reasoning is understandable.",
-        "Then you show the missing piece: heart symptoms can feel like indigestion, and the meal timing cannot make this pattern safe."
+        "No. You can acknowledge that symptoms after lunch may suggest indigestion.",
+        "Then explain that heart symptoms can also feel like indigestion. Exertional pressure with radiation, sweating and nausea means a heart cause cannot safely be dismissed."
       ],
-      pause: "Validate how he got there. Do not validate the diagnosis.",
-      recap: "His concern has been heard, but the safety threshold stays firm.",
+      pause: "Tell him you understand why the meal suggested indigestion, then explain the findings that concern you.",
+      recap: "Indigestion is possible, but the current features require urgent cardiac assessment.",
       reorient: "Explain why monitored ambulance transfer is safer than his wife driving."
     },
     "hint-ecg": {
-      where: "Placing the ECG in the pathway",
+      where: "Using the ECG without delaying transfer",
       popUp: "Should I wait for the ECG? What if the first one is normal?",
       say: [
         "Call the ambulance first. Get the ECG within 10 minutes if it is ready and causes no delay.",
-        "A normal first ECG cannot close the case. Some serious coronary events have no early ECG change."
+        "A normal first ECG does not exclude acute coronary syndrome. Some serious coronary events have no change on the initial ECG."
       ],
-      pause: "The ECG updates the map. It does not control whether you protect him.",
-      recap: "Transfer is moving. The ECG can now add information safely.",
-      reorient: "Read what the ST depression adds without overnaming it."
+      pause: "Arrange transfer first. Obtain the ECG only if it does not cause delay.",
+      recap: "The ECG may support the diagnosis, but a normal result would not make hospital assessment unnecessary.",
+      reorient: "Interpret what the ST depression adds and what remains unknown."
     },
     "hint-ecg-result": {
       where: "Updating with new evidence",
       popUp: "ST depression. Is NSTEMI now confirmed?",
       say: [
-        "No. It tells you that heart-muscle ischaemia is more likely.",
-        "Troponin is still needed to separate NSTEMI from unstable angina. The ECG has raised concern; it has not finished the diagnosis."
+        "No. ST depression supports myocardial ischaemia.",
+        "Troponin is still needed to distinguish NSTEMI from unstable angina. The ECG supports acute coronary syndrome but does not determine the subtype."
       ],
-      pause: "Update strongly. Do not overstate.",
-      recap: "The heart lane is now strongly supported. The subtype remains open.",
-      reorient: "Monitor continuously and move through safe initial treatment."
+      pause: "Use the ECG as supporting evidence. Do not call this NSTEMI without troponin evidence.",
+      recap: "Acute coronary syndrome is now more likely. NSTEMI and unstable angina still need to be distinguished.",
+      reorient: "Continue monitoring and begin appropriate initial treatment."
     },
     "hint-aspirin": {
-      where: "Connecting treatment to the problem",
+      where: "Deciding whether to give aspirin",
       popUp: "Why aspirin now? Why did I check bleeding and dissection first?",
       say: [
-        "If a coronary plaque breaks, platelets gather and help build a clot. Aspirin slows that platelet process.",
-        "That same effect can worsen bleeding. So aspirin is useful when this coronary pattern leads and no contraindication or strong dissection concern is present."
+        "Aspirin reduces platelet clotting after a coronary plaque ruptures.",
+        "Because it also increases bleeding, check for allergy, active bleeding and significant concern about aortic dissection first."
       ],
       logic: ["Plaque breaks", "Platelets gather", "Clot grows", "Aspirin slows platelets"],
-      pause: "Useful treatment still needs a safety check.",
-      recap: "The pattern supports aspirin, and the main contraindications were checked.",
+      pause: "Confirm that aspirin is appropriate before giving it.",
+      recap: "The history and ECG support acute coronary syndrome, and the main aspirin contraindications have been checked.",
       reorient: "Give 300 mg chewed or dissolved and record the time."
     },
     "hint-oxygen": {
-      where: "Dropping an old ritual",
+      where: "Deciding whether oxygen is needed",
       popUp: "Chest pain and breathlessness. Oxygen, right?",
       say: [
-        "Only if he needs oxygen.",
-        "His saturation is 96%. Routine oxygen will not treat the cause and may do harm when oxygen levels are already adequate."
+        "His oxygen saturation is 96%, so supplemental oxygen is not indicated now.",
+        "Routine oxygen does not treat the coronary problem and may be harmful when oxygenation is already adequate."
       ],
-      pause: "Treat the oxygen level, not the word chest pain.",
-      recap: "No oxygen now. Keep watching the saturation and the patient.",
+      pause: "Continue monitoring without giving oxygen at present.",
+      recap: "Oxygen is not required while his saturation remains adequate.",
       reorient: "If saturation falls, shock appears or heart failure develops, reassess."
     },
     "hint-gtn": {
-      where: "Treating pain safely",
+      where: "Deciding whether to give GTN",
       popUp: "If GTN relieves the pain, does that prove it is cardiac?",
       say: [
-        "No. GTN reduces the load on the heart and may ease the pain, but other pain can improve too.",
+        "No. GTN widens blood vessels and reduces the work the heart has to do. It may relieve cardiac pain, but the response does not confirm the diagnosis.",
         "Before giving it, check blood pressure, possible right-ventricular involvement and recent sildenafil, tadalafil or vardenafil."
       ],
-      pause: "Use GTN for comfort, not as a diagnostic test.",
-      recap: "It is safe to consider here because the key contraindications were checked.",
-      reorient: "Keep the transfer moving even if the pain settles."
+      pause: "GTN may be used for pain relief, but its effect does not confirm the diagnosis.",
+      recap: "His blood pressure and the contraindication checks allow GTN to be considered.",
+      reorient: "Pain relief must not delay ambulance transfer."
     },
     "hint-troponin": {
-      where: "Respecting an evolving test",
+      where: "Understanding an early troponin result",
       popUp: "Can one clinic troponin settle this and avoid hospital?",
       say: [
         "No. Troponin rises over time after heart-muscle injury.",
-        "An early result may still be normal. Safe rule-out uses repeat measurements at the right intervals, together with the history and ECG."
+        "An early result may still be normal. One early result is not enough. Repeat troponin at the correct interval and interpret it with the history and ECG."
       ],
       logic: ["Symptoms begin", "Troponin may still be low", "Repeat tests show the change"],
-      pause: "One early number can create false reassurance.",
+      pause: "A normal early troponin does not exclude myocardial infarction.",
       recap: "He still needs hospital assessment even if a clinic result is normal.",
       reorient: "Explain why time and repeat testing matter."
     },
     "hint-teach-back": {
-      where: "Checking the explanation",
+      where: "Checking his understanding",
       popUp: "I already explained it. Why ask him to repeat it?",
       say: [
-        "Because fear can scramble even a clear explanation.",
-        "Teach-back checks whether your explanation worked. It is not a test of the patient. If he misses something, fix that one point."
+        "Because hearing an explanation does not always mean it was understood, especially during an urgent consultation.",
+        "Ask him to explain what he understands about the concern and the need for ambulance transfer. Clarify anything he has misunderstood."
       ],
-      pause: "Do not ask, 'Do you understand?'. Check what actually landed.",
+      pause: "Use teach-back rather than asking only, 'Do you understand?'",
       recap: "He needs to understand the concern, the uncertainty and why ambulance transfer matters.",
-      reorient: "Correct one gap, then hand over."
+      reorient: "Clarify any misunderstanding, then prepare the handover."
     },
     "hint-handover": {
-      where: "Passing the map forward",
+      where: "Giving the ambulance handover",
       popUp: "Time is nearly over. What must go into the handover?",
       say: [
-        "Tell the next team the story that controls risk.",
-        "Who he is. When it started. What is still happening. Key positives and negatives. Observations. ECG and time. Treatments, contraindications and any change."
+        "Tell the paramedics his age, when the symptoms began, how they have changed and what is happening now.",
+        "Include the important positive and negative findings, observations, ECG and its time, treatments given, contraindications and any change in his condition."
       ],
-      pause: "Do not hand over a data dump. Hand over the reasoning chain.",
+      pause: "Include the information that affects urgency and immediate care.",
       recap: "They need to know why you are worried, what you found and what you already did.",
       reorient: "Finish with his current state and what still needs to happen."
     },
     "hint-finish": {
-      where: "Between stations",
-      popUp: "It is over, but I am replaying everything I missed.",
+      where: "Moving to the next station",
+      popUp: "The station is over. Should I review what I missed?",
       say: [
-        "Stop with the station. Do not use the next reading time to mark yourself.",
-        "One slow breath out. Let this case go. The next person may have the same age or symptom and a completely different problem."
+        "Once the station ends, you cannot change it.",
+        "Use the next reading time for the next stem. A similar age or symptom may belong to a completely different clinical problem."
       ],
-      pause: "Old case closed.",
-      recap: "You acted safely and completed the task lanes. Nothing more can be added now.",
-      reorient: "New station: role, setting, story, task verbs.",
-      clock: "Use the changeover to release, not replay."
+      pause: "Leave this station here.",
+      recap: "Read the next case as a new clinical problem.",
+      reorient: "Identify your role, the setting, the presenting problem and the tasks.",
+      clock: "Use the changeover for the next stem."
     }
   };
 

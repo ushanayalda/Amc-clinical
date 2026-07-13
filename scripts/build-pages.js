@@ -57,13 +57,13 @@ function fingerprint(relativePath) {
 function buildShell(manifest) {
   let html = fs.readFileSync(path.join(root, "index.html"), "utf8");
   html = html.replace("<head>", `<head>\n  <base href="${basePath}">`);
-  html = html.replace(/content="concrete-consultant-v4"/g, `content="${buildId}"`);
-  html = html.replace(/window\.__BUILD_ID__ = "concrete-consultant-v4";/g, `window.__BUILD_ID__ = ${JSON.stringify(buildId)};`);
+  html = html.replace(/content="autonomous-exam-p1-v1"/g, `content="${buildId}"`);
+  html = html.replace(/window\.__BUILD_ID__ = "autonomous-exam-p1-v1";/g, `window.__BUILD_ID__ = ${JSON.stringify(buildId)};`);
 
   manifest.forEach((asset) => {
     html = html.split(asset.source).join(asset.url);
   });
-  html = html.split("?v=concrete-consultant-v4").join("");
+  html = html.split("?v=autonomous-exam-p1-v1").join("");
   return html;
 }
 

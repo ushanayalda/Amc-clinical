@@ -55,7 +55,8 @@ if (!failed) {
     "(*)",
     "Chest discomfort after lunch",
     "Sudden chest and back pain",
-    "Sharp chest discomfort after dinner"
+    "Sharp chest discomfort after dinner",
+    "Severe breathlessness after a motorcycle collision"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

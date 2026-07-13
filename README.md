@@ -10,7 +10,7 @@ Every case has two versions and two screens:
 
 | Version | Stem | Full Run |
 |---|---|---|
-| Exam | Clean candidate stem | Complete high-standard encounter |
+| Exam | Clean station stem | Complete high-standard encounter |
 | Reasoning | Identical stem with `(*)` Hints | Identical encounter with `(*)` Hints |
 
 Each canonical case is stored once in `data/cases/case-NNN.js`. Case 1 contains its completed Reasoning layer. New cases are produced here as Exam Stem and Full Run only, then receive their Reasoning layer through the separate reasoning workflow without changing the case wording.
@@ -48,6 +48,6 @@ Case production proceeds autonomously through the registry. Each case receives i
 
 ## Source position
 
-Cases are original practice material aligned to current official AMC specifications. They are not AMC examination stations, official marking scripts or pass guarantees. Clinical guidance uses current Australian primary sources linked inside the Hints.
+Cases are original practice material aligned to current official AMC specifications. They are not AMC examination stations, official marking scripts or pass guarantees. Current Australian clinical sources are recorded with each case and can be presented quietly by the separate Reasoning layer.
 
-Legacy Engine 2 and audio material remains in the repository history and is not loaded by the active site. It can be removed after the Case 1 checkpoint is accepted.
+Legacy Engine 2 and audio material remains in the repository history and is not loaded by the active site.

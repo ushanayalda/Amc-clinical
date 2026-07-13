@@ -110,21 +110,21 @@ test("the task compass anchors reading, time recovery and task switching", () =>
   assert.match(caseData.reasoningCompass.run.anchor, /If danger interrupts/);
 
   const timeHint = caseData.hints.find((hint) => hint.id === "hint-time-prompt");
-  assert.match(timeHint.popUp, /mind.*blank/i);
-  assert.match(timeHint.say.join(" "), /next task verb/);
-  assert.match(timeHint.pause, /old lane is closed enough/i);
-  assert.match(timeHint.reorient, /One lead/);
+  assert.match(timeHint.popUp, /still have history questions/i);
+  assert.match(timeHint.say.join(" "), /start the explanation now/i);
+  assert.match(timeHint.pause, /change tasks/i);
+  assert.match(timeHint.reorient, /State the diagnosis/);
 });
 
 test("mechanism Hints explain without turning patterns into rigid rules", () => {
   const radiation = caseData.hints.find((hint) => hint.id === "hint-radiation");
   const autonomic = caseData.hints.find((hint) => hint.id === "hint-autonomic");
-  assert.match(radiation.say.join(" "), /nerve pathways that also receive signals/i);
-  assert.match(radiation.say.join(" "), /PE often irritates the lung lining/);
-  assert.match(radiation.say.join(" "), /Dissection pain comes from the aortic wall/);
-  assert.match(autonomic.say.join(" "), /sympathetic side/);
-  assert.match(autonomic.say.join(" "), /cannot tell you which wall/);
-  assert.match(autonomic.say.join(" "), /not simply/);
+  assert.match(radiation.say.join(" "), /overlapping areas of the spinal cord/i);
+  assert.match(radiation.say.join(" "), /pulmonary embolus often causes pleural irritation/i);
+  assert.match(radiation.say.join(" "), /Aortic dissection causes pain from the aortic wall/);
+  assert.match(autonomic.say.join(" "), /Sympathetic activation/);
+  assert.match(autonomic.say.join(" "), /cannot identify which wall/);
+  assert.match(autonomic.say.join(" "), /not explained simply/);
 });
 
 test("the learner-facing Hint model is conversational rather than academic", () => {
@@ -138,14 +138,30 @@ test("the learner-facing Hint model is conversational rather than academic", () 
     "earns the heart and circulation first place",
     "adds or removes weight",
     "action follows the whole pattern",
-    "you are choosing where to look first"
+    "you are choosing where to look first",
+    "heart near the front",
+    "stay open",
+    "speed up the safety check",
+    "not your mouth",
+    "quick route to danger",
+    "clues, not passwords",
+    "owns the story",
+    "history lane",
+    "heart lane",
+    "safety threshold",
+    "task map",
+    "old case closed"
   ].forEach((term) => {
     assert.doesNotMatch(hintsText, new RegExp(term, "i"));
   });
 
   const age = caseData.hints.find((hint) => hint.id === "hint-age");
-  assert.equal(age.say[0], "That makes the heart jump forward. Fair.");
-  assert.equal(age.pause, "Heart near the front. No diagnosis yet.");
+  assert.equal(age.say[0], "At 60, I would consider a heart-related cause early.");
+  assert.equal(age.pause, "Consider the heart early, but do not decide yet.");
+
+  const urgent = caseData.hints.find((hint) => hint.id === "hint-urgent-booking");
+  assert.equal(urgent.say[0], "This was booked urgently, so I would first check whether he is unwell now.");
+  assert.equal(urgent.pause, "Check his current stability first. There is no need to rush the conversation.");
 });
 
 test("the Stem journey does not leak the case diagnosis", () => {

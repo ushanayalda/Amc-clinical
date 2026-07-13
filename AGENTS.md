@@ -66,9 +66,12 @@ Write like speech, not a textbook or generated study note:
 
 - short natural sentences and occasional fragments are welcome;
 - use contractions where they sound normal;
-- say “That makes the heart jump forward. Fair.” rather than “Age raises the starting probability”;
-- say “These are clues, not passwords” rather than “No single feature rules the diagnosis in or out”;
+- sound like a consultant explaining what they would notice, ask or do next;
+- name the actual diagnosis, finding, question or action;
+- avoid diagnostic metaphors such as map, lane, open, front, weight, threshold or background;
+- avoid slogans, catchphrases, motivational copy and sentences written to sound quotable;
 - avoid abstract labels such as clinical weight, probability shifter, flexible move, examiner logic or pathophysiology;
+- prefer “At 60, I would consider a heart-related cause early” to a clever or metaphorical version of that thought;
 - do not repeat a rigid teaching template or generic reassurance sentence;
 - do not praise the learner or perform motivation;
 - keep one cognitive move per paragraph;

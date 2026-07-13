@@ -60,7 +60,8 @@ if (!failed) {
     "Worsening breathlessness despite reliever use",
     "Sudden breathlessness and light-headedness",
     "Cough and worsening breathlessness over three days",
-    "Worsening breathlessness and drowsiness with COPD"
+    "Worsening breathlessness and drowsiness with COPD",
+    "Sudden facial droop, arm weakness and speech difficulty"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

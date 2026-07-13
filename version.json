@@ -1,9 +1,9 @@
 {
-  "buildId": "autonomous-exam-p1-v2",
+  "buildId": "autonomous-exam-p2-v1",
   "basePath": "/Amc-clinical/",
   "environment": "github-pages-branch",
   "productModel": "multi-case-optional-reasoning",
   "defaultCaseId": "case-001",
-  "caseIds": ["case-001", "case-002", "case-003", "case-004"],
-  "checkpoint": "autonomous-exam-pattern-1-complete"
+  "caseIds": ["case-001", "case-002", "case-003", "case-004", "case-005"],
+  "checkpoint": "autonomous-exam-pattern-2-active"
 }

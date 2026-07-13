@@ -56,7 +56,8 @@ if (!failed) {
     "Chest discomfort after lunch",
     "Sudden chest and back pain",
     "Sharp chest discomfort after dinner",
-    "Severe breathlessness after a motorcycle collision"
+    "Severe breathlessness after a motorcycle collision",
+    "Worsening breathlessness despite reliever use"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

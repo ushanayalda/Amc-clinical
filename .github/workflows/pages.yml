@@ -1,22 +1,21 @@
-name: Deploy GitHub Pages
+name: Validate AMC Clinical Mastery site
 
 on:
   push:
     branches:
       - main
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: site-quality-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,93 +29,21 @@ jobs:
       - name: Check JavaScript
         run: npm run check
 
-      - name: Test four-view case contract
+      - name: Test case contract
         run: npm test
 
-      - name: Build Pages artifact
+      - name: Build production artifact
         run: npm run build
         env:
           BUILD_ID: ${{ github.sha }}
           BASE_PATH: /Amc-clinical/
 
-      - name: Verify Pages artifact
+      - name: Verify production artifact
         run: npm run verify:dist
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-      - name: Post-deploy health check
-        shell: bash
-        env:
-          BUILD_ID: ${{ github.sha }}
+      - name: Confirm branch-published entry files
         run: |
-          set -euo pipefail
-          BASE="https://ushanayalda.github.io/Amc-clinical"
-
-          contains() {
-            local haystack="$1"
-            local needle="$2"
-            [[ "$haystack" == *"$needle"* ]]
-          }
-
-          missing() {
-            local haystack="$1"
-            local needle="$2"
-            [[ "$haystack" != *"$needle"* ]]
-          }
-
-          fetch() {
-            curl -fsSL \
-              -H "Cache-Control: no-cache" \
-              -H "Pragma: no-cache" \
-              "$1"
-          }
-
-          for attempt in {1..12}; do
-            ok=true
-            version="$(fetch "${BASE}/version.json?health=${BUILD_ID}" || true)"
-            for path in "/" "/index.html"; do
-              html="$(fetch "${BASE}${path}?health=${BUILD_ID}")" || ok=false
-              if [ "${ok}" = true ]; then
-                if ! contains "$html" "$BUILD_ID"; then
-                  ok=false
-                fi
-                contains "$html" "Chest discomfort after lunch" || ok=false
-                contains "$html" "data/cases/case-001" || ok=false
-                contains "$html" "assets/js/case-views" || ok=false
-                missing "$html" "Continue Case 1" || ok=false
-                missing "$html" "Timed run" || ok=false
-                missing "$html" "Progress ring" || ok=false
-              fi
-            done
-            if [ "${ok}" = true ] && [ -n "$version" ]; then
-              if ! contains "$version" "$BUILD_ID"; then
-                ok=false
-              fi
-              contains "$version" "one-source-four-view" || ok=false
-              contains "$version" "case-001" || ok=false
-            fi
-            if [ "${ok}" = true ]; then
-              echo "Pages health check passed."
-              exit 0
-            fi
-            sleep 10
-          done
-          echo "Pages health check failed after waiting for propagation. Check that repository Pages source is set to GitHub Actions, not Deploy from branch."
-          exit 1
+          test -f index.html
+          test -f version.json
+          grep -q "reasoning-journey-v2" index.html
+          grep -q "one-source-four-view" version.json

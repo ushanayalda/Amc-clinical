@@ -182,9 +182,30 @@
     if (view.mode === "exam") {
       append(note, element("strong", "", "Exam version"), document.createTextNode(" Clean station wording. No teaching is added."));
     } else {
-      append(note, element("strong", "", "Reasoning version"), document.createTextNode(" Same wording. Select any (*) to open its connected Hint."));
+      append(note, element("strong", "", "Reasoning journey"), document.createTextNode(" Same case. Each (*) carries the same thinking map forward."));
     }
     return note;
+  }
+
+  function renderReasoningCompass(view) {
+    if (view.mode !== "reasoning" || !currentCase.reasoningCompass) return null;
+    var compass = currentCase.reasoningCompass[view.screen === "stem" ? "stem" : "run"];
+    if (!compass) return null;
+
+    var region = element("section", "reasoning-compass");
+    region.setAttribute("aria-label", compass.title);
+    var header = element("div", "compass-header");
+    append(header, element("p", "compass-kicker", "Keep this beside the case"), element("h2", "compass-title", compass.title));
+    region.appendChild(header);
+
+    var steps = element("div", "compass-steps");
+    compass.steps.forEach(function (step) {
+      var item = element("div", "compass-step");
+      append(item, element("strong", "", step.time), element("span", "", step.text));
+      steps.appendChild(item);
+    });
+    append(region, steps, element("p", "compass-anchor", compass.anchor));
+    return region;
   }
 
   function renderFooter() {
@@ -223,7 +244,7 @@
     if (window.matchMedia("(max-width: 760px)").matches) return;
 
     var rect = marker.getBoundingClientRect();
-    var width = Math.min(430, window.innerWidth - 48);
+    var width = Math.min(480, window.innerWidth - 48);
     var spaceRight = window.innerWidth - rect.right;
     var left;
     if (spaceRight >= width + 28) {
@@ -266,23 +287,51 @@
     close.setAttribute("aria-label", "Close Hint");
     close.addEventListener("click", function () { closeHint(true); });
 
-    var origin = element("p", "hint-origin", "From: “" + hint.target.quote + "”");
-    var title = element("h2", "hint-title", hint.title);
-    title.id = "hint-title";
-    var lead = element("p", "hint-lead", hint.lead);
+    var origin = element("p", "hint-origin", "This thought started from: “" + hint.target.quote + "”");
+    var journeyPoint = element("p", "hint-journey-point", hint.journeyPoint);
     var header = element("header", "hint-header");
-    append(header, origin, title, lead, close);
+    append(header, journeyPoint, origin, close);
     popover.appendChild(header);
 
     var body = element("div", "hint-body");
-    hint.layers.forEach(function (layer) {
-      var layerNode = element("section", "hint-layer");
-      append(layerNode, element("h3", "", layer.label), element("p", "", layer.text));
-      body.appendChild(layerNode);
-    });
+    var thought = element("section", "thought-pop");
+    thought.appendChild(element("p", "thought-label", "A thought may pop up"));
+    var title = element("h2", "hint-title", hint.popUp);
+    title.id = "hint-title";
+    thought.appendChild(title);
 
-    var sources = element("section", "hint-sources");
-    sources.appendChild(element("h3", "", "Sources"));
+    var pal = element("section", "pal-response");
+    append(pal, element("p", "pal-label", "Thinking together"), element("p", "pal-text", hint.pal));
+    append(body, thought, pal);
+
+    if (hint.flow && hint.flow.length) {
+      var flow = element("ol", "reasoning-flow");
+      hint.flow.forEach(function (step) {
+        flow.appendChild(element("li", "", step));
+      });
+      body.appendChild(flow);
+    }
+
+    if (hint.clock) {
+      var clock = element("section", "journey-clock");
+      append(clock, element("span", "", "Internal clock"), element("p", "", hint.clock));
+      body.appendChild(clock);
+    }
+
+    var carry = element("div", "journey-carry");
+    var hold = element("section", "journey-card journey-card--hold");
+    append(hold, element("h3", "", "Hold onto this"), element("p", "", hint.hold));
+    var next = element("section", "journey-card journey-card--next");
+    append(next, element("h3", "", "Next move"), element("p", "", hint.next));
+    append(carry, hold, next);
+    body.appendChild(carry);
+
+    if (hint.confidence) {
+      body.appendChild(element("p", "journey-confidence", hint.confidence));
+    }
+
+    var sources = element("details", "hint-sources");
+    sources.appendChild(element("summary", "", "Sources behind this Hint (" + hint.citationIds.length + ")"));
     var list = element("ul");
     hint.citationIds.forEach(function (sourceId) {
       var source = sourceById(sourceId);
@@ -324,7 +373,7 @@
     app.replaceChildren();
 
     var shell = element("div", "site-shell");
-    append(shell, renderHeader(view), renderModeNote(view));
+    append(shell, renderHeader(view), renderModeNote(view), renderReasoningCompass(view));
     var main = element("main", "case-main");
     main.appendChild(view.screen === "stem" ? renderStem() : renderRun());
     append(shell, main, renderFooter());

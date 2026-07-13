@@ -30,7 +30,29 @@ Every Hint targets an exact phrase in one canonical text item using:
 
 Clicking `(*)` opens one contextual window beside the source phrase on desktop and near it on mobile. Only one window may be open. Closing it returns focus to the marker and must not move the reader to another page.
 
-Hints are a thinking partner. Across a case they should connect anatomy, physiology, pathophysiology, symptom meaning, differential diagnosis, discriminators, investigations, management, patient concerns, examiner logic, traps and variations. Teach flexible evidence weighting, not cue-to-diagnosis matching.
+Hints form one continuous thinking journey from the first stem phrase to the end of the station. They are not separate fact cards. Each new clue must add to the map, change its weighting or test it without silently replacing what came before. Do not reveal the diagnosis before the case evidence reaches it.
+
+Every Hint should anticipate the thought or panic question that may naturally appear at that exact phrase, then provide:
+
+- the thought that may pop up;
+- a warm thinking-partner response;
+- a short causal chain where mechanism helps memory;
+- what to keep holding in the growing map;
+- the next question or action;
+- the current internal-clock anchor when relevant;
+- reassurance that supports safe flexibility rather than certainty seeking.
+
+Across a case, the journey must connect anatomy, physiology, mechanism, symptom meaning, differential diagnosis, discriminators, investigations, management, patient concerns, examiner logic, traps and variations. Use the memorable chain `structure → mechanism → sensation → symptom pattern → diagnostic weight → next safe thought`. Explain necessary technical terms immediately in everyday language.
+
+Every case needs a repeated task compass:
+
+- a three-part 2-minute reading map;
+- an 8-minute task allocation derived from that station's exact task wording;
+- an explicit rule that danger may interrupt the clock;
+- a recovery cue that returns the doctor to the unfinished task verb after interruption or a time prompt;
+- an end-of-station release cue so the previous case does not contaminate the next stem.
+
+The clock is a compass, not a countdown or pressure device. Teach flexible evidence weighting, not cue-to-diagnosis matching.
 
 Use warm, direct, everyday English. Never mention a learner diagnosis or label. Do not use gamification, streaks, points, countdown pressure, progress rings or competing dashboards.
 
@@ -38,7 +60,7 @@ Use warm, direct, everyday English. Never mention a learner diagnosis or label. 
 
 - Use current primary Australian sources for clinical claims.
 - Use current official AMC sources for exam-format claims.
-- Keep source links visible and clickable inside relevant Hints.
+- Keep source links clickable but collapsed by default so references never dominate the reasoning journey.
 - Do not reproduce confidential or copyrighted AMC station material. Cases are original and exam-faithful.
 - Keep asked-for tasks in control. Do not reward unrequested generic rituals.
 - Treat patient and examiner information as request-dependent where the scenario requires it.

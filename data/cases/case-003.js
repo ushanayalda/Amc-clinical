@@ -27,7 +27,7 @@
         },
         {
           id: "c003-stem-patient",
-          text: "Ms Priya Nair, a 42-year-old woman, was booked for an urgent same-day consultation because of right-sided chest discomfort and mild breathlessness that began after dinner last night. She thinks it may be reflux."
+          text: "Ms Priya Nair, a 42-year-old woman, has attended because of right-sided chest discomfort and mild breathlessness that began after dinner last night. She thinks it may be reflux."
         },
         {
           id: "c003-stem-start",
@@ -47,7 +47,7 @@
         },
         {
           id: "c003-task-management",
-          text: "Address the patient's concern and explain your immediate management.",
+          text: "Address the patient's concern and explain your management plan.",
           timing: "2 minutes"
         }
       ]

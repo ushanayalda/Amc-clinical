@@ -28,27 +28,27 @@
         },
         {
           id: "c009-stem-patient",
-          text: "Mrs Helen Price, a 67-year-old woman, has been brought into the treatment room after her husband noticed difficulty speaking and weakness of her right arm when she woke this morning. Her husband, Mark, is present."
+          text: "Mrs Helen Price, a 67-year-old woman, attends with her husband after he noticed difficulty speaking and weakness of her right arm when she woke this morning. Her husband, Mark, is present."
         },
         {
           id: "c009-stem-start",
-          text: "Helen is awake. A practice nurse, emergency equipment and monitoring are available. No treatment has been given. State your assessments and actions. The examiner will provide findings when requested."
+          text: "Helen is awake. No treatment has been given. State your assessments and actions. The examiner will provide findings when requested."
         }
       ],
       tasks: [
         {
           id: "c009-task-assess",
-          text: "Assess the patient and initiate immediate management, explaining urgent actions as her condition permits.",
+          text: "Assess the patient and outline your management.",
           timing: "4 minutes"
         },
         {
           id: "c009-task-history",
-          text: "Obtain the essential collateral history from her husband without delaying emergency transfer.",
+          text: "Obtain the essential collateral history from her husband.",
           timing: "2 minutes"
         },
         {
           id: "c009-task-explain",
-          text: "Explain your likely diagnosis, immediate concerns and hospital plan to the patient and her husband.",
+          text: "Explain your likely diagnosis, key concerns and management plan to the patient and her husband.",
           timing: "2 minutes"
         }
       ]

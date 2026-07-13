@@ -254,6 +254,19 @@ test("Case 10 treats hypoglycaemia before deciding whether the deficit is a stro
   assert.match(text, /monitored hospital care/);
 });
 
+test("autonomously generated cases keep the station stem clinically neutral", () => {
+  cases
+    .filter((item) => Number(item.id.slice(-3)) >= 2)
+    .forEach((item) => {
+      const stemAndTasks = JSON.stringify(item.stem);
+      assert.doesNotMatch(
+        stemAndTasks,
+        /\burgent\b|\bimmediate\b|resuscitation|ambulance|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines/i,
+        `${item.id} stem or tasks disclose the management priority`
+      );
+    });
+});
+
 test("all four views resolve and legacy case links have safe redirects", () => {
   assert.deepEqual(viewModel.validViews, [
     "exam-stem",

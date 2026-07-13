@@ -23,15 +23,15 @@
       lines: [
         {
           id: "c004-stem-role",
-          text: "You are a doctor working in the resuscitation area of a metropolitan emergency department."
+          text: "You are a doctor working in a metropolitan emergency department."
         },
         {
           id: "c004-stem-patient",
-          text: "Mr Daniel Reed, a 34-year-old man, has been brought directly to the resuscitation area after a motorcycle collision about 20 minutes ago. He is awake but has rapidly worsening right-sided chest pain and severe breathlessness."
+          text: "Mr Daniel Reed, a 34-year-old man, was involved in a motorcycle collision about 20 minutes ago. He is awake but has rapidly worsening right-sided chest pain and severe breathlessness."
         },
         {
           id: "c004-stem-start",
-          text: "He is on an ambulance trolley with spinal motion restriction and is receiving oxygen through a reservoir mask. No imaging has been performed."
+          text: "No imaging has been performed."
         },
         {
           id: "c004-stem-simulation",
@@ -41,7 +41,7 @@
       tasks: [
         {
           id: "c004-task-assess",
-          text: "Assess the patient and initiate immediate management.",
+          text: "Assess the patient and outline your management.",
           timing: "5 minutes"
         },
         {

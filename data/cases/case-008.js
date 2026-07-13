@@ -28,27 +28,27 @@
         },
         {
           id: "c008-stem-patient",
-          text: "Mr Peter Lang, a 71-year-old man with chronic obstructive pulmonary disease, has worsening breathlessness and cough. His oxygen saturation was 82% on room air at triage. High-concentration oxygen was started, and he has become drowsy while waiting for assessment."
+          text: "Mr Peter Lang, a 71-year-old man with chronic obstructive pulmonary disease, has worsening breathlessness and cough. His oxygen saturation was 82% on room air at triage, and he has become drowsy while waiting for assessment."
         },
         {
           id: "c008-stem-start",
-          text: "A nurse, monitoring, resuscitation equipment and emergency medicines are available. State your assessments and actions. The examiner will provide findings and investigation results when requested."
+          text: "State your assessments and actions. The examiner will provide findings and investigation results when requested."
         }
       ],
       tasks: [
         {
           id: "c008-task-assess",
-          text: "Assess the patient and initiate immediate management, explaining urgent actions to him as his condition permits.",
+          text: "Assess and manage the patient, explaining your actions as his condition permits.",
           timing: "4 minutes"
         },
         {
           id: "c008-task-interpret",
-          text: "Interpret the investigation results provided by the examiner and explain your escalation plan.",
+          text: "Interpret the investigation results and discuss further management.",
           timing: "2 minutes"
         },
         {
           id: "c008-task-explain",
-          text: "Explain the likely diagnosis, oxygen plan and ongoing treatment to the patient.",
+          text: "Explain the likely diagnosis and ongoing treatment to the patient.",
           timing: "2 minutes"
         }
       ]

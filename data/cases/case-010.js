@@ -28,27 +28,27 @@
         },
         {
           id: "c010-stem-patient",
-          text: "Mr Daniel Cho, a 64-year-old man with type 2 diabetes, has been moved from triage to the resuscitation area because of sudden slurred speech, left-sided weakness and confusion. His wife, Grace, is present."
+          text: "Mr Daniel Cho, a 64-year-old man with type 2 diabetes, has presented with sudden slurred speech, left-sided weakness and confusion. His wife, Grace, is present."
         },
         {
           id: "c010-stem-start",
-          text: "Daniel is drowsy but responds to voice. A nurse, monitoring, resuscitation equipment and emergency medicines are available. State your assessments and actions. The examiner will provide findings when requested."
+          text: "Daniel is drowsy but responds to voice. The examiner will provide findings when requested."
         }
       ],
       tasks: [
         {
           id: "c010-task-assess",
-          text: "Assess the patient and initiate immediate management, explaining urgent actions as his condition permits.",
+          text: "Assess Daniel and discuss your initial management.",
           timing: "4 minutes"
         },
         {
           id: "c010-task-interpret",
-          text: "Interpret his response to treatment and obtain the essential focused history from the patient and his wife.",
+          text: "Interpret the information provided and obtain a focused history from Daniel and Grace.",
           timing: "2 minutes"
         },
         {
           id: "c010-task-explain",
-          text: "Explain the likely diagnosis, remaining concerns and ongoing management plan.",
+          text: "Explain your assessment and management plan to Daniel and Grace.",
           timing: "2 minutes"
         }
       ]

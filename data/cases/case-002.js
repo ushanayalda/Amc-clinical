@@ -23,11 +23,11 @@
       lines: [
         {
           id: "c002-stem-role",
-          text: "You are a doctor working in the resuscitation area of a metropolitan emergency department."
+          text: "You are a doctor working in a metropolitan emergency department."
         },
         {
           id: "c002-stem-patient",
-          text: "Mr Michael Harris, a 66-year-old man, self-presented with sudden severe chest pain extending into his upper back. The pain began about 25 minutes ago while he was moving boxes in his garage, and triage has transferred him directly to the resuscitation area."
+          text: "Mr Michael Harris, a 66-year-old man, presents with sudden severe chest pain extending into his upper back. The pain began about 25 minutes ago while he was moving boxes in his garage."
         },
         {
           id: "c002-stem-start",
@@ -37,12 +37,12 @@
       tasks: [
         {
           id: "c002-task-assess",
-          text: "Assess the patient and begin immediate management.",
+          text: "Assess the patient and outline your management.",
           timing: "5 minutes"
         },
         {
           id: "c002-task-explain",
-          text: "Explain your working diagnosis and urgent plan to the patient.",
+          text: "Explain your working diagnosis and management plan to the patient.",
           timing: "2 minutes"
         },
         {

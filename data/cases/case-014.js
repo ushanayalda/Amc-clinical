@@ -53,7 +53,7 @@
         },
         {
           id: "c014-task-handover",
-          text: "Provide a concise clinical handover to the receiving emergency clinician.",
+          text: "Provide a concise clinical handover to the senior clinician.",
           timing: "1 minute"
         }
       ]

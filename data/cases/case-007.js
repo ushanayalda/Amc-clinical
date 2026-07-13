@@ -28,7 +28,7 @@
         },
         {
           id: "c007-stem-patient",
-          text: "Mrs Margaret Wilson, a 74-year-old woman, has booked a same-day appointment because of a cough and worsening breathlessness over three days. She thinks she has a chest infection and is requesting antibiotics."
+          text: "Mrs Margaret Wilson, a 74-year-old woman, attends because of a cough and worsening breathlessness over three days. She thinks she has a chest infection and is requesting antibiotics."
         },
         {
           id: "c007-stem-start",

@@ -154,6 +154,23 @@ test("Case 6 gives intramuscular adrenaline before asthma treatment", () => {
   assert.match(text, /at least four hours after the last adrenaline dose/);
 });
 
+test("Case 7 updates from infection to acute heart failure", () => {
+  const case7 = cases.find((item) => item.id === "case-007");
+  assert.ok(case7, "Case 7 is missing");
+
+  const text = case7.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+
+  assert.match(text, /Call Triple Zero for an ambulance now/);
+  assert.match(text, /difficulty lying flat, rapid weight gain, swollen legs and crackles in both lungs/);
+  assert.match(text, /acute worsening of heart failure, also called pulmonary oedema/);
+  assert.match(text, /Antibiotics would not remove the fluid or correct the low oxygen/);
+  assert.match(text, /This must not delay the ambulance/);
+});
+
 test("all four views resolve and legacy case links have safe redirects", () => {
   assert.deepEqual(viewModel.validViews, [
     "exam-stem",

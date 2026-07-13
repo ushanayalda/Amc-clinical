@@ -58,7 +58,8 @@ if (!failed) {
     "Sharp chest discomfort after dinner",
     "Severe breathlessness after a motorcycle collision",
     "Worsening breathlessness despite reliever use",
-    "Sudden breathlessness and light-headedness"
+    "Sudden breathlessness and light-headedness",
+    "Cough and worsening breathlessness over three days"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

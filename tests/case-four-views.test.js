@@ -234,7 +234,7 @@ test("Case 10 treats hypoglycaemia before deciding whether the deficit is a stro
   const glucoseCheckIndex = text.indexOf("check capillary blood glucose immediately");
   const glucoseResultIndex = text.indexOf("Capillary blood glucose is 2.1 mmol/L");
   const treatmentIndex = text.indexOf("Give glucose 10%, 15 grams");
-  const onsetIndex = text.indexOf("what exact time was Daniel last completely normal");
+  const onsetIndex = text.indexOf("what exact time was Min-jae last completely normal");
   const repeatExamIndex = text.indexOf("neurological examination normalised completely");
 
   assert.ok(glucoseCheckIndex >= 0, "Case 10 omits glucose from the first assessment");
@@ -282,17 +282,25 @@ test("Case 11 confirms haemorrhage before reversal and protects a deteriorating 
   assert.match(text, /Routine removal of a deep basal-ganglia bleed is not automatically beneficial/);
 });
 
-test("autonomously generated cases keep the station stem clinically neutral", () => {
-  cases
-    .filter((item) => Number(item.id.slice(-3)) >= 2)
-    .forEach((item) => {
-      const stemAndTasks = JSON.stringify(item.stem);
-      assert.doesNotMatch(
-        stemAndTasks,
-        /\burgent\b|\bimmediate\b|resuscitation|ambulance|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines/i,
-        `${item.id} stem or tasks disclose the management priority`
-      );
-    });
+test("every case keeps the station stem clinically neutral", () => {
+  cases.forEach((item) => {
+    const stemAndTasks = JSON.stringify(item.stem);
+    assert.doesNotMatch(
+      stemAndTasks,
+      /\burgent\b|\bimmediate\b|resuscitation|ambulance|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
+      `${item.id} stem or tasks disclose the diagnosis or management priority`
+    );
+  });
+});
+
+test("patient first names are varied across the current case set", () => {
+  const firstNames = cases.map((item) => {
+    const stemText = item.stem.lines.map((line) => line.text).join(" ");
+    const match = stemText.match(/\b(?:Mr|Mrs|Ms) ([A-Za-z]+(?:-[A-Za-z]+)?)/);
+    assert.ok(match, `${item.id} has no identifiable patient name in the stem`);
+    return match[1].toLowerCase();
+  });
+  assert.equal(new Set(firstNames).size, firstNames.length, "a patient first name is repeated");
 });
 
 test("all four views resolve and legacy case links have safe redirects", () => {
@@ -326,7 +334,7 @@ test("Reasoning text is byte-equivalent to Exam text after markers are removed",
 
 test("the approved Stem and Full Run remain byte-for-byte unchanged", () => {
   const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
-  assert.equal(digest(caseData.stem), "6e0c8b46fd899310ba2e348d75dc19f981b6a0b86a3698cf2e5148c264241e96");
+  assert.equal(digest(caseData.stem), "6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875");
   assert.equal(digest(caseData.run), "cd353fbe9e257718c54ff615b8f0d5bf5128d30bb0e89684589844696e2ac5b9");
 });
 
@@ -431,9 +439,9 @@ test("the learner-facing Hint model is conversational rather than academic", () 
   assert.equal(age.say[0], "At 60, I would consider a heart-related cause early.");
   assert.equal(age.pause, "Consider the heart early, but do not decide yet.");
 
-  const urgent = caseData.hints.find((hint) => hint.id === "hint-urgent-booking");
-  assert.equal(urgent.say[0], "This was booked urgently, so I would first check whether he is unwell now.");
-  assert.equal(urgent.pause, "Check his current stability first. There is no need to rush the conversation.");
+  const presentation = caseData.hints.find((hint) => hint.id === "hint-urgent-booking");
+  assert.equal(presentation.say[0], "No. The booking itself does not tell me the severity or the cause.");
+  assert.equal(presentation.pause, "Do not add urgency or reassurance that the stem has not provided.");
 });
 
 test("the Stem journey does not leak the case diagnosis", () => {

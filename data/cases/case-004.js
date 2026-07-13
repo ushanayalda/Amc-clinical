@@ -27,15 +27,11 @@
         },
         {
           id: "c004-stem-patient",
-          text: "Mr Daniel Reed, a 34-year-old man, was involved in a motorcycle collision about 20 minutes ago. He is awake but has rapidly worsening right-sided chest pain and severe breathlessness."
-        },
-        {
-          id: "c004-stem-start",
-          text: "No imaging has been performed."
+          text: "Mr Aiden Okafor, a 34-year-old man, was involved in a motorcycle collision about 20 minutes ago. He is awake and reports right-sided chest pain and breathlessness."
         },
         {
           id: "c004-stem-simulation",
-          text: "State your assessments and actions to the examiner. Findings will be provided when requested. You are not required to physically perform invasive procedures."
+          text: "State your assessments and actions to the examiner. Findings will be provided when requested."
         }
       ],
       tasks: [
@@ -84,13 +80,13 @@
               id: "c004-turn-id",
               speaker: "Patient",
               kind: "spoken",
-              lines: [{ id: "c004-run-id", text: "Daniel Reed. I cannot get enough air." }]
+              lines: [{ id: "c004-run-id", text: "Aiden Okafor. I cannot get enough air." }]
             },
             {
               id: "c004-turn-abc",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c004-run-abc", text: "Daniel is speaking, so his airway is patent for now. Maintain spinal motion restriction, check for airway obstruction and keep suction ready. Check immediately for catastrophic external bleeding. Continue high-concentration oxygen, attach continuous monitoring and cycle his blood pressure frequently. I expose the chest and compare movement, palpation, percussion and breath sounds. Please provide the findings." }]
+              lines: [{ id: "c004-run-abc", text: "Aiden is speaking, so his airway is patent for now. Maintain spinal motion restriction, check for airway obstruction and keep suction ready. Check immediately for catastrophic external bleeding. Continue high-concentration oxygen, attach continuous monitoring and cycle his blood pressure frequently. I expose the chest and compare movement, palpation, percussion and breath sounds. Please provide the findings." }]
             },
             {
               id: "c004-turn-abc-findings",
@@ -108,7 +104,7 @@
               id: "c004-turn-explain-emergency",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c004-run-explain-emergency", text: "Daniel, air is trapped under pressure around your right lung. It is compressing the lung and affecting your circulation. I need to release that pressure now, before any scan, and then place a chest tube. Is that okay?" }]
+              lines: [{ id: "c004-run-explain-emergency", text: "Aiden, air is trapped under pressure around your right lung. It is compressing the lung and affecting your circulation. I need to release that pressure now, before any scan, and then place a chest tube. Is that okay?" }]
             },
             {
               id: "c004-turn-emergency-consent",
@@ -306,7 +302,7 @@
               id: "c004-turn-handover",
               speaker: "Doctor",
               kind: "handover",
-              lines: [{ id: "c004-run-handover", text: "Daniel Reed, 34, had a motorcycle collision about 25 minutes ago with direct right-chest impact. He developed severe breathlessness, absent right breath sounds, oxygen saturation 86% despite oxygen, pulse 138 and blood pressure 78/46. I diagnosed a right tension pneumothorax clinically and decompressed immediately without waiting for imaging. His saturation improved to 96% and blood pressure to 106/68. A right intercostal catheter is functioning, with near-complete re-expansion on X-ray. Continue monitored trauma care, analgesia, repeated assessment and evaluation for associated injuries." }]
+              lines: [{ id: "c004-run-handover", text: "Aiden Okafor, 34, had a motorcycle collision about 25 minutes ago with direct right-chest impact. He developed severe breathlessness, absent right breath sounds, oxygen saturation 86% despite oxygen, pulse 138 and blood pressure 78/46. I diagnosed a right tension pneumothorax clinically and decompressed immediately without waiting for imaging. His saturation improved to 96% and blood pressure to 106/68. A right intercostal catheter is functioning, with near-complete re-expansion on X-ray. Continue monitored trauma care, analgesia, repeated assessment and evaluation for associated injuries." }]
             },
             {
               id: "c004-turn-end",

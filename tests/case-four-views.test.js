@@ -171,6 +171,30 @@ test("Case 7 updates from infection to acute heart failure", () => {
   assert.match(text, /This must not delay the ambulance/);
 });
 
+test("Case 8 gives necessary oxygen safely and treats hypercapnic respiratory failure", () => {
+  const case8 = cases.find((item) => item.id === "case-008");
+  assert.ok(case8, "Case 8 is missing");
+
+  const text = case8.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const oxygenIndex = text.indexOf("Do not remove oxygen");
+  const gasIndex = text.indexOf("acute-on-chronic hypercapnic respiratory failure");
+  const nivIndex = text.indexOf("commence bilevel non-invasive ventilation now");
+
+  assert.ok(oxygenIndex >= 0, "Case 8 does not explicitly prevent oxygen withholding");
+  assert.match(text, /oxygen saturation target of 88% to 92%/);
+  assert.match(text, /The very high PaO2 reflects excessive administered oxygen, not recovery/);
+  assert.ok(gasIndex > oxygenIndex, "Case 8 does not interpret the blood gas after correcting oxygen");
+  assert.match(text, /air-driven nebuliser, with controlled oxygen supplied separately/);
+  assert.ok(nivIndex > gasIndex, "Case 8 escalates to NIV before identifying respiratory acidosis");
+  assert.match(text, /pneumonia, pneumothorax, pulmonary embolism, heart failure and acute coronary syndrome/);
+  assert.match(text, /Repeat arterial blood gas shows pH 7.29/);
+  assert.match(text, /never refuse oxygen in an emergency/i);
+});
+
 test("all four views resolve and legacy case links have safe redirects", () => {
   assert.deepEqual(viewModel.validViews, [
     "exam-stem",

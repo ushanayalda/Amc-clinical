@@ -7,9 +7,9 @@
     registryId: "CP-P1-C003",
     displayNumber: "Case 3",
     title: "Sharp chest discomfort after dinner",
-    status: "exam_complete",
-    statusLabel: "Exam case complete",
-    reasoningAvailable: false,
+    status: "reasoning_complete",
+    statusLabel: "Exam and reasoning complete",
+    reasoningAvailable: true,
     modality: "in_person",
     phase: { id: 1, title: "Can Kill Fast" },
     pattern: { id: 1, title: "Dangerous Chest Pain" },
@@ -438,7 +438,7 @@
       {
         organisation: "Australian and New Zealand Committee on Resuscitation",
         title: "Guideline 9.2.10: The use of oxygen in emergencies",
-        date: "Current source accessed July 2026",
+        date: "Approved April 2021; accessed July 2026",
         url: "https://www.anzcor.org/home/first-aid/guideline-9-2-10-the-use-of-oxygen-in-emergencies"
       },
       {
@@ -449,4 +449,1017 @@
       }
     ]
   });
+
+  var caseThree = window.AMC_CASES.find(function (caseData) { return caseData.id === "case-003"; });
+  caseThree.sources = [
+    {
+      "id": "healthdirect-chest-2025",
+      "title": "Chest pain",
+      "organisation": "Healthdirect Australia",
+      "date": "Last reviewed September 2025",
+      "url": "https://www.healthdirect.gov.au/chest-pain"
+    },
+    {
+      "id": "healthdirect-breath-2025",
+      "title": "Shortness of breath",
+      "organisation": "Healthdirect Australia",
+      "date": "Last reviewed June 2025",
+      "url": "https://www.healthdirect.gov.au/shortness-of-breath"
+    },
+    {
+      "id": "racgp-pe-2022",
+      "title": "Pulmonary embolus: Assessment and management in primary care",
+      "organisation": "Royal Australian College of General Practitioners",
+      "date": "September 2022",
+      "url": "https://www1.racgp.org.au/ajgp/2022/september/pulmonary-embolus"
+    },
+    {
+      "id": "thanz-vte-2019",
+      "title": "Guidelines for the diagnosis and management of venous thromboembolism",
+      "organisation": "Thrombosis and Haemostasis Society of Australia and New Zealand",
+      "date": "2019",
+      "url": "https://www.mja.com.au/journal/2019/210/5/new-guidelines-thrombosis-and-haemostasis-society-australia-and-new-zealand"
+    },
+    {
+      "id": "anzcor-oxygen-2021",
+      "title": "Guideline 9.2.10: The Use of Oxygen in Emergencies",
+      "organisation": "Australian and New Zealand Committee on Resuscitation",
+      "date": "Approved April 2021; accessed July 2026",
+      "url": "https://www.anzcor.org/home/first-aid/guideline-9-2-10-the-use-of-oxygen-in-emergencies"
+    },
+    {
+      "id": "amc-spec-2026",
+      "title": "Clinical Examination Specifications V8.3",
+      "organisation": "Australian Medical Council",
+      "date": "June 2026",
+      "url": "https://www.amc.org.au/wp-content/uploads/2026/06/2026-04-08-Clinical-Exam-Spec-V8-3.pdf"
+    },
+    {
+      "id": "amc-tips-2024",
+      "title": "Tips from Examiners V1.1",
+      "organisation": "Australian Medical Council",
+      "date": "October 2024",
+      "url": "https://www.amc.org.au/wp-content/uploads/2024/10/2024-10-03-Tips-From-Examiners.pdf"
+    },
+    {
+      "id": "ahrq-teach-back-2024",
+      "title": "Use the Teach-Back Method",
+      "organisation": "Agency for Healthcare Research and Quality",
+      "date": "Reviewed April 2024",
+      "url": "https://www.ahrq.gov/health-literacy/improve/precautions/tool5.html"
+    },
+    {
+      "id": "acsqhc-handover-2026",
+      "title": "Communicating for Safety Standard",
+      "organisation": "Australian Commission on Safety and Quality in Health Care",
+      "date": "Updated April 2026",
+      "url": "https://www.safetyandquality.gov.au/national-standards/nsqhs-standards/communicating-safety-standard"
+    }
+  ];
+  caseThree.reasoningCompass = {
+    "stem": {
+      "title": "Keep your place while reading",
+      "steps": [
+        {
+          "time": "0 to 30 seconds",
+          "text": "Confirm the GP setting, the missing observations and the first four-minute task. Start the history, but plan to obtain observations early."
+        },
+        {
+          "time": "30 to 60 seconds",
+          "text": "Right-sided discomfort, mild breathlessness and a meal-time link do not establish a cause. Clarify onset, breathing-related pain, current symptoms and stability."
+        },
+        {
+          "time": "1 to 2 minutes",
+          "text": "Keep the task changes clear: focused history until minute 4, diagnosis and important alternatives until minute 6, then concern and management until minute 8."
+        }
+      ],
+      "anchor": "Focused history 0 to 4 | Diagnosis and differentials 4 to 6 | Concern and management 6 to 8"
+    },
+    "run": {
+      "title": "Keep your place during the run",
+      "steps": [
+        {
+          "time": "0 to 1 minute",
+          "text": "Hear the first story and obtain observations in parallel. Begin emergency care and monitored transfer immediately if the observations are abnormal."
+        },
+        {
+          "time": "1 to 4 minutes",
+          "text": "Clarify the symptom pattern, functional breathlessness, discriminating risks, important alternatives and treatment-safety information."
+        },
+        {
+          "time": "4 to 8 minutes",
+          "text": "Stop the history at the prompt. Use the brief safety findings, explain the leading concern and important alternatives, then answer her concern and give the management plan."
+        }
+      ],
+      "anchor": "If oxygenation, circulation or conscious state worsens, stop routine questions, reassess ABCDE and escalate emergency support."
+    }
+  };
+  caseThree.hints = [
+    {
+      "id": "c003-hint-01",
+      "target": {
+        "surface": "stem",
+        "itemId": "c003-stem-role",
+        "quote": "suburban medical clinic",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "amc-spec-2026",
+        "amc-tips-2024",
+        "healthdirect-chest-2025"
+      ],
+      "where": "Reading the setting",
+      "popUp": "GP clinic. Can I keep this as a routine history?",
+      "say": [
+        "Start as a focused consultation, but the setting does not make chest symptoms low risk. A clinic can obtain observations and begin emergency care; serious heart or lung disease may still require monitored transfer and hospital imaging."
+      ],
+      "pause": "The setting changes what is available, not how serious the problem may be.",
+      "recap": "This begins in primary care, with no stability information yet.",
+      "reorient": "Read the symptoms and decide which observations you will request early."
+    },
+    {
+      "id": "c003-hint-02",
+      "target": {
+        "surface": "stem",
+        "itemId": "c003-stem-patient",
+        "quote": "42-year-old woman",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "amc-tips-2024"
+      ],
+      "where": "Reading Priya's age",
+      "popUp": "Forty-two. Does that make a dangerous cause unlikely?",
+      "say": [
+        "At 42, some vascular causes are less common, but age does not explain her chest discomfort and breathlessness. I still need the symptom details and observations."
+      ],
+      "pause": "Do not decide from age or sex.",
+      "recap": "Priya is relatively young, but the cause is still unknown.",
+      "reorient": "Look at the site of the discomfort and the symptom beside it."
+    },
+    {
+      "id": "c003-hint-03",
+      "target": {
+        "surface": "stem",
+        "itemId": "c003-stem-patient",
+        "quote": "right-sided chest discomfort",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "amc-tips-2024"
+      ],
+      "where": "Reading the chest symptom",
+      "popUp": "Right side. Is that reassuring?",
+      "say": [
+        "No. Right-sided pain is less typical for coronary pain, but it can come from the chest wall, pleura, lung, pulmonary circulation or upper abdomen. The side helps choose questions; it does not establish safety."
+      ],
+      "pause": "Do not dismiss chest pain because it is on the right.",
+      "recap": "The location broadens the possible structures, but explains nothing yet.",
+      "reorient": "Ask what the discomfort feels like and what changes it."
+    },
+    {
+      "id": "c003-hint-04",
+      "target": {
+        "surface": "stem",
+        "itemId": "c003-stem-patient",
+        "quote": "mild breathlessness",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-breath-2025",
+        "healthdirect-chest-2025"
+      ],
+      "where": "Reading the paired symptom",
+      "popUp": "She calls the breathlessness mild. Can I trust that as the severity?",
+      "say": [
+        "It tells you how it feels to Priya, not whether her oxygen, respiratory rate or circulation are normal. Chest discomfort with new breathlessness needs an early stability check."
+      ],
+      "pause": "A patient can speak normally and still have abnormal observations.",
+      "recap": "There are now two linked symptoms: chest discomfort and breathlessness.",
+      "reorient": "Find out whether they began together and obtain observations early."
+    },
+    {
+      "id": "c003-hint-05",
+      "target": {
+        "surface": "stem",
+        "itemId": "c003-stem-patient",
+        "quote": "after dinner last night",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "amc-tips-2024"
+      ],
+      "where": "Reading the timing",
+      "popUp": "After dinner. Is reflux already the best explanation?",
+      "say": [
+        "Reflux is possible. But after dinner tells you when the symptom began, not what caused it. Serious chest conditions can begin after a meal by coincidence."
+      ],
+      "pause": "Do not diagnose reflux just because the symptoms began after dinner.",
+      "recap": "The meal link supports a question about reflux, not a conclusion.",
+      "reorient": "Clarify the exact onset, quality, breathing link and current symptoms."
+    },
+    {
+      "id": "c003-hint-06",
+      "target": {
+        "surface": "stem",
+        "itemId": "c003-stem-patient",
+        "quote": "thinks it may be reflux",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "amc-tips-2024"
+      ],
+      "where": "Reading Priya's concern",
+      "popUp": "Should I correct her now?",
+      "say": [
+        "Not yet. Acknowledge why dinner made her think of reflux, then test that explanation with questions about burning, acid taste, regurgitation, position and antacid response. Explain later if the findings point elsewhere."
+      ],
+      "pause": "Her explanation deserves an answer, but it is not the diagnosis.",
+      "recap": "Reflux remains possible. The chest and breathing symptoms still need assessment.",
+      "reorient": "Begin by asking what happened from the beginning, then separate the serious causes."
+    },
+    {
+      "id": "c003-hint-07",
+      "target": {
+        "surface": "stem",
+        "itemId": "c003-stem-start",
+        "quote": "No observations or investigation results",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-breath-2025",
+        "amc-tips-2024"
+      ],
+      "where": "Reading what is missing",
+      "popUp": "No observations. Is that just missing paperwork?",
+      "say": [
+        "No. Without pulse, blood pressure, respiratory rate, oxygen saturation and temperature, you do not know whether this is a stable consultation. Ask staff to obtain them while you begin the history."
+      ],
+      "pause": "Do not assume her observations are normal because they were not provided.",
+      "recap": "We still do not know whether she is stable.",
+      "reorient": "Plan a brief opening story and parallel observations."
+    },
+    {
+      "id": "c003-hint-08",
+      "target": {
+        "surface": "stem",
+        "itemId": "c003-task-history",
+        "quote": "focused history",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "amc-spec-2026",
+        "amc-tips-2024"
+      ],
+      "where": "Reading task 1",
+      "popUp": "Focused history. What do I need in four minutes?",
+      "say": [
+        "Start with onset, pain pattern, breathlessness and current function. Then check calf symptoms, clot risks, dangerous alternatives and anything that could make treatment unsafe."
+      ],
+      "pause": "This is not a full review of every system.",
+      "recap": "The history must establish urgency, the leading cause and treatment safety.",
+      "reorient": "Rehearse your opening question and the request for observations.",
+      "clock": "Minute 0 to minute 4. Stop when the examiner gives the time prompt."
+    },
+    {
+      "id": "c003-hint-09",
+      "target": {
+        "surface": "stem",
+        "itemId": "c003-task-diagnosis",
+        "quote": "most likely diagnosis and important differential diagnoses",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "amc-spec-2026",
+        "amc-tips-2024"
+      ],
+      "where": "Reading task 2",
+      "popUp": "How many diagnoses should I explain?",
+      "say": [
+        "Give one leading working diagnosis with the findings that support it. Then discuss the important alternatives and the findings that make each more or less likely. Do not recite every cause of chest pain."
+      ],
+      "pause": "For each important alternative, say which finding supports it or makes it less likely.",
+      "recap": "Task 2 needs a lead, uncertainty and important alternatives.",
+      "reorient": "At minute 4, stop the history and begin the explanation.",
+      "clock": "Minute 4 to minute 6."
+    },
+    {
+      "id": "c003-hint-10",
+      "target": {
+        "surface": "stem",
+        "itemId": "c003-task-management",
+        "quote": "patient's concern and explain your management plan",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "amc-spec-2026",
+        "amc-tips-2024",
+        "acsqhc-handover-2026"
+      ],
+      "where": "Reading task 3",
+      "popUp": "Concern and management. Which comes first?",
+      "say": [
+        "Answer Priya's reflux concern before listing the plan. Then explain the management required by the findings, including urgent transfer if her condition requires it."
+      ],
+      "pause": "Do not leave her reflux concern unanswered.",
+      "recap": "The final task has two parts: her concern and the plan.",
+      "reorient": "Keep the last two minutes for those two parts and a brief understanding check.",
+      "clock": "Minute 6 to minute 8."
+    },
+    {
+      "id": "c003-hint-11",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-consent-answer",
+        "quote": "probably reflux",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "amc-tips-2024"
+      ],
+      "where": "Full Run: opening",
+      "popUp": "She nearly cancelled because of reflux. What do I say?",
+      "say": [
+        "Acknowledge that the meal timing made reflux seem plausible. Do not agree or dismiss it yet. Tell her you will first clarify the chest and breathing symptoms because some causes need quicker treatment."
+      ],
+      "pause": "Acknowledge why she thought of reflux without agreeing that reflux is the cause.",
+      "recap": "Priya expects reassurance about reflux.",
+      "reorient": "Ask her to describe what happened from the beginning."
+    },
+    {
+      "id": "c003-hint-12",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-story",
+        "quote": "suddenly felt a sharp pain",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "healthdirect-breath-2025"
+      ],
+      "where": "Full Run: first story",
+      "popUp": "Sudden and sharp. Does that identify the cause?",
+      "say": [
+        "No. Sudden onset raises urgency, and sharp pain points away from a classic pressure pattern, but several heart, lung, pleural and chest-wall problems can begin this way."
+      ],
+      "pause": "Do not diagnose from those two words. Check the breathing link and observations.",
+      "recap": "This is an acute right-sided chest symptom.",
+      "reorient": "Find out whether breathing changes the pain and whether breathlessness began with it."
+    },
+    {
+      "id": "c003-hint-13",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-story",
+        "quote": "catches when I take a deep breath",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "amc-spec-2026"
+      ],
+      "where": "Full Run: pain pattern",
+      "popUp": "What produces that sharp catch?",
+      "say": [
+        "This is pleuritic pain. The outer lining, called the parietal pleura, is pain-sensitive; the lung tissue and inner pleural layer are not. A deep breath moves an irritated outer lining or chest-wall area and can produce a sharp catch, but the pattern does not identify the cause by itself."
+      ],
+      "logic": [
+        "Deep breath expands the chest",
+        "an irritated pleural or chest-wall area moves",
+        "sharp pain is triggered"
+      ],
+      "pause": "Pleuritic describes how the pain behaves; it does not identify the cause.",
+      "recap": "The symptom now points toward pleura, lung circulation, pneumothorax, infection or chest wall.",
+      "reorient": "Check the breathlessness and obtain observations immediately."
+    },
+    {
+      "id": "c003-hint-14",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-story",
+        "quote": "a little short of breath since then",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-breath-2025",
+        "healthdirect-chest-2025"
+      ],
+      "where": "Full Run: paired symptoms",
+      "popUp": "Does 'a little' make this less urgent?",
+      "say": [
+        "Not until you see her observations and function. Breathlessness beginning with pleuritic pain makes isolated reflux or a simple muscle strain less convincing."
+      ],
+      "pause": "Her description cannot replace oxygen saturation and respiratory rate.",
+      "recap": "The pain and breathlessness began together.",
+      "reorient": "Obtain observations while the history continues."
+    },
+    {
+      "id": "c003-hint-15",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-early-observations",
+        "quote": "please record her pulse",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-breath-2025",
+        "amc-spec-2026",
+        "amc-tips-2024"
+      ],
+      "where": "Full Run: parallel assessment",
+      "popUp": "Why request observations before finishing the history?",
+      "say": [
+        "If the observations show low oxygen or instability, you must act before finishing the history. Staff can measure pulse, pressure, respiratory rate, oxygen saturation and temperature while you ask the next focused question."
+      ],
+      "pause": "History and safety assessment can happen together.",
+      "recap": "We know the symptom pattern is concerning, but not yet how unwell she is.",
+      "reorient": "Use the actual numbers to decide the next action."
+    },
+    {
+      "id": "c003-hint-16",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-early-observation-findings",
+        "quote": "oxygen saturation is 91% on room air",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "anzcor-oxygen-2021",
+        "healthdirect-breath-2025"
+      ],
+      "where": "Full Run: interpreting observations",
+      "popUp": "The pain is moderate. Do these numbers still make this urgent?",
+      "say": [
+        "Yes. An oxygen saturation of 91% is abnormal. With a pulse of 112 and respiratory rate of 24, she needs oxygen, monitoring and ambulance transfer now. Her blood pressure has not fallen, so there is no current haemodynamic collapse; you still need to assess her perfusion."
+      ],
+      "pause": "Reflux or isolated muscle pain should not lower oxygen saturation.",
+      "recap": "Priya is hypoxaemic and tachycardic, without current hypotension.",
+      "reorient": "Give titrated oxygen, monitor her and arrange monitored transfer now."
+    },
+    {
+      "id": "c003-hint-17",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-early-oxygen",
+        "quote": "Call Triple Zero for an ambulance",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "anzcor-oxygen-2021",
+        "healthdirect-chest-2025",
+        "healthdirect-breath-2025"
+      ],
+      "where": "Full Run: immediate action",
+      "popUp": "Why ambulance before the diagnosis is confirmed?",
+      "say": [
+        "A saturation below 92% warrants oxygen from trained staff, guided by pulse oximetry. The ambulance provides monitoring and treatment during transfer, and the clinic cannot provide definitive imaging if she deteriorates."
+      ],
+      "pause": "Her low oxygen is enough reason for monitored transfer before the cause is confirmed.",
+      "recap": "Oxygen, monitoring, emergency equipment and ambulance transfer are underway.",
+      "reorient": "Continue only a focused history while she remains stable."
+    },
+    {
+      "id": "c003-hint-18",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-early-concern",
+        "quote": "Could I drive myself?",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "anzcor-oxygen-2021",
+        "healthdirect-chest-2025"
+      ],
+      "where": "Full Run: addressing self-transport",
+      "popUp": "Can she drive herself if the pain is only five out of ten?",
+      "say": [
+        "No. A pain score of five does not explain an oxygen saturation of 91% or a pulse of 112. She needs monitored transfer because she could deteriorate while still looking relatively well."
+      ],
+      "pause": "Do not let the pain score override the observations.",
+      "recap": "Her blood pressure has not fallen, but she is hypoxaemic and tachycardic.",
+      "reorient": "Say clearly why driving is unsafe, then return to the focused history."
+    },
+    {
+      "id": "c003-hint-19",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-current-answer",
+        "quote": "worse when I breathe in",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "healthdirect-breath-2025"
+      ],
+      "where": "Full Run: current pain",
+      "popUp": "The pain is still pleuritic. What does that add?",
+      "say": [
+        "It confirms that the breathing link is persistent rather than a single vague description. Use the pain score to guide analgesia. Use the breathing link and abnormal observations to assess the cause and urgency."
+      ],
+      "pause": "A moderate pain score does not explain the low oxygen.",
+      "recap": "The pain is ongoing, moderate and consistently worse with inspiration.",
+      "reorient": "Clarify radiation and whether it was maximal immediately."
+    },
+    {
+      "id": "c003-hint-20",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-radiation-answer",
+        "quote": "came on over a few minutes",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "amc-spec-2026"
+      ],
+      "where": "Full Run: onset and radiation",
+      "popUp": "No radiation and not instantly maximal. What changes?",
+      "say": [
+        "That makes a classic aortic-dissection pattern less typical. It does not explain the pleuritic pain, breathlessness or low oxygen, so serious heart and lung causes still need assessment."
+      ],
+      "pause": "Aortic dissection is less likely from this pattern, but it is not completely excluded.",
+      "recap": "The pain was acute but built over a few minutes and did not radiate.",
+      "reorient": "Measure the effect of breathlessness on function."
+    },
+    {
+      "id": "c003-hint-21",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-breathlessness-answer",
+        "quote": "unusually puffed walking from the car park",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-breath-2025",
+        "amc-spec-2026"
+      ],
+      "where": "Full Run: functional severity",
+      "popUp": "She can speak. Why ask about walking?",
+      "say": [
+        "Speaking tells you she is not in immediate respiratory collapse. Becoming unusually breathless on a short walk shows a real loss of function and gives more useful severity information than the word mild."
+      ],
+      "pause": "Use function and observations together.",
+      "recap": "Breathlessness began with the pain and limits ordinary walking.",
+      "reorient": "Check haemoptysis, palpitations, syncope, infection and cardiac-associated symptoms."
+    },
+    {
+      "id": "c003-hint-22",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-associated-answer",
+        "quote": "No blood, fainting, sweating, nausea, fever or cough",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "healthdirect-breath-2025",
+        "amc-spec-2026"
+      ],
+      "where": "Full Run: associated symptoms",
+      "popUp": "Many danger symptoms are absent. Is that reassuring enough?",
+      "say": [
+        "No haemoptysis does not exclude a serious lung-circulation problem. No syncope or hypotension argues against current collapse. No fever or cough makes pneumonia less supported, while the fast heartbeat matches the measured tachycardia."
+      ],
+      "pause": "No single absent symptom explains away the hypoxaemia.",
+      "recap": "There is no current hypotension, syncope, fever or cough, but the hypoxaemia remains unexplained.",
+      "reorient": "Test the reflux explanation directly."
+    },
+    {
+      "id": "c003-hint-23",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-reflux-answer",
+        "quote": "antacid last night and it made no difference",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "healthdirect-chest-2025",
+        "amc-tips-2024"
+      ],
+      "where": "Full Run: testing reflux",
+      "popUp": "Does antacid failure prove this is not reflux?",
+      "say": [
+        "No. Antacid response is not a diagnostic test. The absence of burning or acid taste makes reflux less supported, and reflux does not explain her low oxygen or fast pulse."
+      ],
+      "pause": "The meal timing no longer explains the whole presentation.",
+      "recap": "Reflux is less convincing, but the serious cause is still not confirmed.",
+      "reorient": "Ask about calf pain or swelling before moving to travel and hormone risks."
+    },
+    {
+      "id": "c003-hint-24",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-leg-answer",
+        "quote": "right calf has ached for two days",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "thanz-vte-2019",
+        "amc-spec-2026"
+      ],
+      "where": "Full Run: connecting the leg and chest",
+      "popUp": "Could the leg and chest findings be one problem?",
+      "say": [
+        "They may be. A clot could form in a deep leg vein, travel through the right side of the heart and lodge in a pulmonary artery. Air still reaches the air sacs, but less blood flows past them to collect oxygen. A peripheral blockage can also irritate the pain-sensitive outer lining. That connects the calf symptoms with low oxygen, breathlessness and pleuritic pain. Pulmonary embolism is now the leading diagnosis."
+      ],
+      "logic": [
+        "Deep leg-vein clot",
+        "travels through the right side of the heart",
+        "lodges in a pulmonary artery",
+        "ventilated lung receives less blood flow",
+        "oxygen transfer falls and breathing speeds up",
+        "nearby outer pleura may become irritated, causing pleuritic pain"
+      ],
+      "pause": "Calf symptoms strengthen the concern; they do not confirm the diagnosis.",
+      "recap": "Pulmonary embolism now explains the main findings better than reflux.",
+      "reorient": "Clarify the travel, oestrogen exposure and other clot risks."
+    },
+    {
+      "id": "c003-hint-25",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-travel-answer",
+        "quote": "flight was about eight hours",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "thanz-vte-2019",
+        "amc-spec-2026"
+      ],
+      "where": "Full Run: recent travel",
+      "popUp": "Did the flight cause the clot?",
+      "say": [
+        "It does not prove the diagnosis. During prolonged sitting, the calf muscles pump less and venous blood moves more slowly. Slower flow makes a leg-vein clot more likely. The timing supports the concern because the unilateral calf symptoms followed the journey."
+      ],
+      "logic": [
+        "Less calf-muscle movement",
+        "slower venous flow",
+        "a leg-vein clot becomes more likely"
+      ],
+      "pause": "The flight supports the concern, but it is not proof and it is not Priya's fault.",
+      "recap": "The flight supports a possible leg-vein source.",
+      "reorient": "Ask about oestrogen, pregnancy, recent birth, previous clots and cancer."
+    },
+    {
+      "id": "c003-hint-26",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-hormones-answer",
+        "quote": "combined pill for endometriosis",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "thanz-vte-2019"
+      ],
+      "where": "Full Run: oestrogen exposure",
+      "popUp": "How does the combined pill connect?",
+      "say": [
+        "The combined pill contains oestrogen. It increases several clotting factors and reduces some natural anticoagulant activity, so a venous clot becomes more likely. Together with recent prolonged travel and unilateral calf symptoms, it makes a deep-vein clot more plausible. It does not prove that the pill caused this."
+      ],
+      "pause": "Record oestrogen as a risk factor without blaming Priya.",
+      "recap": "The flight and combined pill make a leg-vein clot more plausible alongside the calf findings.",
+      "reorient": "Check previous clots, family history, active cancer and treatment-safety information."
+    },
+    {
+      "id": "c003-hint-27",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-history-risks-answer",
+        "quote": "No.",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "thanz-vte-2019"
+      ],
+      "where": "Full Run: previous clot and cancer risk",
+      "popUp": "No previous clot, family history or cancer. Does that weaken the diagnosis too much?",
+      "say": [
+        "No. A first clot can occur without cancer, family history or a previous event. Her current symptoms, low oxygen, fast pulse and calf findings still require urgent assessment."
+      ],
+      "pause": "Do not reduce the urgency because those background risks are absent.",
+      "recap": "The current presentation remains strongly concerning despite no previous or family history.",
+      "reorient": "Check the important competing chest causes and bleeding safety."
+    },
+    {
+      "id": "c003-hint-28",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-other-dangers",
+        "quote": "chest procedure or previous collapsed lung",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "amc-spec-2026",
+        "racgp-pe-2022",
+        "healthdirect-chest-2025"
+      ],
+      "where": "Full Run: dangerous alternatives",
+      "popUp": "Why keep asking alternatives after the leading diagnosis appears?",
+      "say": [
+        "Another emergency can look similar. Ask whether the pain is exertional or pressure-like, and about chest injury, recent procedures or previous pneumothorax. These answers may change what needs urgent treatment."
+      ],
+      "pause": "Keep checking the important alternatives even though pulmonary embolism now leads.",
+      "recap": "Pneumothorax, pneumonia, cardiac and aortic causes still need appropriate exclusion.",
+      "reorient": "Finish with medicines, allergies, bleeding, anticoagulant use and renal disease."
+    },
+    {
+      "id": "c003-hint-29",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-medicines-answer",
+        "quote": "no allergies and none of those problems",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "thanz-vte-2019"
+      ],
+      "where": "Full Run: treatment safety",
+      "popUp": "Why ask bleeding and kidney questions before hospital confirms it?",
+      "say": [
+        "Because anticoagulation and contrast imaging may be considered soon. Active bleeding, current anticoagulants, pregnancy, major renal disease and allergy information can change what is safe and which test or medicine is chosen."
+      ],
+      "pause": "Treatment-safety history belongs in the focused history.",
+      "recap": "Priya reports no active bleeding, anticoagulant use, major renal disease or allergy.",
+      "reorient": "Respect the four-minute prompt and change task."
+    },
+    {
+      "id": "c003-hint-30",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-time",
+        "quote": "Four minutes have elapsed",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "amc-spec-2026",
+        "amc-tips-2024"
+      ],
+      "where": "Full Run: changing task",
+      "popUp": "I still have optional questions. What now?",
+      "say": [
+        "Stop asking history questions and begin Task 2 now. The ambulance is already coming and safety monitoring continues in parallel. If the examiner supplies brief heart, lung and leg findings, use them in your explanation; do not spend the next two minutes performing a full examination."
+      ],
+      "pause": "The time prompt changes the task.",
+      "recap": "There is enough information to formulate and explain the leading diagnosis.",
+      "reorient": "Begin with the leading diagnosis and why it fits. Do not return to missed history questions.",
+      "clock": "Minute 4 to minute 6: diagnosis and important differentials."
+    },
+    {
+      "id": "c003-hint-31",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-exam-findings",
+        "quote": "chest is clear with equal air entry",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "amc-spec-2026"
+      ],
+      "where": "Full Run: focused findings",
+      "popUp": "If the chest is clear, how can the oxygen be low?",
+      "say": [
+        "Air can still enter both lungs normally because the obstruction is in a pulmonary blood vessel, not an airway. That is why pulmonary embolism may produce hypoxaemia with a clear chest. The swollen tender calf makes a leg-vein clot more likely."
+      ],
+      "pause": "A clear chest does not exclude a problem in the lung circulation.",
+      "recap": "Her blood pressure has not fallen; clear equal air entry reduces a large pneumothorax; unilateral calf signs strengthen the leading diagnosis.",
+      "reorient": "Explain the leg-to-lung mechanism in plain language."
+    },
+    {
+      "id": "c003-hint-32",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-diagnosis",
+        "quote": "leading diagnosis is a pulmonary embolism",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "thanz-vte-2019",
+        "amc-spec-2026"
+      ],
+      "where": "Full Run: explaining the diagnosis",
+      "popUp": "What does Priya need to understand first?",
+      "say": [
+        "Say that this is the leading concern, not a confirmed result. A clot may have formed in a deep vein in her right leg, broken off and travelled to a lung artery, reducing blood flow through part of the lung."
+      ],
+      "logic": [
+        "Leg-vein clot",
+        "travels through the right heart",
+        "blocks a lung artery",
+        "blood flow and oxygen transfer fall"
+      ],
+      "pause": "Keep the spoken explanation simpler than the internal physiology.",
+      "recap": "The mechanism connects the calf, pleuritic pain, breathlessness, fast pulse and low oxygen.",
+      "reorient": "Explain why the important alternatives are less supported but not impossible."
+    },
+    {
+      "id": "c003-hint-33",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-differentials",
+        "quote": "Reflux does not explain the low oxygen or swollen calf",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "amc-spec-2026",
+        "healthdirect-chest-2025"
+      ],
+      "where": "Full Run: comparing alternatives",
+      "popUp": "How do I discuss differentials without dumping a list?",
+      "say": [
+        "Compare each alternative with the actual findings. Equal air entry reduces a large pneumothorax; no fever or cough reduces pneumonia; the pain pattern is less typical for coronary or aortic disease, but hospital still needs an ECG and assessment. Reflux cannot account for the hypoxaemia and unilateral calf signs."
+      ],
+      "pause": "Say what supports or weakens each important alternative.",
+      "recap": "Pulmonary embolism fits the whole presentation best, but confirmation is still required.",
+      "reorient": "Answer Priya's question about certainty directly."
+    },
+    {
+      "id": "c003-hint-34",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-uncertainty",
+        "quote": "cannot confirm it in the clinic",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "thanz-vte-2019",
+        "amc-spec-2026"
+      ],
+      "where": "Full Run: explaining uncertainty",
+      "popUp": "If I cannot confirm it, should I sound less concerned?",
+      "say": [
+        "Say clearly what is most likely and what still needs proof. Pulmonary embolism is the leading diagnosis, but hospital testing must confirm it. Her low oxygen, fast pulse and calf findings make waiting for a routine outpatient test unsafe."
+      ],
+      "pause": "Do not call it confirmed, and do not make urgent transfer sound optional.",
+      "recap": "Pulmonary embolism is not confirmed, but monitored hospital assessment cannot wait.",
+      "reorient": "Move to immediate management and hospital testing.",
+      "clock": "Finish the diagnostic explanation by minute 6."
+    },
+    {
+      "id": "c003-hint-35",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-plan",
+        "quote": "Clinic tests will not delay the ambulance",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "anzcor-oxygen-2021"
+      ],
+      "where": "Full Run: immediate management",
+      "popUp": "Should I organise clinic tests while waiting?",
+      "say": [
+        "Only if they do not delay transfer or distract from monitoring. Keep her resting, continue titrated oxygen, repeat observations and reassess ABCDE. If blood pressure falls, hypoxaemia worsens, she faints or conscious state changes, escalate emergency support immediately."
+      ],
+      "pause": "Do not delay the ambulance for tests that can be completed safely in hospital.",
+      "recap": "Immediate care is rest, oxygen, monitoring, repeated observations and ambulance transfer.",
+      "reorient": "Explain how hospital will choose the diagnostic test."
+    },
+    {
+      "id": "c003-hint-36",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-hospital-tests",
+        "quote": "D-dimer is mainly useful when the initial probability is low",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "thanz-vte-2019"
+      ],
+      "where": "Full Run: choosing investigations",
+      "popUp": "Do I need a D-dimer before CT?",
+      "say": [
+        "Use PERC only when the clinician's starting probability is below 15% and every criterion is negative. It cannot rule Priya out because her pulse, oxygen level, oestrogen use and unilateral leg swelling are abnormal.",
+        "If pulmonary embolism is unlikely, a negative D-dimer can exclude it; a positive result cannot confirm it. Priya's calf signs and tachycardia place her in the PE-likely Wells group, so she needs imaging. The flight and pill still matter clinically, although they are not separate Wells points."
+      ],
+      "pause": "Do not use PERC or a negative D-dimer to delay definitive assessment here.",
+      "recap": "CT pulmonary angiography is usually appropriate here. Pregnancy, renal function and contrast issues may change the imaging choice.",
+      "reorient": "Explain why anticoagulation timing depends on delay and bleeding risk."
+    },
+    {
+      "id": "c003-hint-37",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-anticoagulation",
+        "quote": "Whether it starts before or after imaging",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "thanz-vte-2019"
+      ],
+      "where": "Full Run: anticoagulation and pill review",
+      "popUp": "Why not automatically give an anticoagulant in the clinic?",
+      "say": [
+        "Anticoagulants help stop the clot growing and reduce new clots; they do not remove the obstruction immediately. If imaging is delayed, the receiving team may start treatment after checking bleeding risk, pregnancy and kidney function. This discussion must not delay transfer."
+      ],
+      "pause": "Check bleeding, pregnancy, kidney function, current anticoagulants and the expected imaging delay.",
+      "recap": "Anticoagulation is likely, but its timing and agent require a safe clinical decision.",
+      "reorient": "Advise no further combined pill pending urgent medical review and arrange a non-oestrogen alternative for endometriosis."
+    },
+    {
+      "id": "c003-hint-38",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-reassurance",
+        "quote": "Did I cause this by flying",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "thanz-vte-2019"
+      ],
+      "where": "Full Run: fear and blame",
+      "popUp": "She is frightened and blaming herself. Which part do I answer first?",
+      "say": [
+        "Answer the blame directly: no, she did not cause this. Long travel and the combined pill can increase risk, but many people with either factor never develop a clot. Then return to what helps now: monitoring has started and hospital can confirm the diagnosis and begin treatment."
+      ],
+      "pause": "Do not say 'do not worry' or promise the outcome.",
+      "recap": "Risk factors may have contributed, but this is not Priya's fault.",
+      "reorient": "Check that she understood the concern, uncertainty and immediate plan."
+    },
+    {
+      "id": "c003-hint-39",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-understanding",
+        "quote": "what you understand about the concern and the plan",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "amc-tips-2024",
+        "ahrq-teach-back-2024",
+        "acsqhc-handover-2026"
+      ],
+      "where": "Full Run: checking understanding",
+      "popUp": "Why use teach-back in an urgent consultation?",
+      "say": [
+        "Pain, breathlessness and fear make information harder to retain. Ask Priya to explain the concern and next steps in her own words, then correct only what is missing or misunderstood."
+      ],
+      "pause": "Do not rely on 'Do you understand?'",
+      "recap": "She should understand that the diagnosis is not confirmed, ambulance transfer is necessary and hospital testing is urgent.",
+      "reorient": "Finish the required management first. Give a brief handover only if time remains and the examiner permits.",
+      "clock": "Do not sacrifice the required concern and management for an unrequested handover."
+    },
+    {
+      "id": "c003-hint-40",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-handover",
+        "quote": "Suspected pulmonary embolism",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "racgp-pe-2022",
+        "amc-tips-2024",
+        "acsqhc-handover-2026"
+      ],
+      "where": "Full Run: optional real-care handover",
+      "popUp": "If the examiner permits time, what must the receiving team hear first?",
+      "say": [
+        "Handover is clinically useful, but the station did not request it. Complete the three stated tasks first. If the examiner permits time, start with identity, urgency and the working diagnosis. Give the key symptoms, observations, unilateral calf findings, clot risks, relevant bleeding and renal information, treatment underway and the need for definitive imaging."
+      ],
+      "pause": "Do not sacrifice a requested task or imply that pulmonary embolism is confirmed.",
+      "recap": "The receiving team has her current observations, the evidence for pulmonary embolism, treatment already given and the next urgent step.",
+      "reorient": "Finish the handover, then wait for the examiner to end the station.",
+      "clock": "Use only the time remaining after the required concern and management."
+    },
+    {
+      "id": "c003-hint-41",
+      "target": {
+        "surface": "run",
+        "itemId": "c003-run-end",
+        "quote": "The station is complete",
+        "occurrence": 1
+      },
+      "citationIds": [
+        "amc-spec-2026",
+        "amc-tips-2024"
+      ],
+      "where": "Moving to the next station",
+      "popUp": "Should I keep reviewing what I missed?",
+      "say": [
+        "No. The station has ended. Take one breath, then begin the next stem from the first line."
+      ],
+      "pause": "Do not carry Case 3 into the next reading time.",
+      "recap": "Case 3 is finished.",
+      "reorient": "Read the next role, setting, presenting problem and tasks."
+    }
+  ];
 })();

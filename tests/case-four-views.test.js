@@ -19,6 +19,7 @@ const viewModel = require("../assets/js/case-views.js");
 const cases = context.window.AMC_CASES;
 const caseData = context.window.AMC_CASES[0];
 const caseTwo = context.window.AMC_CASES[1];
+const caseThree = context.window.AMC_CASES[2];
 
 test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(context.window.AMC_CASES.length, caseFiles.length);
@@ -33,7 +34,7 @@ test("Case 1 remains the protected canonical four-view case", () => {
 test("cases without completed reasoning remain canonical exam-only sources", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
-  cases.slice(2).forEach((item) => {
+  cases.slice(3).forEach((item) => {
     assert.equal(item.reasoningAvailable, false, `${item.id} must remain exam-only in this branch`);
     assert.equal(item.reasoningCompass, undefined, `${item.id} contains a reasoning compass`);
     assert.equal(item.hints, undefined, `${item.id} contains Hints`);
@@ -47,10 +48,12 @@ test("cases without completed reasoning remain canonical exam-only sources", () 
 
 test("case selection exposes completed reasoning and falls back for exam-only cases", () => {
   assert.equal(viewModel.selectCase(cases, "case-002").id, "case-002");
+  assert.equal(viewModel.selectCase(cases, "case-003").id, "case-003");
   assert.equal(viewModel.selectCase(cases, "missing-case"), null);
   assert.equal(viewModel.selectCase(cases, "").id, "case-001");
   assert.equal(viewModel.viewForCase(caseTwo, "#reasoning-full-run").id, "reasoning-full-run");
-  assert.equal(viewModel.viewForCase(cases[2], "#reasoning-full-run").id, "exam-full-run");
+  assert.equal(viewModel.viewForCase(caseThree, "#reasoning-full-run").id, "reasoning-full-run");
+  assert.equal(viewModel.viewForCase(cases[3], "#reasoning-full-run").id, "exam-full-run");
   assert.equal(viewModel.viewForCase(caseData, "#reasoning-full-run").id, "reasoning-full-run");
 });
 
@@ -115,6 +118,144 @@ test("Case 2 Hints resolve exactly, remain ordered and reveal the diagnosis afte
   const learnerText = JSON.stringify(caseTwo.hints);
   assert.doesNotMatch(learnerText, /speed up your safety|heart (?:near|at) the front|stay open|stays open|diagnostic weight|route to danger|on the board/i);
   assert.doesNotMatch(learnerText, /\bADHD\b|\blearner\b|\bcandidate\b|—/i);
+});
+
+test("Case 3 publishes the audited 41-Hint reasoning journey", () => {
+  assert.equal(caseThree.id, "case-003");
+  assert.equal(caseThree.reasoningAvailable, true);
+  assert.equal(caseThree.status, "reasoning_complete");
+  assert.equal(caseThree.statusLabel, "Exam and reasoning complete");
+  assert.equal(caseThree.format.predominantArea, "History taking");
+  assert.equal(caseThree.reasoningCompass.stem.steps.length, 3);
+  assert.equal(caseThree.reasoningCompass.run.steps.length, 3);
+  assert.equal(caseThree.hints.length, 41);
+  assert.equal(caseThree.sources.length, 9);
+  assert.deepEqual(Array.from(caseThree.hints, (hint) => hint.id), Array.from({ length: 41 }, (_, index) => `c003-hint-${String(index + 1).padStart(2, "0")}`));
+  assert.deepEqual(viewModel.validateCase(caseThree), []);
+});
+
+test("Case 3 reasoning preserves the approved Stem and Full Run", () => {
+  const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
+  assert.equal(digest(caseThree.stem), "628cd9b24075030fa0b146fe890c5b9514acacc0bbbedfaa5c55c4e37f7db634");
+  assert.equal(digest(caseThree.run), "95f1c861b3fa40e37be2de87d17616ce21321d7c4813824cf048e76aa1296f67");
+
+  ["stem", "run"].forEach((surface) => {
+    viewModel.itemsForSurface(caseThree, surface).forEach((item) => {
+      const reconstructed = viewModel.segmentsForItem(caseThree, surface, item.id, item.text)
+        .filter((segment) => segment.type === "text")
+        .map((segment) => segment.text)
+        .join("");
+      assert.equal(reconstructed, item.text, `${surface}/${item.id} changed when annotated`);
+    });
+  });
+});
+
+test("Case 3 Hints resolve exactly and reveal pulmonary embolism only after the calf clue", () => {
+  const sourceIds = new Set(caseThree.sources.map((source) => source.id));
+  const itemOrder = {
+    stem: new Map(viewModel.itemsForSurface(caseThree, "stem").map((item, index) => [item.id, index])),
+    run: new Map(viewModel.itemsForSurface(caseThree, "run").map((item, index) => [item.id, index]))
+  };
+  const previous = {
+    stem: { item: -1, quote: -1 },
+    run: { item: -1, quote: -1 }
+  };
+
+  caseThree.hints.forEach((hint, index) => {
+    const item = viewModel.itemMap(caseThree, hint.target.surface)[hint.target.itemId];
+    assert.ok(item, `missing Case 3 target for ${hint.id}`);
+    assert.equal(viewModel.countOccurrences(item.text, hint.target.quote), 1, `ambiguous quote in ${hint.id}`);
+    assert.equal(hint.target.occurrence, 1, `unsupported occurrence in ${hint.id}`);
+    const current = {
+      item: itemOrder[hint.target.surface].get(item.id),
+      quote: item.text.indexOf(hint.target.quote)
+    };
+    const prior = previous[hint.target.surface];
+    assert.ok(current.item > prior.item || (current.item === prior.item && current.quote > prior.quote), `out-of-order anchor in ${hint.id}`);
+    previous[hint.target.surface] = current;
+    assert.ok(hint.citationIds.length >= 1, `uncited Hint ${hint.id}`);
+    hint.citationIds.forEach((sourceId) => assert.ok(sourceIds.has(sourceId), `unknown source ${sourceId}`));
+
+    const body = [hint.popUp].concat(hint.say, hint.logic || [], hint.pause, hint.recap, hint.reorient, hint.clock || "").join(" ");
+    const namesDiagnosis = /pulmonary embolism|pulmonary embolus|\bPE\b/i.test(body);
+    if (index < 23) assert.equal(namesDiagnosis, false, `diagnosis leaked in ${hint.id}`);
+    if (index === 23) assert.equal(namesDiagnosis, true, "Hint 24 must name the leading diagnosis after the unilateral calf clue");
+  });
+
+  const revealHint = caseThree.hints[23];
+  assert.equal(revealHint.id, "c003-hint-24");
+  assert.equal(revealHint.target.itemId, "c003-run-leg-answer");
+  assert.equal(revealHint.target.quote, "right calf has ached for two days");
+
+  const earlyCitations = caseThree.hints.slice(0, 23).flatMap((hint) => hint.citationIds);
+  assert.equal(earlyCitations.includes("racgp-pe-2022"), false, "a source title reveals PE before Hint 24");
+  assert.equal(earlyCitations.includes("thanz-vte-2019"), false, "a source title reveals VTE before Hint 24");
+
+  const finalHint = caseThree.hints.at(-1);
+  assert.equal(finalHint.target.surface, "run");
+  assert.equal(finalHint.target.itemId, "c003-run-end");
+  assert.equal(finalHint.target.quote, "The station is complete");
+});
+
+test("Case 3 reasoning uses only clues already disclosed by the Full Run", () => {
+  const hintText = (start, end) => JSON.stringify(caseThree.hints.slice(start, end));
+
+  assert.doesNotMatch(hintText(10, 15), /91%|112|24 breaths|hypoxaemi|tachycard/i);
+  assert.doesNotMatch(hintText(10, 23), /right calf has ached|looks a little swollen|eight hours|combined pill for endometriosis/i);
+  assert.doesNotMatch(JSON.stringify(caseThree.hints[23]), /eight hours|combined pill for endometriosis/i);
+  assert.doesNotMatch(JSON.stringify(caseThree.hints[24]), /combined pill for endometriosis/i);
+  assert.match(JSON.stringify(caseThree.hints[15]), /91%|112/);
+  assert.match(JSON.stringify(caseThree.hints[23]), /right calf has ached|pulmonary embolism/i);
+  assert.match(JSON.stringify(caseThree.hints[24]), /eight hours|prolonged sitting/i);
+  assert.match(JSON.stringify(caseThree.hints[25]), /combined pill for endometriosis|oestrogen/i);
+});
+
+test("Case 3 sources and consultant-companion language pass the release guardrails", () => {
+  caseThree.sources.forEach((source) => {
+    assert.match(source.url, /^https:\/\//, `${source.id} does not use HTTPS`);
+  });
+
+  const oxygenHints = caseThree.hints.filter((hint) => ["c003-hint-16", "c003-hint-17", "c003-hint-35"].includes(hint.id));
+  assert.ok(oxygenHints.every((hint) => hint.citationIds.includes("anzcor-oxygen-2021")));
+  const investigationHint = caseThree.hints.find((hint) => hint.id === "c003-hint-36");
+  const anticoagulationHint = caseThree.hints.find((hint) => hint.id === "c003-hint-37");
+  const teachBackHint = caseThree.hints.find((hint) => hint.id === "c003-hint-39");
+  const handoverHint = caseThree.hints.find((hint) => hint.id === "c003-hint-40");
+  const stationEndHint = caseThree.hints.find((hint) => hint.id === "c003-hint-41");
+  assert.ok(investigationHint.citationIds.some((id) => ["racgp-pe-2022", "thanz-vte-2019"].includes(id)));
+  assert.ok(anticoagulationHint.citationIds.some((id) => ["racgp-pe-2022", "thanz-vte-2019"].includes(id)));
+  assert.ok(teachBackHint.citationIds.includes("ahrq-teach-back-2024"));
+  assert.ok(handoverHint.citationIds.includes("acsqhc-handover-2026"));
+  assert.ok(stationEndHint.citationIds.includes("amc-tips-2024"));
+  assert.match(caseThree.clinicalSources.find((source) => /oxygen in emergencies/i.test(source.title)).date, /Approved April 2021/);
+
+  const learnerText = JSON.stringify({
+    compass: caseThree.reasoningCompass,
+    hints: caseThree.hints
+  });
+  assert.doesNotMatch(learnerText, /speed up your safety|heart (?:near|at) the front|stay open|stays open|diagnostic weight|route to danger|on the board/i);
+  assert.doesNotMatch(learnerText, /reflux owns|physiology outranks|danger threshold|clot-risk stack|clues click|one mechanism unifies|probability shifter/i);
+  assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
+});
+
+test("Case 3 publication metadata uses one cache-safe release marker", () => {
+  const releaseMarker = "case3-reasoning-v1";
+  const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
+  const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
+  const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
+  const readme = fs.readFileSync(path.join(root, "README.md"), "utf8");
+  const refresh = fs.readFileSync(path.join(root, ".pages-refresh"), "utf8");
+
+  assert.match(indexSource, new RegExp(`name="x-build-id" content="${releaseMarker}"`));
+  assert.match(indexSource, new RegExp(`window[.]__BUILD_ID__ = "${releaseMarker}"`));
+  assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
+  assert.doesNotMatch(indexSource, /case2-reasoning-v1/);
+  assert.equal(version.buildId, releaseMarker);
+  assert.equal(version.checkpoint, "case-003-reasoning-published");
+  assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
+  assert.match(workflow, /grep -q "case3-reasoning-v1" index[.]html/);
+  assert.match(readme, /Cases 1, 2 and 3 contain completed Reasoning layers/);
+  assert.match(refresh, /Checkpoint: case-003-reasoning-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {

@@ -45,5 +45,5 @@ jobs:
         run: |
           test -f index.html
           test -f version.json
-          grep -q "autonomous-exam-p5-v1" index.html
+          grep -q "case3-reasoning-v1" index.html
           grep -q "multi-case-optional-reasoning" version.json

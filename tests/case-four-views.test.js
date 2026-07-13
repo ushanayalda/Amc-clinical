@@ -134,6 +134,26 @@ test("Case 5 recognises quietening breath sounds as deterioration", () => {
   assert.match(text, /Adrenaline is not routine asthma treatment but must be given promptly if anaphylaxis emerges/);
 });
 
+test("Case 6 gives intramuscular adrenaline before asthma treatment", () => {
+  const case6 = cases.find((item) => item.id === "case-006");
+  assert.ok(case6, "Case 6 is missing");
+
+  const text = case6.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const adrenalineIndex = text.indexOf("Give adrenaline 0.5 milligrams");
+  const salbutamolIndex = text.indexOf("give salbutamol for persistent wheeze");
+
+  assert.ok(adrenalineIndex >= 0, "Case 6 lacks immediate adrenaline");
+  assert.ok(salbutamolIndex > adrenalineIndex, "Case 6 gives salbutamol before adrenaline");
+  assert.match(text, /It can occur without a rash/);
+  assert.match(text, /do not let her stand or walk/i);
+  assert.match(text, /second intramuscular adrenaline dose of 0.5 milligrams/);
+  assert.match(text, /at least four hours after the last adrenaline dose/);
+});
+
 test("all four views resolve and legacy case links have safe redirects", () => {
   assert.deepEqual(viewModel.validViews, [
     "exam-stem",

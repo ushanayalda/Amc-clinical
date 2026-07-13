@@ -8,19 +8,87 @@ const crypto = require("node:crypto");
 const root = path.resolve(__dirname, "..");
 const context = { window: {} };
 vm.createContext(context);
-vm.runInContext(fs.readFileSync(path.join(root, "data/cases/case-001.js"), "utf8"), context);
+const caseFiles = fs.readdirSync(path.join(root, "data", "cases"))
+  .filter((file) => /^case-[0-9]+[.]js$/.test(file))
+  .sort();
+caseFiles.forEach((file) => {
+  vm.runInContext(fs.readFileSync(path.join(root, "data/cases", file), "utf8"), context);
+});
 
 const viewModel = require("../assets/js/case-views.js");
+const cases = context.window.AMC_CASES;
 const caseData = context.window.AMC_CASES[0];
 
-test("Case 1 is one canonical review checkpoint", () => {
-  assert.equal(context.window.AMC_CASES.length, 1);
+test("Case 1 remains the protected canonical four-view case", () => {
+  assert.equal(context.window.AMC_CASES.length, caseFiles.length);
   assert.equal(caseData.id, "case-001");
   assert.equal(caseData.status, "review");
   assert.equal(caseData.modality, "in_person");
   assert.ok(caseData.stem.lines.length > 0);
   assert.ok(caseData.run.sections.length > 0);
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
+});
+
+test("new cases are canonical exam-only sources for the separate reasoning branch", () => {
+  const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
+  assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
+  cases.slice(1).forEach((item) => {
+    assert.equal(item.reasoningAvailable, false, `${item.id} must remain exam-only in this branch`);
+    assert.equal(item.reasoningCompass, undefined, `${item.id} contains a reasoning compass`);
+    assert.equal(item.hints, undefined, `${item.id} contains Hints`);
+    assert.equal(item.sources, undefined, `${item.id} contains learner-facing reasoning sources`);
+    assert.ok(item.stem.lines.length > 0);
+    assert.ok(item.stem.tasks.length > 0);
+    assert.ok(item.run.sections.length > 0);
+    assert.deepEqual(viewModel.validateCase(item), []);
+  });
+});
+
+test("case selection rejects stale IDs and reasoning hashes fall back to Exam", () => {
+  assert.equal(viewModel.selectCase(cases, "case-002").id, "case-002");
+  assert.equal(viewModel.selectCase(cases, "missing-case"), null);
+  assert.equal(viewModel.selectCase(cases, "").id, "case-001");
+  assert.equal(viewModel.viewForCase(cases[1], "#reasoning-full-run").id, "exam-full-run");
+  assert.equal(viewModel.viewForCase(caseData, "#reasoning-full-run").id, "reasoning-full-run");
+});
+
+test("malformed generated cases fail validation without throwing", () => {
+  assert.doesNotThrow(() => viewModel.validateCase({ id: "broken" }));
+  assert.ok(viewModel.validateCase({ id: "broken" }).length > 0);
+  assert.deepEqual(viewModel.itemsForSurface({}, "stem"), []);
+  assert.deepEqual(viewModel.itemsForSurface({}, "run"), []);
+});
+
+test("shared UI chrome uses learner-facing language and hides branch workflow", () => {
+  const appSource = fs.readFileSync(path.join(root, "assets/js/app.js"), "utf8");
+  assert.doesNotMatch(appSource, /Candidate information/);
+  assert.doesNotMatch(appSource, /The Reasoning version is produced separately/);
+  assert.match(appSource, /Your station information/);
+  assert.match(appSource, /Open the first available case/);
+});
+
+test("every canonical case is loaded by the source shell and discovered by the build", () => {
+  const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
+  const buildSource = fs.readFileSync(path.join(root, "scripts/build-pages.js"), "utf8");
+  caseFiles.forEach((file) => {
+    assert.match(indexSource, new RegExp("data/cases/" + file.replace(/[.]/g, "[.]")));
+  });
+  assert.match(buildSource, /readdirSync\(path[.]join\(root, "data", "cases"\)\)/);
+});
+
+test("new case files contain complete station voices without learner-facing reasoning text", () => {
+  cases.slice(1).forEach((item) => {
+    const turns = item.run.sections.flatMap((section) => section.turns);
+    const speakers = new Set(turns.map((turn) => turn.speaker));
+    ["Doctor", "Patient", "Examiner", "Action"].forEach((speaker) => {
+      assert.ok(speakers.has(speaker), `${item.id} is missing ${speaker}`);
+    });
+    assert.equal(turns[0].speaker, "Examiner");
+    assert.equal(turns.at(-1).speaker, "Examiner");
+    const learnerText = JSON.stringify({ stem: item.stem, run: item.run });
+    assert.doesNotMatch(learnerText, /\bHint\b|reasoning layer|thinking partner|ADHD/i);
+    assert.doesNotMatch(learnerText, /\bcandidate\b/i);
+  });
 });
 
 test("all four views resolve and legacy case links have safe redirects", () => {

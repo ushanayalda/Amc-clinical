@@ -4,9 +4,14 @@
   var app = document.getElementById("app");
   var cases = window.AMC_CASES || [];
   var viewModel = window.AMCViewModel;
-  var currentCase = cases[0];
+  var requestedCaseId = new URLSearchParams(window.location.search).get("case");
+  var currentCase = viewModel ? viewModel.selectCase(cases, requestedCaseId) : null;
   var activeMarker = null;
   var popover = null;
+
+  function reasoningReady(caseData) {
+    return Boolean(caseData && caseData.reasoningCompass && caseData.hints && caseData.hints.length);
+  }
 
   function element(tag, className, text) {
     var node = document.createElement(tag);
@@ -30,6 +35,31 @@
 
   function viewHref(mode, screen) {
     return "#" + mode + "-" + screen;
+  }
+
+  function caseHref(caseId) {
+    var url = new URL(window.location.href);
+    url.searchParams.set("case", caseId);
+    url.hash = "exam-stem";
+    return url.pathname + url.search + url.hash;
+  }
+
+  function renderCasePicker() {
+    var field = element("label", "case-picker");
+    field.appendChild(element("span", "case-picker-label", "Case"));
+    var select = element("select", "case-picker-select");
+    select.setAttribute("aria-label", "Choose a case");
+    cases.forEach(function (caseData) {
+      var option = element("option", "", caseData.displayNumber + ": " + caseData.title);
+      option.value = caseData.id;
+      option.selected = caseData.id === currentCase.id;
+      select.appendChild(option);
+    });
+    select.addEventListener("change", function () {
+      window.location.href = caseHref(select.value);
+    });
+    field.appendChild(select);
+    return field;
   }
 
   function renderSegments(parent, surface, item) {
@@ -58,6 +88,7 @@
   function segmentedControl(labelText, options) {
     var group = element("nav", "segmented-control");
     group.setAttribute("aria-label", labelText);
+    group.style.gridTemplateColumns = "repeat(" + options.length + ", minmax(76px, 1fr))";
     var label = element("span", "segmented-label", labelText);
     group.appendChild(label);
     options.forEach(function (option) {
@@ -73,19 +104,22 @@
     var identity = element("div", "site-identity");
     var eyebrow = element("p", "eyebrow", "AMC Clinical Mastery");
     var title = element("h1", "site-title", currentCase.displayNumber + ": " + currentCase.title);
-    var status = element("span", "review-status", "Review checkpoint");
+    var status = element("span", "review-status", currentCase.statusLabel || "Exam case complete");
     append(identity, eyebrow, title, status);
 
     var controls = element("div", "view-controls");
-    var mode = segmentedControl("Version", [
-      { label: "Exam", href: viewHref("exam", view.screen), active: view.mode === "exam" },
-      { label: "Reasoning", href: viewHref("reasoning", view.screen), active: view.mode === "reasoning" }
-    ]);
+    var modeOptions = [
+      { label: "Exam", href: viewHref("exam", view.screen), active: view.mode === "exam" }
+    ];
+    if (reasoningReady(currentCase)) {
+      modeOptions.push({ label: "Reasoning", href: viewHref("reasoning", view.screen), active: view.mode === "reasoning" });
+    }
+    var mode = segmentedControl("Version", modeOptions);
     var screen = segmentedControl("Screen", [
       { label: "Stem", href: viewHref(view.mode, "stem"), active: view.screen === "stem" },
       { label: "Full Run", href: viewHref(view.mode, "full-run"), active: view.screen === "full-run" }
     ]);
-    append(controls, mode, screen);
+    append(controls, renderCasePicker(), mode, screen);
     append(header, identity, controls);
     return header;
   }
@@ -96,7 +130,7 @@
 
     var top = element("div", "surface-heading-row");
     var headingBlock = element("div");
-    var kicker = element("p", "surface-kicker", "Candidate information");
+    var kicker = element("p", "surface-kicker", "Your station information");
     var heading = element("h2", "surface-title", "Station stem");
     heading.id = "stem-heading";
     append(headingBlock, kicker, heading);
@@ -211,17 +245,20 @@
   function renderFooter() {
     var footer = element("footer", "site-footer");
     var note = element("p", "case-note", currentCase.note);
-    var sourceText = element("p", "source-note", "Clinical content is checked against current Australian primary sources. Source links appear inside relevant Hints.");
+    var sourceMessage = reasoningReady(currentCase)
+      ? "Clinical content is checked against current Australian primary sources. Source links appear inside relevant Hints."
+      : "Clinical content is checked against current Australian primary sources.";
+    var sourceText = element("p", "source-note", sourceMessage);
     append(footer, note, sourceText);
     return footer;
   }
 
   function sourceById(id) {
-    return currentCase.sources.find(function (source) { return source.id === id; });
+    return (currentCase.sources || []).find(function (source) { return source.id === id; });
   }
 
   function hintById(id) {
-    return currentCase.hints.find(function (hint) { return hint.id === id; });
+    return (currentCase.hints || []).find(function (hint) { return hint.id === id; });
   }
 
   function createPopover() {
@@ -366,7 +403,11 @@
 
   function render() {
     closeHint(false);
-    var view = viewModel.viewParts(window.location.hash);
+    var requestedView = viewModel.viewParts(window.location.hash);
+    var view = viewModel.viewForCase(currentCase, window.location.hash);
+    if (requestedView.id !== view.id) {
+      window.history.replaceState(null, "", viewHref("exam", view.screen));
+    }
     document.title = currentCase.displayNumber + " | AMC Clinical Mastery";
     app.dataset.mode = view.mode;
     app.dataset.screen = view.screen;
@@ -383,10 +424,12 @@
 
   function renderFailure(errors) {
     var failure = element("main", "fatal-error");
-    append(failure, element("h1", "", "Case 1 cannot be displayed safely."), element("p", "", "The content contract found errors:"));
+    var label = currentCase ? currentCase.displayNumber : "The requested case";
+    append(failure, element("h1", "", label + " cannot be displayed safely."), element("p", "", "The content contract found errors:"));
     var list = element("ul");
     errors.forEach(function (error) { list.appendChild(element("li", "", error)); });
     failure.appendChild(list);
+    if (cases.length) failure.appendChild(link(caseHref(cases[0].id), "", "Open the first available case"));
     app.replaceChildren(failure);
   }
 

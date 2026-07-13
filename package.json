@@ -5,7 +5,7 @@
   "description": "One-source, four-view AMC clinical mastery site for GitHub Pages.",
   "scripts": {
     "build": "node scripts/build-pages.js",
-    "check": "node --check data/cases/case-001.js && node --check assets/js/case-views.js && node --check assets/js/app.js && node --check scripts/build-pages.js && node --check scripts/verify-dist.js",
+    "check": "node scripts/check-sources.js",
     "test": "node --test tests/case-four-views.test.js",
     "verify:dist": "node scripts/verify-dist.js"
   },

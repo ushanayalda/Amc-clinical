@@ -4,14 +4,14 @@ This repository is a static GitHub Pages site for original AMC-style clinical pr
 
 ## Product model
 
-Each case is authored once and rendered as four views:
+Each case is authored once. The finished product can render four views:
 
 1. Exam / Stem
 2. Exam / Full Run
 3. Reasoning / Stem
 4. Reasoning / Full Run
 
-The Exam and Reasoning views must use the exact same case wording. Reasoning mode may only add quiet `(*)` marker buttons. It must never keep a second annotated copy of the stem or run.
+The case-generation branch produces only the Exam Stem and Full Run. The separate reasoning branch may later add quiet `(*)` marker buttons to the exact same wording. It must never keep a second annotated copy of the stem or run.
 
 The Stem contains the role, setting, essential scenario details, tasks, predominant assessment area and any task timing. It must not contain teaching or disclose the diagnosis unless the station itself requires it.
 
@@ -116,4 +116,4 @@ Tests must prove exact-text parity, anchor integrity, four-view routing, citatio
 
 ## Delivery flow
 
-Build and publish one reviewable case. Revise that same case from user feedback. Proceed to the next case only after the current case is approved. Do not add Custom GPT handoffs, model APIs, package locks, hash approvals, migration gates or multi-agent governance to the production path.
+Generate cases continuously in registry order. Each case must pass internal clinical, timing, content-contract and build checks before publication. Do not wait for individual user approval between cases. Keep the Reasoning layer outside the case-generation branch. Do not add Custom GPT handoffs, model APIs, package locks, hash approvals, migration gates or multi-agent governance to the production path.

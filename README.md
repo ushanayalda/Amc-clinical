@@ -2,7 +2,7 @@
 
 A static, case-by-case learning site for original AMC-style clinical stations.
 
-The active checkpoint is Case 1: **Chest discomfort after lunch**.
+The site now loads a canonical case registry and lets the learner move between completed cases.
 
 ## Four views from one source
 
@@ -13,7 +13,7 @@ Every case has two versions and two screens:
 | Exam | Clean candidate stem | Complete high-standard encounter |
 | Reasoning | Identical stem with `(*)` Hints | Identical encounter with `(*)` Hints |
 
-The canonical Case 1 wording is stored once in `data/cases/case-001.js`. Reasoning mode uses exact-phrase anchors to add marker buttons at render time. It does not keep a second annotated copy.
+Each canonical case is stored once in `data/cases/case-NNN.js`. Case 1 contains its completed Reasoning layer. New cases are produced here as Exam Stem and Full Run only, then receive their Reasoning layer through the separate reasoning workflow without changing the case wording.
 
 Each Hint opens in one contextual window and continues the same thinking journey: what may pop up, why the clue matters, what to keep holding, what to do next, and where the internal task clock sits. Sources remain clickable but collapsed until requested.
 
@@ -22,7 +22,7 @@ Reasoning mode also carries a reusable task compass. It maps the 2-minute readin
 ## Active production path
 
 ```text
-data/cases/case-001.js
+data/cases/case-NNN.js
   -> assets/js/case-views.js
   -> assets/js/app.js
   -> scripts/build-pages.js
@@ -44,7 +44,7 @@ Open `index.html` directly for a quick source preview, or serve `dist/` after bu
 
 ## Case progression
 
-Case 1 remains a review checkpoint until the user approves it. Revisions are made to the same canonical case and redeployed. Case 2 begins only after Case 1 approval.
+Case production proceeds autonomously through the registry. Each case receives internal clinical, timing, content-contract and build checks before publication. Per-case user approval is not required.
 
 ## Source position
 

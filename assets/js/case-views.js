@@ -30,6 +30,20 @@
     };
   }
 
+  function selectCase(cases, requestedId) {
+    var list = Array.isArray(cases) ? cases : [];
+    if (!requestedId) return list[0] || null;
+    return list.find(function (caseData) { return caseData.id === requestedId; }) || null;
+  }
+
+  function viewForCase(caseData, hashValue) {
+    var view = viewParts(hashValue);
+    if (caseData && caseData.reasoningAvailable === false && view.mode === "reasoning") {
+      return viewParts("#exam-" + view.screen);
+    }
+    return view;
+  }
+
   function countOccurrences(text, quote) {
     if (!quote) return 0;
     var count = 0;
@@ -57,6 +71,7 @@
   function itemsForSurface(caseData, surface) {
     var items = [];
     if (surface === "stem") {
+      if (!caseData || !caseData.stem) return items;
       (caseData.stem.lines || []).forEach(function (item) {
         items.push({ id: item.id, text: item.text, kind: "stem-line" });
       });
@@ -66,6 +81,7 @@
       return items;
     }
 
+    if (!caseData || !caseData.run) return items;
     (caseData.run.sections || []).forEach(function (section) {
       (section.turns || []).forEach(function (turn) {
         (turn.lines || []).forEach(function (line) {
@@ -92,6 +108,36 @@
   function validateCase(caseData) {
     var errors = [];
     var ids = {};
+    if (!caseData || typeof caseData !== "object") return ["Case data is missing"];
+    var reasoningAvailable = caseData.reasoningAvailable !== false;
+
+    ["id", "displayNumber", "title", "status", "modality", "note"].forEach(function (field) {
+      if (!caseData[field] || !String(caseData[field]).trim()) errors.push("Case is missing " + field);
+    });
+    if (!caseData.format || !caseData.format.readingTime || !caseData.format.assessmentTime || !caseData.format.predominantArea) {
+      errors.push("Case is missing complete format metadata");
+    }
+    if (!caseData.stem || !Array.isArray(caseData.stem.lines) || !caseData.stem.lines.length) {
+      errors.push("Case has no stem lines");
+    }
+    if (!caseData.stem || !Array.isArray(caseData.stem.tasks) || !caseData.stem.tasks.length) {
+      errors.push("Case has no tasks");
+    }
+    if (!caseData.run || !Array.isArray(caseData.run.sections) || !caseData.run.sections.length) {
+      errors.push("Case has no Full Run sections");
+    }
+
+    (caseData.run && caseData.run.sections || []).forEach(function (section) {
+      if (!section.id || !section.heading) errors.push("Full Run section is missing an ID or heading");
+      if (!Array.isArray(section.turns) || !section.turns.length) {
+        errors.push("Full Run section has no turns: " + (section.id || "unknown"));
+        return;
+      }
+      section.turns.forEach(function (turn) {
+        if (!turn.id || !turn.speaker || !turn.kind) errors.push("Full Run turn is missing required metadata");
+        if (!Array.isArray(turn.lines) || !turn.lines.length) errors.push("Full Run turn has no lines: " + (turn.id || "unknown"));
+      });
+    });
 
     ["stem", "run"].forEach(function (surface) {
       itemsForSurface(caseData, surface).forEach(function (item) {
@@ -135,7 +181,16 @@
       }
     });
 
-    if (!caseData.reasoningCompass || !caseData.reasoningCompass.stem || !caseData.reasoningCompass.run) {
+    (caseData.clinicalSources || []).forEach(function (source, index) {
+      if (!source.organisation || !source.title || !/^https:\/\//.test(source.url || "")) {
+        errors.push("Invalid clinical source at index " + index);
+      }
+    });
+
+    if (!reasoningAvailable) {
+      if (caseData.reasoningCompass) errors.push("Exam-only case must not contain a reasoning compass");
+      if (caseData.hints && caseData.hints.length) errors.push("Exam-only case must not contain Hints");
+    } else if (!caseData.reasoningCompass || !caseData.reasoningCompass.stem || !caseData.reasoningCompass.run) {
       errors.push("Case is missing the stem or run reasoning compass");
     } else {
       [caseData.reasoningCompass.stem, caseData.reasoningCompass.run].forEach(function (compass) {
@@ -211,6 +266,8 @@
     validViews: validViews.slice(),
     resolveView: resolveView,
     viewParts: viewParts,
+    selectCase: selectCase,
+    viewForCase: viewForCase,
     countOccurrences: countOccurrences,
     occurrenceIndex: occurrenceIndex,
     itemsForSurface: itemsForSurface,

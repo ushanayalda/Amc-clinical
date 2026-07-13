@@ -123,6 +123,33 @@ a:hover {
   align-items: flex-end;
 }
 
+.case-picker {
+  display: grid;
+  gap: 0.28rem;
+  min-width: min(310px, 36vw);
+}
+
+.case-picker-label {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.case-picker-select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.48rem 2.2rem 0.48rem 0.72rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.9);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 650;
+}
+
 .segmented-control {
   display: grid;
   grid-template-columns: repeat(2, minmax(76px, 1fr));
@@ -855,6 +882,11 @@ a:hover {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
+  }
+
+  .case-picker {
+    grid-column: 1 / -1;
+    min-width: 0;
   }
 
   .segmented-control {

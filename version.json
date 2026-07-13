@@ -1,9 +1,9 @@
 {
-  "buildId": "case3-reasoning-v1",
+  "buildId": "autonomous-exam-p6-v1",
   "basePath": "/Amc-clinical/",
   "environment": "github-pages-branch",
   "productModel": "multi-case-optional-reasoning",
   "defaultCaseId": "case-001",
-  "caseIds": ["case-001", "case-002", "case-003", "case-004", "case-005", "case-006", "case-007", "case-008", "case-009", "case-010", "case-011", "case-012", "case-013", "case-014", "case-015", "case-016", "case-017"],
-  "checkpoint": "case-003-reasoning-published"
+  "caseIds": ["case-001", "case-002", "case-003", "case-004", "case-005", "case-006", "case-007", "case-008", "case-009", "case-010", "case-011", "case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020"],
+  "checkpoint": "autonomous-exam-pattern-6-core-complete"
 }

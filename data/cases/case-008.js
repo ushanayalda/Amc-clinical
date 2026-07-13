@@ -7,7 +7,7 @@
     globalId: "CP-C008",
     registryId: "CP-P2-C004",
     displayNumber: "Case 8",
-    title: "Worsening breathlessness and drowsiness with COPD",
+    title: "Worsening breathlessness with COPD",
     status: "exam_complete",
     statusLabel: "Exam case complete",
     reasoningAvailable: false,
@@ -17,7 +17,7 @@
     format: {
       readingTime: "2 minutes",
       assessmentTime: "8 minutes",
-      predominantArea: "Adult emergency medicine"
+      predominantArea: "Management/Counselling/Education"
     },
     note: "Original practice station aligned to the current AMC format. It is not an AMC examination station or official marking script.",
     stem: {

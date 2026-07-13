@@ -17,7 +17,7 @@
     format: {
       readingTime: "2 minutes",
       assessmentTime: "8 minutes",
-      predominantArea: "Emergency medicine"
+      predominantArea: "Management/Counselling/Education"
     },
     note: "Original practice station aligned to the current AMC format. It is not an AMC examination station or official marking script.",
     stem: {
@@ -32,7 +32,7 @@
         },
         {
           id: "c005-stem-start",
-          text: "She is sitting upright and can answer briefly. No treatment has been given in the emergency department."
+          text: "She is awake and able to answer questions. The examiner will provide findings and investigation results when requested."
         },
         {
           id: "c005-stem-simulation",

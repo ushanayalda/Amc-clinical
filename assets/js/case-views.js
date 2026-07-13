@@ -125,11 +125,14 @@
       if (!hint.citationIds || !hint.citationIds.length) {
         errors.push("Hint has no citation: " + hint.id);
       }
-      ["journeyPoint", "popUp", "pal", "hold", "next"].forEach(function (field) {
+      ["where", "popUp", "pause", "recap", "reorient"].forEach(function (field) {
         if (!hint[field] || !String(hint[field]).trim()) {
           errors.push("Hint is missing journey field " + field + ": " + hint.id);
         }
       });
+      if (!hint.say || !hint.say.length || hint.say.some(function (paragraph) { return !String(paragraph).trim(); })) {
+        errors.push("Hint is missing natural consultant speech: " + hint.id);
+      }
     });
 
     if (!caseData.reasoningCompass || !caseData.reasoningCompass.stem || !caseData.reasoningCompass.run) {

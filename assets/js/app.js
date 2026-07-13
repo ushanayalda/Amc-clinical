@@ -182,7 +182,7 @@
     if (view.mode === "exam") {
       append(note, element("strong", "", "Exam version"), document.createTextNode(" Clean station wording. No teaching is added."));
     } else {
-      append(note, element("strong", "", "Reasoning journey"), document.createTextNode(" Same case. Each (*) carries the same thinking map forward."));
+      append(note, element("strong", "", "Reasoning version"), document.createTextNode(" Read normally. Open (*) when you want to pause and think beside that phrase."));
     }
     return note;
   }
@@ -195,7 +195,7 @@
     var region = element("section", "reasoning-compass");
     region.setAttribute("aria-label", compass.title);
     var header = element("div", "compass-header");
-    append(header, element("p", "compass-kicker", "Keep this beside the case"), element("h2", "compass-title", compass.title));
+    append(header, element("p", "compass-kicker", "If you lose your place"), element("h2", "compass-title", compass.title));
     region.appendChild(header);
 
     var steps = element("div", "compass-steps");
@@ -287,48 +287,48 @@
     close.setAttribute("aria-label", "Close Hint");
     close.addEventListener("click", function () { closeHint(true); });
 
-    var origin = element("p", "hint-origin", "This thought started from: “" + hint.target.quote + "”");
-    var journeyPoint = element("p", "hint-journey-point", hint.journeyPoint);
+    var origin = element("p", "hint-origin", "From: “" + hint.target.quote + "”");
+    var journeyPoint = element("p", "hint-journey-point", hint.where);
     var header = element("header", "hint-header");
     append(header, journeyPoint, origin, close);
     popover.appendChild(header);
 
     var body = element("div", "hint-body");
     var thought = element("section", "thought-pop");
-    thought.appendChild(element("p", "thought-label", "A thought may pop up"));
     var title = element("h2", "hint-title", hint.popUp);
     title.id = "hint-title";
     thought.appendChild(title);
 
-    var pal = element("section", "pal-response");
-    append(pal, element("p", "pal-label", "Thinking together"), element("p", "pal-text", hint.pal));
-    append(body, thought, pal);
+    var voice = element("section", "consultant-voice");
+    hint.say.forEach(function (paragraph) {
+      voice.appendChild(element("p", "", paragraph));
+    });
+    append(body, thought, voice);
 
-    if (hint.flow && hint.flow.length) {
-      var flow = element("ol", "reasoning-flow");
-      hint.flow.forEach(function (step) {
-        flow.appendChild(element("li", "", step));
+    if (hint.logic && hint.logic.length) {
+      var flow = element("p", "logic-thread");
+      hint.logic.forEach(function (step, index) {
+        if (index) flow.appendChild(element("span", "logic-arrow", "→"));
+        flow.appendChild(element("span", "logic-step", step));
       });
       body.appendChild(flow);
     }
 
+    var pause = element("p", "pause-line");
+    append(pause, element("strong", "", "Pause."), document.createTextNode(" " + hint.pause));
+    body.appendChild(pause);
+
     if (hint.clock) {
-      var clock = element("section", "journey-clock");
-      append(clock, element("span", "", "Internal clock"), element("p", "", hint.clock));
+      var clock = element("p", "journey-clock");
+      append(clock, element("strong", "", "Clock:"), document.createTextNode(" " + hint.clock));
       body.appendChild(clock);
     }
 
-    var carry = element("div", "journey-carry");
-    var hold = element("section", "journey-card journey-card--hold");
-    append(hold, element("h3", "", "Hold onto this"), element("p", "", hint.hold));
-    var next = element("section", "journey-card journey-card--next");
-    append(next, element("h3", "", "Next move"), element("p", "", hint.next));
-    append(carry, hold, next);
-    body.appendChild(carry);
-
-    if (hint.confidence) {
-      body.appendChild(element("p", "journey-confidence", hint.confidence));
-    }
+    var recap = element("p", "recap-line");
+    append(recap, element("strong", "", "So far:"), document.createTextNode(" " + hint.recap));
+    var reorient = element("p", "reorient-line");
+    append(reorient, element("strong", "", "Now:"), document.createTextNode(" " + hint.reorient));
+    append(body, recap, reorient);
 
     var sources = element("details", "hint-sources");
     sources.appendChild(element("summary", "", "Sources behind this Hint (" + hint.citationIds.length + ")"));

@@ -21,6 +21,7 @@ const caseData = context.window.AMC_CASES[0];
 const caseTwo = context.window.AMC_CASES[1];
 const caseThree = context.window.AMC_CASES[2];
 const reasoningCases = cases.filter((item) => item.reasoningAvailable !== false);
+const examOnlyCases = cases.filter((item) => item.reasoningAvailable === false);
 const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const canonicalHashes = {
   "case-001": { stem: "6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875", run: "cd353fbe9e257718c54ff615b8f0d5bf5128d30bb0e89684589844696e2ac5b9" },
@@ -55,10 +56,11 @@ test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
 });
 
-test("Cases 1 to 20 expose complete canonical reasoning sources", () => {
+test("Cases 1 to 20 expose complete reasoning while Cases 21 to 23 remain exam-only", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
-  assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds);
+  assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds.slice(0, 20));
+  assert.deepEqual(Array.from(examOnlyCases, (item) => item.id), expectedIds.slice(20));
 
   reasoningCases.forEach((item) => {
     assert.notEqual(item.reasoningAvailable, false, `${item.id} must expose Reasoning`);
@@ -72,9 +74,21 @@ test("Cases 1 to 20 expose complete canonical reasoning sources", () => {
     assert.deepEqual(viewModel.validateCase(item), []);
   });
 
+  examOnlyCases.forEach((item) => {
+    assert.equal(item.reasoningCompass, undefined, `${item.id} contains a reasoning compass`);
+    assert.equal(item.masteryFocus, undefined, `${item.id} contains mastery text`);
+    assert.equal(item.hints, undefined, `${item.id} contains Hints`);
+    assert.equal(item.sources, undefined, `${item.id} contains learner-facing reasoning sources`);
+    assert.ok(item.stem.lines.length > 0);
+    assert.ok(item.stem.tasks.length > 0);
+    assert.ok(item.run.sections.length > 0);
+    assert.deepEqual(viewModel.validateCase(item), []);
+  });
 });
 
 test("case selection exposes completed reasoning and retains a safe exam-only fallback", () => {
+  const examOnlyCase = examOnlyCases[0];
+  assert.ok(examOnlyCase, "an exam-only fallback case is required");
   assert.equal(viewModel.selectCase(cases, "case-002").id, "case-002");
   assert.equal(viewModel.selectCase(cases, "case-003").id, "case-003");
   assert.equal(viewModel.selectCase(cases, "case-017").id, "case-017");
@@ -83,6 +97,7 @@ test("case selection exposes completed reasoning and retains a safe exam-only fa
   assert.equal(viewModel.viewForCase(caseTwo, "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase(caseThree, "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase(cases[19], "#reasoning-full-run").id, "reasoning-full-run");
+  assert.equal(viewModel.viewForCase(examOnlyCase, "#reasoning-full-run").id, "exam-full-run");
   assert.equal(viewModel.viewForCase(cases[16], "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase({ reasoningAvailable: false }, "#reasoning-full-run").id, "exam-full-run");
   assert.equal(viewModel.viewForCase(caseData, "#reasoning-full-run").id, "reasoning-full-run");
@@ -412,8 +427,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("Cases 18 to 20 publication metadata uses one cache-safe release marker", () => {
-  const releaseMarker = "cases18-20-reasoning-v1";
+test("Pattern 7 publication metadata preserves Cases 1 to 20 reasoning under one cache-safe marker", () => {
+  const releaseMarker = "autonomous-exam-p7-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -425,11 +440,11 @@ test("Cases 18 to 20 publication metadata uses one cache-safe release marker", (
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
   assert.doesNotMatch(indexSource, /cases4-17-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "cases-018-020-reasoning-published");
+  assert.equal(version.checkpoint, "autonomous-exam-pattern-7-core-complete");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "cases18-20-reasoning-v1" index[.]html/);
+  assert.match(workflow, /grep -q "autonomous-exam-p7-v1" index[.]html/);
   assert.match(readme, /Cases 1 to 20 contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: cases18-20-reasoning-v1/);
+  assert.match(refresh, /Checkpoint: autonomous-exam-p7-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {
@@ -478,8 +493,11 @@ test("new case files contain complete station voices without learner-facing reas
       .trim()
       .split(/\s+/).length;
     assert.ok(audibleWords >= 750 && audibleWords <= 1300, `${item.id} is not realistic for an 8-minute run`);
-    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020"].includes(item.id)) {
+    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020", "case-021", "case-022", "case-023"].includes(item.id)) {
       assert.ok(audibleWords <= 1050, `${item.id} is too dense for an 8-minute run`);
+    }
+    if (["case-021", "case-022", "case-023"].includes(item.id)) {
+      assert.ok(audibleWords <= 950, `${item.id} exceeds the Pattern 7 spoken-word ceiling`);
     }
   });
 });
@@ -987,12 +1005,85 @@ test("Case 20 localises ongoing major haematochezia with CTA before colonoscopy"
   assert.match(case20.clinicalSources.map((source) => source.url).join("\n"), /1496-8969/);
 });
 
+test("Case 21 treats DKA to ketone and acidosis resolution rather than glucose alone", () => {
+  const case21 = cases.find((item) => item.id === "case-021");
+  assert.ok(case21, "Case 21 is missing");
+
+  const text = case21.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const bedsideIndex = text.indexOf("Glucose is 26.4 mmol/L and blood ketones are 6.2 mmol/L");
+  const fluidIndex = text.indexOf("Give the first litre of isotonic crystalloid over one hour");
+  const potassiumIndex = text.indexOf("potassium 5.4");
+  const insulinIndex = text.indexOf("fixed-rate intravenous insulin at 0.1 units per kilogram per hour");
+
+  assert.ok(bedsideIndex >= 0 && fluidIndex > bedsideIndex, "Case 21 starts DKA treatment before the bedside pattern is available");
+  assert.ok(potassiumIndex > fluidIndex && insulinIndex > potassiumIndex, "Case 21 starts insulin before potassium is known");
+  assert.match(text, /Continue her usual basal glargine/);
+  assert.match(text, /If potassium falls below 3.5, stop insulin temporarily, replace potassium/);
+  assert.match(text, /When glucose falls below 14 mmol\/L, add intravenous glucose/);
+  assert.match(text, /Insulin must continue until ketonaemia and acidosis resolve/);
+  assert.match(text, /never stop basal insulin, check ketones, maintain fluids and seek early help/);
+  assert.match(case21.clinicalSources.map((source) => source.url).join("\n"), /219046|dci24-0032/);
+});
+
+test("Case 22 corrects HHS osmolality with fluid before adding low-dose insulin", () => {
+  const case22 = cases.find((item) => item.id === "case-022");
+  assert.ok(case22, "Case 22 is missing");
+
+  const text = case22.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const resultIndex = text.indexOf("Calculated osmolality is 379 mOsm/kg");
+  const diagnosisIndex = text.indexOf("indicate hyperosmolar hyperglycaemic state");
+  const salineIndex = text.indexOf("Start intravenous 0.9% sodium chloride first");
+  const delayedInsulinIndex = text.indexOf("Do not start insulin immediately");
+  const insulinIndex = text.indexOf("fixed-rate intravenous insulin at 0.05 units per kilogram per hour");
+
+  assert.ok(resultIndex >= 0 && diagnosisIndex > resultIndex, "Case 22 labels HHS before the discriminating results");
+  assert.ok(salineIndex > diagnosisIndex && delayedInsulinIndex > salineIndex && insulinIndex > delayedInsulinIndex, "Case 22 does not sequence HHS fluid before insulin");
+  assert.match(text, /osmolality to fall by 3 to 8 mOsm\/kg per hour/);
+  assert.match(text, /sodium by no more than 10 mmol\/L in 24 hours/);
+  assert.match(text, /A modest sodium rise while glucose falls is expected if osmolality is falling/);
+  assert.match(text, /renal-adjusted low-molecular-weight heparin thromboprophylaxis unless contraindicated/);
+  assert.match(case22.clinicalSources.map((source) => source.url).join("\n"), /dme[.]15005|dci24-0032/);
+});
+
+test("Case 23 protects the myocardium before shifting and removing potassium", () => {
+  const case23 = cases.find((item) => item.id === "case-023");
+  assert.ok(case23, "Case 23 is missing");
+
+  const text = case23.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const ecgIndex = text.indexOf("QRS widening to 150 milliseconds");
+  const pointOfCareIndex = text.indexOf("Venous potassium is 7.2 mmol/L");
+  const calciumIndex = text.indexOf("give 6.6 mmol of intravenous calcium gluconate");
+  const insulinIndex = text.indexOf("10 units of short-acting insulin with 25 grams of intravenous glucose");
+  const formalIndex = text.indexOf("laboratory sample is not haemolysed");
+
+  assert.ok(ecgIndex >= 0 && pointOfCareIndex > ecgIndex, "Case 23 does not connect ECG toxicity with the rapid potassium result");
+  assert.ok(calciumIndex > pointOfCareIndex && insulinIndex > calciumIndex, "Case 23 does not give calcium before potassium-shifting treatment");
+  assert.ok(formalIndex > insulinIndex, "Case 23 waits for formal confirmation before treating ECG-toxic hyperkalaemia");
+  assert.match(text, /Calcium protects the heart but does not lower potassium/);
+  assert.match(text, /starting glucose is below 7, so commence 10% glucose at 50 millilitres per hour for five hours/);
+  assert.match(text, /The shift into cells is temporary/);
+  assert.match(text, /prepare urgent dialysis if potassium or ECG toxicity persists, rebounds/);
+  assert.match(case23.clinicalSources.map((source) => source.url).join("\n"), /219325|ukkidney[.]org/);
+});
+
 test("every case keeps the station stem clinically neutral", () => {
   cases.forEach((item) => {
     const stemAndTasks = JSON.stringify(item.stem);
     assert.doesNotMatch(
       stemAndTasks,
-      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
+      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|\bdiabetic ketoacidosis\b|\beuglycaemic diabetic ketoacidosis\b|\bDKA\b|\bhyperosmolar hyperglyc(?:a|e)emic state\b|\bHHS\b|\bhyperkal(?:a|e)emia\b|\bketonaemia\b|high[- ]anion[- ]gap metabolic acidosis|DKA pathway|fixed[- ]rate intravenous insulin|insulin[- ]glucose infusion|potassium replacement|calcium (?:gluconate|chloride)|peaked T waves?|widened QRS|sine[- ]wave pattern|(?:blood|capillary) (?:glucose|ketones?) (?:was|is|of) [0-9]|(?:serum )?potassium (?:was|is|of) [0-9]|(?:venous )?pH (?:was|is|of) [0-9]|(?:serum )?osmolality (?:was|is|of) [0-9]|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
       `${item.id} stem or tasks disclose the diagnosis or management priority`
     );
   });

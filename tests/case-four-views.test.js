@@ -222,6 +222,38 @@ test("Case 9 activates the stroke pathway without losing the time anchor", () =>
   assert.match(text, /last known well at 22:30.*discovered at 07:20/);
 });
 
+test("Case 10 treats hypoglycaemia before deciding whether the deficit is a stroke", () => {
+  const case10 = cases.find((item) => item.id === "case-010");
+  assert.ok(case10, "Case 10 is missing");
+
+  const text = case10.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const glucoseCheckIndex = text.indexOf("check capillary blood glucose immediately");
+  const glucoseResultIndex = text.indexOf("Capillary blood glucose is 2.1 mmol/L");
+  const treatmentIndex = text.indexOf("Give glucose 10%, 15 grams");
+  const onsetIndex = text.indexOf("what exact time was Daniel last completely normal");
+  const repeatExamIndex = text.indexOf("neurological examination normalised completely");
+
+  assert.ok(glucoseCheckIndex >= 0, "Case 10 omits glucose from the first assessment");
+  assert.ok(glucoseResultIndex > glucoseCheckIndex, "Case 10 treats before confirming the available glucose result");
+  assert.ok(treatmentIndex > glucoseResultIndex, "Case 10 delays treatment sequencing");
+  assert.ok(onsetIndex > treatmentIndex, "Case 10 does not obtain last-known-well concurrently with correction");
+  assert.match(text, /Do not give food, drink or glucose by mouth/);
+  assert.match(text, /repeat glucose 10%, 10 grams, which is 100 millilitres/);
+  assert.match(text, /reassess every 5 minutes until it is at least 4 mmol\/L/);
+  assert.match(text, /glucagon 1 milligram intramuscularly/);
+  assert.ok(repeatExamIndex > treatmentIndex, "Case 10 does not repeat the neurological examination after glucose");
+  assert.match(text, /does not automatically exclude a simultaneous stroke/);
+  assert.match(text, /blood glucose has fallen to 3.1 mmol\/L/);
+  assert.match(text, /recheck his glucose and symptoms in 10 to 15 minutes/);
+  assert.match(text, /discuss octreotide/);
+  assert.match(text, /hold gliclazide/);
+  assert.match(text, /monitored hospital care/);
+});
+
 test("all four views resolve and legacy case links have safe redirects", () => {
   assert.deepEqual(viewModel.validViews, [
     "exam-stem",

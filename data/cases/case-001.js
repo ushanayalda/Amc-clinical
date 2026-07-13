@@ -22,7 +22,7 @@
           },
           {
             id: "stem-patient",
-            text: "Mr Daniel Morgan, a 60-year-old man, was booked for an urgent same-day consultation after developing chest discomfort following lunch."
+            text: "Mr Daniel Morgan, a 60-year-old man, has attended after developing chest discomfort following lunch."
           },
           {
             id: "stem-start",
@@ -42,7 +42,7 @@
           },
           {
             id: "task-management",
-            text: "Address the patient's concerns and explain your immediate management.",
+            text: "Address the patient's concerns and explain your management plan.",
             timing: "2 minutes"
           }
         ]
@@ -601,12 +601,12 @@
       hints: [
         {
           id: "hint-urgent-booking",
-          target: { surface: "stem", itemId: "stem-patient", quote: "urgent same-day consultation", occurrence: 1 },
-          title: "Urgency is already part of the data",
-          lead: "The booking label is not decoration. It changes your opening tempo before you know the diagnosis.",
+          target: { surface: "stem", itemId: "stem-patient", quote: "has attended", occurrence: 1 },
+          title: "The presentation label tells you very little",
+          lead: "Attending today does not tell you the cause or how unwell he is. Those answers must come from the consultation.",
           layers: [
-            { label: "Thinking path", text: "Start by asking what made the problem urgent today, then look for instability and time-critical patterns." },
-            { label: "Flexible move", text: "Urgent does not automatically mean ACS. It means shorten the route to danger sorting." }
+            { label: "Thinking path", text: "Find out what changed, whether the symptom is present now and whether he appears unwell." },
+            { label: "Flexible move", text: "Do not infer severity from the booking. Assess it from the history, appearance and observations." }
           ],
           citationIds: ["amc-tips-2024"]
         },
@@ -963,7 +963,7 @@
     },
     "hint-immediate-management": {
       journeyPoint: "Task lock · know the output",
-      popUp: "Does immediate management mean I only say 'send to hospital'?",
+      popUp: "Does a management plan mean I only say 'send to hospital'?",
       pal: "No. Referral is one decision, not the whole plan. Show what you do now, what you monitor while waiting, what treatment is safe, how the patient travels, and what the receiving team needs.",
       flow: ["Act now", "Monitor and treat", "Transfer safely", "Hand over clearly"],
       hold: "Your full task anchor: History 0-4 → Explain 4-6 → Concern and management 6-8.",
@@ -1186,7 +1186,7 @@
     },
     {
       id: "hint-immediate-management",
-      target: { surface: "stem", itemId: "task-management", quote: "immediate management", occurrence: 1 },
+      target: { surface: "stem", itemId: "task-management", quote: "management plan", occurrence: 1 },
       citationIds: ["amc-spec-2026", "amc-tips-2024"]
     },
     {
@@ -1266,17 +1266,17 @@
       ],
       pause: "Consider the heart early, but do not decide yet.",
       recap: "A heart-related cause needs early attention. I would also consider aortic dissection, pulmonary embolism, reflux and chest wall pain.",
-      reorient: "Clarify why the visit was urgent and what he means by chest discomfort."
+      reorient: "Clarify what he means by chest discomfort and whether it is present now."
     },
     "hint-urgent-booking": {
       where: "Reading the stem",
-      popUp: "Urgent booking. Do I need to rush?",
+      popUp: "He has attended today. Does that tell me how unwell he is?",
       say: [
-        "This was booked urgently, so I would first check whether he is unwell now.",
-        "If he is stable, I can continue the focused history in order and find out what changed today."
+        "No. The booking itself does not tell me the severity or the cause.",
+        "I would look at him, ask whether the discomfort is present now and obtain his observations when the task allows."
       ],
-      pause: "Check his current stability first. There is no need to rush the conversation.",
-      recap: "We know the problem changed today. We do not yet know the cause or whether he is stable.",
+      pause: "Do not add urgency or reassurance that the stem has not provided.",
+      recap: "He has chest discomfort. Its cause, pattern and current severity are still unknown.",
       reorient: "Clarify exactly what he means by chest discomfort."
     },
     "hint-discomfort": {
@@ -1345,12 +1345,12 @@
         "Acknowledge why indigestion occurred to him, then explain why the history still requires urgent assessment."
       ],
       pause: "Answer his concern before giving the plan.",
-      recap: "Task three requires both a response to his concern and immediate management.",
+      recap: "Task three requires both a response to his concern and a management plan.",
       reorient: "After explaining the plan, check what he has understood.",
       clock: "Use the final 2 minutes for his concern, management and understanding."
     },
     "hint-immediate-management": {
-      where: "Reading task 3: immediate management",
+      where: "Reading task 3: management plan",
       popUp: "Is saying ambulance enough for management?",
       say: [
         "No. Transfer is only one part of the plan.",

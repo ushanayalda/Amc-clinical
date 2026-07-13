@@ -27,7 +27,7 @@
         },
         {
           id: "c002-stem-patient",
-          text: "Mr Michael Harris, a 66-year-old man, presents with sudden severe chest pain extending into his upper back. The pain began about 25 minutes ago while he was moving boxes in his garage."
+          text: "Mr Rafael Vella, a 66-year-old man, presents with chest pain that began about 25 minutes ago while he was moving boxes in his garage."
         },
         {
           id: "c002-stem-start",
@@ -80,13 +80,13 @@
               id: "c002-turn-id",
               speaker: "Patient",
               kind: "spoken",
-              lines: [{ id: "c002-run-id", text: "Michael Harris, 3 February 1960." }]
+              lines: [{ id: "c002-run-id", text: "Rafael Vella, 3 February 1960." }]
             },
             {
               id: "c002-turn-consent",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c002-run-consent", text: "Thank you, Michael. I will ask short questions while the team checks you and starts treatment. Is that okay?" }]
+              lines: [{ id: "c002-run-consent", text: "Thank you, Rafael. I will ask short questions while the team checks you and starts treatment. Is that okay?" }]
             },
             {
               id: "c002-turn-consent-answer",
@@ -146,7 +146,7 @@
               id: "c002-turn-story",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c002-run-story", text: "Michael, tell me exactly what you felt when this began." }]
+              lines: [{ id: "c002-run-story", text: "Rafael, tell me exactly what you felt when this began." }]
             },
             {
               id: "c002-turn-story-answer",
@@ -314,7 +314,7 @@
               id: "c002-turn-explanation",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c002-run-explanation", text: "Michael, I am concerned there may be a tear in the wall of the aorta, the main artery carrying blood from your heart. The sudden severe pain and different blood pressures and pulses in your arms make this more likely than a pulled muscle." }]
+              lines: [{ id: "c002-run-explanation", text: "Rafael, I am concerned there may be a tear in the wall of the aorta, the main artery carrying blood from your heart. The sudden severe pain and different blood pressures and pulses in your arms make this more likely than a pulled muscle." }]
             },
             {
               id: "c002-turn-patient-fear",
@@ -368,7 +368,7 @@
               id: "c002-turn-handover",
               speaker: "Doctor",
               kind: "handover",
-              lines: [{ id: "c002-run-handover", text: "Michael Harris, 66, has about 35 minutes of abrupt maximal chest pain radiating between the shoulder blades, with near-syncope. He has hypertension. Pulse is 104, right-arm blood pressure 186/104 and left-arm pressure 154/92, with a weaker left radial pulse. ECG shows sinus tachycardia without ischaemic change. Suspected acute aortic syndrome. He is monitored and fasting, with two intravenous lines, bloods and crossmatch sent, titrated analgesia and anti-impulse treatment commencing. Empirical antithrombotic treatment has been withheld. Urgent CT angiography, cardiothoracic aortic review and intensive-care involvement are arranged, with theatre alerted." }]
+              lines: [{ id: "c002-run-handover", text: "Rafael Vella, 66, has about 35 minutes of abrupt maximal chest pain radiating between the shoulder blades, with near-syncope. He has hypertension. Pulse is 104, right-arm blood pressure 186/104 and left-arm pressure 154/92, with a weaker left radial pulse. ECG shows sinus tachycardia without ischaemic change. Suspected acute aortic syndrome. He is monitored and fasting, with two intravenous lines, bloods and crossmatch sent, titrated analgesia and anti-impulse treatment commencing. Empirical antithrombotic treatment has been withheld. Urgent CT angiography, cardiothoracic aortic review and intensive-care involvement are arranged, with theatre alerted." }]
             },
             {
               id: "c002-turn-end",

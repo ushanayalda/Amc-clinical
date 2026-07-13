@@ -90,6 +90,7 @@ Use warm, direct, everyday English. Never mention a learner diagnosis or label. 
 - Keep asked-for tasks in control. Do not reward unrequested generic rituals.
 - Treat patient and examiner information as request-dependent where the scenario requires it.
 - Mark clinical inference or local-protocol decisions honestly.
+- Use varied, realistic names that fit Australian clinical practice and are easy to say aloud. Do not repeat a patient's first name within the current 20-case window unless continuity requires it. Keep every name consistent across the stem, Full Run and handover, and avoid stereotyped name-condition pairings.
 
 ## Accessibility and presentation
 

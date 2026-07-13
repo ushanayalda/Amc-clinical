@@ -28,27 +28,27 @@
         },
         {
           id: "c010-stem-patient",
-          text: "Mr Daniel Cho, a 64-year-old man with type 2 diabetes, has presented with sudden slurred speech, left-sided weakness and confusion. His wife, Grace, is present."
+          text: "Mr Min-jae Park, a 64-year-old man with type 2 diabetes, has presented with sudden slurred speech, left-sided weakness and confusion. His wife, Soo-jin, is present."
         },
         {
           id: "c010-stem-start",
-          text: "Daniel is drowsy but responds to voice. The examiner will provide findings when requested."
+          text: "Min-jae is drowsy but responds to voice. The examiner will provide findings when requested."
         }
       ],
       tasks: [
         {
           id: "c010-task-assess",
-          text: "Assess Daniel and discuss your initial management.",
+          text: "Assess Min-jae and discuss your initial management.",
           timing: "4 minutes"
         },
         {
           id: "c010-task-interpret",
-          text: "Interpret the information provided and obtain a focused history from Daniel and Grace.",
+          text: "Interpret the information provided and obtain a focused history from Min-jae and Soo-jin.",
           timing: "2 minutes"
         },
         {
           id: "c010-task-explain",
-          text: "Explain your assessment and management plan to Daniel and Grace.",
+          text: "Explain your assessment and management plan to Min-jae and Soo-jin.",
           timing: "2 minutes"
         }
       ]
@@ -75,13 +75,13 @@
               id: "c010-turn-intro",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c010-run-intro", text: "Hello, I am Ushana, one of the emergency doctors. Daniel, please tell me your full name and what feels wrong." }]
+              lines: [{ id: "c010-run-intro", text: "Hello, I am Ushana, one of the emergency doctors. Min-jae, please tell me your full name and what feels wrong." }]
             },
             {
               id: "c010-turn-opening",
               speaker: "Patient",
               kind: "spoken",
-              lines: [{ id: "c010-run-opening", text: "Daniel... Cho. My left side... strange." }]
+              lines: [{ id: "c010-run-opening", text: "Min-jae... Park. My left side... strange." }]
             },
             {
               id: "c010-turn-assessment",
@@ -93,13 +93,13 @@
               id: "c010-turn-findings",
               speaker: "Examiner",
               kind: "finding",
-              lines: [{ id: "c010-run-findings", text: "Daniel opens his eyes to voice, is confused and follows one-step commands. His airway is patent. Respiratory rate is 16 breaths per minute, oxygen saturation is 97% on room air, pulse is 98 beats per minute and regular, blood pressure is 154/88 mmHg and temperature is 36.4 degrees Celsius. He is pale and clammy. Speech is slurred, there is left lower facial droop, left arm power is 1 out of 5 and left leg power is 3 out of 5. Pupils are equal and reactive. Capillary blood glucose is 2.1 mmol/L." }]
+              lines: [{ id: "c010-run-findings", text: "Min-jae opens his eyes to voice, is confused and follows one-step commands. His airway is patent. Respiratory rate is 16 breaths per minute, oxygen saturation is 97% on room air, pulse is 98 beats per minute and regular, blood pressure is 154/88 mmHg and temperature is 36.4 degrees Celsius. He is pale and clammy. Speech is slurred, there is left lower facial droop, left arm power is 1 out of 5 and left leg power is 3 out of 5. Pupils are equal and reactive. Capillary blood glucose is 2.1 mmol/L." }]
             },
             {
               id: "c010-turn-treatment",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c010-run-treatment", text: "This is clinically important hypoglycaemia with an unsafe swallow and altered conscious state. Do not give food, drink or glucose by mouth. Give glucose 10%, 15 grams, which is 150 millilitres, intravenously now. Recheck blood glucose, conscious state and the complete neurological examination in 5 minutes. If glucose remains below 4 mmol/L, repeat glucose 10%, 10 grams, which is 100 millilitres, and reassess every 5 minutes until it is at least 4 mmol/L. If intravenous access cannot be obtained promptly, give glucagon 1 milligram intramuscularly. His oxygen saturation is adequate, so do not give routine oxygen. Call the senior emergency doctor and activate the acute stroke pathway while we correct the glucose. Grace, while treatment is being given, what exact time was Daniel last completely normal and when did these signs begin?" }]
+              lines: [{ id: "c010-run-treatment", text: "This is clinically important hypoglycaemia with an unsafe swallow and altered conscious state. Do not give food, drink or glucose by mouth. Give glucose 10%, 15 grams, which is 150 millilitres, intravenously now. Recheck blood glucose, conscious state and the complete neurological examination in 5 minutes. If glucose remains below 4 mmol/L, repeat glucose 10%, 10 grams, which is 100 millilitres, and reassess every 5 minutes until it is at least 4 mmol/L. If intravenous access cannot be obtained promptly, give glucagon 1 milligram intramuscularly. His oxygen saturation is adequate, so do not give routine oxygen. Call the senior emergency doctor and activate the acute stroke pathway while we correct the glucose. Soo-jin, while treatment is being given, what exact time was Min-jae last completely normal and when did these signs begin?" }]
             },
             {
               id: "c010-turn-treatment-action",
@@ -129,7 +129,7 @@
               id: "c010-turn-repeat-findings",
               speaker: "Examiner",
               kind: "finding",
-              lines: [{ id: "c010-run-repeat-findings", text: "Five minutes later, blood glucose is 4.8 mmol/L. Daniel is alert and oriented. His speech is clear, facial movement is symmetrical, and power and sensation are normal in all four limbs." }]
+              lines: [{ id: "c010-run-repeat-findings", text: "Five minutes later, blood glucose is 4.8 mmol/L. Min-jae is alert and oriented. His speech is clear, facial movement is symmetrical, and power and sensation are normal in all four limbs." }]
             },
             {
               id: "c010-turn-response-interpretation",
@@ -147,7 +147,7 @@
               id: "c010-turn-consent",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c010-run-consent", text: "Daniel, you are much clearer now. Is it okay if Grace helps with the history while I ask you both questions?" }]
+              lines: [{ id: "c010-run-consent", text: "Min-jae, you are much clearer now. Is it okay if Soo-jin helps with the history while I ask you both questions?" }]
             },
             {
               id: "c010-turn-consent-answer",
@@ -159,7 +159,7 @@
               id: "c010-turn-onset",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c010-run-onset", text: "Grace, before this started, did Daniel have any seizure, severe headache, collapse, head injury or loss of consciousness?" }]
+              lines: [{ id: "c010-run-onset", text: "Soo-jin, before this started, did Min-jae have any seizure, severe headache, collapse, head injury or loss of consciousness?" }]
             },
             {
               id: "c010-turn-onset-answer",
@@ -201,7 +201,7 @@
               id: "c010-turn-recurrence",
               speaker: "Examiner",
               kind: "finding",
-              lines: [{ id: "c010-run-recurrence", text: "Forty-five minutes later Daniel becomes sweaty again. He remains neurologically normal, but blood glucose has fallen to 3.1 mmol/L." }]
+              lines: [{ id: "c010-run-recurrence", text: "Forty-five minutes later Min-jae becomes sweaty again. He remains neurologically normal, but blood glucose has fallen to 3.1 mmol/L." }]
             },
             {
               id: "c010-turn-recurrence-management",
@@ -225,7 +225,7 @@
               id: "c010-turn-diagnosis",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c010-run-diagnosis", text: "Daniel and Grace, the low blood glucose temporarily stopped parts of Daniel's brain from working normally. That caused confusion, slurred speech and one-sided weakness that looked like a stroke. All of those signs resolved after glucose, so hypoglycaemia is the most likely explanation." }]
+              lines: [{ id: "c010-run-diagnosis", text: "Min-jae and Soo-jin, the low blood glucose temporarily stopped parts of Min-jae's brain from working normally. That caused confusion, slurred speech and one-sided weakness that looked like a stroke. All of those signs resolved after glucose, so hypoglycaemia is the most likely explanation." }]
             },
             {
               id: "c010-turn-cause",
@@ -249,7 +249,7 @@
               id: "c010-turn-home-question",
               speaker: "Patient",
               kind: "spoken",
-              lines: [{ id: "c010-run-home-question", text: "I feel normal now. Can Grace drive me home after lunch?" }]
+              lines: [{ id: "c010-run-home-question", text: "I feel normal now. Can Soo-jin drive me home after lunch?" }]
             },
             {
               id: "c010-turn-home-answer",
@@ -273,7 +273,7 @@
               id: "c010-turn-handover",
               speaker: "Doctor",
               kind: "handover",
-              lines: [{ id: "c010-run-handover", text: "Daniel Cho, 64, presented with confusion, dysarthria and left face, arm and leg weakness. He was last known well at 11:40 and symptoms began at noon. Initial glucose was 2.1 with GCS 13. Oxygen saturation was 97% on room air and other observations were stable. Because swallowing was unsafe, he received glucose 10%, 15 grams intravenously. At 5 minutes glucose was 4.8, GCS 15 and the neurological examination normalised completely. He took gliclazide MR 60 milligrams despite minimal intake during two days of diarrhoea and has stage 3 kidney disease. Glucose fell again to 3.1 at 45 minutes without recurrent focal deficit. Oral glucose and longer-acting carbohydrate were given after a safe swallow assessment. Gliclazide is held. He requires monitored admission, serial glucose and neurological checks, renal and trigger assessment, medication review, and senior stroke, toxicology and diabetes input." }]
+              lines: [{ id: "c010-run-handover", text: "Min-jae Park, 64, presented with confusion, dysarthria and left face, arm and leg weakness. He was last known well at 11:40 and symptoms began at noon. Initial glucose was 2.1 with GCS 13. Oxygen saturation was 97% on room air and other observations were stable. Because swallowing was unsafe, he received glucose 10%, 15 grams intravenously. At 5 minutes glucose was 4.8, GCS 15 and the neurological examination normalised completely. He took gliclazide MR 60 milligrams despite minimal intake during two days of diarrhoea and has stage 3 kidney disease. Glucose fell again to 3.1 at 45 minutes without recurrent focal deficit. Oral glucose and longer-acting carbohydrate were given after a safe swallow assessment. Gliclazide is held. He requires monitored admission, serial glucose and neurological checks, renal and trigger assessment, medication review, and senior stroke, toxicology and diabetes input." }]
             },
             {
               id: "c010-turn-end",

@@ -56,7 +56,7 @@ test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
 });
 
-test("Cases 1 to 20 expose complete reasoning while Cases 21 to 23 remain exam-only", () => {
+test("Cases 1 to 20 expose complete reasoning while Cases 21 to 26 remain exam-only", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
   assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds.slice(0, 20));
@@ -427,8 +427,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("Pattern 7 publication metadata preserves Cases 1 to 20 reasoning under one cache-safe marker", () => {
-  const releaseMarker = "autonomous-exam-p7-v1";
+test("Pattern 8 publication metadata preserves Cases 1 to 20 reasoning under one cache-safe marker", () => {
+  const releaseMarker = "autonomous-exam-p8-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -440,11 +440,11 @@ test("Pattern 7 publication metadata preserves Cases 1 to 20 reasoning under one
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
   assert.doesNotMatch(indexSource, /cases4-17-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "autonomous-exam-pattern-7-core-complete");
+  assert.equal(version.checkpoint, "autonomous-exam-pattern-8-core-complete");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "autonomous-exam-p7-v1" index[.]html/);
+  assert.match(workflow, /grep -q "autonomous-exam-p8-v1" index[.]html/);
   assert.match(readme, /Cases 1 to 20 contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: autonomous-exam-p7-v1/);
+  assert.match(refresh, /Checkpoint: autonomous-exam-p8-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {
@@ -493,11 +493,11 @@ test("new case files contain complete station voices without learner-facing reas
       .trim()
       .split(/\s+/).length;
     assert.ok(audibleWords >= 750 && audibleWords <= 1300, `${item.id} is not realistic for an 8-minute run`);
-    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020", "case-021", "case-022", "case-023"].includes(item.id)) {
+    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020", "case-021", "case-022", "case-023", "case-024", "case-025", "case-026"].includes(item.id)) {
       assert.ok(audibleWords <= 1050, `${item.id} is too dense for an 8-minute run`);
     }
-    if (["case-021", "case-022", "case-023"].includes(item.id)) {
-      assert.ok(audibleWords <= 950, `${item.id} exceeds the Pattern 7 spoken-word ceiling`);
+    if (["case-021", "case-022", "case-023", "case-024", "case-025", "case-026"].includes(item.id)) {
+      assert.ok(audibleWords <= 950, `${item.id} exceeds the current pattern spoken-word ceiling`);
     }
   });
 });
@@ -1078,12 +1078,91 @@ test("Case 23 protects the myocardium before shifting and removing potassium", (
   assert.match(case23.clinicalSources.map((source) => source.url).join("\n"), /219325|ukkidney[.]org/);
 });
 
+test("Case 24 recognises inherited structural risk after the exertional-syncope history", () => {
+  const case24 = cases.find((item) => item.id === "case-024");
+  assert.ok(case24, "Case 24 is missing");
+
+  const text = case24.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const familyIndex = text.indexOf("My father died suddenly while running at thirty-eight");
+  const findingsIndex = text.indexOf("systolic ejection murmur at the left sternal edge and apex");
+  const diagnosisIndex = text.indexOf("Hypertrophic cardiomyopathy is a leading concern");
+  const transferIndex = text.indexOf("ambulance for monitored transfer to the emergency department today");
+
+  assert.ok(familyIndex >= 0 && findingsIndex > familyIndex, "Case 24 discloses structural findings before completing the focused history");
+  assert.ok(diagnosisIndex > findingsIndex, "Case 24 names hypertrophic cardiomyopathy before the discriminating findings");
+  assert.ok(transferIndex > diagnosisIndex, "Case 24 does not act after recognising high-risk exertional syncope");
+  assert.match(text, /That is temporary, not a lifetime decision/);
+  assert.match(text, /Do not drive until the cause has been assessed and you are medically cleared/);
+  assert.match(text, /An implanted defibrillator is considered only after that assessment/);
+  assert.match(text, /three-generation family history/);
+  assert.match(case24.clinicalSources.map((source) => source.url).join("\n"), /hypertrophic-cardiomyopathy|cpg_syncope/);
+});
+
+test("Case 25 keeps monitoring after a normal first ECG and cardioverts captured unstable VT", () => {
+  const case25 = cases.find((item) => item.id === "case-025");
+  assert.ok(case25, "Case 25 is missing");
+
+  const text = case25.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const initialEcgIndex = text.indexOf("ECG shows sinus rhythm at 74 beats per minute");
+  const monitoringIndex = text.indexOf("Maintain continuous monitoring, obtain intravenous access and apply defibrillator pads");
+  const deteriorationIndex = text.indexOf("regular broad-complex tachycardia at 170 beats per minute");
+  const cardioversionIndex = text.indexOf("delivers a 100-joule synchronised shock");
+  const responseIndex = text.indexOf("rhythm changes to sinus rhythm at 82 beats per minute");
+  const amiodaroneIndex = text.indexOf("amiodarone 300 milligrams intravenously over 10 to 20 minutes");
+
+  assert.ok(monitoringIndex >= 0 && initialEcgIndex > monitoringIndex, "Case 25 does not protect against an intermittent rhythm before reviewing the normal first ECG");
+  assert.ok(deteriorationIndex > initialEcgIndex, "Case 25 reveals the transient rhythm before the initially reassuring ECG");
+  assert.ok(cardioversionIndex > deteriorationIndex && responseIndex > cardioversionIndex, "Case 25 does not cardiovert unstable broad-complex tachycardia in sequence");
+  assert.ok(amiodaroneIndex > responseIndex, "Case 25 gives amiodarone before the indicated first cardioversion");
+  assert.match(text, /uncertain regular broad-complex rhythm must be treated as ventricular tachycardia/);
+  assert.match(text, /hypotension and impaired consciousness/);
+  assert.match(text, /rather than discharge/);
+  assert.match(case25.clinicalSources.map((source) => source.url).join("\n"), /managing-acute-dysrhythmias|Synchronised-cardioversion/);
+});
+
+test("Case 26 protects an unexplained fall before complete heart block recurs", () => {
+  const case26 = cases.find((item) => item.id === "case-026");
+  assert.ok(case26, "Case 26 is missing");
+
+  const text = case26.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const initialEcgIndex = text.indexOf("right bundle branch block and marked left axis deviation");
+  const monitoringIndex = text.indexOf("Start continuous monitoring, obtain intravenous access, apply pacing-defibrillation pads");
+  const ctIndex = text.indexOf("CT brain is normal");
+  const deteriorationIndex = text.indexOf("independent P waves and QRS complexes");
+  const atropineIndex = text.indexOf("Give atropine 600 micrograms intravenously");
+  const pacingIndex = text.indexOf("Use demand mode at about 70 beats per minute");
+  const captureIndex = text.indexOf("Confirm electrical capture on the monitor and mechanical capture with a pulse");
+
+  assert.ok(initialEcgIndex >= 0 && monitoringIndex > initialEcgIndex, "Case 26 does not recognise conduction disease from the first ECG");
+  assert.ok(ctIndex > monitoringIndex, "Case 26 waits for CT and serial results before monitoring and pacing preparation");
+  assert.ok(deteriorationIndex > ctIndex, "Case 26 reveals complete heart block before the protected observation period");
+  assert.ok(atropineIndex > deteriorationIndex && pacingIndex > atropineIndex, "Case 26 does not begin symptomatic bradycardia treatment in sequence");
+  assert.ok(captureIndex > pacingIndex, "Case 26 does not verify pacing after starting it");
+  assert.match(text, /do not delay pacing for a response/);
+  assert.match(text, /normal scan do not explain the fall/);
+  assert.match(text, /palpable pulse at 70, blood pressure is now 118\/70/);
+  assert.match(text, /adrenaline at 2 to 10 micrograms per minute/);
+  assert.match(case26.clinicalSources.map((source) => source.url).join("\n"), /managing-acute-dysrhythmias|Transcutaneous-cardiac-pacing/);
+});
+
 test("every case keeps the station stem clinically neutral", () => {
   cases.forEach((item) => {
     const stemAndTasks = JSON.stringify(item.stem);
     assert.doesNotMatch(
       stemAndTasks,
-      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|\bdiabetic ketoacidosis\b|\beuglycaemic diabetic ketoacidosis\b|\bDKA\b|\bhyperosmolar hyperglyc(?:a|e)emic state\b|\bHHS\b|\bhyperkal(?:a|e)emia\b|\bketonaemia\b|high[- ]anion[- ]gap metabolic acidosis|DKA pathway|fixed[- ]rate intravenous insulin|insulin[- ]glucose infusion|potassium replacement|calcium (?:gluconate|chloride)|peaked T waves?|widened QRS|sine[- ]wave pattern|(?:blood|capillary) (?:glucose|ketones?) (?:was|is|of) [0-9]|(?:serum )?potassium (?:was|is|of) [0-9]|(?:venous )?pH (?:was|is|of) [0-9]|(?:serum )?osmolality (?:was|is|of) [0-9]|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
+      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|\bdiabetic ketoacidosis\b|\beuglycaemic diabetic ketoacidosis\b|\bDKA\b|\bhyperosmolar hyperglyc(?:a|e)emic state\b|\bHHS\b|\bhyperkal(?:a|e)emia\b|\bketonaemia\b|high[- ]anion[- ]gap metabolic acidosis|DKA pathway|fixed[- ]rate intravenous insulin|insulin[- ]glucose infusion|potassium replacement|calcium (?:gluconate|chloride)|peaked T waves?|widened QRS|sine[- ]wave pattern|hypertrophic cardiomyopathy|\bHCM\b|ventricular tachycardia|\bVT\b|complete (?:heart|atrioventricular) block|third[- ]degree (?:heart|atrioventricular) block|bifascicular block|high[- ]risk (?:cardiac )?syncope|sudden[- ]death risk|synchronised cardioversion|transcutaneous pacing|pacemaker|pacing pads|defibrillation pads|monitored transfer|competitive sport restriction|(?:blood|capillary) (?:glucose|ketones?) (?:was|is|of) [0-9]|(?:serum )?potassium (?:was|is|of) [0-9]|(?:venous )?pH (?:was|is|of) [0-9]|(?:serum )?osmolality (?:was|is|of) [0-9]|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
       `${item.id} stem or tasks disclose the diagnosis or management priority`
     );
   });

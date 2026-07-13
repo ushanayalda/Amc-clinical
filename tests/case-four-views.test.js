@@ -56,7 +56,7 @@ test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
 });
 
-test("Cases 1 to 20 expose complete reasoning while Cases 21 to 26 remain exam-only", () => {
+test("Cases 1 to 20 expose complete reasoning while Cases 21 to 29 remain exam-only", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
   assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds.slice(0, 20));
@@ -427,8 +427,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("Pattern 8 publication metadata preserves Cases 1 to 20 reasoning under one cache-safe marker", () => {
-  const releaseMarker = "autonomous-exam-p8-v1";
+test("Pattern 9 publication metadata preserves Cases 1 to 20 reasoning under one cache-safe marker", () => {
+  const releaseMarker = "autonomous-exam-p9-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -440,11 +440,11 @@ test("Pattern 8 publication metadata preserves Cases 1 to 20 reasoning under one
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
   assert.doesNotMatch(indexSource, /cases4-17-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "autonomous-exam-pattern-8-core-complete");
+  assert.equal(version.checkpoint, "autonomous-exam-pattern-9-core-complete");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "autonomous-exam-p8-v1" index[.]html/);
+  assert.match(workflow, /grep -q "autonomous-exam-p9-v1" index[.]html/);
   assert.match(readme, /Cases 1 to 20 contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: autonomous-exam-p8-v1/);
+  assert.match(refresh, /Checkpoint: autonomous-exam-p9-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {
@@ -493,10 +493,10 @@ test("new case files contain complete station voices without learner-facing reas
       .trim()
       .split(/\s+/).length;
     assert.ok(audibleWords >= 750 && audibleWords <= 1300, `${item.id} is not realistic for an 8-minute run`);
-    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020", "case-021", "case-022", "case-023", "case-024", "case-025", "case-026"].includes(item.id)) {
+    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020", "case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029"].includes(item.id)) {
       assert.ok(audibleWords <= 1050, `${item.id} is too dense for an 8-minute run`);
     }
-    if (["case-021", "case-022", "case-023", "case-024", "case-025", "case-026"].includes(item.id)) {
+    if (["case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029"].includes(item.id)) {
       assert.ok(audibleWords <= 950, `${item.id} exceeds the current pattern spoken-word ceiling`);
     }
   });
@@ -1157,12 +1157,97 @@ test("Case 26 protects an unexplained fall before complete heart block recurs", 
   assert.match(case26.clinicalSources.map((source) => source.url).join("\n"), /managing-acute-dysrhythmias|Transcutaneous-cardiac-pacing/);
 });
 
+test("Case 27 escalates suspected aortic rupture early and chooses imaging from physiology", () => {
+  const case27 = cases.find((item) => item.id === "case-027");
+  assert.ok(case27, "Case 27 is missing");
+
+  const text = case27.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const historyIndex = text.indexOf("missed vascular follow-up");
+  const earlyEscalationIndex = text.indexOf("alert vascular surgery, anaesthesia and theatre");
+  const ultrasoundIndex = text.indexOf("Ultrasound shows a 74-millimetre infrarenal aortic aneurysm");
+  const diagnosisIndex = text.indexOf("Rupture of this abdominal aortic aneurysm is the leading diagnosis");
+  const conditionalCtaIndex = text.indexOf("CT angiography is considered only with the vascular team");
+  const deteriorationIndex = text.indexOf("blood pressure 74/42");
+  const bloodIndex = text.indexOf("Start warmed blood components");
+  const bypassCtIndex = text.indexOf("CT angiography unsafe");
+
+  assert.ok(historyIndex >= 0 && earlyEscalationIndex > historyIndex, "Case 27 does not escalate after the decisive history");
+  assert.ok(ultrasoundIndex > earlyEscalationIndex && diagnosisIndex > ultrasoundIndex, "Case 27 uses ultrasound as a gate before alerting the team or labels rupture before findings");
+  assert.ok(conditionalCtaIndex > diagnosisIndex && deteriorationIndex > conditionalCtaIndex, "Case 27 omits the stable-enough CTA fork before deterioration");
+  assert.ok(bloodIndex > deteriorationIndex && bypassCtIndex > bloodIndex, "Case 27 does not use blood-led resuscitation before bypassing unsafe CT");
+  assert.match(text, /Neither microscopic blood nor absence of a palpable mass excludes it/);
+  assert.match(text, /cannot exclude retroperitoneal rupture/);
+  assert.match(text, /without waiting for haemoglobin to fall/);
+  assert.match(text, /Avoid large crystalloid loads and do not normalise blood pressure before control/);
+  assert.match(case27.clinicalSources.map((source) => source.url).join("\n"), /219040|ejvs[.]2023[.]11[.]002/);
+});
+
+test("Case 28 obtains arterial imaging before normal lactate or a soft abdomen can reassure", () => {
+  const case28 = cases.find((item) => item.id === "case-028");
+  assert.ok(case28, "Case 28 is missing");
+
+  const text = case28.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const anticoagulantIndex = text.indexOf("stopped apixaban four days ago");
+  const mismatchIndex = text.indexOf("pain greatly out of proportion");
+  const ctaRequestIndex = text.indexOf("urgent biphasic CT angiography");
+  const lactateResultIndex = text.indexOf("lactate 1.8 mmol/L");
+  const noReassuranceIndex = text.indexOf("normal early lactate does not exclude bowel ischaemia");
+  const occlusionIndex = text.indexOf("embolic occlusion of the superior mesenteric artery");
+  const heparinIndex = text.indexOf("Start full-dose intravenous unfractionated heparin without avoidable delay");
+  const revascularisationIndex = text.indexOf("Urgent endovascular revascularisation is preferred");
+
+  assert.ok(anticoagulantIndex >= 0 && mismatchIndex > anticoagulantIndex, "Case 28 names the vascular pattern before eliciting embolic risk");
+  assert.ok(ctaRequestIndex > mismatchIndex && lactateResultIndex > ctaRequestIndex, "Case 28 waits for laboratory results before requesting CTA");
+  assert.ok(noReassuranceIndex > lactateResultIndex && occlusionIndex > noReassuranceIndex, "Case 28 is falsely reassured by normal early lactate");
+  assert.ok(heparinIndex > occlusionIndex && revascularisationIndex > heparinIndex, "Case 28 does not sequence contraindication review before anticoagulation and reperfusion");
+  assert.match(text, /suspected mesenteric ischaemia justifies contrast despite acute kidney injury/);
+  assert.match(text, /no oral contrast/);
+  assert.match(text, /Deterioration, uncertain viability, or failed or unavailable endovascular treatment requires laparotomy/);
+  assert.match(case28.clinicalSources.map((source) => source.url).join("\n"), /s13017-022-00443-x|emergency-laparotomy/);
+});
+
+test("Case 29 does not let a negative plain film delay source control for peritonitis", () => {
+  const case29 = cases.find((item) => item.id === "case-029");
+  assert.ok(case29, "Case 29 is missing");
+
+  const text = case29.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const interpretationIndex = text.indexOf("suggest a perforated peptic ulcer");
+  const antibioticsIndex = text.indexOf("Give broad-spectrum intravenous antibiotics now");
+  const ctRequestIndex = text.indexOf("CT abdomen and pelvis with intravenous contrast now");
+  const negativeFilmIndex = text.indexOf("Erect chest X-ray shows no visible free gas");
+  const deteriorationIndex = text.indexOf("blood pressure 86/52");
+  const vasopressorIndex = text.indexOf("Critical care starts noradrenaline now");
+  const noDelayIndex = text.indexOf("Do not wait for CT");
+  const sourceControlIndex = text.indexOf("within three hours in septic shock");
+
+  assert.ok(interpretationIndex >= 0 && antibioticsIndex > interpretationIndex, "Case 29 delays antibiotics after recognising a contaminated abdomen");
+  assert.ok(ctRequestIndex > antibioticsIndex && negativeFilmIndex > ctRequestIndex, "Case 29 does not arrange contrast CT early or lets the plain film precede treatment");
+  assert.ok(deteriorationIndex > negativeFilmIndex && vasopressorIndex > deteriorationIndex, "Case 29 starts vasopressor before persistent shock is demonstrated");
+  assert.ok(noDelayIndex > vasopressorIndex && sourceControlIndex > noDelayIndex, "Case 29 waits for CT instead of progressing to source control");
+  assert.match(text, /negative X-ray does not exclude perforation or overrule peritonism/i);
+  assert.match(text, /Routine empirical antifungal treatment is not indicated/);
+  assert.match(text, /Antibiotics cannot close the hole or clear contamination/);
+  assert.match(case29.clinicalSources.map((source) => source.url).join("\n"), /emergency-laparotomy|sepsis|s13017-019-0283-9/);
+});
+
 test("every case keeps the station stem clinically neutral", () => {
   cases.forEach((item) => {
     const stemAndTasks = JSON.stringify(item.stem);
     assert.doesNotMatch(
       stemAndTasks,
-      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|\bdiabetic ketoacidosis\b|\beuglycaemic diabetic ketoacidosis\b|\bDKA\b|\bhyperosmolar hyperglyc(?:a|e)emic state\b|\bHHS\b|\bhyperkal(?:a|e)emia\b|\bketonaemia\b|high[- ]anion[- ]gap metabolic acidosis|DKA pathway|fixed[- ]rate intravenous insulin|insulin[- ]glucose infusion|potassium replacement|calcium (?:gluconate|chloride)|peaked T waves?|widened QRS|sine[- ]wave pattern|hypertrophic cardiomyopathy|\bHCM\b|ventricular tachycardia|\bVT\b|complete (?:heart|atrioventricular) block|third[- ]degree (?:heart|atrioventricular) block|bifascicular block|high[- ]risk (?:cardiac )?syncope|sudden[- ]death risk|synchronised cardioversion|transcutaneous pacing|pacemaker|pacing pads|defibrillation pads|monitored transfer|competitive sport restriction|(?:blood|capillary) (?:glucose|ketones?) (?:was|is|of) [0-9]|(?:serum )?potassium (?:was|is|of) [0-9]|(?:venous )?pH (?:was|is|of) [0-9]|(?:serum )?osmolality (?:was|is|of) [0-9]|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
+      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|\bdiabetic ketoacidosis\b|\beuglycaemic diabetic ketoacidosis\b|\bDKA\b|\bhyperosmolar hyperglyc(?:a|e)emic state\b|\bHHS\b|\bhyperkal(?:a|e)emia\b|\bketonaemia\b|high[- ]anion[- ]gap metabolic acidosis|DKA pathway|fixed[- ]rate intravenous insulin|insulin[- ]glucose infusion|potassium replacement|calcium (?:gluconate|chloride)|peaked T waves?|widened QRS|sine[- ]wave pattern|hypertrophic cardiomyopathy|\bHCM\b|ventricular tachycardia|\bVT\b|complete (?:heart|atrioventricular) block|third[- ]degree (?:heart|atrioventricular) block|bifascicular block|high[- ]risk (?:cardiac )?syncope|sudden[- ]death risk|synchronised cardioversion|transcutaneous pacing|pacemaker|pacing pads|defibrillation pads|monitored transfer|competitive sport restriction|ruptured (?:abdominal )?aortic aneurysm|\babdominal aortic aneurysm\b|\bAAA\b|\bmesenteric ischaemia\b|\bperforated (?:peptic )?ulcer\b|\bperforated viscus\b|\bperitonitis\b|\bpneumoperitoneum\b|\bfree (?:intraperitoneal )?(?:air|gas)\b|\bvascular surgery\b|\bemergency laparotomy\b|\bsource control\b|\bbroad-spectrum antibiotics\b|\bnil by mouth\b|\bCT angiograph(?:y|ic)\b|\bCTA\b|\bbedside aortic ultrasound\b|controlled resuscitation|blood-led|(?:blood|capillary) (?:glucose|ketones?) (?:was|is|of) [0-9]|(?:serum )?potassium (?:was|is|of) [0-9]|(?:venous )?pH (?:was|is|of) [0-9]|(?:serum )?osmolality (?:was|is|of) [0-9]|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
       `${item.id} stem or tasks disclose the diagnosis or management priority`
     );
   });

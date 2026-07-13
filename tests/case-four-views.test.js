@@ -66,11 +66,16 @@ test("every Hint resolves to an exact phrase and a current source link", () => {
     const item = viewModel.itemMap(caseData, hint.target.surface)[hint.target.itemId];
     assert.ok(item, `missing target for ${hint.id}`);
     assert.ok(viewModel.occurrenceIndex(item.text, hint.target.quote, hint.target.occurrence) >= 0, `missing quote for ${hint.id}`);
-    ["journeyPoint", "popUp", "pal", "hold", "next"].forEach((field) => {
+    ["where", "popUp", "pause", "recap", "reorient"].forEach((field) => {
       assert.ok(hint[field] && hint[field].trim(), `missing ${field} in ${hint.id}`);
     });
+    assert.ok(Array.isArray(hint.say) && hint.say.length >= 1, `missing natural speech in ${hint.id}`);
     assert.equal(hint.layers, undefined, `legacy academic layers remain active in ${hint.id}`);
     assert.equal(hint.lead, undefined, `legacy information lead remains active in ${hint.id}`);
+    assert.equal(hint.journeyPoint, undefined, `old journey template remains active in ${hint.id}`);
+    assert.equal(hint.pal, undefined, `old thinking-partner paragraph remains active in ${hint.id}`);
+    assert.equal(hint.hold, undefined, `old hold card remains active in ${hint.id}`);
+    assert.equal(hint.next, undefined, `old next-move card remains active in ${hint.id}`);
     assert.ok(hint.citationIds.length >= 1, `uncited Hint ${hint.id}`);
     hint.citationIds.forEach((sourceId) => assert.ok(sourceIds.has(sourceId), `unknown source ${sourceId}`));
   });
@@ -101,31 +106,52 @@ test("Hints cover stem, tasks, dialogue, findings, investigations and handover",
 test("the task compass anchors reading, time recovery and task switching", () => {
   assert.equal(caseData.reasoningCompass.stem.steps.length, 3);
   assert.equal(caseData.reasoningCompass.run.steps.length, 3);
-  assert.match(caseData.reasoningCompass.stem.anchor, /Focused history 0-4/);
-  assert.match(caseData.reasoningCompass.run.anchor, /Danger can interrupt/);
+  assert.match(caseData.reasoningCompass.stem.anchor, /History 0 to 4/);
+  assert.match(caseData.reasoningCompass.run.anchor, /If danger interrupts/);
 
   const timeHint = caseData.hints.find((hint) => hint.id === "hint-time-prompt");
-  assert.match(timeHint.popUp, /mind has gone blank/);
-  assert.match(timeHint.pal, /next task verb/);
-  assert.match(timeHint.confidence, /missed question/);
+  assert.match(timeHint.popUp, /mind.*blank/i);
+  assert.match(timeHint.say.join(" "), /next task verb/);
+  assert.match(timeHint.pause, /old lane is closed enough/i);
+  assert.match(timeHint.reorient, /One lead/);
 });
 
 test("mechanism Hints explain without turning patterns into rigid rules", () => {
   const radiation = caseData.hints.find((hint) => hint.id === "hint-radiation");
   const autonomic = caseData.hints.find((hint) => hint.id === "hint-autonomic");
-  assert.match(radiation.pal, /spinal cord and brainstem/);
-  assert.match(radiation.next, /PE pain/);
-  assert.match(radiation.next, /Dissection pain/);
-  assert.match(autonomic.pal, /Sympathetic output/);
-  assert.match(autonomic.next, /does not reliably locate the infarct/);
-  assert.match(autonomic.next, /not simply/);
+  assert.match(radiation.say.join(" "), /nerve pathways that also receive signals/i);
+  assert.match(radiation.say.join(" "), /PE often irritates the lung lining/);
+  assert.match(radiation.say.join(" "), /Dissection pain comes from the aortic wall/);
+  assert.match(autonomic.say.join(" "), /sympathetic side/);
+  assert.match(autonomic.say.join(" "), /cannot tell you which wall/);
+  assert.match(autonomic.say.join(" "), /not simply/);
 });
 
 test("the learner-facing Hint model is conversational rather than academic", () => {
-  const hintsText = caseData.hints.map((hint) => [hint.popUp, hint.pal, hint.hold, hint.next].join(" ")).join("\n");
-  ["Pathophysiology", "Examiner logic", "Clinical weight", "Mechanism:"].forEach((term) => {
+  const hintsText = caseData.hints.map((hint) => [hint.popUp].concat(hint.say, hint.pause, hint.recap, hint.reorient).join(" ")).join("\n");
+  [
+    "Pathophysiology",
+    "Examiner logic",
+    "Clinical weight",
+    "Mechanism:",
+    "raises the starting chance",
+    "earns the heart and circulation first place",
+    "adds or removes weight",
+    "action follows the whole pattern",
+    "you are choosing where to look first"
+  ].forEach((term) => {
     assert.doesNotMatch(hintsText, new RegExp(term, "i"));
   });
+
+  const age = caseData.hints.find((hint) => hint.id === "hint-age");
+  assert.equal(age.say[0], "That makes the heart jump forward. Fair.");
+  assert.equal(age.pause, "Heart near the front. No diagnosis yet.");
+});
+
+test("the Stem journey does not leak the case diagnosis", () => {
+  const stemHints = caseData.hints.filter((hint) => hint.target.surface === "stem");
+  const text = stemHints.map((hint) => [hint.popUp].concat(hint.say, hint.pause, hint.recap, hint.reorient).join(" ")).join("\n");
+  assert.doesNotMatch(text, /acute coronary syndrome|\bACS\b|heart attack/i);
 });
 
 test("the model run contains all station voices and observable event types", () => {
@@ -159,4 +185,6 @@ test("one reusable popover controls every Hint", () => {
   assert.match(appSource, /aria-haspopup/);
   assert.match(appSource, /element\("details", "hint-sources"\)/);
   assert.doesNotMatch(appSource, /hint[.]layers/);
+  assert.doesNotMatch(appSource, /Thinking together|Hold onto this|Next move|A thought may pop up/);
+  assert.doesNotMatch(appSource, /journey-card/);
 });

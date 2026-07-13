@@ -54,6 +54,28 @@ Every case needs a repeated task compass:
 
 The clock is a compass, not a countdown or pressure device. Teach flexible evidence weighting, not cue-to-diagnosis matching.
 
+### Thinking-partner voice
+
+The voice should feel like an experienced consultant whose mind links clues quickly but who deliberately regulates the pace beside the learner. It notices the tempting link, pauses, explains why it matters, anchors the current map, recaps and returns to the exact task.
+
+Use this natural rhythm:
+
+`notice → pause → link → brief logic → so far → now`
+
+Write like speech, not a textbook or generated study note:
+
+- short natural sentences and occasional fragments are welcome;
+- use contractions where they sound normal;
+- say “That makes the heart jump forward. Fair.” rather than “Age raises the starting probability”;
+- say “These are clues, not passwords” rather than “No single feature rules the diagnosis in or out”;
+- avoid abstract labels such as clinical weight, probability shifter, flexible move, examiner logic or pathophysiology;
+- do not repeat a rigid teaching template or generic reassurance sentence;
+- do not praise the learner or perform motivation;
+- keep one cognitive move per paragraph;
+- use an arrow chain only when it genuinely makes anatomy or mechanism easier to remember.
+
+The Hint window should read as one flowing conversation. Do not turn every reasoning component into a separate card grid.
+
 Use warm, direct, everyday English. Never mention a learner diagnosis or label. Do not use gamification, streaks, points, countdown pressure, progress rings or competing dashboards.
 
 ## Clinical and exam integrity

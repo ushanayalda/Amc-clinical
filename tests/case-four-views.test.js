@@ -18,6 +18,7 @@ caseFiles.forEach((file) => {
 const viewModel = require("../assets/js/case-views.js");
 const cases = context.window.AMC_CASES;
 const caseData = context.window.AMC_CASES[0];
+const caseTwo = context.window.AMC_CASES[1];
 
 test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(context.window.AMC_CASES.length, caseFiles.length);
@@ -29,10 +30,10 @@ test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
 });
 
-test("new cases are canonical exam-only sources for the separate reasoning branch", () => {
+test("cases without completed reasoning remain canonical exam-only sources", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
-  cases.slice(1).forEach((item) => {
+  cases.slice(2).forEach((item) => {
     assert.equal(item.reasoningAvailable, false, `${item.id} must remain exam-only in this branch`);
     assert.equal(item.reasoningCompass, undefined, `${item.id} contains a reasoning compass`);
     assert.equal(item.hints, undefined, `${item.id} contains Hints`);
@@ -44,12 +45,76 @@ test("new cases are canonical exam-only sources for the separate reasoning branc
   });
 });
 
-test("case selection rejects stale IDs and reasoning hashes fall back to Exam", () => {
+test("case selection exposes completed reasoning and falls back for exam-only cases", () => {
   assert.equal(viewModel.selectCase(cases, "case-002").id, "case-002");
   assert.equal(viewModel.selectCase(cases, "missing-case"), null);
   assert.equal(viewModel.selectCase(cases, "").id, "case-001");
-  assert.equal(viewModel.viewForCase(cases[1], "#reasoning-full-run").id, "exam-full-run");
+  assert.equal(viewModel.viewForCase(caseTwo, "#reasoning-full-run").id, "reasoning-full-run");
+  assert.equal(viewModel.viewForCase(cases[2], "#reasoning-full-run").id, "exam-full-run");
   assert.equal(viewModel.viewForCase(caseData, "#reasoning-full-run").id, "reasoning-full-run");
+});
+
+test("Case 2 publishes the approved 40-Hint reasoning journey", () => {
+  assert.equal(caseTwo.id, "case-002");
+  assert.equal(caseTwo.reasoningAvailable, true);
+  assert.equal(caseTwo.status, "reasoning_complete");
+  assert.equal(caseTwo.statusLabel, "Exam and reasoning complete");
+  assert.equal(caseTwo.format.predominantArea, "Management/Counselling/Education");
+  assert.equal(caseTwo.reasoningCompass.stem.steps.length, 3);
+  assert.equal(caseTwo.reasoningCompass.run.steps.length, 3);
+  assert.equal(caseTwo.hints.length, 40);
+  assert.equal(caseTwo.sources.length, 8);
+  assert.deepEqual(viewModel.validateCase(caseTwo), []);
+});
+
+test("Case 2 reasoning preserves the approved Stem and Full Run", () => {
+  const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
+  assert.equal(digest(caseTwo.stem), "18657f3620eca6ce1bb2a06fe0811dc1b340de7ee73e4a6f79fa6e88df53751d");
+  assert.equal(digest(caseTwo.run), "9b976818df6b4f1a28202aa73a52a38f4914481a6370a907ccabcbd36d58d6a9");
+
+  ["stem", "run"].forEach((surface) => {
+    viewModel.itemsForSurface(caseTwo, surface).forEach((item) => {
+      const reconstructed = viewModel.segmentsForItem(caseTwo, surface, item.id, item.text)
+        .filter((segment) => segment.type === "text")
+        .map((segment) => segment.text)
+        .join("");
+      assert.equal(reconstructed, item.text, `${surface}/${item.id} changed when annotated`);
+    });
+  });
+});
+
+test("Case 2 Hints resolve exactly, remain ordered and reveal the diagnosis after the pain pattern is elicited", () => {
+  const sourceIds = new Set(caseTwo.sources.map((source) => source.id));
+  const surfaceText = {
+    stem: viewModel.plainSurfaceText(caseTwo, "stem"),
+    run: viewModel.plainSurfaceText(caseTwo, "run")
+  };
+  const previous = { stem: -1, run: -1 };
+
+  caseTwo.hints.forEach((hint, index) => {
+    const item = viewModel.itemMap(caseTwo, hint.target.surface)[hint.target.itemId];
+    assert.ok(item, `missing Case 2 target for ${hint.id}`);
+    assert.equal(viewModel.countOccurrences(item.text, hint.target.quote), 1, `ambiguous quote in ${hint.id}`);
+    const position = surfaceText[hint.target.surface].indexOf(hint.target.quote);
+    assert.ok(position > previous[hint.target.surface], `out-of-order anchor in ${hint.id}`);
+    previous[hint.target.surface] = position;
+    assert.ok(hint.citationIds.length >= 1, `uncited Hint ${hint.id}`);
+    hint.citationIds.forEach((sourceId) => assert.ok(sourceIds.has(sourceId), `unknown source ${sourceId}`));
+
+    const body = [hint.popUp].concat(hint.say, hint.logic || [], hint.pause, hint.recap, hint.reorient, hint.clock || "").join(" ");
+    const namesDiagnosis = /acute aortic syndrome|aortic dissection/i.test(body);
+    if (index < 17) assert.equal(namesDiagnosis, false, `diagnosis leaked in ${hint.id}`);
+    if (index === 17) assert.equal(namesDiagnosis, true, "Hint 18 must name the leading diagnosis after the pain history");
+  });
+
+  assert.doesNotMatch(JSON.stringify(caseTwo.reasoningCompass.stem), /sudden severe|upper back/i);
+  assert.doesNotMatch(JSON.stringify(caseTwo.hints.slice(10, 17)), /\bsudden\b|chest-to-back|between my shoulder blades/i);
+  assert.doesNotMatch(JSON.stringify(caseTwo.hints.find((hint) => hint.id === "c002-hint-20")), /near-syncope/i);
+  assert.match(JSON.stringify(caseTwo.hints.find((hint) => hint.id === "c002-hint-25")), /has not established whether he uses an anticoagulant/i);
+
+  const learnerText = JSON.stringify(caseTwo.hints);
+  assert.doesNotMatch(learnerText, /speed up your safety|heart (?:near|at) the front|stay open|stays open|diagnostic weight|route to danger|on the board/i);
+  assert.doesNotMatch(learnerText, /\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
 test("malformed generated cases fail validation without throwing", () => {

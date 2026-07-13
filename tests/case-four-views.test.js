@@ -195,6 +195,33 @@ test("Case 8 gives necessary oxygen safely and treats hypercapnic respiratory fa
   assert.match(text, /never refuse oxygen in an emergency/i);
 });
 
+test("Case 9 activates the stroke pathway without losing the time anchor", () => {
+  const case9 = cases.find((item) => item.id === "case-009");
+  assert.ok(case9, "Case 9 is missing");
+
+  const text = case9.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const timeIndex = text.indexOf("last completely normal");
+  const glucoseIndex = text.indexOf("capillary blood glucose now");
+  const ambulanceIndex = text.indexOf("Call Triple Zero for an emergency ambulance now");
+
+  assert.ok(timeIndex >= 0, "Case 9 misses the exact last-known-well question");
+  assert.ok(glucoseIndex > timeIndex, "Case 9 does not include immediate glucose in the stroke screen");
+  assert.ok(ambulanceIndex > glucoseIndex, "Case 9 activates transfer before the rapid stroke assessment");
+  assert.match(text, /Do not wait for further clinic tests/);
+  assert.match(text, /nil by mouth until swallowing is assessed/);
+  assert.match(text, /Do not give routine oxygen because her saturation is adequate/);
+  assert.match(text, /not give aspirin before brain imaging excludes haemorrhage/);
+  assert.match(text, /will not rapidly lower her blood pressure in the clinic/);
+  assert.match(text, /Even if symptoms improve or disappear, you still need emergency assessment/);
+  assert.match(text, /last known well at 10:30 last night and symptoms were discovered at 7:20 this morning/);
+  assert.match(text, /we do not know the exact onset. That does not mean there is no treatment/);
+  assert.match(text, /last known well at 22:30.*discovered at 07:20/);
+});
+
 test("all four views resolve and legacy case links have safe redirects", () => {
   assert.deepEqual(viewModel.validViews, [
     "exam-stem",

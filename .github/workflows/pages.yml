@@ -45,5 +45,5 @@ jobs:
         run: |
           test -f index.html
           test -f version.json
-          grep -q "concrete-consultant-v4" index.html
-          grep -q "one-source-four-view" version.json
+          grep -q "autonomous-exam-p1-v1" index.html
+          grep -q "multi-case-optional-reasoning" version.json

@@ -1,75 +1,51 @@
-# AMC Clinical Pathway
+# AMC Clinical Mastery
 
-AMC Clinical Pathway is a static clinical pattern-training web app by Dr. Ushana Yalda.
+A static, case-by-case learning site for original AMC-style clinical stations.
 
-The site is designed to stay GitHub Pages compatible. It uses plain HTML, CSS, and JavaScript.
+The active checkpoint is Case 1: **Chest discomfort after lunch**.
 
-## Publishing model
+## Four views from one source
 
-GitHub Pages should publish only the generated `dist/` artifact from the Pages workflow.
+Every case has two versions and two screens:
 
-Build locally with:
+| Version | Stem | Full Run |
+|---|---|---|
+| Exam | Clean candidate stem | Complete high-standard encounter |
+| Reasoning | Identical stem with `(*)` Hints | Identical encounter with `(*)` Hints |
 
-```powershell
+The canonical Case 1 wording is stored once in `data/cases/case-001.js`. Reasoning mode uses exact-phrase anchors to add marker buttons at render time. It does not keep a second annotated copy.
+
+Each Hint opens in one contextual window, shows the phrase it came from, and provides connected reasoning with clickable primary sources.
+
+## Active production path
+
+```text
+data/cases/case-001.js
+  -> assets/js/case-views.js
+  -> assets/js/app.js
+  -> scripts/build-pages.js
+  -> GitHub Pages
+```
+
+No Custom GPT, model API, migration gate, release lock or multi-engine handoff is required.
+
+## Local checks
+
+```bash
+npm run check
+npm test
 npm run build
 npm run verify:dist
 ```
 
-The generated artifact contains:
+Open `index.html` directly for a quick source preview, or serve `dist/` after building to test the production artifact.
 
-- `dist/index.html` as the canonical shell.
-- `dist/404.html` as the same shell for fallback routing.
-- `dist/version.json` with the build ID, build time, and fingerprinted asset manifest.
-- Fingerprinted CSS, JavaScript, and data files.
-- A build marker in the shell: `x-build-id` and `window.__BUILD_ID__`.
+## Case progression
 
-Do not publish source root pages such as `map.html`, `before-case.html`, or `case1.html` directly. The public routes should go through `index.html` and hash routes until the Pages artifact is active.
+Case 1 remains a review checkpoint until the user approves it. Revisions are made to the same canonical case and redeployed. Case 2 begins only after Case 1 approval.
 
-If the workflow builds successfully but the live root still shows old HTML, open repository Settings -> Pages and set Source to GitHub Actions. The health check intentionally fails when branch publishing is still serving the site.
+## Source position
 
-## Current structure
+Cases are original practice material aligned to current official AMC specifications. They are not AMC examination stations, official marking scripts or pass guarantees. Clinical guidance uses current Australian primary sources linked inside the Hints.
 
-Learning structure:
-
-Phase
--> Pattern
--> Warm-up
--> Case
--> Speak aloud
--> Hints / Notes only when needed
-
-Key files:
-
-- `data/content.js` contains structured clinical content.
-- `assets/js/renderers.js` renders Home, Pathway, Warm-up, and Case screens.
-- `assets/js/content-store.js` provides content lookup helpers.
-- `assets/js/router.js` keeps the app routed through the canonical shell.
-- `assets/js/ui.js` handles floating navigation and the Tools drawer.
-- `assets/css/styles.css` contains the shared mobile-first app styling.
-
-## Adding a new case
-
-Cases are added through structured content, not custom page design.
-
-Learning structure:
-
-Phase
--> Pattern
--> Warm-up
--> Case
-
-To add a new case:
-
-1. Add or reuse a phase in `phases`.
-2. Add or reuse a pattern in `patterns`.
-3. Add or reuse a warm-up in `warmups`.
-4. Add the case in `cases`.
-5. Link the IDs:
-   - `phase.patternIds`
-   - `pattern.warmupId`
-   - `pattern.caseIds`
-   - `case.phaseId`
-   - `case.patternId`
-   - `case.warmupId`
-
-Do not create a new custom layout for each case unless a reusable component is needed.
+Legacy Engine 2 and audio material remains in the repository history and is not loaded by the active site. It can be removed after the Case 1 checkpoint is accepted.

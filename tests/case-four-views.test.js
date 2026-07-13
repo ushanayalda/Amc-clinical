@@ -1,0 +1,111 @@
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const test = require("node:test");
+const vm = require("node:vm");
+
+const root = path.resolve(__dirname, "..");
+const context = { window: {} };
+vm.createContext(context);
+vm.runInContext(fs.readFileSync(path.join(root, "data/cases/case-001.js"), "utf8"), context);
+
+const viewModel = require("../assets/js/case-views.js");
+const caseData = context.window.AMC_CASES[0];
+
+test("Case 1 is one canonical review checkpoint", () => {
+  assert.equal(context.window.AMC_CASES.length, 1);
+  assert.equal(caseData.id, "case-001");
+  assert.equal(caseData.status, "review");
+  assert.equal(caseData.modality, "in_person");
+  assert.ok(caseData.stem.lines.length > 0);
+  assert.ok(caseData.run.sections.length > 0);
+  assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
+});
+
+test("all four views resolve and legacy case links have safe redirects", () => {
+  assert.deepEqual(viewModel.validViews, [
+    "exam-stem",
+    "exam-full-run",
+    "reasoning-stem",
+    "reasoning-full-run"
+  ]);
+  viewModel.validViews.forEach((view) => assert.equal(viewModel.resolveView("#" + view), view));
+  assert.equal(viewModel.resolveView("#station-stem"), "exam-stem");
+  assert.equal(viewModel.resolveView("#speak-aloud"), "exam-full-run");
+  assert.equal(viewModel.resolveView("#hints"), "reasoning-stem");
+});
+
+test("the canonical content contract passes", () => {
+  assert.deepEqual(viewModel.validateCase(caseData), []);
+});
+
+test("Reasoning text is byte-equivalent to Exam text after markers are removed", () => {
+  ["stem", "run"].forEach((surface) => {
+    viewModel.itemsForSurface(caseData, surface).forEach((item) => {
+      const reconstructed = viewModel.segmentsForItem(caseData, surface, item.id, item.text)
+        .filter((segment) => segment.type === "text")
+        .map((segment) => segment.text)
+        .join("");
+      assert.equal(reconstructed, item.text, `${surface}/${item.id} changed when annotated`);
+    });
+  });
+});
+
+test("every Hint resolves to an exact phrase and a current source link", () => {
+  const sourceIds = new Set(caseData.sources.map((source) => source.id));
+  assert.ok(caseData.hints.length >= 20, "Case 1 needs a connected mastery layer");
+
+  caseData.hints.forEach((hint) => {
+    const item = viewModel.itemMap(caseData, hint.target.surface)[hint.target.itemId];
+    assert.ok(item, `missing target for ${hint.id}`);
+    assert.ok(viewModel.occurrenceIndex(item.text, hint.target.quote, hint.target.occurrence) >= 0, `missing quote for ${hint.id}`);
+    assert.ok(hint.layers.length >= 2, `thin Hint ${hint.id}`);
+    assert.ok(hint.citationIds.length >= 1, `uncited Hint ${hint.id}`);
+    hint.citationIds.forEach((sourceId) => assert.ok(sourceIds.has(sourceId), `unknown source ${sourceId}`));
+  });
+});
+
+test("Hints cover stem, tasks, dialogue, findings, investigations and handover", () => {
+  const targets = new Set(caseData.hints.map((hint) => hint.target.itemId));
+  [
+    "stem-patient",
+    "task-history",
+    "task-reasoning",
+    "task-management",
+    "run-opening-story",
+    "run-exam-request",
+    "run-ecg-plan",
+    "run-aspirin",
+    "run-oxygen",
+    "run-handover"
+  ].forEach((id) => assert.ok(targets.has(id), `missing mastery target ${id}`));
+});
+
+test("the model run contains all station voices and observable event types", () => {
+  const turns = caseData.run.sections.flatMap((section) => section.turns);
+  const speakers = new Set(turns.map((turn) => turn.speaker));
+  const kinds = new Set(turns.map((turn) => turn.kind));
+  ["Doctor", "Patient", "Examiner", "Action"].forEach((speaker) => assert.ok(speakers.has(speaker)));
+  ["spoken", "action", "finding", "investigation", "handover"].forEach((kind) => assert.ok(kinds.has(kind)));
+  assert.equal(turns[0].speaker, "Examiner");
+  assert.equal(turns.at(-1).speaker, "Examiner");
+});
+
+test("current national ACS and official AMC sources are present", () => {
+  const urls = caseData.sources.map((source) => source.url).join("\n");
+  assert.match(urls, /ACS-Guideline[.]pdf/);
+  assert.match(urls, /Clinical-Exam-Spec-V8-3[.]pdf/);
+  assert.match(urls, /anzcor[.]org/);
+  assert.match(JSON.stringify(caseData), /oxygen saturation is 96%/);
+  assert.match(JSON.stringify(caseData), /aspirin 300 milligrams/);
+  assert.match(JSON.stringify(caseData), /within 10 minutes/);
+});
+
+test("one reusable popover controls every Hint", () => {
+  const appSource = fs.readFileSync(path.join(root, "assets/js/app.js"), "utf8");
+  assert.match(appSource, /var popover = null/);
+  assert.match(appSource, /if \(activeMarker && activeMarker !== marker\)/);
+  assert.match(appSource, /event[.]key === "Escape"/);
+  assert.match(appSource, /closeHint\(true\)/);
+  assert.match(appSource, /aria-haspopup/);
+});

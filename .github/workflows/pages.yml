@@ -30,6 +30,9 @@ jobs:
       - name: Check JavaScript
         run: npm run check
 
+      - name: Test four-view case contract
+        run: npm test
+
       - name: Build Pages artifact
         run: npm run build
         env:
@@ -94,22 +97,20 @@ jobs:
                 if ! contains "$html" "$BUILD_ID"; then
                   ok=false
                 fi
-                contains "$html" "Classic Chest Pain" || ok=false
-                contains "$html" "Continue Case 1" || ok=false
-                contains "$html" "Cases" || ok=false
-                missing "$html" "Map" || ok=false
-                missing "$html" "Before the Case" || ok=false
-                missing "$html" "Progress" || ok=false
-                missing "$html" "Demo progress" || ok=false
-                missing "$html" "Case 1 awaiting transfer" || ok=false
-                missing "$html" "Tracking not connected yet" || ok=false
-                missing "$html" "ready to practise" || ok=false
+                contains "$html" "Chest discomfort after lunch" || ok=false
+                contains "$html" "data/cases/case-001" || ok=false
+                contains "$html" "assets/js/case-views" || ok=false
+                missing "$html" "Continue Case 1" || ok=false
+                missing "$html" "Timed run" || ok=false
+                missing "$html" "Progress ring" || ok=false
               fi
             done
             if [ "${ok}" = true ] && [ -n "$version" ]; then
               if ! contains "$version" "$BUILD_ID"; then
                 ok=false
               fi
+              contains "$version" "one-source-four-view" || ok=false
+              contains "$version" "case-001" || ok=false
             fi
             if [ "${ok}" = true ]; then
               echo "Pages health check passed."

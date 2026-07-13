@@ -238,7 +238,19 @@
       append(item, element("strong", "", step.time), element("span", "", step.text));
       steps.appendChild(item);
     });
-    append(region, steps, element("p", "compass-anchor", compass.anchor));
+    region.appendChild(steps);
+
+    if (currentCase.masteryFocus) {
+      var focus = element("div", "mastery-focus");
+      var caseFocus = element("p", "mastery-focus-item");
+      append(caseFocus, element("strong", "", "Case mastery"), element("span", "", currentCase.masteryFocus.case));
+      var clinicalFocus = element("p", "mastery-focus-item");
+      append(clinicalFocus, element("strong", "", "Clinical mastery"), element("span", "", currentCase.masteryFocus.clinical));
+      append(focus, caseFocus, clinicalFocus);
+      region.appendChild(focus);
+    }
+
+    region.appendChild(element("p", "compass-anchor", compass.anchor));
     return region;
   }
 

@@ -13,11 +13,15 @@ Every case has two versions and two screens:
 | Exam | Clean station stem | Complete high-standard encounter |
 | Reasoning | Identical stem with `(*)` Hints | Identical encounter with `(*)` Hints |
 
-Each canonical case is stored once in `data/cases/case-NNN.js`. Cases 1, 2 and 3 contain completed Reasoning layers. New cases are produced here as Exam Stem and Full Run only, then receive their Reasoning layer through the separate reasoning workflow without changing the case wording.
+Each canonical case is stored once in `data/cases/case-NNN.js`. Cases 1 to 17 contain completed Reasoning layers. New cases are produced here as Exam Stem and Full Run only, then receive their Reasoning layer through the separate reasoning workflow without changing the case wording.
 
 Each Hint opens in one contextual window and continues the same thinking journey: what may pop up, why the clue matters, what to keep holding, what to do next, and where the internal task clock sits. Sources remain clickable but collapsed until requested.
 
-Reasoning mode also carries a reusable task compass. It maps the 2-minute reading period and divides the 8-minute run according to the exact station tasks. Danger can interrupt that clock; the learner is shown how to act and then return to the unfinished task lane.
+Reasoning mode also carries a reusable task compass. It divides the 2-minute reading period and 8-minute run according to the exact station tasks. Danger can interrupt that clock; after urgent action, the doctor is returned to the exact unfinished task.
+
+## Two mastery horizons
+
+Every Reasoning view states two linked goals. **Case mastery** identifies what should become reliable in the current station. **Clinical mastery** identifies the reasoning that should transfer to an unfamiliar patient. Immediate case mastery therefore accumulates into flexible clinical mastery rather than case recall.
 
 ## Active production path
 

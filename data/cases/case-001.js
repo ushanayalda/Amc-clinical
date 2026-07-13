@@ -583,7 +583,7 @@
           title: "Keep your place while reading",
           steps: [
             { time: "First 30 seconds", text: "Where am I? Who is this? Could it be dangerous?" },
-            { time: "Next 30 seconds", text: "Which system comes first? What must stay open?" },
+            { time: "Next 30 seconds", text: "Which system comes first? Which other serious causes still need checking?" },
             { time: "Final minute", text: "What exactly must I do? Split the 8 minutes." }
           ],
           anchor: "History 0 to 4 | Explain 4 to 6 | Concern and management 6 to 8"
@@ -1665,4 +1665,8 @@
       clock: voice.clock || ""
     };
   });
+  caseOne.masteryFocus = {
+    case: "Turn chest discomfort in primary care into a focused, timed and safe assessment from first question to transfer.",
+    clinical: "Recognise dangerous physiology before certainty, then connect the patient's concern to the safest next action."
+  };
 })();

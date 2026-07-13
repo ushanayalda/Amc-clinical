@@ -1462,4 +1462,8 @@
       "reorient": "Read the next role, setting, presenting problem and tasks."
     }
   ];
+  caseThree.masteryFocus = {
+    case: "Move from a plausible reflux explanation to the safest diagnosis and plan as each chest, breathing and calf finding appears.",
+    clinical: "Revise an early explanation when physiology does not fit, while keeping important alternatives and the patient's concern in view."
+  };
 })();

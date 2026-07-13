@@ -197,6 +197,9 @@
         if (!compass.steps || compass.steps.length !== 3) errors.push("Reasoning compass must have three steps");
         if (!compass.anchor) errors.push("Reasoning compass is missing its anchor");
       });
+      if (!caseData.masteryFocus || !caseData.masteryFocus.case || !caseData.masteryFocus.clinical) {
+        errors.push("Reasoning case is missing its case or clinical mastery focus");
+      }
     }
 
     var sourceIds = (caseData.sources || []).reduce(function (map, source) {

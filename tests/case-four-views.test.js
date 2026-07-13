@@ -20,6 +20,28 @@ const cases = context.window.AMC_CASES;
 const caseData = context.window.AMC_CASES[0];
 const caseTwo = context.window.AMC_CASES[1];
 const caseThree = context.window.AMC_CASES[2];
+const reasoningCases = cases.filter((item) => item.reasoningAvailable !== false);
+const examOnlyCases = cases.filter((item) => item.reasoningAvailable === false);
+const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
+const canonicalHashes = {
+  "case-001": { stem: "6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875", run: "cd353fbe9e257718c54ff615b8f0d5bf5128d30bb0e89684589844696e2ac5b9" },
+  "case-002": { stem: "18657f3620eca6ce1bb2a06fe0811dc1b340de7ee73e4a6f79fa6e88df53751d", run: "9b976818df6b4f1a28202aa73a52a38f4914481a6370a907ccabcbd36d58d6a9" },
+  "case-003": { stem: "628cd9b24075030fa0b146fe890c5b9514acacc0bbbedfaa5c55c4e37f7db634", run: "95f1c861b3fa40e37be2de87d17616ce21321d7c4813824cf048e76aa1296f67" },
+  "case-004": { stem: "a615fe14b9d4d6233646069c60ca8abb99eebcdc7af35e29026882c85aecc8da", run: "253476b2111e2b3df0d00fab56da453ac8cc4d7053e356af300fa778e9364664" },
+  "case-005": { stem: "1a7478b1c4e9bc31ae63706cb84c1a3589ee185a508afa58af1a6f5509f7adcd", run: "c8de9afc9c97f18d1f2ba1fbe423cd1e47c0f547a1169b998ba388180fad6503" },
+  "case-006": { stem: "40a0bd254d28cbc5afef492b6f8b1f602ee226585de11e2bafb8b6a5157db4aa", run: "477055cb3109555634a0c653e9663d4537d81d3fda29ec268e8fa91be4b9479c" },
+  "case-007": { stem: "da28c9690459f6739b1cbaedf6414a45672a92a5dad8bad742ee3ac98759c27d", run: "ca6fff5460d18151ab5fb7f382b97c811df7c13a75e9381f4f9efb1927eec79a" },
+  "case-008": { stem: "b47b764c07531f233d355d1cd7d0fca7161053c312999dbef5d564baaeaa16b9", run: "a49942896a9fbea401f4003c6875f84958e8967c1f289b8469f5cbfb51fc1168" },
+  "case-009": { stem: "57f372e77a6e3326be26cb5b841790e1a9f5aa0813b2fc975100ab002da8a986", run: "fb1327e95e4f67d0ec82373f8ce398f40bbbc861d4cadb377b85f12a7864dc70" },
+  "case-010": { stem: "82e5b097663ed13df767d05b6086f90aca787fe6bf686b32e0460395d3254e50", run: "52b71ebf513d4a4e3dc172a5ea22a200c652ee0532b387594df5a101b6104b6c" },
+  "case-011": { stem: "0c290f386e3ee5c4e072090157f1ff15d50751204444cdf8dabe47f2b29751b9", run: "15ea305693616c5265c494a88e1c6f66873bc9af9e09ad8d34b9c75945312ea7" },
+  "case-012": { stem: "2622bfa858dd237450de67f5309c265d4b54014ab724e26ca3b5b36dfdf90c05", run: "733618606359855606a0df8e314429e306c3aa43a42ac869c84457eae05c71b4" },
+  "case-013": { stem: "34c2bdfb29402d1a7d4f4069c8f3374b1a41b56901afb9a1c56cd09b5eec7a75", run: "b18bea8eaa583fd4b9e0e9c775212827448bf240788fbfb5a532e7571a191313" },
+  "case-014": { stem: "965310810f6a95a3bd4c03ef9e19d077cc9b212086558ab08833df8a3953c25b", run: "f6b426382e5e72fa494250a5db53d18681f2b845ec3007e498121700b20c633b" },
+  "case-015": { stem: "1bcf3e3672f04a937a41c4ec5c0e193e8875adc89724c4b2033b5bd4c31ad7db", run: "e12ff509555b27b85ceea5ca7b66817af2e2406381b7ae2c43a15fb3ab7293f3" },
+  "case-016": { stem: "a5db7c28d93248af7399bff948cc1ec91945b2b9270dddc640db838fc95d6689", run: "df5f077117602455398314e5c010c174a562fcbaf7adb066cd1c650a4a7fb76a" },
+  "case-017": { stem: "b284bae621453e699d1b927930a6d1e3e719c608645c430b3b3e445ee8280caf", run: "fe13a410831883dd635777cc7194363ef3185e2f0d83834829527d48f772d3cd" }
+};
 
 test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(context.window.AMC_CASES.length, caseFiles.length);
@@ -31,11 +53,24 @@ test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
 });
 
-test("cases without completed reasoning remain canonical exam-only sources", () => {
+test("Cases 1 to 17 expose complete reasoning while Cases 18 to 20 remain exam-only", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
-  const examOnlyCases = cases.filter((item) => item.reasoningAvailable === false);
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
-  assert.ok(examOnlyCases.length > 0, "at least one canonical exam-only case is required");
+  assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds.slice(0, 17));
+  assert.deepEqual(Array.from(examOnlyCases, (item) => item.id), expectedIds.slice(17));
+
+  reasoningCases.forEach((item) => {
+    assert.notEqual(item.reasoningAvailable, false, `${item.id} must expose Reasoning`);
+    assert.ok(item.reasoningCompass, `${item.id} is missing its reasoning compass`);
+    assert.ok(item.masteryFocus, `${item.id} is missing its two mastery horizons`);
+    assert.ok(Array.isArray(item.hints) && item.hints.length >= 30, `${item.id} needs a complete Hint journey`);
+    assert.ok(Array.isArray(item.sources) && item.sources.length >= 1, `${item.id} needs learner-facing reasoning sources`);
+    assert.ok(item.stem.lines.length > 0);
+    assert.ok(item.stem.tasks.length > 0);
+    assert.ok(item.run.sections.length > 0);
+    assert.deepEqual(viewModel.validateCase(item), []);
+  });
+
   examOnlyCases.forEach((item) => {
     assert.equal(item.reasoningCompass, undefined, `${item.id} contains a reasoning compass`);
     assert.equal(item.hints, undefined, `${item.id} contains Hints`);
@@ -48,16 +83,120 @@ test("cases without completed reasoning remain canonical exam-only sources", () 
 });
 
 test("case selection exposes completed reasoning and falls back for exam-only cases", () => {
-  const examOnlyCase = cases.find((item) => item.reasoningAvailable === false);
+  const examOnlyCase = examOnlyCases[0];
   assert.ok(examOnlyCase, "an exam-only fallback case is required");
   assert.equal(viewModel.selectCase(cases, "case-002").id, "case-002");
   assert.equal(viewModel.selectCase(cases, "case-003").id, "case-003");
+  assert.equal(viewModel.selectCase(cases, "case-017").id, "case-017");
   assert.equal(viewModel.selectCase(cases, "missing-case"), null);
   assert.equal(viewModel.selectCase(cases, "").id, "case-001");
   assert.equal(viewModel.viewForCase(caseTwo, "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase(caseThree, "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase(examOnlyCase, "#reasoning-full-run").id, "exam-full-run");
+  assert.equal(viewModel.viewForCase(cases[16], "#reasoning-full-run").id, "reasoning-full-run");
+  assert.equal(viewModel.viewForCase({ reasoningAvailable: false }, "#reasoning-full-run").id, "exam-full-run");
   assert.equal(viewModel.viewForCase(caseData, "#reasoning-full-run").id, "reasoning-full-run");
+});
+
+test("every Reasoning layer preserves the canonical Stem and Full Run", () => {
+  reasoningCases.forEach((item) => {
+    assert.ok(canonicalHashes[item.id], `missing canonical hash contract for ${item.id}`);
+    assert.equal(digest(item.stem), canonicalHashes[item.id].stem, `${item.id} Stem changed`);
+    assert.equal(digest(item.run), canonicalHashes[item.id].run, `${item.id} Full Run changed`);
+
+    ["stem", "run"].forEach((surface) => {
+      viewModel.itemsForSurface(item, surface).forEach((surfaceItem) => {
+        const reconstructed = viewModel.segmentsForItem(item, surface, surfaceItem.id, surfaceItem.text)
+          .filter((segment) => segment.type === "text")
+          .map((segment) => segment.text)
+          .join("");
+        assert.equal(reconstructed, surfaceItem.text, `${item.id}/${surface}/${surfaceItem.id} changed when annotated`);
+      });
+    });
+  });
+});
+
+test("Cases 1 to 17 keep short-term case mastery and long-term clinical mastery visible", () => {
+  const caseFocuses = new Set();
+  const clinicalFocuses = new Set();
+
+  reasoningCases.forEach((item) => {
+    assert.ok(item.masteryFocus.case.trim(), `${item.id} lacks case mastery`);
+    assert.ok(item.masteryFocus.clinical.trim(), `${item.id} lacks clinical mastery`);
+    caseFocuses.add(item.masteryFocus.case);
+    clinicalFocuses.add(item.masteryFocus.clinical);
+  });
+
+  assert.equal(caseFocuses.size, reasoningCases.length, "case mastery must be specific to each station");
+  assert.equal(clinicalFocuses.size, reasoningCases.length, "clinical mastery must be a distinct transferable lesson");
+
+  const appSource = fs.readFileSync(path.join(root, "assets/js/app.js"), "utf8");
+  assert.match(appSource, /"Case mastery"/);
+  assert.match(appSource, /"Clinical mastery"/);
+});
+
+test("every new Hint journey resolves exactly, stays in disclosure order and cites a current source", () => {
+  reasoningCases.slice(1).forEach((item) => {
+    const sourceIds = new Set(item.sources.map((source) => source.id));
+    const itemOrder = {
+      stem: new Map(viewModel.itemsForSurface(item, "stem").map((surfaceItem, index) => [surfaceItem.id, index])),
+      run: new Map(viewModel.itemsForSurface(item, "run").map((surfaceItem, index) => [surfaceItem.id, index]))
+    };
+    const previous = {
+      stem: { item: -1, quote: -1 },
+      run: { item: -1, quote: -1 }
+    };
+
+    item.sources.forEach((source) => assert.match(source.url, /^https:\/\//, `${item.id}/${source.id} must use HTTPS`));
+
+    item.hints.forEach((hint) => {
+      const targetItem = viewModel.itemMap(item, hint.target.surface)[hint.target.itemId];
+      assert.ok(targetItem, `${item.id}/${hint.id} has no target item`);
+      assert.equal(viewModel.countOccurrences(targetItem.text, hint.target.quote), 1, `${item.id}/${hint.id} has an ambiguous quote`);
+      assert.equal(hint.target.occurrence, 1, `${item.id}/${hint.id} must use the exact first occurrence`);
+
+      const current = {
+        item: itemOrder[hint.target.surface].get(targetItem.id),
+        quote: targetItem.text.indexOf(hint.target.quote)
+      };
+      const prior = previous[hint.target.surface];
+      assert.ok(
+        current.item > prior.item || (current.item === prior.item && current.quote > prior.quote),
+        `${item.id}/${hint.id} is out of disclosure order`
+      );
+      previous[hint.target.surface] = current;
+
+      assert.ok(hint.citationIds.length >= 1, `${item.id}/${hint.id} has no citation`);
+      hint.citationIds.forEach((sourceId) => assert.ok(sourceIds.has(sourceId), `${item.id}/${hint.id} cites unknown ${sourceId}`));
+    });
+
+    const finalHint = item.hints.at(-1);
+    const finalRunItem = viewModel.itemsForSurface(item, "run").at(-1);
+    assert.equal(finalHint.target.surface, "run", `${item.id} final Hint must close the Full Run`);
+    assert.equal(finalHint.target.itemId, finalRunItem.id, `${item.id} final Hint must target station completion`);
+  });
+});
+
+test("every stated station task is mentally anchored before the run", () => {
+  reasoningCases.forEach((item) => {
+    const stemTargets = new Set(item.hints.filter((hint) => hint.target.surface === "stem").map((hint) => hint.target.itemId));
+    item.stem.tasks.forEach((task) => {
+      assert.ok(stemTargets.has(task.id), `${item.id} has no reasoning anchor for task ${task.id}`);
+    });
+  });
+});
+
+test("the full Reasoning set keeps the locked consultant-companion voice", () => {
+  const reasoningText = JSON.stringify(reasoningCases.map((item) => ({
+    masteryFocus: item.masteryFocus,
+    compass: item.reasoningCompass,
+    hints: item.hints
+  })));
+
+  assert.doesNotMatch(reasoningText, /\bADHD\b|\blearner\b|\bcandidate\b|—/i);
+  assert.doesNotMatch(reasoningText, /speed up your safety|heart (?:near|at) the front|stay open|stays open|diagnostic weight|route to danger|on the board/i);
+  assert.doesNotMatch(reasoningText, /reflux owns|physiology outranks|danger threshold|clot-risk stack|clues click|one mechanism unifies|probability shifter/i);
+  assert.doesNotMatch(reasoningText, /\b(?:mental|diagnostic|task|clinical) map\b|\b(?:history|heart|diagnostic) lane\b|old case closed/i);
 });
 
 test("Case 2 publishes the approved 40-Hint reasoning journey", () => {
@@ -241,8 +380,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("current publication metadata preserves Case 3 reasoning under one cache-safe release marker", () => {
-  const releaseMarker = "autonomous-exam-p6-v1";
+test("Cases 4 to 17 publication metadata uses one cache-safe release marker", () => {
+  const releaseMarker = "cases4-17-reasoning-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -252,13 +391,13 @@ test("current publication metadata preserves Case 3 reasoning under one cache-sa
   assert.match(indexSource, new RegExp(`name="x-build-id" content="${releaseMarker}"`));
   assert.match(indexSource, new RegExp(`window[.]__BUILD_ID__ = "${releaseMarker}"`));
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
-  assert.doesNotMatch(indexSource, /case3-reasoning-v1/);
+  assert.doesNotMatch(indexSource, /case[23]-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "autonomous-exam-pattern-6-core-complete");
+  assert.equal(version.checkpoint, "cases-004-017-reasoning-published");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "autonomous-exam-p6-v1" index[.]html/);
-  assert.match(readme, /Cases 1, 2 and 3 contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: autonomous-exam-p6-v1/);
+  assert.match(workflow, /grep -q "cases4-17-reasoning-v1" index[.]html/);
+  assert.match(readme, /Cases 1 to 17 contain completed Reasoning layers/);
+  assert.match(refresh, /Checkpoint: cases4-17-reasoning-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {

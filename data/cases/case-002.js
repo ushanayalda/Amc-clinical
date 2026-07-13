@@ -1383,4 +1383,9 @@
     }
   ];
 
+  caseTwo.masteryFocus = {
+    case: "Recognise a time-critical chest-pain pattern, control the first actions and explain uncertainty without losing the task clock.",
+    clinical: "Use onset, mechanism and examination differences to separate dangerous look-alikes while treatment and transfer continue."
+  };
+
 })();

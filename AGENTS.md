@@ -1,269 +1,72 @@
-# AGENTS.md
-
-## Locked Product Contract
-
-AMC Clinical Pathway is an ADHD-friendly clinical rehearsal system by Dr. Ushana Yalda.
-
-The site must feel like a calm AMC rehearsal room:
-- one doctor
-- one patient
-- one speaking task
-- one missed point to improve
-- one repeat run
-
-This is not a dashboard, game, curriculum tree, command centre, progress tracker, document archive, or generic case library.
-
-Core rule:
-
-One screen = one job.
-
-Primary learner loop:
-
-Home -> Ignite -> Start speaking -> Finish run -> Choose one Hint -> Repeat.
-
-Do not add new clinical content while this display system is being implemented.
-
-## Product Goal
-
-The learner must always understand:
-- Where am I?
-- What am I practising?
-- What do I do now?
-- What comes next?
-- What did I improve?
-
-Preferred learner state:
-
-"I know what to do next."
-
-Avoid learner states:
-- "I am lost."
-- "I need to decode this page."
-- "I do not know which version is real."
-- "I have too much to read before I can start."
-
-## Global Language Rules
-
-Use natural clinical teaching language. Keep wording short and everyday.
-
-Use:
-- You
-- Dr Ushana
-- Home
-- Cases
-- Ignite
-- Current case
-- Start speaking
-- Hints
-- Stem
-- What matters
-- Extra detail
-- Why this matters
-- Exam-safe lines
-- Memory drills
-- Case details
-- Course index
-- Safety checklist
-- Do not miss
-
-Do not use learner-facing:
-- Candidate
-- Dr ___
-- Map
-- Study map
-- Visual case tree
-- Command centre
-- Level 1
-- Level 2
-- Prime
-- Priming drill
-- Before the Case
-- Door note
-- Brain map
-- Speak Practice
-- Run station
-- Full pack
-- Study Notes
-- How To Think
-- Examiner Lines
-- Practice Drill
-- Case facts
-- Fix one miss
-- Resume Case 1
-- Next hint before a missed item is selected
-- No fixes saved yet
-- Repair
-- Reset
-- Help
+# AMC Clinical Mastery site contract
 
-Avoid hype and grade guarantees:
-- Tier 1 Dominance
-- High-grade guarantee
-- Guaranteed pass
-- Exam killer
-- Master key
-- Scoring phrase
-- Strict dominance
-- Crush the station
-- Perfect answer
+This repository is a static GitHub Pages site for original AMC-style clinical practice cases.
 
-Allowed performance language:
-- Safe performance
-- Clear first action
-- Speak the case
-- Do not miss
-- Practise one line
-- Repeat the run
-- This reduces common fail risks.
-- This improves clarity and timing.
+## Product model
 
-## Page Jobs
+Each case is authored once and rendered as four views:
 
-Home answers:
+1. Exam / Stem
+2. Exam / Full Run
+3. Reasoning / Stem
+4. Reasoning / Full Run
 
-What do I do now?
+The Exam and Reasoning views must use the exact same case wording. Reasoning mode may only add quiet `(*)` marker buttons. It must never keep a second annotated copy of the stem or run.
 
-Cases answers:
+The Stem contains the role, setting, essential scenario details, tasks, predominant assessment area and any task timing. It must not contain teaching or disclose the diagnosis unless the station itself requires it.
 
-Where do I continue?
+The Full Run is a high-standard model encounter from the first station line to the final line. It includes doctor, patient, examiner and station-audio speech, plus clearly labelled actions, findings and investigations. It is not described as an official AMC script or a guarantee of a pass.
 
-Ignite answers:
+## Hints
 
-What danger am I looking for before I start?
+Use the learner-facing word `Hints`.
 
-Case 1 answers:
+Every Hint targets an exact phrase in one canonical text item using:
 
-Can I start speaking now?
+- surface
+- item ID
+- exact quote
+- occurrence
 
-## One Current Truth
+Clicking `(*)` opens one contextual window beside the source phrase on desktop and near it on mobile. Only one window may be open. Closing it returns focus to the marker and must not move the reader to another page.
 
-The root URL and index page must show the same current state.
+Hints are a thinking partner. Across a case they should connect anatomy, physiology, pathophysiology, symptom meaning, differential diagnosis, discriminators, investigations, management, patient concerns, examiner logic, traps and variations. Teach flexible evidence weighting, not cue-to-diagnosis matching.
 
-Visible current truth:
-- Current pattern: Dangerous Chest Pain
-- Current case: Classic Chest Pain
-- Status: Ready
-- Primary action: Start speaking
+Use warm, direct, everyday English. Never mention a learner diagnosis or label. Do not use gamification, streaks, points, countdown pressure, progress rings or competing dashboards.
 
-Do not show conflicting states such as demo progress, tracking not connected yet, Case 1 awaiting transfer, or current unit labels that disagree with Case 1 readiness.
+## Clinical and exam integrity
 
-## Content Exposure
+- Use current primary Australian sources for clinical claims.
+- Use current official AMC sources for exam-format claims.
+- Keep source links visible and clickable inside relevant Hints.
+- Do not reproduce confidential or copyrighted AMC station material. Cases are original and exam-faithful.
+- Keep asked-for tasks in control. Do not reward unrequested generic rituals.
+- Treat patient and examiner information as request-dependent where the scenario requires it.
+- Mark clinical inference or local-protocol decisions honestly.
 
-Content is not deleted. Content is staged.
+## Accessibility and presentation
 
-Visible first:
-- action content
-- one primary action
-- safety anchors
+- Mobile first, calm, readable and low distraction.
+- One screen has one job.
+- Use semantic HTML and visible keyboard focus.
+- Markers require accessible labels.
+- Escape, close button and outside click close a Hint.
+- Respect reduced-motion preferences.
+- Never use colour as the only meaning cue.
 
-Collapsed:
-- study content
-- metadata
-- case details
+## Required checks
 
-Hidden until needed:
-- Hints
-- Sources
-- examiner lines
-- doctor thinking
-- memory drills
+Before publishing:
 
-Default path:
+```text
+npm run check
+npm test
+npm run build
+npm run verify:dist
+```
 
-Start speaking -> Finish run -> Choose one Hint -> Repeat.
+Tests must prove exact-text parity, anchor integrity, four-view routing, citation integrity, one-window behaviour and build integrity.
 
-## Script Identity
+## Delivery flow
 
-Learner-facing scripts use:
-
-You
-"Line here."
-
-Patient
-"Line here."
-
-Opening line:
-
-"Hello, I'm Dr Ushana, one of the doctors. How would you like me to address you?"
-
-Do not place examiner/scoring language inside patient conversation.
-
-Patient speech and doctor speech must start with everyday language before medical terms.
-
-## Clinical Safety Rules
-
-Preserve existing clinical meaning.
-
-For dangerous chest pain in General Practice, keep these points prominent:
-- Chest pressure with danger features is dangerous.
-- Possible heart problem until proven otherwise.
-- Do not reassure early.
-- Do not miss acute coronary syndrome, aortic dissection, pulmonary embolism, and tension pneumothorax.
-- Call ambulance now.
-- ECG only if it does not delay transfer.
-- Do not wait for troponin.
-- Do not let the patient drive.
-- Aspirin if safe.
-- Oxygen only if clinically needed.
-- Chest pain spray or tablet only after blood pressure and medication safety check.
-
-Do not let display order imply:
-- ECG before ambulance.
-- history before escalation.
-- troponin before transfer.
-- private car is acceptable.
-- oxygen is routine.
-
-Do not invent new medical guidance unless explicitly asked.
-
-## Design Rules
-
-1. Mobile-first.
-2. One main action per screen.
-3. Compact headers on study pages.
-4. Navigation should be reachable but visually quiet.
-5. Use progressive disclosure.
-6. Use compact cards and avoid dashboard panels.
-7. Avoid wide grids of choices.
-8. Do not repeat the full AMC brand block on every page.
-9. Do not add a layout or view selector.
-10. Do not create a separate custom design for every case.
-
-Desktop target:
-- max content width 820 to 900 px
-- body text about 16 px
-- line height about 1.45
-- main title 28 to 32 px
-- section heading 20 to 22 px
-- card padding 14 to 18 px
-- gap between cards 10 to 14 px
-
-Mobile target:
-- one action per screen
-- no horizontal scroll
-- no multi-column layout
-- large enough buttons
-- collapsed study material
-- safety strip visible
-
-## Hybrid-Readiness Rules
-
-The site must remain static and GitHub Pages compatible.
-
-Leave clean upgrade space for:
-- PWA installability
-- offline access
-- local progress tracking
-- search
-- content packs
-- possible native wrapper later
-
-Do not implement heavy future features before the learning flow is stable.
-
-## Accessibility Rules
-
-Use semantic HTML, accessible buttons, visible focus states, ARIA labels for drawers and navigation, Escape-to-close behavior, and reduced-motion support.
-
-## Acceptance Gate
-
-Before publishing, run the checklist in docs/ADHD_REHEARSAL_SYSTEM_LOCK.md.
+Build and publish one reviewable case. Revise that same case from user feedback. Proceed to the next case only after the current case is approved. Do not add Custom GPT handoffs, model APIs, package locks, hash approvals, migration gates or multi-agent governance to the production path.

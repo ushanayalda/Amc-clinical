@@ -3,65 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="x-build-id" content="source-20260705-20">
-  <title>AMC Clinical Pathway</title>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260705-20">
+  <meta name="x-build-id" content="source-case-001-four-view">
+  <meta name="description" content="Original AMC-style clinical mastery cases with clean exam and connected reasoning views.">
+  <title>Case 1 | AMC Clinical Mastery</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-  <main id="app" data-screen="home">
-    <section class="home-hero home-entry" data-static-shell>
-      <header class="home-top">
-        <div class="brand-block home-brand">
-          <p class="eyebrow">Prepared by Ushana Yalda</p>
-          <h1>AMC Clinical Pathway</h1>
-        </div>
-        <a class="home-soft-link home-cases-link" href="index.html#cases">Cases</a>
-      </header>
-      <section class="home-launch" aria-labelledby="home-current-case">
-        <div class="home-current-truth">
-          <p class="home-case-label">Current position</p>
-          <h2>Dangerous Chest Pain</h2>
-          <p class="home-current-case"><span>Today&apos;s case</span><strong id="home-current-case">Classic Chest Pain</strong><em>current</em></p>
-        </div>
-        <div class="home-primary-start">
-          <p>Start with the stem. Give it a go.</p>
-          <div class="home-action-row">
-            <a class="home-start-link" href="index.html#station-stem">Continue Case 1</a>
-          </div>
-        </div>
-      </section>
-    </section>
-  </main>
+  <div id="app">
+    <main class="fatal-error">
+      <h1>Case 1: Chest discomfort after lunch</h1>
+      <p>The interactive case is loading.</p>
+    </main>
+  </div>
   <script>
-    window.__BUILD_ID__ = "source-20260705-20";
-    window.__APP_VERSION__ = {
-      buildId: "source-20260705-20",
-      generatedAt: "2026-07-05T22:00:00+10:00",
-      source: "branch-shell"
-    };
-    (function () {
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function (registrations) {
-          registrations.forEach(function (registration) {
-            registration.unregister();
-          });
-        });
-      }
-      if (window.caches && window.caches.keys) {
-        window.caches.keys().then(function (keys) {
-          keys.forEach(function (key) {
-            window.caches.delete(key);
-          });
-        });
-      }
-    })();
+    window.__BUILD_ID__ = "source-case-001-four-view";
   </script>
-  <script src="data/content.js?v=20260705-20"></script>
-  <script src="data/audio-manifest.js?v=20260705-20"></script>
-  <script src="assets/js/content-store.js?v=20260705-20"></script>
-  <script src="assets/js/router.js?v=20260705-20"></script>
-  <script src="assets/js/ui.js?v=20260705-20"></script>
-  <script src="assets/js/renderers.js?v=20260705-20"></script>
-  <script src="assets/js/app.js?v=20260705-20"></script>
+  <script src="data/cases/case-001.js"></script>
+  <script src="assets/js/case-views.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>

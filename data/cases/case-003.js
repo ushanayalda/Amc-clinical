@@ -718,7 +718,7 @@
       "where": "Reading task 1",
       "popUp": "Focused history. What do I need in four minutes?",
       "say": [
-        "Start with onset, pain pattern, breathlessness and current function. Then check calf symptoms, clot risks, dangerous alternatives and anything that could make treatment unsafe."
+        "Use four blocks: exact onset and progression; associated symptoms that change urgency; relevant risks and treatment constraints; then current function."
       ],
       "pause": "This is not a full review of every system.",
       "recap": "The history must establish urgency, the leading cause and treatment safety.",
@@ -1462,8 +1462,339 @@
       "reorient": "Read the next role, setting, presenting problem and tasks."
     }
   ];
+  var caseThreeJourneyRefinements = {
+    "c003-hint-01": {
+      "say": [
+        "Start as a focused consultation, but the setting does not make chest symptoms low risk."
+      ],
+      "deeper": [
+        "A clinic can obtain observations and begin emergency care; serious heart or lung disease may still require monitored transfer and hospital imaging."
+      ]
+    },
+    "c003-hint-02": {
+      "pause": "Age and sex adjust likelihood; they do not decide the cause."
+    },
+    "c003-hint-03": {
+      "say": [
+        "Right-sided pain is less typical for coronary ischaemia, but it still needs a full chest-symptom assessment."
+      ],
+      "pause": "Right-sided pain does not establish safety.",
+      "deeper": [
+        "Right-sided pain is less typical for coronary pain, but it can come from the chest wall, pleura, lung, pulmonary circulation or upper abdomen.",
+        "The side helps choose questions; it does not establish safety."
+      ]
+    },
+    "c003-hint-05": {
+      "pause": "Meal timing keeps reflux possible; it does not diagnose it."
+    },
+    "c003-hint-06": {
+      "recap": "Reflux remains possible.",
+      "deeper": [
+        "Reflux remains possible. The chest and breathing symptoms still need assessment."
+      ]
+    },
+    "c003-hint-07": {
+      "say": [
+        "Her stability is unknown until pulse, blood pressure, respiratory rate, oxygen saturation and temperature are obtained."
+      ],
+      "pause": "Ask staff to obtain observations while the history begins.",
+      "deeper": [
+        "Without pulse, blood pressure, respiratory rate, oxygen saturation and temperature, you do not know whether this is a stable consultation.",
+        "Ask staff to obtain them while you begin the history."
+      ]
+    },
+    "c003-hint-09": {
+      "say": [
+        "Give one leading diagnosis and support it with this patient's findings. Then compare only the important alternatives."
+      ],
+      "pause": "For each important alternative, give the finding that supports or weakens it.",
+      "deeper": [
+        "Give one leading working diagnosis with the findings that support it. Then discuss the important alternatives and the findings that make each more or less likely. Do not recite every cause of chest pain.",
+        "For each important alternative, say which finding supports it or makes it less likely."
+      ]
+    },
+    "c003-hint-10": {
+      "pause": "Answer her reflux concern before giving the plan."
+    },
+    "c003-hint-11": {
+      "say": [
+        "Acknowledge why the meal timing suggested reflux. Then explain that you need to clarify the chest and breathing symptoms because some causes need quicker treatment."
+      ],
+      "deeper": [
+        "Acknowledge that the meal timing made reflux seem plausible. Do not agree or dismiss it yet. Tell her you will first clarify the chest and breathing symptoms because some causes need quicker treatment."
+      ]
+    },
+    "c003-hint-12": {
+      "say": [
+        "Sudden sharp pain raises urgency, but several heart, lung, pleural and chest-wall problems can begin this way."
+      ],
+      "pause": "The breathing link and observations come next.",
+      "deeper": [
+        "Sudden onset raises urgency, and sharp pain points away from a classic pressure pattern, but several heart, lung, pleural and chest-wall problems can begin this way."
+      ]
+    },
+    "c003-hint-13": {
+      "say": [
+        "Pain that catches with inspiration is pleuritic. It suggests irritation of a pain-sensitive pleura or chest-wall structure."
+      ],
+      "logic": [],
+      "deeper": [
+        "A deep breath moves an irritated outer lining or chest-wall area and can produce a sharp catch, but the pattern does not identify the cause by itself.",
+        "Deep breath expands the chest → an irritated pleural or chest-wall area moves → sharp pain is triggered"
+      ]
+    },
+    "c003-hint-16": {
+      "say": [
+        "Yes. An oxygen saturation of 91% is abnormal. With a pulse of 112 and respiratory rate of 24, she needs oxygen, monitoring and ambulance transfer now."
+      ],
+      "deeper": [
+        "Her blood pressure has not fallen, so there is no current haemodynamic collapse; you still need to assess her perfusion."
+      ]
+    },
+    "c003-hint-17": {
+      "clock": "Transfer is moving. Continue the focused history while monitoring."
+    },
+    "c003-hint-18": {
+      "say": [
+        "She should not drive. A pain score of five does not explain an oxygen saturation of 91% or a pulse of 112."
+      ],
+      "pause": "Let the observations, not the pain score, set urgency.",
+      "deeper": [
+        "A pain score of five does not explain an oxygen saturation of 91% or a pulse of 112.",
+        "She needs monitored transfer because she could deteriorate while still looking relatively well."
+      ]
+    },
+    "c003-hint-20": {
+      "pause": "Aortic dissection is less likely from this pattern.",
+      "deeper": [
+        "Aortic dissection is less likely from this pattern, but it is not completely excluded."
+      ]
+    },
+    "c003-hint-23": {
+      "say": [
+        "Antacid response is not a diagnostic test, and reflux does not explain low oxygen or tachycardia."
+      ],
+      "deeper": [
+        "Antacid response is not a diagnostic test.",
+        "The absence of burning or acid taste makes reflux less supported, and reflux does not explain her low oxygen or fast pulse."
+      ]
+    },
+    "c003-hint-24": {
+      "say": [
+        "They may be. A clot could form in a deep leg vein, travel through the right side of the heart and lodge in a pulmonary artery."
+      ],
+      "logic": [],
+      "deeper": [
+        "Air still reaches the air sacs, but less blood flows past them to collect oxygen.",
+        "A peripheral blockage can also irritate the pain-sensitive outer lining.",
+        "That connects the calf symptoms with low oxygen, breathlessness and pleuritic pain.",
+        "Pulmonary embolism is now the leading diagnosis.",
+        "Deep leg-vein clot → travels through the right side of the heart → lodges in a pulmonary artery → ventilated lung receives less blood flow → oxygen transfer falls and breathing speeds up → nearby outer pleura may become irritated, causing pleuritic pain"
+      ]
+    },
+    "c003-hint-25": {
+      "say": [
+        "It does not prove the diagnosis. During prolonged sitting, the calf muscles pump less and venous blood moves more slowly. Slower flow makes a leg-vein clot more likely."
+      ],
+      "pause": "The flight supports the concern.",
+      "deeper": [
+        "The timing supports the concern because the unilateral calf symptoms followed the journey.",
+        "The flight supports the concern, but it is not proof and it is not Priya's fault."
+      ]
+    },
+    "c003-hint-26": {
+      "say": [
+        "The combined pill contains oestrogen. It increases several clotting factors and reduces some natural anticoagulant activity, so a venous clot becomes more likely."
+      ],
+      "deeper": [
+        "Together with recent prolonged travel and unilateral calf symptoms, it makes a deep-vein clot more plausible.",
+        "It does not prove that the pill caused this."
+      ]
+    },
+    "c003-hint-27": {
+      "say": [
+        "A first clot can occur without cancer, family history or a previous event."
+      ],
+      "pause": "The current findings still set the urgency.",
+      "deeper": [
+        "A first clot can occur without cancer, family history or a previous event.",
+        "Her current symptoms, low oxygen, fast pulse and calf findings still require urgent assessment."
+      ]
+    },
+    "c003-hint-30": {
+      "say": [
+        "Stop asking history questions and begin Task 2 now. The ambulance is already coming and safety monitoring continues in parallel."
+      ],
+      "reorient": "Begin with the leading diagnosis and why it fits.",
+      "deeper": [
+        "If the examiner supplies brief heart, lung and leg findings, use them in your explanation; do not spend the next two minutes performing a full examination.",
+        "Begin with the leading diagnosis and why it fits. Do not return to missed history questions."
+      ]
+    },
+    "c003-hint-31": {
+      "say": [
+        "Air can enter normally because the obstruction is in a pulmonary blood vessel, not an airway."
+      ],
+      "recap": "Equal air entry reduces a large pneumothorax; the calf signs support pulmonary embolism.",
+      "deeper": [
+        "Air can still enter both lungs normally because the obstruction is in a pulmonary blood vessel, not an airway.",
+        "That is why pulmonary embolism may produce hypoxaemia with a clear chest.",
+        "The swollen tender calf makes a leg-vein clot more likely."
+      ]
+    },
+    "c003-hint-32": {
+      "say": [
+        "Tell Priya this is the leading concern, not a confirmed result. A leg clot may have travelled to a lung artery."
+      ],
+      "logic": [],
+      "deeper": [
+        "A clot may have formed in a deep vein in her right leg, broken off and travelled to a lung artery, reducing blood flow through part of the lung.",
+        "Leg-vein clot → travels through the right heart → blocks a lung artery → blood flow and oxygen transfer fall"
+      ]
+    },
+    "c003-hint-33": {
+      "say": [
+        "Compare each alternative with the actual findings."
+      ],
+      "deeper": [
+        "Equal air entry reduces a large pneumothorax; no fever or cough reduces pneumonia; the pain pattern is less typical for coronary or aortic disease, but hospital still needs an ECG and assessment.",
+        "Reflux cannot account for the hypoxaemia and unilateral calf signs."
+      ]
+    },
+    "c003-hint-34": {
+      "say": [
+        "Say clearly what is most likely and what still needs proof. Pulmonary embolism is the leading diagnosis, but hospital testing must confirm it."
+      ],
+      "pause": "Call it the leading diagnosis and keep transfer urgent.",
+      "deeper": [
+        "Her low oxygen, fast pulse and calf findings make waiting for a routine outpatient test unsafe."
+      ]
+    },
+    "c003-hint-35": {
+      "say": [
+        "Only if they do not delay transfer or distract from monitoring. Keep her resting, continue titrated oxygen, repeat observations and reassess ABCDE."
+      ],
+      "deeper": [
+        "If blood pressure falls, hypoxaemia worsens, she faints or conscious state changes, escalate emergency support immediately."
+      ]
+    },
+    "c003-hint-36": {
+      "say": [
+        "Priya is already too high risk for PERC or D-dimer to delay definitive imaging."
+      ],
+      "recap": "CT pulmonary angiography is usually appropriate here.",
+      "deeper": [
+        "If pulmonary embolism is unlikely, a negative D-dimer can exclude it; a positive result cannot confirm it.",
+        "Priya's calf signs and tachycardia place her in the PE-likely Wells group, so she needs imaging.",
+        "The flight and pill still matter clinically, although they are not separate Wells points.",
+        "CT pulmonary angiography is usually appropriate here. Pregnancy, renal function and contrast issues may change the imaging choice."
+      ]
+    },
+    "c003-hint-37": {
+      "say": [
+        "Anticoagulants help stop the clot growing and reduce new clots; they do not remove the obstruction immediately."
+      ],
+      "deeper": [
+        "If imaging is delayed, the receiving team may start treatment after checking bleeding risk, pregnancy and kidney function.",
+        "This discussion must not delay transfer."
+      ]
+    },
+    "c003-hint-38": {
+      "say": [
+        "Tell her clearly that this is not her fault. Travel and the combined pill may increase risk, but neither means she caused it."
+      ],
+      "pause": "Acknowledge her fear without promising the outcome.",
+      "deeper": [
+        "Then return to what helps now: monitoring has started and hospital can confirm the diagnosis and begin treatment."
+      ]
+    },
+    "c003-hint-39": {
+      "pause": "Use teach-back instead of asking only, 'Do you understand?'",
+      "recap": "She should understand the concern, uncertainty and need for urgent transfer.",
+      "reorient": "Finish the required management first.",
+      "clock": "Finish concern and management before any optional handover.",
+      "deeper": [
+        "She should understand that the diagnosis is not confirmed, ambulance transfer is necessary and hospital testing is urgent.",
+        "Finish the required management first. Give a brief handover only if time remains and the examiner permits."
+      ]
+    },
+    "c003-hint-40": {
+      "say": [
+        "Complete the three requested tasks first. Give a handover only if the examiner permits time."
+      ],
+      "pause": "Keep the diagnosis provisional and the requested tasks complete.",
+      "recap": "If handover occurs, give current observations, supporting evidence, treatment and the next step.",
+      "deeper": [
+        "Handover is clinically useful, but the station did not request it.",
+        "Complete the three stated tasks first.",
+        "If the examiner permits time, start with identity, urgency and the working diagnosis.",
+        "Give the key symptoms, observations, unilateral calf findings, clot risks, relevant bleeding and renal information, treatment underway and the need for definitive imaging.",
+        "The receiving team has her current observations, the evidence for pulmonary embolism, treatment already given and the next urgent step."
+      ]
+    },
+    "c003-hint-41": {
+      "say": [
+        "The station has ended. Take one breath, then begin the next stem from its first line."
+      ],
+      "pause": "Start the next stem fresh.",
+      "clock": "Station ended. One breath, then the next stem.",
+      "deeper": [
+        "The station has ended.",
+        "Take one breath, then begin the next stem from the first line."
+      ]
+    }
+  };
+
+  caseThree.hints = caseThree.hints.map(function (hint) {
+    return Object.assign({}, hint, caseThreeJourneyRefinements[hint.id] || {});
+  });
+  var caseThreeDeeper = {
+    "c003-hint-13": ["A deep breath moves irritated pleura or chest wall and can trigger a sharp catch. That mechanism explains the quality but does not identify the cause by itself."],
+    "c003-hint-16": ["A normal-range blood pressure means there is no current haemodynamic collapse; hypoxaemia still makes the presentation unsafe for routine clinic care."],
+    "c003-hint-24": ["Deep-vein clot → travels through the right heart → blocks pulmonary blood flow → oxygen transfer falls; nearby pleural irritation can create sharp inspiratory pain."],
+    "c003-hint-33": ["Equal air entry lowers a large pneumothorax; no fever or cough lowers pneumonia; reflux cannot explain hypoxaemia with a unilateral calf finding."],
+    "c003-hint-36": ["Use pre-test probability first. A negative D-dimer can exclude PE only when probability is low enough; a positive result does not confirm PE, and higher probability usually moves directly to imaging."],
+    "c003-hint-37": ["If imaging is delayed, the receiving team may begin anticoagulation after checking bleeding risk, pregnancy and kidney function; this discussion must not delay transfer."]
+  };
+  caseThree.hints.forEach(function (hint) {
+    if (caseThreeDeeper[hint.id]) hint.deeper = caseThreeDeeper[hint.id];
+    else delete hint.deeper;
+  });
+  caseThree.essentialHintIds = [
+    "c003-hint-03",
+    "c003-hint-08",
+    "c003-hint-09",
+    "c003-hint-10",
+    "c003-hint-13",
+    "c003-hint-16",
+    "c003-hint-17",
+    "c003-hint-24",
+    "c003-hint-30",
+    "c003-hint-32",
+    "c003-hint-33",
+    "c003-hint-35",
+    "c003-hint-36",
+    "c003-hint-37",
+    "c003-hint-38",
+    "c003-hint-41"
+  ];
+
   caseThree.masteryFocus = {
-    case: "Move from a plausible reflux explanation to the safest diagnosis and plan as each chest, breathing and calf finding appears.",
-    clinical: "Revise an early explanation when physiology does not fit, while keeping important alternatives and the patient's concern in view."
+    case: "Move from a plausible reflux explanation to the safest diagnosis and plan as each chest, breathing and circulation clue appears.",
+    clinical: "Revise an early explanation when physiology does not fit, while keeping important alternatives and the patient's concern in view.",
+    tasks: [
+      "Focused history",
+      "Explain diagnosis and differentials",
+      "Address concern and management"
+    ],
+    transfer: "If Priya had the same pleuritic pain and hypoxaemia but no calf findings, recent travel or oestrogen exposure, what would you reconsider and what would still require urgent transfer?",
+    transferAnswer: "Removing the calf and exposure clues lowers the probability of PE, but it does not remove it. Reconsider pneumothorax, pneumonia, pericardial or coronary disease, yet pleuritic pain with hypoxaemia still requires oxygen, monitoring and urgent transfer while probability-based testing separates them.",
+    transferChecks: [
+      "Oxygenation, respiratory effort and circulation",
+      "Breath sounds, fever and cardiac findings",
+      "Formal PE probability assessment",
+      "Urgent transfer still follows the hypoxaemia"
+    ],
+    transferCitationIds: ["racgp-pe-2022", "thanz-vte-2019"]
   };
 })();

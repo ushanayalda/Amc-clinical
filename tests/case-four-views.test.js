@@ -14,7 +14,6 @@ const caseFiles = fs.readdirSync(path.join(root, "data", "cases"))
 caseFiles.forEach((file) => {
   vm.runInContext(fs.readFileSync(path.join(root, "data/cases", file), "utf8"), context);
 });
-
 const viewModel = require("../assets/js/case-views.js");
 const cases = context.window.AMC_CASES;
 const caseData = context.window.AMC_CASES[0];
@@ -72,6 +71,7 @@ test("Cases 1 to 20 expose complete reasoning while Cases 21 to 32 remain exam-o
     assert.ok(item.stem.tasks.length > 0);
     assert.ok(item.run.sections.length > 0);
     assert.deepEqual(viewModel.validateCase(item), []);
+    assert.doesNotMatch(JSON.stringify([item.clinicalSources, item.sources]), /allergy[.]org[.]au\/hp\/papers\/acute-management-of-anaphylaxis-guidelines/);
   });
 
   examOnlyCases.forEach((item) => {
@@ -140,6 +140,156 @@ test("Cases 1 to 20 keep short-term case mastery and long-term clinical mastery 
   assert.match(appSource, /"Clinical mastery"/);
 });
 
+test("every case has one bounded essential journey and optional deeper links", () => {
+  reasoningCases.forEach((item) => {
+    assert.ok(Array.isArray(item.essentialHintIds), `${item.id} has no essential route`);
+    assert.ok(item.essentialHintIds.length >= 12 && item.essentialHintIds.length <= 16, `${item.id} essential route is not 12 to 16 Hints`);
+
+    const hintById = new Map(item.hints.map((hint) => [hint.id, hint]));
+    const essentialHints = item.essentialHintIds.map((hintId) => {
+      assert.ok(hintById.has(hintId), `${item.id} has unknown essential Hint ${hintId}`);
+      return hintById.get(hintId);
+    });
+    const itemOrders = {
+      stem: new Map(viewModel.itemsForSurface(item, "stem").map((surfaceItem, index) => [surfaceItem.id, index])),
+      run: new Map(viewModel.itemsForSurface(item, "run").map((surfaceItem, index) => [surfaceItem.id, index]))
+    };
+    const positions = essentialHints.map((hint) => {
+      const target = viewModel.itemMap(item, hint.target.surface)[hint.target.itemId];
+      return [
+        hint.target.surface === "stem" ? 0 : 1,
+        itemOrders[hint.target.surface].get(hint.target.itemId),
+        viewModel.occurrenceIndex(target.text, hint.target.quote, hint.target.occurrence || 1)
+      ];
+    });
+    positions.slice(1).forEach((position, index) => {
+      assert.ok(
+        position[0] > positions[index][0] ||
+        (position[0] === positions[index][0] && position[1] > positions[index][1]) ||
+        (position[0] === positions[index][0] && position[1] === positions[index][1] && position[2] > positions[index][2]),
+        `${item.id} essential route is out of disclosure order`
+      );
+    });
+    assert.ok(essentialHints.some((hint) => hint.target.surface === "stem"), `${item.id} route skips the Stem`);
+    assert.ok(essentialHints.some((hint) => hint.target.surface === "run"), `${item.id} route skips the Full Run`);
+    assert.equal(item.essentialHintIds.at(-1), item.hints.at(-1).id, `${item.id} route does not finish at station completion`);
+
+    const essentialTargets = new Set(essentialHints.map((hint) => hint.target.itemId));
+    item.stem.tasks.forEach((task) => assert.ok(essentialTargets.has(task.id), `${item.id} route skips task ${task.id}`));
+    const taskIds = new Set(item.stem.tasks.map((task) => task.id));
+    assert.ok(
+      essentialHints.some((hint) => hint.target.surface === "stem" && !taskIds.has(hint.target.itemId)),
+      `${item.id} essential route has no scenario clue before the task anchors`
+    );
+    ["stem", "run"].forEach((surface) => {
+      assert.ok(essentialHints.some((hint) => hint.target.surface === surface && hint.clock), `${item.id} lacks an essential ${surface} clock anchor`);
+    });
+    assert.ok(item.hints.filter((hint) => hint.clock).length >= 4, `${item.id} needs repeated clock recovery`);
+
+    item.hints.forEach((hint) => {
+      if (hint.deeper === undefined) return;
+      assert.ok(Array.isArray(hint.deeper), `${item.id}/${hint.id} deeper content must be an array`);
+      hint.deeper.forEach((paragraph) => assert.ok(paragraph.trim(), `${item.id}/${hint.id} has empty deeper content`));
+    });
+  });
+});
+
+test("clinical mastery ends with a sourced case-specific transfer check", () => {
+  const questions = new Set();
+  reasoningCases.forEach((item) => {
+    const sourceIds = new Set(item.sources.map((source) => source.id));
+    assert.ok(item.masteryFocus.transfer.trim(), `${item.id} lacks its transfer question`);
+    assert.match(item.masteryFocus.transfer, /[?]$/, `${item.id} transfer prompt must be a question`);
+    assert.ok(item.masteryFocus.transferAnswer.trim(), `${item.id} lacks a corrective transfer answer`);
+    assert.ok(item.masteryFocus.transferChecks.length >= 2, `${item.id} lacks transfer decision checks`);
+    assert.equal(item.masteryFocus.tasks.length, item.stem.tasks.length, `${item.id} lacks one compact label per task`);
+    item.masteryFocus.tasks.forEach((label) => {
+      const words = label.trim().split(/\s+/).length;
+      assert.ok(words >= 2 && words <= 5, `${item.id} has an overlong or vague task label: ${label}`);
+    });
+    item.masteryFocus.transferCitationIds.forEach((sourceId) => {
+      assert.ok(sourceIds.has(sourceId), `${item.id} transfer answer cites unknown ${sourceId}`);
+    });
+    questions.add(item.masteryFocus.transfer);
+  });
+  assert.equal(questions.size, reasoningCases.length, "transfer questions must be specific to each case");
+
+  const appSource = fs.readFileSync(path.join(root, "assets/js/app.js"), "utf8");
+  assert.match(appSource, /"Try it in a variation"/);
+  assert.match(appSource, /"Reveal the answer and decision checks"/);
+  assert.match(appSource, /transferCitationIds/);
+});
+
+test("the guided interface pauses before revealing reasoning and preserves route state", () => {
+  const appSource = fs.readFileSync(path.join(root, "assets/js/app.js"), "utf8");
+  const cssSource = fs.readFileSync(path.join(root, "assets/css/styles.css"), "utf8");
+
+  assert.match(appSource, /essential \? "\(\*\)" : "\(\+\)"/);
+  assert.match(appSource, /"Reveal reasoning"/);
+  assert.match(appSource, /if \(!revealed\)/);
+  assert.match(appSource, /renderRevealedHint\(body, hint\)/);
+  assert.match(appSource, /window[.]localStorage[.]setItem/);
+  assert.match(appSource, /"Previous essential"/);
+  assert.match(appSource, /"Close and continue reading"/);
+  assert.doesNotMatch(appSource, /"Next essential"/);
+  assert.match(appSource, /"Continue to Full Run"/);
+  assert.match(appSource, /"Start at the top"/);
+  assert.match(appSource, /"Restart case practice"/);
+  assert.match(appSource, /pendingSurfaceTop/);
+  assert.match(appSource, /"Show optional \(\+\) Hints"/);
+  assert.match(appSource, /"amc-reasoning-show-deeper:" \+ currentCase[.]id/);
+  assert.match(appSource, /dataset[.]deeperMarkers/);
+  assert.match(appSource, /"Open the full plan and mastery focus"/);
+  assert.match(appSource, /"Task plan"/);
+  assert.match(appSource, /replace\(\/\^Now that\\b\/, "Since"\)[.]replace\(\/\^Now\\s\+\//);
+  assert.match(appSource, /journey-task-chip/);
+  assert.match(appSource, /masteryFocus[.]tasks/);
+  assert.match(appSource, /reasoningHeading[.]focus/);
+  assert.match(appSource, /aria-controls/);
+  assert.doesNotMatch(appSource, /"Current task"/);
+  assert.match(cssSource, /[.]reasoning-marker[\s\S]*?min-width: 1[.]55rem;[\s\S]*?min-height: 1[.]55rem;/);
+  assert.match(cssSource, /[.]reasoning-marker[.]is-visited::after[\s\S]*?content: "✓";/);
+  assert.match(cssSource, /data-deeper-markers="hidden"/);
+  assert.match(cssSource, /[.]hint-header[\s\S]*?position: sticky;/);
+  assert.match(cssSource, /[.]journey-dock-anchor[\s\S]*?grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
+  assert.match(cssSource, /[.]journey-dock-focus \{[\s\S]{0,120}?overflow-wrap: anywhere;[\s\S]{0,120}?white-space: normal;/);
+  assert.match(cssSource, /@media \(prefers-reduced-motion: reduce\)/);
+});
+
+test("task anchors stay compact and do not reveal later station findings", () => {
+  const byId = (caseId, hintId) => cases.find((item) => item.id === caseId).hints.find((hint) => hint.id === hintId);
+  const hintText = (caseId, hintIds) => JSON.stringify(hintIds.map((hintId) => byId(caseId, hintId)));
+  const caseOne = cases.find((item) => item.id === "case-001");
+
+  assert.ok(caseOne.essentialHintIds.includes("hint-discomfort"));
+  assert.ok(caseOne.essentialHintIds.includes("hint-indigestion-concern"));
+  assert.ok(!caseOne.essentialHintIds.includes("hint-ecg"));
+  assert.ok(!caseOne.essentialHintIds.includes("hint-aspirin"));
+
+  assert.doesNotMatch(hintText("case-008", ["c008-hint-05"]), /correct dangerous treatment|non-invasive ventilation|intubat/i);
+  assert.doesNotMatch(hintText("case-003", ["c003-hint-08"]), /calf|clot|travel|oestrogen/i);
+  assert.doesNotMatch(hintText("case-012", ["c012-hint-08"]), /infection|obstruction|urinary|urine output|kidney/i);
+  assert.doesNotMatch(hintText("case-001", ["hint-immediate-management"]), /ambulance transfer|waiting for the ambulance/i);
+  assert.doesNotMatch(hintText("case-014", ["c014-hint-08", "c014-hint-10"]), /neutrophil|antibiotic|chemotherapy day|transfer status/i);
+  assert.doesNotMatch(hintText("case-016", ["c016-hint-07", "c016-hint-09"]), /tertiary|pump and lung|cardiogenic|congestion/i);
+  assert.doesNotMatch(hintText("case-018", ["c018-hint-09", "c018-hint-10", "c018-hint-11"]), /endoscop|confirmed source|rebleed|next procedure/i);
+  assert.doesNotMatch(hintText("case-019", ["c019-hint-06", "c019-hint-09"]), /liver|varice|portal|endoscop/i);
+
+  [
+    ["case-004", "c004-hint-40"],
+    ["case-009", "c009-hint-07"],
+    ["case-014", "c014-hint-10"],
+    ["case-017", "c017-hint-09"],
+    ["case-018", "c018-hint-11"],
+    ["case-018", "c018-hint-49"],
+    ["case-019", "c019-hint-06"],
+    ["case-020", "c020-hint-05"]
+  ].forEach(([caseId, hintId]) => {
+    const words = byId(caseId, hintId).say.join(" ").trim().split(/\s+/).length;
+    assert.ok(words <= 36, `${caseId}/${hintId} is too dense for the first reveal`);
+  });
+});
+
 test("every new Hint journey resolves exactly, stays in disclosure order and cites a current source", () => {
   reasoningCases.slice(1).forEach((item) => {
     const sourceIds = new Set(item.sources.map((source) => source.id));
@@ -199,7 +349,7 @@ test("the full Reasoning set keeps the locked consultant-companion voice", () =>
   })));
 
   assert.doesNotMatch(reasoningText, /\bADHD\b|\blearner\b|\bcandidate\b|—/i);
-  assert.doesNotMatch(reasoningText, /speed up your safety|heart (?:near|at) the front|stay open|stays open|diagnostic weight|route to danger|on the board/i);
+  assert.doesNotMatch(reasoningText, /speed up your safety|heart (?:near|at) the front|stay open|stays open|diagnostic weight|route to danger|on the board|fix the switches|hold the switches|clean return point|route may step down/i);
   assert.doesNotMatch(reasoningText, /reflux owns|physiology outranks|danger threshold|clot-risk stack|clues click|one mechanism unifies|probability shifter/i);
   assert.doesNotMatch(reasoningText, /\b(?:mental|diagnostic|task|clinical) map\b|\b(?:history|heart|diagnostic) lane\b|old case closed/i);
 });
@@ -210,7 +360,11 @@ test("Cases 18 to 20 earn source and treatment conclusions from disclosed eviden
   const case20 = cases.find((item) => item.id === "case-020");
   const firstMatch = (item, pattern) => item.hints.find((hint) => pattern.test(JSON.stringify(hint)));
   const stemReasoning = (item) => JSON.stringify({
-    mastery: item.masteryFocus,
+    mastery: {
+      case: item.masteryFocus.case,
+      clinical: item.masteryFocus.clinical,
+      tasks: item.masteryFocus.tasks
+    },
     compass: item.reasoningCompass.stem,
     hints: item.hints
       .filter((hint) => hint.target.surface === "stem")
@@ -226,7 +380,9 @@ test("Cases 18 to 20 earn source and treatment conclusions from disclosed eviden
   });
 
   assert.equal(case18.hints.length, 51);
-  assert.equal(case18.sources.length, 8);
+  assert.ok(case18.sources.length >= 10);
+  assert.ok(case18.sources.some((source) => source.id === "esge-variceal-2022"));
+  assert.ok(case18.sources.some((source) => source.id === "baveno-vii-2022"));
   assert.doesNotMatch(stemReasoning(case18), /upper gastrointestinal bleed|peptic ulcer|naproxen|major[- ]haemorrhage/i);
   assert.equal(firstMatch(case18, /upper gastrointestinal bleed/i).target.itemId, "c018-run-history-bleeding-answer");
   assert.equal(firstMatch(case18, /peptic ulcer|naproxen-related ulcer/i).target.itemId, "c018-run-history-risk-answer");
@@ -238,7 +394,7 @@ test("Cases 18 to 20 earn source and treatment conclusions from disclosed eviden
   assert.equal(firstMatch(case19, /variceal bleeding/i).target.itemId, "c019-run-background-answer");
   assert.equal(firstMatch(case19, /oesophageal varices with active bleeding/i).target.itemId, "c019-run-endoscopy-result");
 
-  assert.equal(case20.hints.length, 43);
+  assert.equal(case20.hints.length, 44);
   assert.equal(case20.sources.length, 10);
   assert.doesNotMatch(stemReasoning(case20), /apixaban|revers|divertic|lower gastrointestinal|CT angiography|embolis/i);
   assert.equal(firstMatch(case20, /reversal|reverse/i).target.itemId, "c020-run-daughter-history");
@@ -427,8 +583,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("Pattern 10 publication metadata preserves Cases 1 to 20 reasoning under one cache-safe marker", () => {
-  const releaseMarker = "autonomous-exam-p10-v1";
+test("Cases 1 to 20 guided reasoning uses one cache-safe release marker", () => {
+  const releaseMarker = "reasoning-journey-v2";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -438,13 +594,13 @@ test("Pattern 10 publication metadata preserves Cases 1 to 20 reasoning under on
   assert.match(indexSource, new RegExp(`name="x-build-id" content="${releaseMarker}"`));
   assert.match(indexSource, new RegExp(`window[.]__BUILD_ID__ = "${releaseMarker}"`));
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
-  assert.doesNotMatch(indexSource, /cases4-17-reasoning-v1/);
+  assert.doesNotMatch(indexSource, /cases18-20-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "autonomous-exam-pattern-10-core-complete");
+  assert.equal(version.checkpoint, "cases-001-020-guided-reasoning-pattern-10-complete");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "autonomous-exam-p10-v1" index[.]html/);
+  assert.match(workflow, /grep -q "reasoning-journey-v2" index[.]html/);
   assert.match(readme, /Cases 1 to 20 contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: autonomous-exam-p10-v1/);
+  assert.match(refresh, /Checkpoint: reasoning-journey-v2/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {
@@ -1445,12 +1601,14 @@ test("the task compass anchors reading, time recovery and task switching", () =>
 test("mechanism Hints explain without turning patterns into rigid rules", () => {
   const radiation = caseData.hints.find((hint) => hint.id === "hint-radiation");
   const autonomic = caseData.hints.find((hint) => hint.id === "hint-autonomic");
-  assert.match(radiation.say.join(" "), /overlapping areas of the spinal cord/i);
-  assert.match(radiation.say.join(" "), /pulmonary embolus often causes pleural irritation/i);
-  assert.match(radiation.say.join(" "), /Aortic dissection causes pain from the aortic wall/);
-  assert.match(autonomic.say.join(" "), /Sympathetic activation/);
-  assert.match(autonomic.say.join(" "), /cannot identify which wall/);
-  assert.match(autonomic.say.join(" "), /not explained simply/);
+  const radiationText = radiation.say.concat(radiation.deeper || []).join(" ");
+  const autonomicText = autonomic.say.concat(autonomic.deeper || []).join(" ");
+  assert.match(radiationText, /overlapping areas of the spinal cord/i);
+  assert.match(radiationText, /pulmonary embolism.*irritates pleura/i);
+  assert.match(radiationText, /dissection.*aortic wall/i);
+  assert.match(autonomicText, /Sympathetic output/);
+  assert.match(autonomicText, /does not identify the affected wall/);
+  assert.match(autonomicText, /not explained simply/);
 });
 
 test("the learner-facing Hint model is conversational rather than academic", () => {
@@ -1482,12 +1640,12 @@ test("the learner-facing Hint model is conversational rather than academic", () 
   });
 
   const age = caseData.hints.find((hint) => hint.id === "hint-age");
-  assert.equal(age.say[0], "At 60, I would consider a heart-related cause early.");
+  assert.equal(age.say[0], "At 60 with new chest discomfort, a coronary cause deserves early attention. Age changes the starting likelihood; the symptom pattern still decides what happens next.");
   assert.equal(age.pause, "Consider the heart early, but do not decide yet.");
 
   const presentation = caseData.hints.find((hint) => hint.id === "hint-urgent-booking");
-  assert.equal(presentation.say[0], "No. The booking itself does not tell me the severity or the cause.");
-  assert.equal(presentation.pause, "Do not add urgency or reassurance that the stem has not provided.");
+  assert.equal(presentation.say[0], "The booking itself tells me neither the severity nor the cause.");
+  assert.equal(presentation.pause, "Use only the urgency information the stem provides.");
 });
 
 test("the Stem journey does not leak the case diagnosis", () => {

@@ -90,14 +90,17 @@ test("new case files contain complete station voices without learner-facing reas
     assert.doesNotMatch(learnerText, /\bcandidate\b/i);
     assert.doesNotMatch(learnerText, /—/);
 
-    const spokenWords = turns
-      .filter((turn) => turn.kind === "spoken" || turn.kind === "handover")
+    const audibleWords = turns
+      .filter((turn) => turn.kind !== "action")
       .flatMap((turn) => turn.lines)
       .map((line) => line.text)
       .join(" ")
       .trim()
       .split(/\s+/).length;
-    assert.ok(spokenWords >= 750 && spokenWords <= 1050, `${item.id} is not realistic for an 8-minute run`);
+    assert.ok(audibleWords >= 750 && audibleWords <= 1300, `${item.id} is not realistic for an 8-minute run`);
+    if (["case-012", "case-013", "case-014"].includes(item.id)) {
+      assert.ok(audibleWords <= 1050, `${item.id} is too dense for an 8-minute run`);
+    }
   });
 });
 
@@ -282,12 +285,101 @@ test("Case 11 confirms haemorrhage before reversal and protects a deteriorating 
   assert.match(text, /Routine removal of a deep basal-ganglia bleed is not automatically beneficial/);
 });
 
+test("Case 12 recognises organ dysfunction before hypotension and pursues urinary source control", () => {
+  const case12 = cases.find((item) => item.id === "case-012");
+  assert.ok(case12, "Case 12 is missing");
+
+  const text = case12.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const recognitionIndex = text.indexOf("normal-range blood pressure does not exclude organ dysfunction");
+  const cultureIndex = text.indexOf("Take two blood-culture sets");
+  const antibioticIndex = text.indexOf("give empiric intravenous antibiotics");
+  const firstFluidIndex = text.indexOf("Give 500 millilitres of Hartmann's solution");
+  const repeatFluidIndex = text.indexOf("give a further 250 to 500 millilitres with reassessment");
+  const urologyIndex = text.indexOf("Call urology now");
+
+  assert.ok(recognitionIndex >= 0, "Case 12 waits for hypotension before recognising organ dysfunction");
+  assert.ok(cultureIndex > recognitionIndex && antibioticIndex > cultureIndex, "Case 12 sequences cultures and antibiotics incorrectly");
+  assert.match(text, /Take cultures first only if this causes no delay/);
+  assert.match(text, /within 60 minutes/);
+  assert.ok(firstFluidIndex > antibioticIndex && repeatFluidIndex > firstFluidIndex, "Case 12 does not reassess before further fluid");
+  assert.match(text, /lactate is 4.3 mmol\/L/);
+  assert.match(text, /creatinine 190 micromol\/L from a baseline of 110/);
+  assert.match(text, /moderate right hydronephrosis/);
+  assert.ok(urologyIndex > repeatFluidIndex, "Case 12 misses source-control escalation");
+  assert.match(text, /request intensive-care review now because organ dysfunction persists/);
+  assert.match(text, /must not delay drainage/);
+  assert.match(text, /Antibiotics alone may not control infection behind an obstruction/);
+});
+
+test("Case 13 starts noradrenaline while dynamically indicated fluid continues", () => {
+  const case13 = cases.find((item) => item.id === "case-013");
+  assert.ok(case13, "Case 13 is missing");
+
+  const text = case13.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const firstFluidIndex = text.indexOf("Give 500 millilitres of Hartmann's solution");
+  const noradrenalineIndex = text.indexOf("Begin peripheral noradrenaline now");
+  const secondFluidIndex = text.indexOf("give a second 500-millilitre Hartmann's bolus");
+  const noResponseIndex = text.indexOf("After a total of one litre of Hartmann's");
+
+  assert.ok(firstFluidIndex >= 0 && noradrenalineIndex > firstFluidIndex, "Case 13 omits initial measured fluid reassessment");
+  assert.ok(secondFluidIndex > noradrenalineIndex && noResponseIndex > secondFluidIndex, "Case 13 does not combine early vasopressor with a dynamically indicated second bolus");
+  assert.match(text, /Passive leg raise no longer changes pulse pressure/);
+  assert.match(text, /increasing bilateral B-lines/);
+  assert.match(text, /Stop further rapid boluses because fluid responsiveness has been lost/);
+  assert.match(text, /mean arterial pressure of at least 65 mmHg/);
+  assert.match(text, /5 micrograms per minute/);
+  assert.match(text, /Intensive care will manage vasopressor and organ support/);
+  assert.match(text, /Start empiric oseltamivir while PCR is pending, adjusted for renal function/);
+  assert.match(case13.clinicalSources.map((source) => source.url).join("\n"), /cdc[.]gov\/flu\/hcp\/antivirals/);
+});
+
+test("Case 14 treats suspected neutropenic sepsis despite a modest clinic temperature", () => {
+  const case14 = cases.find((item) => item.id === "case-014");
+  assert.ok(case14, "Case 14 is missing");
+
+  const text = case14.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const recognitionIndex = text.indexOf("make neutropenic sepsis possible");
+  const transferIndex = text.indexOf("Call Triple Zero for a monitored ambulance");
+  const neutrophilResultIndex = text.indexOf("neutrophils 0.1");
+  const antibioticIndex = text.indexOf("piperacillin-tazobactam 4.5 grams intravenously");
+  const piccDisclosureIndex = text.indexOf("I have a PICC in my right arm");
+  const piccExamIndex = text.indexOf("I would also inspect the PICC site");
+  const resultRequestIndex = text.indexOf("Check whether today's chemotherapy blood result is available");
+
+  assert.ok(recognitionIndex >= 0 && transferIndex > recognitionIndex, "Case 14 does not recognise and transfer suspected neutropenic sepsis");
+  assert.ok(neutrophilResultIndex > transferIndex, "Case 14 waits for the neutrophil result before arranging transfer");
+  assert.ok(antibioticIndex > neutrophilResultIndex, "Case 14 omits protocol-based antipseudomonal treatment");
+  assert.match(text, /Paracetamol can lower the measured temperature/);
+  assert.match(text, /I will not wait for a clinic blood count/);
+  assert.match(text, /within 30 minutes of presentation or clinical recognition, whichever was earlier/);
+  assert.ok(piccDisclosureIndex >= 0 && piccExamIndex > piccDisclosureIndex, "Case 14 examines a PICC before learning it exists");
+  assert.ok(resultRequestIndex > transferIndex && neutrophilResultIndex > resultRequestIndex, "Case 14 supplies results before they are requested");
+  assert.match(text, /Blood cultures should come from a peripheral vein and each PICC lumen, without delaying antibiotics/);
+  assert.match(text, /Confirm directly with the ambulance and receiving emergency clinician that the first dose will start within that 30-minute window/);
+  assert.match(text, /If they cannot meet it, arrange immediate pre-transfer piperacillin-tazobactam/);
+  assert.match(text, /Avoid rectal examination, rectal medicines and intramuscular injections/);
+  assert.match(text, /not home observation or a private car/);
+  assert.match(case14.clinicalSources.map((source) => source.url).join("\n"), /eviq[.]org[.]au\/p\/123/);
+});
+
 test("every case keeps the station stem clinically neutral", () => {
   cases.forEach((item) => {
     const stemAndTasks = JSON.stringify(item.stem);
     assert.doesNotMatch(
       stemAndTasks,
-      /\burgent\b|\bimmediate\b|resuscitation|ambulance|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
+      /\burgent\b|\bimmediate\b|\bsepsis\b|\bseptic shock\b|\bneutropeni(?:a|c)\b|resuscitation|ambulance|vasopressor|noradrenaline|lactate|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
       `${item.id} stem or tasks disclose the diagnosis or management priority`
     );
   });

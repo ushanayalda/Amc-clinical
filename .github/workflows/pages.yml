@@ -45,5 +45,5 @@ jobs:
         run: |
           test -f index.html
           test -f version.json
-          grep -q "reasoning-journey-v2" index.html
+          grep -q "natural-consultant-v3" index.html
           grep -q "one-source-four-view" version.json

@@ -1,8 +1,8 @@
 {
-  "buildId": "reasoning-journey-v2",
+  "buildId": "natural-consultant-v3",
   "basePath": "/Amc-clinical/",
   "environment": "github-pages-branch",
   "productModel": "one-source-four-view",
   "caseId": "case-001",
-  "checkpoint": "reasoning-review"
+  "checkpoint": "natural-voice-review"
 }

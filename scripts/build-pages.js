@@ -9,12 +9,14 @@ const basePath = normalizeBasePath(process.env.BASE_PATH || "/Amc-clinical/");
 const buildId = process.env.BUILD_ID || getGitSha() || new Date().toISOString();
 const generatedAt = new Date().toISOString();
 
-const assets = [
-  "assets/css/styles.css",
-  "data/cases/case-001.js",
-  "assets/js/case-views.js",
-  "assets/js/app.js"
-];
+const caseAssets = fs.readdirSync(path.join(root, "data", "cases"))
+  .filter((name) => /^case-[0-9]+[.]js$/.test(name))
+  .sort()
+  .map((name) => "data/cases/" + name);
+
+const assets = ["assets/css/styles.css"]
+  .concat(caseAssets)
+  .concat(["assets/js/case-views.js", "assets/js/app.js"]);
 
 function normalizeBasePath(value) {
   let clean = value || "/";
@@ -77,9 +79,10 @@ fs.writeFileSync(path.join(dist, "version.json"), JSON.stringify({
   basePath,
   generatedAt,
   environment: "github-pages",
-  caseId: "case-001",
-  productModel: "one-source-four-view",
+  defaultCaseId: "case-001",
+  caseIds: caseAssets.map((asset) => path.basename(asset, ".js")),
+  productModel: "multi-case-optional-reasoning",
   assets: manifest
 }, null, 2) + "\n");
 
-console.log(`Built Case 1 four-view site with build id ${buildId}`);
+console.log(`Built ${caseAssets.length} cases with build id ${buildId}`);

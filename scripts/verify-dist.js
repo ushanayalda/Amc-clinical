@@ -2,6 +2,11 @@ const fs = require("fs");
 const path = require("path");
 
 const dist = path.resolve(__dirname, "..", "dist");
+const root = path.resolve(__dirname, "..");
+const expectedCaseIds = fs.readdirSync(path.join(root, "data", "cases"))
+  .filter((file) => /^case-[0-9]+[.]js$/.test(file))
+  .sort()
+  .map((file) => path.basename(file, ".js"));
 let failed = false;
 
 function fail(message) {
@@ -28,8 +33,11 @@ if (!failed) {
   const bundles = version.assets.map((asset) => read(asset.output)).join("\n");
   const allLearnerText = index + "\n" + bundles;
 
-  if (version.productModel !== "one-source-four-view") fail("Wrong product model in version.json");
-  if (version.caseId !== "case-001") fail("Case 1 is not the built checkpoint");
+  if (version.productModel !== "multi-case-optional-reasoning") fail("Wrong product model in version.json");
+  if (version.defaultCaseId !== "case-001") fail("Case 1 is not the default case");
+  if (JSON.stringify(version.caseIds) !== JSON.stringify(expectedCaseIds)) {
+    fail("Built case registry is incomplete or out of order");
+  }
   if (!index.includes(`<base href="${version.basePath}">`)) fail("Built base path is missing");
   if (!notFound.includes(`<base href="${version.basePath}">`)) fail("404 base path is missing");
 
@@ -39,7 +47,16 @@ if (!failed) {
     if (!index.includes(asset.url)) fail(`Shell does not reference asset: ${asset.url}`);
   });
 
-  ["Exam", "Reasoning", "Stem", "Full Run", "(*)", "Chest discomfort after lunch"].forEach((term) => {
+  [
+    "Exam",
+    "Reasoning",
+    "Stem",
+    "Full Run",
+    "(*)",
+    "Chest discomfort after lunch",
+    "Sudden chest and back pain",
+    "Sharp chest discomfort after dinner"
+  ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });
 
@@ -51,4 +68,4 @@ if (!failed) {
 }
 
 if (failed) process.exitCode = 1;
-else console.log("Case 1 dist verification passed.");
+else console.log("Multi-case dist verification passed.");

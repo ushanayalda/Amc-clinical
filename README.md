@@ -13,7 +13,7 @@ Every case has two versions and two screens:
 | Exam | Clean station stem | Complete high-standard encounter |
 | Reasoning | Identical stem with `(*)` Hints | Identical encounter with `(*)` Hints |
 
-Each canonical case is stored once in `data/cases/case-NNN.js`. Cases 1 to 17 contain completed Reasoning layers. New cases are produced here as Exam Stem and Full Run only, then receive their Reasoning layer through the separate reasoning workflow without changing the case wording.
+Each canonical case is stored once in `data/cases/case-NNN.js`. Cases 1 to 20 contain completed Reasoning layers. New cases are produced here as Exam Stem and Full Run only, then receive their Reasoning layer through the separate reasoning workflow without changing the case wording.
 
 Each Hint opens in one contextual window and continues the same thinking journey: what may pop up, why the clue matters, what to keep holding, what to do next, and where the internal task clock sits. Sources remain clickable but collapsed until requested.
 

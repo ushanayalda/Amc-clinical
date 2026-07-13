@@ -21,7 +21,6 @@ const caseData = context.window.AMC_CASES[0];
 const caseTwo = context.window.AMC_CASES[1];
 const caseThree = context.window.AMC_CASES[2];
 const reasoningCases = cases.filter((item) => item.reasoningAvailable !== false);
-const examOnlyCases = cases.filter((item) => item.reasoningAvailable === false);
 const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const canonicalHashes = {
   "case-001": { stem: "6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875", run: "cd353fbe9e257718c54ff615b8f0d5bf5128d30bb0e89684589844696e2ac5b9" },
@@ -40,7 +39,10 @@ const canonicalHashes = {
   "case-014": { stem: "965310810f6a95a3bd4c03ef9e19d077cc9b212086558ab08833df8a3953c25b", run: "f6b426382e5e72fa494250a5db53d18681f2b845ec3007e498121700b20c633b" },
   "case-015": { stem: "1bcf3e3672f04a937a41c4ec5c0e193e8875adc89724c4b2033b5bd4c31ad7db", run: "e12ff509555b27b85ceea5ca7b66817af2e2406381b7ae2c43a15fb3ab7293f3" },
   "case-016": { stem: "a5db7c28d93248af7399bff948cc1ec91945b2b9270dddc640db838fc95d6689", run: "df5f077117602455398314e5c010c174a562fcbaf7adb066cd1c650a4a7fb76a" },
-  "case-017": { stem: "b284bae621453e699d1b927930a6d1e3e719c608645c430b3b3e445ee8280caf", run: "fe13a410831883dd635777cc7194363ef3185e2f0d83834829527d48f772d3cd" }
+  "case-017": { stem: "b284bae621453e699d1b927930a6d1e3e719c608645c430b3b3e445ee8280caf", run: "fe13a410831883dd635777cc7194363ef3185e2f0d83834829527d48f772d3cd" },
+  "case-018": { stem: "cb337d4ace186f1994cf136e7c4b92c342617097236935cf3e00f28a486f6387", run: "c6dfb68a21352d4c1789cb2cbbc298c96bf28e796acd6cb1ceb3a3e4048dc9f8" },
+  "case-019": { stem: "01eecf00f98dccf8ab15eed93d81e70b7afbe054dfdb90b32351792a8dc4c7df", run: "5324caf72bbf04dbe792e3ca0edaf03dcd5dcf3d80aec31f134111507b45f5df" },
+  "case-020": { stem: "89b8adc805459321bb8fdfe8a3048fcdf6865559536896761861a0459a1ccb79", run: "d23bde77be063c08eb00736ed6c1a1f9962e473e79959f81be398708fb8367b4" }
 };
 
 test("Case 1 remains the protected canonical four-view case", () => {
@@ -53,11 +55,10 @@ test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
 });
 
-test("Cases 1 to 17 expose complete reasoning while Cases 18 to 20 remain exam-only", () => {
+test("Cases 1 to 20 expose complete canonical reasoning sources", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
-  assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds.slice(0, 17));
-  assert.deepEqual(Array.from(examOnlyCases, (item) => item.id), expectedIds.slice(17));
+  assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds);
 
   reasoningCases.forEach((item) => {
     assert.notEqual(item.reasoningAvailable, false, `${item.id} must expose Reasoning`);
@@ -71,20 +72,9 @@ test("Cases 1 to 17 expose complete reasoning while Cases 18 to 20 remain exam-o
     assert.deepEqual(viewModel.validateCase(item), []);
   });
 
-  examOnlyCases.forEach((item) => {
-    assert.equal(item.reasoningCompass, undefined, `${item.id} contains a reasoning compass`);
-    assert.equal(item.hints, undefined, `${item.id} contains Hints`);
-    assert.equal(item.sources, undefined, `${item.id} contains learner-facing reasoning sources`);
-    assert.ok(item.stem.lines.length > 0);
-    assert.ok(item.stem.tasks.length > 0);
-    assert.ok(item.run.sections.length > 0);
-    assert.deepEqual(viewModel.validateCase(item), []);
-  });
 });
 
-test("case selection exposes completed reasoning and falls back for exam-only cases", () => {
-  const examOnlyCase = examOnlyCases[0];
-  assert.ok(examOnlyCase, "an exam-only fallback case is required");
+test("case selection exposes completed reasoning and retains a safe exam-only fallback", () => {
   assert.equal(viewModel.selectCase(cases, "case-002").id, "case-002");
   assert.equal(viewModel.selectCase(cases, "case-003").id, "case-003");
   assert.equal(viewModel.selectCase(cases, "case-017").id, "case-017");
@@ -92,7 +82,7 @@ test("case selection exposes completed reasoning and falls back for exam-only ca
   assert.equal(viewModel.selectCase(cases, "").id, "case-001");
   assert.equal(viewModel.viewForCase(caseTwo, "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase(caseThree, "#reasoning-full-run").id, "reasoning-full-run");
-  assert.equal(viewModel.viewForCase(examOnlyCase, "#reasoning-full-run").id, "exam-full-run");
+  assert.equal(viewModel.viewForCase(cases[19], "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase(cases[16], "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase({ reasoningAvailable: false }, "#reasoning-full-run").id, "exam-full-run");
   assert.equal(viewModel.viewForCase(caseData, "#reasoning-full-run").id, "reasoning-full-run");
@@ -116,7 +106,7 @@ test("every Reasoning layer preserves the canonical Stem and Full Run", () => {
   });
 });
 
-test("Cases 1 to 17 keep short-term case mastery and long-term clinical mastery visible", () => {
+test("Cases 1 to 20 keep short-term case mastery and long-term clinical mastery visible", () => {
   const caseFocuses = new Set();
   const clinicalFocuses = new Set();
 
@@ -197,6 +187,48 @@ test("the full Reasoning set keeps the locked consultant-companion voice", () =>
   assert.doesNotMatch(reasoningText, /speed up your safety|heart (?:near|at) the front|stay open|stays open|diagnostic weight|route to danger|on the board/i);
   assert.doesNotMatch(reasoningText, /reflux owns|physiology outranks|danger threshold|clot-risk stack|clues click|one mechanism unifies|probability shifter/i);
   assert.doesNotMatch(reasoningText, /\b(?:mental|diagnostic|task|clinical) map\b|\b(?:history|heart|diagnostic) lane\b|old case closed/i);
+});
+
+test("Cases 18 to 20 earn source and treatment conclusions from disclosed evidence", () => {
+  const case18 = cases.find((item) => item.id === "case-018");
+  const case19 = cases.find((item) => item.id === "case-019");
+  const case20 = cases.find((item) => item.id === "case-020");
+  const firstMatch = (item, pattern) => item.hints.find((hint) => pattern.test(JSON.stringify(hint)));
+  const stemReasoning = (item) => JSON.stringify({
+    mastery: item.masteryFocus,
+    compass: item.reasoningCompass.stem,
+    hints: item.hints
+      .filter((hint) => hint.target.surface === "stem")
+      .map((hint) => ({
+        where: hint.where,
+        popUp: hint.popUp,
+        say: hint.say,
+        pause: hint.pause,
+        recap: hint.recap,
+        reorient: hint.reorient,
+        clock: hint.clock
+      }))
+  });
+
+  assert.equal(case18.hints.length, 51);
+  assert.equal(case18.sources.length, 8);
+  assert.doesNotMatch(stemReasoning(case18), /upper gastrointestinal bleed|peptic ulcer|naproxen|major[- ]haemorrhage/i);
+  assert.equal(firstMatch(case18, /upper gastrointestinal bleed/i).target.itemId, "c018-run-history-bleeding-answer");
+  assert.equal(firstMatch(case18, /peptic ulcer|naproxen-related ulcer/i).target.itemId, "c018-run-history-risk-answer");
+  assert.equal(firstMatch(case18, /major[- ]haemorrhage protocol/i).target.itemId, "c018-run-critical");
+
+  assert.equal(case19.hints.length, 50);
+  assert.equal(case19.sources.length, 8);
+  assert.doesNotMatch(stemReasoning(case19), /variceal|cirrhosis|portal|terlipressin|ceftriaxone|\bTIPS\b/i);
+  assert.equal(firstMatch(case19, /variceal bleeding/i).target.itemId, "c019-run-background-answer");
+  assert.equal(firstMatch(case19, /oesophageal varices with active bleeding/i).target.itemId, "c019-run-endoscopy-result");
+
+  assert.equal(case20.hints.length, 43);
+  assert.equal(case20.sources.length, 10);
+  assert.doesNotMatch(stemReasoning(case20), /apixaban|revers|divertic|lower gastrointestinal|CT angiography|embolis/i);
+  assert.equal(firstMatch(case20, /reversal|reverse/i).target.itemId, "c020-run-daughter-history");
+  assert.equal(firstMatch(case20, /lower gastrointestinal location|lower gastrointestinal bleed/i).target.itemId, "c020-run-cta-result");
+  assert.equal(firstMatch(case20, /embolisation/i).target.itemId, "c020-run-definitive");
 });
 
 test("Case 2 publishes the approved 40-Hint reasoning journey", () => {
@@ -380,8 +412,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("Cases 4 to 17 publication metadata uses one cache-safe release marker", () => {
-  const releaseMarker = "cases4-17-reasoning-v1";
+test("Cases 18 to 20 publication metadata uses one cache-safe release marker", () => {
+  const releaseMarker = "cases18-20-reasoning-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -391,13 +423,13 @@ test("Cases 4 to 17 publication metadata uses one cache-safe release marker", ()
   assert.match(indexSource, new RegExp(`name="x-build-id" content="${releaseMarker}"`));
   assert.match(indexSource, new RegExp(`window[.]__BUILD_ID__ = "${releaseMarker}"`));
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
-  assert.doesNotMatch(indexSource, /case[23]-reasoning-v1/);
+  assert.doesNotMatch(indexSource, /cases4-17-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "cases-004-017-reasoning-published");
+  assert.equal(version.checkpoint, "cases-018-020-reasoning-published");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "cases4-17-reasoning-v1" index[.]html/);
-  assert.match(readme, /Cases 1 to 17 contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: cases4-17-reasoning-v1/);
+  assert.match(workflow, /grep -q "cases18-20-reasoning-v1" index[.]html/);
+  assert.match(readme, /Cases 1 to 20 contain completed Reasoning layers/);
+  assert.match(refresh, /Checkpoint: cases18-20-reasoning-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {

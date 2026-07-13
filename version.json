@@ -1,7 +1,8 @@
 {
-  "buildId": "source-20260705-20",
+  "buildId": "reasoning-journey-v2",
   "basePath": "/Amc-clinical/",
-  "generatedAt": "2026-07-05T22:00:00+10:00",
-  "environment": "github-pages",
-  "source": "branch-shell"
+  "environment": "github-pages-branch",
+  "productModel": "one-source-four-view",
+  "caseId": "case-001",
+  "checkpoint": "reasoning-review"
 }

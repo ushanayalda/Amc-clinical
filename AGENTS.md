@@ -32,6 +32,12 @@ Clicking `(*)` opens one contextual window beside the source phrase on desktop a
 
 Hints form one continuous thinking journey from the first stem phrase to the end of the station. They are not separate fact cards. Each new clue must add to the map, change its weighting or test it without silently replacing what came before. Do not reveal the diagnosis before the case evidence reaches it.
 
+Each case also declares one ordered `essentialHintIds` route of 12 to 16 Hints. `(*)` marks this route; `(+)` marks the remaining optional depth. Every stem task must appear in the essential route, and that route must continue through the Full Run to the station-end reset. Keep all useful depth available, but do not make every phrase compete for attention.
+
+The first opening of a Hint shows its exact source phrase and the thought question only. The learner deliberately reveals the reasoning after a genuine pause. Reopening a revealed Hint may show the full response immediately. The interface records opened Hints locally, uses a visible non-colour visited cue and provides a full-case restart. Its compact controls may review a previous Hint, reopen the current Hint or close and continue reading, but must never jump forward over unread canonical text or become a score or performance dashboard.
+
+The last essential Hint includes one case-specific variation. Keep its worked answer, decision checks and dedicated clinical sources hidden until the learner chooses to reveal them. A generic principle without corrective feedback is not sufficient for clinical transfer.
+
 Every Hint should anticipate the thought or panic question that may naturally appear at that exact phrase, then provide:
 
 - the thought that may pop up;
@@ -41,6 +47,8 @@ Every Hint should anticipate the thought or panic question that may naturally ap
 - the next question or action;
 - the current internal-clock anchor when relevant;
 - reassurance that supports safe flexibility rather than certainty seeking.
+
+Put the shortest sufficient consultant response in `say`. Put a memorable mechanism or additional nuance in optional `deeper` paragraphs when it would otherwise interrupt the case journey.
 
 Across a case, the journey must connect anatomy, physiology, mechanism, symptom meaning, differential diagnosis, discriminators, investigations, management, patient concerns, examiner logic, traps and variations. Use the memorable chain `structure → mechanism → sensation → symptom pattern → diagnostic weight → next safe thought`. Explain necessary technical terms immediately in everyday language.
 

@@ -894,7 +894,7 @@
     "hint-age": {
       journeyPoint: "Reading map · open the first system lane",
       popUp: "Sixty-year-old man plus chest discomfort. Is this already the heart?",
-      pal: "That link is useful, but it is not a diagnosis. Age raises the starting chance of coronary disease. It earns the heart and circulation first place in your map, while the lungs, aorta, gut and chest wall stay open.",
+      pal: "That link is useful, but it is not a diagnosis. Age raises the starting chance of coronary disease, so check the heart early while still testing serious lung and aortic causes and common digestive or chest-wall causes.",
       flow: ["Age raises the starting chance", "The symptom pattern adds or removes weight", "Action follows the whole pattern"],
       hold: "Heart and circulation move to the front. Nothing has been proven.",
       next: "Look at the urgency and the exact symptom word before naming anything.",
@@ -904,7 +904,7 @@
       journeyPoint: "Reading map · choose the tempo",
       popUp: "The booking says urgent. Should I panic or rush every question?",
       pal: "Neither. Urgent changes your speed, not your accuracy. Check early whether the patient is unstable, then take the shortest route to the clues that change safety.",
-      hold: "Move quickly toward danger sorting, but keep the map open.",
+      hold: "Check immediate danger first, then keep testing the plausible causes.",
       next: "What does the patient mean by chest discomfort?",
       clock: "Still in the first 30 seconds: notice urgency, then keep reading."
     },
@@ -1339,7 +1339,7 @@
     },
     "hint-concerns": {
       where: "Reading task 3: concerns and management",
-      popUp: "Concerns and management are together. Easy to forget one.",
+          popUp: "What two parts must I cover here?",
       say: [
         "There are two parts here. First respond to his concern about indigestion. Then explain the management plan.",
         "Acknowledge why indigestion occurred to him, then explain why the history still requires urgent assessment."
@@ -1665,8 +1665,468 @@
       clock: voice.clock || ""
     };
   });
+
+  var caseOneJourneyRefinements = {
+    "hint-urgent-booking": {
+      "say": [
+        "The booking itself tells me neither the severity nor the cause."
+      ],
+      "pause": "Use only the urgency information the stem provides.",
+      "recap": "He has chest discomfort.",
+      "deeper": [
+        "The booking itself does not tell me the severity or the cause.",
+        "I would look at him, ask whether the discomfort is present now and obtain his observations when the task allows.",
+        "He has chest discomfort. Its cause, pattern and current severity are still unknown."
+      ]
+    },
+    "hint-age": {
+      "say": [
+        "At 60, I would consider a heart-related cause early."
+      ],
+      "pause": "Consider the heart early, but do not decide yet.",
+      "recap": "A heart-related cause needs early attention.",
+      "deeper": [
+        "Age makes coronary disease more likely, but age alone cannot explain today's discomfort. We still need the details of the symptom.",
+        "A heart-related cause needs early attention. I would also consider aortic dissection, pulmonary embolism, reflux and chest wall pain."
+      ]
+    },
+    "hint-after-lunch": {
+      "say": [
+        "Reflux is possible because the symptom followed a meal."
+      ],
+      "recap": "I am considering a heart-related cause.",
+      "reorient": "Now read and allocate the three tasks.",
+      "deeper": [
+        "Meal timing alone cannot distinguish reflux from a cardiac cause. I would still ask about activity, the exact sensation, duration, radiation and associated symptoms.",
+        "I am considering a heart-related cause, aortic dissection, pulmonary embolism, reflux and chest wall pain."
+      ]
+    },
+    "hint-discomfort": {
+      "say": [
+        "Cardiac ischaemia may be described as pressure, heaviness, tightness, burning or indigestion."
+      ],
+      "recap": "First consider serious cardiac, aortic and pulmonary causes.",
+      "deeper": [
+        "A heart-related symptom may be described as pressure, heaviness, tightness, burning or indigestion rather than pain.",
+        "I would also consider the aorta and lungs because those causes can be serious.",
+        "Reflux and chest wall pain are possible, but less urgent.",
+        "First consider serious cardiac, aortic and pulmonary causes. Reflux and chest wall pain can be assessed as the history develops."
+      ]
+    },
+    "hint-focused-history": {
+      "say": [
+        "Start by letting him describe what happened. Then clarify onset, activity, sensation, site, radiation, duration and associated symptoms."
+      ],
+      "pause": "Keep the questions that help you judge the cause.",
+      "deeper": [
+        "Ask directly about sudden severe pain to the back, pleuritic pain, sudden breathlessness and clot risk. Then check coronary risk factors, medicines and whether aspirin or GTN could be unsafe.",
+        "Keep the questions that help you judge the cause, the urgency or treatment safety."
+      ]
+    },
+    "hint-most-likely": {
+      "say": [
+        "Give one most likely diagnosis and explain which findings support it."
+      ],
+      "pause": "You may not know the exact subtype yet.",
+      "recap": "Task two is the most likely diagnosis.",
+      "deeper": [
+        "Then discuss the important alternatives. For each one, mention the finding that makes it more or less likely here.",
+        "You may not know the exact subtype yet. Still say clearly what you think is happening.",
+        "Task two is the most likely diagnosis, the supporting evidence and a short relevant differential."
+      ]
+    },
+    "hint-concerns": {
+      "say": [
+        "There are two parts here. First respond to his concern about indigestion. Then explain the management plan."
+      ],
+      "deeper": [
+        "Acknowledge why indigestion occurred to him, then explain why the history still requires urgent assessment."
+      ]
+    },
+    "hint-opening-story": {
+      "say": [
+        "The timing alone cannot decide the cause."
+      ],
+      "logic": [],
+      "pause": "Exertion supports a heart cause.",
+      "recap": "A heart cause is more concerning because the symptom began with exertion.",
+      "deeper": [
+        "Walking makes the heart work harder. If a coronary artery is narrowed, blood flow may not increase enough and discomfort can begin. Eating makes reflux possible, so I would clarify the other features before deciding.",
+        "Exertion supports a heart cause. The meal supports reflux. Neither finding is diagnostic by itself.",
+        "A heart cause is more concerning because the symptom began with exertion. Reflux remains possible.",
+        "Walking → Heart works harder → Blood flow may not keep up → Symptoms may begin"
+      ]
+    },
+    "hint-heavy-pressure": {
+      "say": [
+        "Heavy pressure supports a heart-related cause, but it is not enough to diagnose one."
+      ],
+      "recap": "Heavy pressure makes cardiac ischaemia more likely.",
+      "deeper": [
+        "Sharp pain that worsens with breathing suggests pleural irritation. Pain that is severe from the start and radiates to the back raises concern about the aorta.",
+        "Heavy pressure makes cardiac ischaemia more likely. Dissection, pulmonary embolism, reflux and chest wall pain still need to be checked."
+      ]
+    },
+    "hint-ongoing": {
+      "say": [
+        "Act now. Persistent high-risk chest discomfort needs urgent transfer before the history is complete."
+      ],
+      "clock": "Arrange help, then continue the focused history while monitoring.",
+      "deeper": [
+        "Persistent high-risk chest discomfort requires action before the history is complete.",
+        "Call for help and arrange urgent transfer.",
+        "While help is coming, continue only the history that affects immediate risk or treatment."
+      ]
+    },
+    "hint-radiation": {
+      "say": [
+        "Heart and arm pain signals share spinal pathways, so the brain may feel cardiac pain in the arm, neck or jaw."
+      ],
+      "logic": [],
+      "pause": "Arm or jaw radiation supports a heart cause.",
+      "recap": "His radiation makes a heart-related cause more likely.",
+      "deeper": [
+        "Heart and arm pain signals enter overlapping areas of the spinal cord.",
+        "A pulmonary embolus often causes pleural irritation, so the pain may be sharp and worse on breathing. Aortic dissection causes pain from the aortic wall and often radiates to the back. These are usual patterns, not absolute rules.",
+        "Arm or jaw radiation supports a heart cause, but its absence would not exclude one.",
+        "His radiation makes a heart-related cause more likely. The rest of the history still matters.",
+        "Heart pain signal → Shared spinal entry → Pain felt in the arm, neck or jaw"
+      ]
+    },
+    "hint-autonomic": {
+      "say": [
+        "Reduced blood flow to heart muscle activates autonomic pathways. Sympathetic activation contributes to pallor and sweating."
+      ],
+      "recap": "This symptom cluster strongly supports cardiac ischaemia.",
+      "deeper": [
+        "When heart muscle is short of blood, it releases chemicals that activate autonomic pathways.",
+        "Sympathetic activation contributes to pallor and sweating.",
+        "Vagal and brainstem pathways contribute to nausea and vomiting.",
+        "Nausea is associated with inferior infarction, but it also occurs with infarction in other locations.",
+        "It cannot identify which wall is affected, and it is not explained simply by the heart lying near the diaphragm.",
+        "Exertional pressure with arm and jaw radiation, sweating and nausea supports reduced blood flow to the heart."
+      ]
+    },
+    "hint-crescendo": {
+      "say": [
+        "Not in this history."
+      ],
+      "recap": "The episodes are becoming more prolonged and now persist at rest.",
+      "deeper": [
+        "Earlier episodes were brief and occurred with exertion. Today's episode is longer and has not settled. That progression increases the concern.",
+        "The episodes are becoming more prolonged and now persist at rest. This is concerning for worsening myocardial ischaemia."
+      ]
+    },
+    "hint-dangerous-alternatives": {
+      "say": [
+        "Mention only the alternatives that are dangerous or reasonably likely here."
+      ],
+      "deeper": [
+        "For dissection, mention the onset, back radiation and arm findings. For pulmonary embolism, mention pleuritic pain, sudden breathlessness and clot risk. For pneumothorax, mention sudden pleuritic pain and unequal air entry."
+      ]
+    },
+    "hint-antacid": {
+      "say": [
+        "Antacid response cannot reliably distinguish reflux from cardiac ischaemia."
+      ],
+      "pause": "The full symptom pattern still decides the concern.",
+      "deeper": [
+        "Antacid failure does not prove a heart cause.",
+        "Relief would not safely exclude one either.",
+        "Response to an antacid does not reliably distinguish reflux from cardiac ischaemia."
+      ]
+    },
+    "hint-escalation": {
+      "say": [
+        "Calling now is appropriate. Ongoing pressure with radiation, sweating and nausea is enough to arrange monitored transfer."
+      ],
+      "clock": "Transfer is arranged. Finish only history that changes immediate care.",
+      "deeper": [
+        "The diagnosis is not confirmed, but keeping him in the clinic while you complete the assessment could be unsafe.",
+        "Ongoing pressure with radiation, sweating and nausea is enough to arrange monitored ambulance transfer now.",
+        "Continue the essential history while waiting."
+      ]
+    },
+    "hint-indigestion-concern": {
+      "say": [
+        "You can acknowledge why the meal suggested indigestion without agreeing that reflux is the cause."
+      ],
+      "pause": "Tell him you understand why the meal suggested indigestion.",
+      "deeper": [
+        "You can acknowledge that symptoms after lunch may suggest indigestion.",
+        "Then explain that heart symptoms can also feel like indigestion.",
+        "Exertional pressure with radiation, sweating and nausea means a heart cause cannot safely be dismissed.",
+        "Tell him you understand why the meal suggested indigestion, then explain the findings that concern you."
+      ]
+    },
+    "hint-observations": {
+      "say": [
+        "Because the examination should answer the immediate questions in this presentation."
+      ],
+      "deeper": [
+        "Assess airway, breathing, circulation and perfusion. Look for heart failure, unequal arm pressures, unequal air entry and signs of deep-vein thrombosis."
+      ]
+    },
+    "hint-provisional-diagnosis": {
+      "say": [
+        "The current working diagnosis is acute coronary syndrome."
+      ],
+      "recap": "Acute coronary syndrome is most likely.",
+      "deeper": [
+        "This means a sudden reduction in blood flow to heart muscle. The ECG and serial troponins are needed to determine whether this is unstable angina, NSTEMI or STEMI.",
+        "Acute coronary syndrome is most likely. The exact subtype is not yet known."
+      ]
+    },
+    "hint-ecg": {
+      "say": [
+        "Call the ambulance first. Get the ECG within 10 minutes if it is ready and causes no delay."
+      ],
+      "pause": "Arrange transfer first.",
+      "recap": "The ECG may support the diagnosis.",
+      "deeper": [
+        "A normal first ECG does not exclude acute coronary syndrome. Some serious coronary events have no change on the initial ECG.",
+        "Arrange transfer first. Obtain the ECG only if it does not cause delay.",
+        "The ECG may support the diagnosis, but a normal result would not make hospital assessment unnecessary."
+      ]
+    },
+    "hint-aspirin": {
+      "say": [
+        "Aspirin reduces platelet clotting after a coronary plaque ruptures."
+      ],
+      "recap": "The history and ECG support acute coronary syndrome.",
+      "deeper": [
+        "Because it also increases bleeding, check for allergy, active bleeding and significant concern about aortic dissection first.",
+        "The history and ECG support acute coronary syndrome, and the main aspirin contraindications have been checked."
+      ]
+    },
+    "hint-oxygen": {
+      "say": [
+        "His oxygen saturation is 96%, so supplemental oxygen is not indicated now."
+      ],
+      "deeper": [
+        "Routine oxygen does not treat the coronary problem and may be harmful when oxygenation is already adequate."
+      ]
+    },
+    "hint-gtn": {
+      "say": [
+        "Pain relief after GTN would not confirm a cardiac cause."
+      ],
+      "pause": "GTN may be used for pain relief.",
+      "deeper": [
+        "GTN widens blood vessels and reduces the work the heart has to do.",
+        "It may relieve cardiac pain, but the response does not confirm the diagnosis.",
+        "Before giving it, check blood pressure, possible right-ventricular involvement and recent sildenafil, tadalafil or vardenafil.",
+        "GTN may be used for pain relief, but its effect does not confirm the diagnosis."
+      ]
+    },
+    "hint-troponin": {
+      "say": [
+        "One clinic troponin cannot safely exclude an event that may still be evolving."
+      ],
+      "deeper": [
+        "Troponin rises over time after heart-muscle injury.",
+        "An early result may still be normal.",
+        "One early result is not enough.",
+        "Repeat troponin at the correct interval and interpret it with the history and ECG."
+      ]
+    },
+    "hint-handover": {
+      "say": [
+        "Tell the paramedics his age, when the symptoms began, how they have changed and what is happening now."
+      ],
+      "recap": "They need to know why you are worried.",
+      "deeper": [
+        "Include the important positive and negative findings, observations, ECG and its time, treatments given, contraindications and any change in his condition.",
+        "They need to know why you are worried, what you found and what you already did."
+      ]
+    },
+    "hint-setting": {
+      "say": [
+        "In a GP clinic, I would assess him, recognise any immediate risk, begin treatment that is safe here and arrange transfer if needed."
+      ],
+      "recap": "The immediate job is to assess stability.",
+      "deeper": [
+        "A full cardiac work-up, including serial blood tests, needs to happen in hospital.",
+        "The immediate job is to assess stability, identify serious causes and decide whether he needs hospital transfer."
+      ]
+    },
+    "hint-missing-start-data": {
+      "say": [
+        "His current stability is unknown until you see him and obtain observations."
+      ],
+      "pause": "Use only the findings the stem provides.",
+      "deeper": [
+        "We have not been given his observations, so his current stability is unknown.",
+        "I cannot judge his stability until I see him and check his observations."
+      ]
+    },
+    "hint-immediate-management": {
+      "popUp": "What makes a management plan complete?",
+      "say": [
+        "State what you will do now, how you will escalate if the findings demand it, and what happens after the immediate assessment."
+      ],
+      "pause": "Build the plan from what the findings show.",
+      "reorient": "If attention shifts, return to the next unfinished task.",
+      "deeper": [
+        "Include immediate actions, monitoring, treatment matched to the findings, when and how to escalate, the destination if transfer is required, and what you would hand over.",
+        "If you lose your place, return to the next part of the task that you have not completed."
+      ]
+    },
+    "hint-dissection-question": {
+      "say": [
+        "Pain that is severe from the start and radiates to the back would increase concern about aortic dissection."
+      ],
+      "deeper": [
+        "That question matters before aspirin because antiplatelet treatment could worsen bleeding if dissection is present."
+      ]
+    },
+    "hint-risk-factors": {
+      "say": [
+        "Hypertension and high cholesterol increase the likelihood of coronary disease, but they do not diagnose today's problem."
+      ],
+      "deeper": [
+        "Hypertension and high cholesterol increase the likelihood of coronary disease, but they do not diagnose today's problem.",
+        "The character and progression of today's symptoms determine the immediate concern.",
+        "A serious cardiac event can also occur without recognised risk factors."
+      ]
+    },
+    "hint-time-prompt": {
+      "say": [
+        "History time has ended. Leave any missed question and start the explanation now."
+      ],
+      "deeper": [
+        "Begin with: 'My most likely diagnosis is…' Then state the findings that support it and the important alternatives."
+      ]
+    },
+    "hint-stable-findings": {
+      "say": [
+        "His observations are stable at present, but the ongoing high-risk symptoms still require urgent assessment."
+      ],
+      "recap": "There is no shock, severe hypoxaemia or obvious heart failure.",
+      "deeper": [
+        "Normal observations do not exclude a serious cause of 35 minutes of ongoing symptoms. They help you choose treatment safely while transfer continues.",
+        "There is no shock, severe hypoxaemia or obvious heart failure. Acute coronary syndrome remains the main concern."
+      ]
+    },
+    "hint-ecg-result": {
+      "say": [
+        "ST depression supports myocardial ischaemia, but troponin is still needed to distinguish NSTEMI from unstable angina."
+      ],
+      "pause": "Use the ECG as supporting evidence.",
+      "recap": "Acute coronary syndrome is now more likely.",
+      "deeper": [
+        "ST depression supports myocardial ischaemia.",
+        "Troponin is still needed to distinguish NSTEMI from unstable angina.",
+        "The ECG supports acute coronary syndrome but does not determine the subtype.",
+        "Use the ECG as supporting evidence. Do not call this NSTEMI without troponin evidence.",
+        "Acute coronary syndrome is now more likely. NSTEMI and unstable angina still need to be distinguished."
+      ]
+    },
+    "hint-teach-back": {
+      "say": [
+        "Because hearing an explanation does not always mean it was understood, especially during an urgent consultation."
+      ],
+      "deeper": [
+        "Ask him to explain what he understands about the concern and the need for ambulance transfer. Clarify anything he has misunderstood."
+      ]
+    },
+    "hint-finish": {
+      "say": [
+        "The station is finished. Take one breath, then give the next stem your full attention."
+      ],
+      "pause": "Start the next stem fresh.",
+      "clock": "Station ended. One breath, then the next stem.",
+      "deeper": [
+        "Use the next reading time for the next stem. A similar age or symptom may belong to a completely different clinical problem."
+      ]
+    }
+  };
+
+  caseOne.hints = caseOne.hints.map(function (hint) {
+    return Object.assign({}, hint, caseOneJourneyRefinements[hint.id] || {});
+  });
+
+  var caseOneCoreLinks = {
+    "hint-age": {
+      say: ["At 60 with new chest discomfort, a coronary cause deserves early attention. Age changes the starting likelihood; the symptom pattern still decides what happens next."]
+    },
+    "hint-after-lunch": {
+      say: ["Following a meal makes reflux plausible, but that clue cannot outweigh the whole pattern. Check activity, quality, duration, radiation and associated symptoms before changing the urgency."],
+      deeper: ["A meal changes the differential, but it cannot set the urgency by itself. Let the remaining features decide how concerned you should be."]
+    },
+    "hint-concerns": {
+      popUp: "What two parts must I cover here?",
+      say: ["First identify and answer the concern he actually raises. Then explain the management plan."]
+    },
+    "hint-opening-story": {
+      say: ["Walking raises the heart's workload. If coronary blood flow cannot rise with demand, pressure may begin; lunch still makes reflux plausible, so compare the rest of the pattern."],
+      deeper: ["More cardiac work → higher oxygen demand → restricted coronary flow cannot keep up → ischaemic discomfort may begin."]
+    },
+    "hint-radiation": {
+      say: ["Heart and arm pain signals enter overlapping areas of the spinal cord, while connected central pathways can refer discomfort toward the neck or jaw. Pulmonary embolism more often irritates pleura; dissection arises in the aortic wall, so their usual patterns differ."],
+      deeper: ["These are useful patterns, not rules: radiation can support a diagnosis, but its absence or presence cannot confirm one alone."]
+    },
+    "hint-autonomic": {
+      say: ["Ischaemic heart muscle activates autonomic pathways. Sympathetic output contributes to pallor and sweating; vagal and brainstem pathways contribute to nausea."],
+      deeper: ["Nausea is common with inferior infarction but does not identify the affected wall and is not explained simply by the heart sitting near the diaphragm."]
+    },
+    "hint-dangerous-alternatives": {
+      say: ["Take the serious alternatives one at a time. Aortic disease rises with abrupt maximal pain to the back; pulmonary embolism with pleuritic breathlessness and clot risk; pneumothorax with sudden one-sided reduced air entry."],
+      deeper: ["The current pattern makes these causes less likely, not impossible. Change the ranking if a supporting feature appears."]
+    },
+    "hint-ecg": {
+      reorient: "Interpret the tracing, then say what it changes and what remains unknown."
+    }
+  };
+  caseOne.hints = caseOne.hints.map(function (hint) {
+    return Object.assign({}, hint, caseOneCoreLinks[hint.id] || {});
+  });
+  var caseOneDeeper = {
+    "hint-after-lunch": ["A meal changes the differential, but it cannot set the urgency by itself. Let the remaining features decide how concerned you should be."],
+    "hint-opening-story": ["More cardiac work → higher oxygen demand → restricted coronary flow cannot keep up → ischaemic discomfort may begin."],
+    "hint-radiation": ["These are useful patterns, not rules: radiation can support a diagnosis, but its absence or presence cannot confirm one alone."],
+    "hint-autonomic": ["Nausea is common with inferior infarction but does not identify the affected wall and is not explained simply by the heart sitting near the diaphragm."],
+    "hint-dangerous-alternatives": ["The current pattern makes these causes less likely, not impossible. Change the ranking if a supporting feature appears."],
+    "hint-aspirin": ["Because aspirin increases bleeding, check for allergy, active bleeding and significant concern about aortic dissection first."]
+  };
+  caseOne.hints.forEach(function (hint) {
+    if (caseOneDeeper[hint.id]) hint.deeper = caseOneDeeper[hint.id];
+    else delete hint.deeper;
+  });
+  caseOne.essentialHintIds = [
+    "hint-age",
+    "hint-discomfort",
+    "hint-after-lunch",
+    "hint-focused-history",
+    "hint-most-likely",
+    "hint-concerns",
+    "hint-opening-story",
+    "hint-ongoing",
+    "hint-radiation",
+    "hint-autonomic",
+    "hint-escalation",
+    "hint-time-prompt",
+    "hint-indigestion-concern",
+    "hint-provisional-diagnosis",
+    "hint-dangerous-alternatives",
+    "hint-finish"
+  ];
   caseOne.masteryFocus = {
     case: "Turn chest discomfort in primary care into a focused, timed and safe assessment from first question to transfer.",
-    clinical: "Recognise dangerous physiology before certainty, then connect the patient's concern to the safest next action."
+    clinical: "Recognise dangerous physiology before certainty, then connect the patient's concern to the safest next action.",
+    tasks: [
+      "Focused history",
+      "Explain diagnosis and differentials",
+      "Address concerns and management"
+    ],
+    transfer: "If the discomfort were brief, burning, limited to lying down and accompanied by acid regurgitation, which parts of your urgency and differential would change?",
+    transferAnswer: "This pattern would make reflux more likely and ACS less likely, but it would not exclude ACS in a 60-year-old. If he is now symptom-free and stable, with no exertional or autonomic features and no ECG concern, you may move from emergency transfer to structured same-day chest-pain assessment; ongoing, recurrent or high-risk findings restore emergency transfer.",
+    transferChecks: [
+      "Current pain, recurrence and observations",
+      "Exertional, radiation or autonomic features",
+      "ECG and structured ACS risk assessment",
+      "Clear escalation and return advice"
+    ],
+    transferCitationIds: ["acs-guideline-2025", "anzcor-14-1"]
   };
 })();

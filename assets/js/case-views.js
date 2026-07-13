@@ -179,6 +179,9 @@
       if (!hint.say || !hint.say.length || hint.say.some(function (paragraph) { return !String(paragraph).trim(); })) {
         errors.push("Hint is missing natural consultant speech: " + hint.id);
       }
+      if (Object.prototype.hasOwnProperty.call(hint, "deeper") && (!Array.isArray(hint.deeper) || hint.deeper.some(function (paragraph) { return !String(paragraph).trim(); }))) {
+        errors.push("Hint has invalid deeper reasoning: " + hint.id);
+      }
     });
 
     (caseData.clinicalSources || []).forEach(function (source, index) {
@@ -197,8 +200,81 @@
         if (!compass.steps || compass.steps.length !== 3) errors.push("Reasoning compass must have three steps");
         if (!compass.anchor) errors.push("Reasoning compass is missing its anchor");
       });
-      if (!caseData.masteryFocus || !caseData.masteryFocus.case || !caseData.masteryFocus.clinical) {
-        errors.push("Reasoning case is missing its case or clinical mastery focus");
+      if (!caseData.masteryFocus || !caseData.masteryFocus.case || !caseData.masteryFocus.clinical || !caseData.masteryFocus.transfer) {
+        errors.push("Reasoning case is missing its case, clinical or transfer mastery focus");
+      } else {
+        if (!Array.isArray(caseData.masteryFocus.tasks) || caseData.masteryFocus.tasks.length !== caseData.stem.tasks.length || caseData.masteryFocus.tasks.some(function (label) { return !String(label).trim(); })) {
+          errors.push("Reasoning case needs one authored task label per Stem task");
+        }
+        if (!caseData.masteryFocus.transferAnswer || !String(caseData.masteryFocus.transferAnswer).trim()) {
+          errors.push("Reasoning case is missing its transfer answer");
+        }
+        if (!Array.isArray(caseData.masteryFocus.transferChecks) || caseData.masteryFocus.transferChecks.length < 2 || caseData.masteryFocus.transferChecks.some(function (check) { return !String(check).trim(); })) {
+          errors.push("Reasoning case needs at least two transfer decision checks");
+        }
+        if (!Array.isArray(caseData.masteryFocus.transferCitationIds) || !caseData.masteryFocus.transferCitationIds.length) {
+          errors.push("Reasoning case is missing transfer citations");
+        }
+      }
+      if (!Array.isArray(caseData.essentialHintIds) || !caseData.essentialHintIds.length) {
+        errors.push("Reasoning case is missing its essential Hint journey");
+      } else {
+        if (caseData.essentialHintIds.length < 12 || caseData.essentialHintIds.length > 16) {
+          errors.push("Essential Hint journey must contain 12 to 16 Hints");
+        }
+        var itemOrders = {
+          stem: itemsForSurface(caseData, "stem").reduce(function (map, item, index) { map[item.id] = index; return map; }, {}),
+          run: itemsForSurface(caseData, "run").reduce(function (map, item, index) { map[item.id] = index; return map; }, {})
+        };
+        var lastEssentialPosition = { surface: -1, item: -1, quote: -1 };
+        var seenEssentialIds = {};
+        var essentialHints = [];
+        caseData.essentialHintIds.forEach(function (hintId) {
+          var hintIndex = (caseData.hints || []).findIndex(function (hint) { return hint.id === hintId; });
+          if (seenEssentialIds[hintId]) errors.push("Duplicate essential Hint ID: " + hintId);
+          seenEssentialIds[hintId] = true;
+          if (hintIndex === -1) {
+            errors.push("Unknown essential Hint ID: " + hintId);
+            return;
+          }
+          var hint = caseData.hints[hintIndex];
+          var targetItem = itemMap(caseData, hint.target.surface)[hint.target.itemId];
+          var position = {
+            surface: hint.target.surface === "stem" ? 0 : 1,
+            item: itemOrders[hint.target.surface][hint.target.itemId],
+            quote: targetItem ? occurrenceIndex(targetItem.text, hint.target.quote, hint.target.occurrence || 1) : -1
+          };
+          if (
+            position.surface < lastEssentialPosition.surface ||
+            (position.surface === lastEssentialPosition.surface && position.item < lastEssentialPosition.item) ||
+            (position.surface === lastEssentialPosition.surface && position.item === lastEssentialPosition.item && position.quote <= lastEssentialPosition.quote)
+          ) {
+            errors.push("Essential Hint journey is out of disclosure order: " + hintId);
+          }
+          essentialHints.push(hint);
+          lastEssentialPosition = position;
+        });
+        if (!essentialHints.some(function (hint) { return hint.target.surface === "stem"; })) errors.push("Essential Hint journey has no stem Hints");
+        if (!essentialHints.some(function (hint) { return hint.target.surface === "run"; })) errors.push("Essential Hint journey has no Full Run Hints");
+        ((caseData.stem && caseData.stem.tasks) || []).forEach(function (task) {
+          if (!essentialHints.some(function (hint) { return hint.target.itemId === task.id; })) {
+            errors.push("Essential Hint journey does not anchor task: " + task.id);
+          }
+        });
+        var taskIds = ((caseData.stem && caseData.stem.tasks) || []).map(function (task) { return task.id; });
+        if (!essentialHints.some(function (hint) { return hint.target.surface === "stem" && taskIds.indexOf(hint.target.itemId) === -1; })) {
+          errors.push("Essential Hint journey needs a scenario clue before the task anchors");
+        }
+        if (caseData.hints && caseData.hints.length && caseData.essentialHintIds[caseData.essentialHintIds.length - 1] !== caseData.hints[caseData.hints.length - 1].id) {
+          errors.push("Essential Hint journey must finish at station completion");
+        }
+        var clockHints = (caseData.hints || []).filter(function (hint) { return Boolean(hint.clock); });
+        if (clockHints.length < 4) errors.push("Reasoning journey needs at least four clock anchors");
+        ["stem", "run"].forEach(function (surface) {
+          if (!essentialHints.some(function (hint) { return hint.target.surface === surface && hint.clock; })) {
+            errors.push("Essential Hint journey needs a clock anchor on " + surface);
+          }
+        });
       }
     }
 
@@ -213,6 +289,9 @@
         if (!sourceIds[sourceId]) errors.push("Unknown source " + sourceId + " in " + hint.id);
       });
     });
+    ((caseData.masteryFocus && caseData.masteryFocus.transferCitationIds) || []).forEach(function (sourceId) {
+      if (!sourceIds[sourceId]) errors.push("Unknown transfer source " + sourceId);
+    });
 
     return errors;
   }
@@ -220,6 +299,13 @@
   function hintsForItem(caseData, surface, itemId) {
     return (caseData.hints || []).filter(function (hint) {
       return hint.target.surface === surface && hint.target.itemId === itemId;
+    });
+  }
+
+  function essentialHintsForSurface(caseData, surface) {
+    var essentialIds = new Set(caseData.essentialHintIds || []);
+    return (caseData.hints || []).filter(function (hint) {
+      return essentialIds.has(hint.id) && (!surface || hint.target.surface === surface);
     });
   }
 
@@ -277,6 +363,7 @@
     itemMap: itemMap,
     validateCase: validateCase,
     hintsForItem: hintsForItem,
+    essentialHintsForSurface: essentialHintsForSurface,
     segmentsForItem: segmentsForItem,
     plainSurfaceText: plainSurfaceText
   };

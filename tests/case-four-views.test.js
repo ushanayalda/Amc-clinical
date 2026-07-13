@@ -117,6 +117,23 @@ test("Case 4 treats clinical tension pneumothorax before imaging", () => {
   assert.match(text, /definitive right intercostal catheter/);
 });
 
+test("Case 5 recognises quietening breath sounds as deterioration", () => {
+  const case5 = cases.find((item) => item.id === "case-005");
+  assert.ok(case5, "Case 5 is missing");
+
+  const text = case5.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+
+  assert.match(text, /life-threatening acute asthma/);
+  assert.match(text, /quieter wheeze and slower respiratory rate are not improvement/);
+  assert.match(text, /maximum of 10 millimoles/);
+  assert.match(text, /raised carbon dioxide and acidaemia confirm ventilatory failure/);
+  assert.match(text, /Adrenaline is not routine asthma treatment but must be given promptly if anaphylaxis emerges/);
+});
+
 test("all four views resolve and legacy case links have safe redirects", () => {
   assert.deepEqual(viewModel.validViews, [
     "exam-stem",

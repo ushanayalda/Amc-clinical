@@ -15,7 +15,9 @@ Every case has two versions and two screens:
 
 The canonical Case 1 wording is stored once in `data/cases/case-001.js`. Reasoning mode uses exact-phrase anchors to add marker buttons at render time. It does not keep a second annotated copy.
 
-Each Hint opens in one contextual window, shows the phrase it came from, and provides connected reasoning with clickable primary sources.
+Each Hint opens in one contextual window and continues the same thinking journey: what may pop up, why the clue matters, what to keep holding, what to do next, and where the internal task clock sits. Sources remain clickable but collapsed until requested.
+
+Reasoning mode also carries a reusable task compass. It maps the 2-minute reading period and divides the 8-minute run according to the exact station tasks. Danger can interrupt that clock; the learner is shown how to act and then return to the unfinished task lane.
 
 ## Active production path
 

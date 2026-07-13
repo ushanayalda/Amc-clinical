@@ -125,7 +125,21 @@
       if (!hint.citationIds || !hint.citationIds.length) {
         errors.push("Hint has no citation: " + hint.id);
       }
+      ["journeyPoint", "popUp", "pal", "hold", "next"].forEach(function (field) {
+        if (!hint[field] || !String(hint[field]).trim()) {
+          errors.push("Hint is missing journey field " + field + ": " + hint.id);
+        }
+      });
     });
+
+    if (!caseData.reasoningCompass || !caseData.reasoningCompass.stem || !caseData.reasoningCompass.run) {
+      errors.push("Case is missing the stem or run reasoning compass");
+    } else {
+      [caseData.reasoningCompass.stem, caseData.reasoningCompass.run].forEach(function (compass) {
+        if (!compass.steps || compass.steps.length !== 3) errors.push("Reasoning compass must have three steps");
+        if (!compass.anchor) errors.push("Reasoning compass is missing its anchor");
+      });
+    }
 
     var sourceIds = (caseData.sources || []).reduce(function (map, source) {
       map[source.id] = true;

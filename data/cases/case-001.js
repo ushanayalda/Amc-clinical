@@ -562,8 +562,42 @@
           organisation: "Australian and New Zealand Committee on Resuscitation",
           date: "2026",
           url: "https://www.anzcor.org/home/acute-coronary-syndromes/guideline-14-2-acute-coronary-syndromes-initial-medical-therapy"
+        },
+        {
+          id: "cardiac-pain-2015",
+          title: "Mechanisms of cardiac pain",
+          organisation: "Comprehensive Physiology via PubMed",
+          date: "2015",
+          url: "https://pubmed.ncbi.nlm.nih.gov/25880519/"
+        },
+        {
+          id: "nausea-mi-2009",
+          title: "Relation of nausea and vomiting in acute myocardial infarction to location of the infarct",
+          organisation: "American Journal of Cardiology via PubMed",
+          date: "2009",
+          url: "https://pubmed.ncbi.nlm.nih.gov/19962467/"
         }
       ],
+      reasoningCompass: {
+        stem: {
+          title: "Your 2-minute reading map",
+          steps: [
+            { time: "First 30 seconds", text: "Who, where, and what could become dangerous?" },
+            { time: "Next 30 seconds", text: "Build one problem map. Add clues without closing it." },
+            { time: "Final minute", text: "Lock the task verbs and divide the 8-minute run." }
+          ],
+          anchor: "Focused history 0-4 | Explain diagnosis and differentials 4-6 | Concerns and management 6-8"
+        },
+        run: {
+          title: "Your 8-minute internal clock",
+          steps: [
+            { time: "0-4 minutes", text: "Focused history: build and test the pattern." },
+            { time: "4-6 minutes", text: "Explain one leading diagnosis and important differentials." },
+            { time: "6-8 minutes", text: "Answer the concern, manage now, and close safely." }
+          ],
+          anchor: "Danger can interrupt the clock. Act first, then return to the task lane you left."
+        }
+      },
       hints: [
         {
           id: "hint-urgent-booking",
@@ -846,4 +880,368 @@
       ]
     }
   ];
+
+  var journey = {
+    "hint-setting": {
+      journeyPoint: "Reading map · start with the room",
+      popUp: "GP clinic. Am I expected to solve everything here?",
+      pal: "Start with the setting, not the diagnosis. A clinic can recognise danger, begin safe care and arrange transfer. It cannot provide serial troponins or definitive cardiac treatment.",
+      flow: ["Setting tells you your limits", "Limits shape the safe plan", "They do not tell you the diagnosis"],
+      hold: "You are in a clinic. Keep asking: safe to stay here, or safer to transfer?",
+      next: "Now meet the person and let age adjust probability, not decide the answer.",
+      clock: "First 30 seconds: role, setting, person, danger."
+    },
+    "hint-age": {
+      journeyPoint: "Reading map · open the first system lane",
+      popUp: "Sixty-year-old man plus chest discomfort. Is this already the heart?",
+      pal: "That link is useful, but it is not a diagnosis. Age raises the starting chance of coronary disease. It earns the heart and circulation first place in your map, while the lungs, aorta, gut and chest wall stay open.",
+      flow: ["Age raises the starting chance", "The symptom pattern adds or removes weight", "Action follows the whole pattern"],
+      hold: "Heart and circulation move to the front. Nothing has been proven.",
+      next: "Look at the urgency and the exact symptom word before naming anything.",
+      confidence: "You are not jumping to a diagnosis. You are choosing where to look first."
+    },
+    "hint-urgent-booking": {
+      journeyPoint: "Reading map · choose the tempo",
+      popUp: "The booking says urgent. Should I panic or rush every question?",
+      pal: "Neither. Urgent changes your speed, not your accuracy. Check early whether the patient is unstable, then take the shortest route to the clues that change safety.",
+      hold: "Move quickly toward danger sorting, but keep the map open.",
+      next: "What does the patient mean by chest discomfort?",
+      clock: "Still in the first 30 seconds: notice urgency, then keep reading."
+    },
+    "hint-discomfort": {
+      journeyPoint: "Reading map · build the problem map",
+      popUp: "They said discomfort, not pain. Is it less serious? Which system leads?",
+      pal: "A heart problem may feel like pressure, heaviness, tightness, burning or indigestion. The softer word does not make the process safer. With this age, start with heart and circulation, then hold the aorta and lungs as dangerous alternatives. Digestion and chest wall causes remain possible.",
+      flow: ["Possible poor heart-muscle blood flow", "Possible aortic or lung danger", "Possible gut or chest wall cause"],
+      hold: "Priority is not certainty: heart/circulation first, dangerous chest causes beside it, common causes still open.",
+      next: "Now add the meal link without letting it erase this map.",
+      clock: "Next 30 seconds: build one map, not one diagnosis."
+    },
+    "hint-after-lunch": {
+      journeyPoint: "Reading map · add without replacing",
+      popUp: "After lunch sounds like reflux. Am I overcalling the heart?",
+      pal: "Good question. Put reflux into the map because the timing supports it. But a time link is not a cause. Do not delete the safer first lane until onset, activity, quality, duration, radiation and body-warning symptoms tell you how much weight the meal deserves.",
+      flow: ["Meal link adds digestion", "It does not cancel heart or vascular danger", "Later clues decide which lane gains weight"],
+      hold: "Two live ideas: a dangerous chest process and a digestive explanation. The history will separate them.",
+      next: "Read the tasks. They tell you exactly how you are allowed to separate them.",
+      confidence: "Holding two explanations is not confusion. It is controlled uncertainty."
+    },
+    "hint-missing-start-data": {
+      journeyPoint: "Reading map · do not invent the missing pieces",
+      popUp: "No observations or tests. Should I assume the patient is stable?",
+      pal: "No. Missing information means you must obtain it when the task allows. Do not imagine normal findings, and do not imagine collapse. Carry the uncertainty into your first safety check.",
+      hold: "Current stability is unknown. Ask, observe and request findings.",
+      next: "Lock the three task verbs before the run begins."
+    },
+    "hint-focused-history": {
+      journeyPoint: "Task lock · lane 1",
+      popUp: "Focused history sounds vague. What do I ask, and what can I leave out?",
+      pal: "Focused means every question helps one of three decisions: what pattern is this, is there immediate danger, and what changes safe treatment. It is not a rushed full history and not a memorised chest-pain list.",
+      flow: ["Open story", "Define the pattern", "Test dangerous alternatives", "Risk and medicine safety"],
+      hold: "Task 1: build and test the chest-discomfort pattern.",
+      next: "After each answer, ask the question that most changes the map.",
+      clock: "Run 0-4 minutes. Safety can interrupt. Act, then return to the history lane.",
+      confidence: "You do not need every possible question. You need the questions that change the decision."
+    },
+    "hint-most-likely": {
+      journeyPoint: "Task lock · lane 2",
+      popUp: "Do I list every diagnosis, or do I commit to one? What if I am wrong?",
+      pal: "Give one leading diagnosis and say why it fits this person. Then name the important dangerous alternatives and why they fit less well. Provisional does not mean vague. It means your view can change when the evidence changes.",
+      flow: ["One leading diagnosis", "Because of this pattern", "Dangerous alternatives", "What would change my mind"],
+      hold: "Task 2: explain one lead plus a short, ranked differential.",
+      next: "Keep diagnosis explanation separate from the management plan.",
+      clock: "Run 4-6 minutes. Explain clearly; do not recite a textbook list."
+    },
+    "hint-concerns": {
+      journeyPoint: "Task lock · lane 3",
+      popUp: "The patient thinks it is indigestion. If I explain management, will I forget the concern?",
+      pal: "Treat the concern as part of the clinical problem. First show that you heard the meal link. Then explain why it is not safe enough to rely on. Finally connect the urgent plan to the patient's wish to stay safe.",
+      flow: ["Hear the concern", "Answer the exact worry", "Connect it to the plan"],
+      hold: "Task 3 has two jobs: answer the concern and explain what happens now.",
+      next: "Management must include the clinic, the wait, the transfer and the hospital.",
+      clock: "Run 6-8 minutes. Concern first, then the plan, then check understanding."
+    },
+    "hint-immediate-management": {
+      journeyPoint: "Task lock · know the output",
+      popUp: "Does immediate management mean I only say 'send to hospital'?",
+      pal: "No. Referral is one decision, not the whole plan. Show what you do now, what you monitor while waiting, what treatment is safe, how the patient travels, and what the receiving team needs.",
+      flow: ["Act now", "Monitor and treat", "Transfer safely", "Hand over clearly"],
+      hold: "Your full task anchor: History 0-4 → Explain 4-6 → Concern and management 6-8.",
+      next: "When the conversation pulls you away, silently return to the next unfinished verb.",
+      confidence: "The clock is a compass, not a cage. Danger always gets priority."
+    },
+    "hint-opening-story": {
+      journeyPoint: "Run · the map begins to move",
+      popUp: "It happened after lunch, but also while walking. Which link should I believe?",
+      pal: "Keep both, then weigh them. Walking raises the heart's oxygen demand. If a coronary artery cannot increase flow, symptoms can appear. Lunch keeps reflux alive, but it no longer owns the story.",
+      flow: ["Walking raises demand", "Limited coronary flow may not keep up", "Pressure appears"],
+      hold: "Cardiac weight rises. Reflux stays open but moves behind it.",
+      next: "Ask whether the pressure is still present. Persistence changes urgency."
+    },
+    "hint-heavy-pressure": {
+      journeyPoint: "Run · translate the patient's word",
+      popUp: "Heavy pressure sounds cardiac. Can I lock the diagnosis now?",
+      pal: "Not yet. Deep organs often produce broad pressure rather than a pinpoint pain. That supports a heart source, but quality alone never proves it.",
+      flow: ["Pressure supports a deep visceral source", "Sharp breathing pain points more toward pleura", "Abrupt tearing pain raises the aorta"],
+      hold: "The pattern is becoming cardiac, but each clue is a weight, not a gate.",
+      next: "Location, radiation, body-warning symptoms and time course will strengthen or weaken it."
+    },
+    "hint-ongoing": {
+      journeyPoint: "Run · safety interrupts the history lane",
+      popUp: "The pressure is still there. Do I have to finish my 4-minute history before acting?",
+      pal: "No. Ongoing possible ischaemia may still be harming heart muscle. Call for help early and continue the focused history in parallel. The examiner is watching whether you can protect the patient while still reasoning.",
+      hold: "The action threshold may be crossed before the diagnostic label is complete.",
+      next: "Keep asking only the questions that change danger, differential or medicine safety.",
+      clock: "History lane continues, but safety has priority. Act → return → continue."
+    },
+    "hint-radiation": {
+      journeyPoint: "Run · connect anatomy to the symptom",
+      popUp: "Why does heart pain reach the left arm or jaw? Why does PE or dissection usually feel different?",
+      pal: "The heart sends danger signals through nerve pathways that meet other body signals in the spinal cord and brainstem. The brain can misread the source and feel the alarm in the chest, arm, shoulder, neck or jaw. The left arm is common, not compulsory.",
+      flow: ["Heart-muscle chemical alarm", "Shared nerve processing", "Brain places pain in arm, neck or jaw"],
+      hold: "Cardiac referral strengthens this pattern. Its absence would not exclude it.",
+      next: "PE pain is often from irritated pleura and is sharp with breathing. Dissection pain comes from the aortic wall and often shoots to the back. Either can vary, so never use radiation as an absolute rule.",
+      confidence: "You now know why the pattern helps and why it cannot become a shortcut."
+    },
+    "hint-autonomic": {
+      journeyPoint: "Run · connect the body's alarm system",
+      popUp: "Why sweating and nausea? Is nausea from an inferior-wall infarct touching the diaphragm?",
+      pal: "Ischaemic heart muscle releases a chemical danger signal. The brain and autonomic nerves respond as if the body is under threat. Sympathetic output helps produce pale, clammy sweating. Autonomic and vagal pathways can activate nausea and vomiting centres.",
+      flow: ["Heart muscle lacks oxygen", "Chemical and nerve alarm", "Autonomic response", "Sweating, nausea, breathlessness"],
+      hold: "These symptoms join the pressure, exertion and radiation into one stronger cardiac pattern.",
+      next: "Inferior infarction is often taught as more vagal, but nausea does not reliably locate the infarct. It is not simply 'the heart touches the diaphragm'. Use nausea to raise concern, not to name the wall.",
+      confidence: "The mechanism helps you remember the cluster without turning it into a rigid rule."
+    },
+    "hint-crescendo": {
+      journeyPoint: "Run · read the timeline as one story",
+      popUp: "The earlier episodes stopped. Is that reassuring?",
+      pal: "The change is the clue. Brief exertional pressure earlier, followed by a longer episode that persists, suggests the system is becoming less stable. Improvement before today does not protect him now.",
+      flow: ["Earlier demand-related episodes", "Now longer and persistent", "Risk is rising, not resetting"],
+      hold: "This is an evolving pattern, not three unrelated events.",
+      next: "Test the dangerous alternatives, then gather risk and medicine-safety details."
+    },
+    "hint-dissection-question": {
+      journeyPoint: "Run · ask a question with a purpose",
+      popUp: "Why ask about instant maximum pain and the back?",
+      pal: "You are testing aortic dissection because missing it is dangerous and aspirin could be harmful if it becomes the leading concern. Abrupt maximal pain, back movement, pulse or blood-pressure differences, neurological signs or a new aortic murmur would raise its weight.",
+      hold: "Dissection stays on the danger list, but this gradual pressure pattern gives it less weight.",
+      next: "Now test lung clot and pneumothorax with equally targeted questions."
+    },
+    "hint-risk-factors": {
+      journeyPoint: "Run · use risk without being trapped by it",
+      popUp: "High blood pressure and cholesterol. Does that confirm the heart diagnosis?",
+      pal: "They increase the background chance of coronary disease. They do not diagnose today's symptom, and their absence would not make a dangerous pattern safe.",
+      flow: ["Risk factors set the background", "Current symptoms set today's urgency", "Both combine into probability"],
+      hold: "Risk factors strengthen the map you already built; they did not create it.",
+      next: "Check medicines, aspirin safety and nitrate safety because those facts change treatment."
+    },
+    "hint-antacid": {
+      journeyPoint: "Run · do not turn response into proof",
+      popUp: "The antacid did not work. Does that prove it is cardiac?",
+      pal: "No. A treatment response is only useful when it is specific enough to separate causes. Antacid failure does not prove a heart cause, and relief would not safely exclude one.",
+      hold: "Return to the whole pattern: exertional, persistent pressure with radiation and autonomic symptoms.",
+      next: "Use the medicine history for safety, not as a shortcut to diagnosis."
+    },
+    "hint-escalation": {
+      journeyPoint: "Run · act before certainty",
+      popUp: "I have not finished the history. Will calling an ambulance now make me look premature?",
+      pal: "No. The safe question is not 'Have I proved it?' It is 'Could delay cause more harm than transfer?'. Ongoing high-risk symptoms in a clinic cross that threshold.",
+      flow: ["Recognise enough danger", "Call early", "Continue reasoning in parallel"],
+      hold: "You can be uncertain about the final diagnosis and certain about the safest next action.",
+      next: "After acting, return to the task lane. Do not let the emergency call erase the remaining history.",
+      clock: "Safety interruption complete. Return to the history lane until the 4-minute transition."
+    },
+    "hint-time-prompt": {
+      journeyPoint: "Run · recover at the task boundary",
+      popUp: "The examiner says four minutes. My mind has gone blank. What now?",
+      pal: "Do not replay what you may have missed. Breathe out once and find the next task verb: explain. Give one leading diagnosis, why it fits, then the important dangerous alternatives.",
+      flow: ["Hear the prompt", "Release the previous lane", "Find the next verb", "Speak the first clear sentence"],
+      hold: "History is complete enough to move. The current job is explanation.",
+      next: "Start with: 'My leading diagnosis is… because…'",
+      clock: "4:00. Move to diagnosis and differentials. This is recovery, not failure.",
+      confidence: "A clean transition protects more marks than mentally chasing one missed question."
+    },
+    "hint-observations": {
+      journeyPoint: "Run · ask what the examination changes",
+      popUp: "Why this focused examination instead of a complete examination?",
+      pal: "You are looking for instability, complications and clues that reorder the dangerous alternatives. Airway, breathing, circulation and perfusion decide immediate safety. Heart, lungs, both-arm pressure and calves help test heart failure, dissection, pneumothorax and PE.",
+      hold: "The examination answers a decision question; it does not need to prove the diagnosis.",
+      next: "Interpret normal findings as 'stable now', not 'safe to stay'."
+    },
+    "hint-stable-findings": {
+      journeyPoint: "Run · do not let normal numbers erase the story",
+      popUp: "Blood pressure and oxygen look okay. Can I slow down or cancel transfer?",
+      pal: "No. These findings say he is not in shock, hypoxaemic or in obvious heart failure right now. They do not explain away 35 minutes of high-risk symptoms.",
+      flow: ["Stable observations now", "Serious disease still possible", "Continue urgent pathway"],
+      hold: "Stable is a current state, not a diagnosis and not a safety guarantee.",
+      next: "Use the stability to choose safe treatment while transfer continues."
+    },
+    "hint-provisional-diagnosis": {
+      journeyPoint: "Run · commit without pretending certainty",
+      popUp: "Do I need to say heart attack, unstable angina or something else?",
+      pal: "At this point, acute coronary syndrome is the right working family. The ECG and serial troponins are still needed to define the type. Name what you know, name what you do not know, and show that the uncertainty does not delay safety.",
+      hold: "Confident action and honest uncertainty can exist together.",
+      next: "Explain why this pattern leads, then compare only the important alternatives."
+    },
+    "hint-dangerous-alternatives": {
+      journeyPoint: "Run · keep the differential short and alive",
+      popUp: "How many differentials do I need? My mind can produce ten.",
+      pal: "Do not unload the whole list. Use the alternatives that are dangerous or genuinely fit this patient. For each one, give the clue that would raise it and the current clue that lowers it.",
+      flow: ["Aorta: abrupt maximal pain or unequal findings", "PE: pleuritic pain, sudden dyspnoea or clot risk", "Pneumothorax: sudden pleuritic pain and unequal air entry"],
+      hold: "The differential is a ranked comparison, not a memory performance.",
+      next: "Mention reflux and chest wall pain only after showing that danger comes first."
+    },
+    "hint-indigestion-concern": {
+      journeyPoint: "Run · join the patient's map to yours",
+      popUp: "If I say the indigestion idea makes sense, am I agreeing that it is reflux?",
+      pal: "No. You are validating how the patient reached the idea, not confirming the conclusion. This lowers resistance and lets you explain the missing safety information.",
+      flow: ["I understand why", "Here is what the meal link cannot exclude", "Here is why the ambulance is safer"],
+      hold: "Respect the patient's reasoning while keeping the clinical threshold firm.",
+      next: "Answer the private-car question with the benefit of monitored transfer, not with authority alone."
+    },
+    "hint-ecg": {
+      journeyPoint: "Run · place the test inside the pathway",
+      popUp: "Should I wait for the ECG before transfer? What if the first ECG is normal?",
+      pal: "Get and interpret it within 10 minutes when immediately available, but do not put it in front of the ambulance. A normal first ECG cannot close the case because non-ST-elevation ACS may have no early ECG change.",
+      flow: ["Call transfer", "ECG without delay", "Repeat if symptoms persist or change"],
+      hold: "The ECG updates the map. It does not control whether you protect the patient.",
+      next: "Read the result for what it adds, not for a label it cannot yet prove."
+    },
+    "hint-ecg-result": {
+      journeyPoint: "Run · let new evidence update the map",
+      popUp: "ST depression. Does this mean NSTEMI is confirmed?",
+      pal: "It means myocardial ischaemia is more likely and the concern rises. It does not by itself separate NSTEMI from unstable angina because that needs troponin, and it does not tell you the full coronary anatomy.",
+      flow: ["High-risk symptom pattern", "Ischaemic ECG change", "Urgency and monitoring increase"],
+      hold: "The cardiac lane is now strongly supported. The final subtype remains open.",
+      next: "Monitor continuously, keep the defibrillator available and continue safe initial treatment."
+    },
+    "hint-aspirin": {
+      journeyPoint: "Run · connect treatment to the mechanism",
+      popUp: "Why aspirin now, and why check dissection and bleeding first?",
+      pal: "An unstable coronary plaque can activate platelets, which build a clot and reduce blood flow. Aspirin slows that platelet process. It helps when ACS is suspected, but the same anti-platelet effect can worsen bleeding, so contraindications and a strong dissection concern matter.",
+      flow: ["Plaque disruption", "Platelets gather", "Clot grows", "Aspirin reduces platelet activation"],
+      hold: "Give 300 mg chewed or dissolved when ACS is suspected and no contraindication is present.",
+      next: "Record the dose and time, then keep following the monitored transfer plan."
+    },
+    "hint-oxygen": {
+      journeyPoint: "Run · remove an old ritual",
+      popUp: "Chest pain means oxygen, right? He is short of breath.",
+      pal: "Oxygen treats low oxygen, not the feeling of fear or the label 'chest pain'. His saturation is 96%, so routine oxygen adds no proven benefit and too much oxygen may cause harm.",
+      flow: ["Measure saturation", "Treat hypoxaemia when present", "Avoid unnecessary excess oxygen"],
+      hold: "At 90% or above, routine oxygen is not required in suspected ACS. Keep monitoring.",
+      next: "If the saturation falls or shock or heart failure appears, reassess immediately."
+    },
+    "hint-gtn": {
+      journeyPoint: "Run · treat symptoms without using them as a test",
+      popUp: "If GTN relieves the pain, does that prove it is cardiac?",
+      pal: "No. GTN widens veins, reduces the load returning to the heart and may ease ischaemic discomfort. Other pain can also improve. Relief helps the patient, not the diagnosis.",
+      flow: ["Check blood pressure", "Exclude right-ventricular infarction concern", "Check recent erectile-dysfunction medicines", "Give for ongoing pain if safe"],
+      hold: "GTN is symptom treatment, not a diagnostic challenge test.",
+      next: "Keep the transfer moving even if the pain improves."
+    },
+    "hint-troponin": {
+      journeyPoint: "Run · do not let one number create false safety",
+      popUp: "Can one clinic troponin settle this and avoid hospital?",
+      pal: "No. Troponin enters the blood over time. An early single result may be normal while injury is evolving. Safe rule-out uses assay-specific serial testing inside a validated pathway.",
+      flow: ["Symptoms begin", "Troponin may still be low", "Serial measurements show the change"],
+      hold: "Do not delay transfer for one clinic result or use a primary-care score to close the case.",
+      next: "Explain that hospital testing is needed because the process changes with time."
+    },
+    "hint-teach-back": {
+      journeyPoint: "Run · check that your explanation landed",
+      popUp: "I already explained everything. Why ask the patient to repeat it?",
+      pal: "Because a clear explanation in your head may not be clear under fear. Teach-back checks your communication, not the patient's intelligence. It also reveals the exact misunderstanding you need to fix before transfer.",
+      hold: "The patient should understand the concern, the uncertainty and why ambulance transfer is needed.",
+      next: "Correct one gap if needed, then hand over the reasoning chain."
+    },
+    "hint-handover": {
+      journeyPoint: "Run · carry the map into the next team",
+      popUp: "What belongs in handover when time is nearly over?",
+      pal: "Give the receiving team the story that controls risk: identity, onset and current symptoms, key positives and negatives, observations, ECG and time, treatments, contraindications and any change.",
+      flow: ["What happened", "Why I am worried", "What I found", "What I did", "What still needs watching"],
+      hold: "Management is not complete at 'refer'. Safe care continues through transfer.",
+      next: "Finish with current stability and the next required action."
+    },
+    "hint-finish": {
+      journeyPoint: "Between stations · release and restart",
+      popUp: "The station ended, but I am replaying missed questions. What if I failed it?",
+      pal: "The station is closed. Do not spend the next reading time marking yourself. One slow breath out, release this case, then rebuild from the next role, setting, stem and task verbs.",
+      flow: ["Stop when told", "Release the old map", "Read the new evidence", "Lock the new tasks"],
+      hold: "A similar age or symptom in the next station does not mean the same diagnosis.",
+      next: "New station, new map. Let the actual stem lead you.",
+      confidence: "Recovery between stations is an exam skill, not an afterthought."
+    }
+  };
+
+  var extraHints = [
+    {
+      id: "hint-setting",
+      target: { surface: "stem", itemId: "stem-role", quote: "general practitioner", occurrence: 1 },
+      citationIds: ["amc-spec-2026", "acs-guideline-2025"]
+    },
+    {
+      id: "hint-missing-start-data",
+      target: { surface: "stem", itemId: "stem-start", quote: "No observations or investigation results", occurrence: 1 },
+      citationIds: ["amc-tips-2024"]
+    },
+    {
+      id: "hint-immediate-management",
+      target: { surface: "stem", itemId: "task-management", quote: "immediate management", occurrence: 1 },
+      citationIds: ["amc-spec-2026", "amc-tips-2024"]
+    },
+    {
+      id: "hint-dissection-question",
+      target: { surface: "run", itemId: "run-dissection", quote: "maximum intensity instantly", occurrence: 1 },
+      citationIds: ["acs-guideline-2025"]
+    },
+    {
+      id: "hint-risk-factors",
+      target: { surface: "run", itemId: "run-history-answer", quote: "High blood pressure and high cholesterol", occurrence: 1 },
+      citationIds: ["acs-guideline-2025"]
+    },
+    {
+      id: "hint-time-prompt",
+      target: { surface: "run", itemId: "run-time-prompt", quote: "Four minutes have elapsed", occurrence: 1 },
+      citationIds: ["amc-spec-2026", "amc-tips-2024"]
+    },
+    {
+      id: "hint-stable-findings",
+      target: { surface: "run", itemId: "run-exam-findings", quote: "blood pressure is 148/88 mmHg", occurrence: 1 },
+      citationIds: ["acs-guideline-2025"]
+    },
+    {
+      id: "hint-ecg-result",
+      target: { surface: "run", itemId: "run-ecg-result", quote: "ST-segment depression", occurrence: 1 },
+      citationIds: ["acs-guideline-2025", "anzcor-14-1"]
+    },
+    {
+      id: "hint-teach-back",
+      target: { surface: "run", itemId: "run-understanding", quote: "what you understand", occurrence: 1 },
+      citationIds: ["amc-tips-2024"]
+    },
+    {
+      id: "hint-finish",
+      target: { surface: "run", itemId: "run-end", quote: "station is complete", occurrence: 1 },
+      citationIds: ["amc-tips-2024"]
+    }
+  ];
+
+  var caseOne = window.AMC_CASES[0];
+  caseOne.hints = caseOne.hints.concat(extraHints).map(function (hint) {
+    var content = journey[hint.id];
+    if (!content) return hint;
+    return {
+      id: hint.id,
+      target: hint.target,
+      citationIds: hint.citationIds,
+      journeyPoint: content.journeyPoint,
+      popUp: content.popUp,
+      pal: content.pal,
+      flow: content.flow || [],
+      hold: content.hold,
+      next: content.next,
+      clock: content.clock || "",
+      confidence: content.confidence || ""
+    };
+  });
 })();

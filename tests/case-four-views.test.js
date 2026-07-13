@@ -88,7 +88,33 @@ test("new case files contain complete station voices without learner-facing reas
     const learnerText = JSON.stringify({ stem: item.stem, run: item.run });
     assert.doesNotMatch(learnerText, /\bHint\b|reasoning layer|thinking partner|ADHD/i);
     assert.doesNotMatch(learnerText, /\bcandidate\b/i);
+    assert.doesNotMatch(learnerText, /—/);
+
+    const spokenWords = turns
+      .filter((turn) => turn.kind === "spoken" || turn.kind === "handover")
+      .flatMap((turn) => turn.lines)
+      .map((line) => line.text)
+      .join(" ")
+      .trim()
+      .split(/\s+/).length;
+    assert.ok(spokenWords >= 750 && spokenWords <= 1050, `${item.id} is not realistic for an 8-minute run`);
   });
+});
+
+test("Case 4 treats clinical tension pneumothorax before imaging", () => {
+  const case4 = cases.find((item) => item.id === "case-004");
+  assert.ok(case4, "Case 4 is missing");
+
+  const turns = case4.run.sections.flatMap((section) => section.turns);
+  const text = turns.flatMap((turn) => turn.lines).map((line) => line.text).join("\n");
+  const decompressionIndex = text.indexOf("I will decompress the right chest immediately");
+  const imagingIndex = text.indexOf("Arrange a portable chest X-ray");
+
+  assert.ok(decompressionIndex >= 0, "Case 4 lacks immediate decompression");
+  assert.ok(imagingIndex > decompressionIndex, "Case 4 places imaging before decompression");
+  assert.match(text, /I will not wait for a chest X-ray, CT scan or formal ultrasound/);
+  assert.match(text, /The decompression catheter is temporary/);
+  assert.match(text, /definitive right intercostal catheter/);
 });
 
 test("all four views resolve and legacy case links have safe redirects", () => {

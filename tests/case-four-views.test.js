@@ -56,7 +56,7 @@ test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
 });
 
-test("Cases 1 to 20 expose complete reasoning while Cases 21 to 29 remain exam-only", () => {
+test("Cases 1 to 20 expose complete reasoning while Cases 21 to 32 remain exam-only", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
   assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds.slice(0, 20));
@@ -427,8 +427,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("Pattern 9 publication metadata preserves Cases 1 to 20 reasoning under one cache-safe marker", () => {
-  const releaseMarker = "autonomous-exam-p9-v1";
+test("Pattern 10 publication metadata preserves Cases 1 to 20 reasoning under one cache-safe marker", () => {
+  const releaseMarker = "autonomous-exam-p10-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -440,11 +440,11 @@ test("Pattern 9 publication metadata preserves Cases 1 to 20 reasoning under one
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
   assert.doesNotMatch(indexSource, /cases4-17-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "autonomous-exam-pattern-9-core-complete");
+  assert.equal(version.checkpoint, "autonomous-exam-pattern-10-core-complete");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "autonomous-exam-p9-v1" index[.]html/);
+  assert.match(workflow, /grep -q "autonomous-exam-p10-v1" index[.]html/);
   assert.match(readme, /Cases 1 to 20 contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: autonomous-exam-p9-v1/);
+  assert.match(refresh, /Checkpoint: autonomous-exam-p10-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {
@@ -493,10 +493,10 @@ test("new case files contain complete station voices without learner-facing reas
       .trim()
       .split(/\s+/).length;
     assert.ok(audibleWords >= 750 && audibleWords <= 1300, `${item.id} is not realistic for an 8-minute run`);
-    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020", "case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029"].includes(item.id)) {
+    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020", "case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029", "case-030", "case-031", "case-032"].includes(item.id)) {
       assert.ok(audibleWords <= 1050, `${item.id} is too dense for an 8-minute run`);
     }
-    if (["case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029"].includes(item.id)) {
+    if (["case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029", "case-030", "case-031", "case-032"].includes(item.id)) {
       assert.ok(audibleWords <= 950, `${item.id} exceeds the current pattern spoken-word ceiling`);
     }
   });
@@ -1242,12 +1242,98 @@ test("Case 29 does not let a negative plain film delay source control for perito
   assert.match(case29.clinicalSources.map((source) => source.url).join("\n"), /emergency-laparotomy|sepsis|s13017-019-0283-9/);
 });
 
+test("Case 30 interrupts history for concealed early-pregnancy haemorrhage and does not delay operative control", () => {
+  const case30 = cases.find((item) => item.id === "case-030");
+  assert.ok(case30, "Case 30 is missing");
+
+  const turns = case30.run.sections.flatMap((section) => section.turns);
+  const turnIds = turns.map((turn) => turn.id);
+  const text = turns.flatMap((turn) => turn.lines).map((line) => line.text).join("\n");
+  const dangerHistoryIndex = turnIds.indexOf("c030-turn-symptom-answer");
+  const primaryAssessmentIndex = turnIds.indexOf("c030-turn-primary-request");
+  const remainingHistoryIndex = turnIds.indexOf("c030-turn-gyn-question");
+  const positiveTestIndex = turnIds.indexOf("c030-turn-primary-findings");
+  const escalationIndex = turnIds.indexOf("c030-turn-escalation");
+  const bloodIndex = turnIds.indexOf("c030-turn-blood-plan");
+  const ultrasoundIndex = turnIds.indexOf("c030-turn-ultrasound-results");
+  const surgeryIndex = turnIds.indexOf("c030-turn-definitive-plan");
+
+  assert.ok(dangerHistoryIndex >= 0 && primaryAssessmentIndex > dangerHistoryIndex, "Case 30 does not assess immediately after shoulder-tip pain and near-syncope emerge");
+  assert.ok(remainingHistoryIndex > primaryAssessmentIndex, "Case 30 completes routine history before assessing perfusion and pregnancy");
+  assert.ok(escalationIndex > positiveTestIndex && bloodIndex > escalationIndex, "Case 30 does not escalate and begin blood-led treatment after the decisive findings");
+  assert.ok(ultrasoundIndex > bloodIndex && surgeryIndex > ultrasoundIndex, "Case 30 lets bedside imaging precede resuscitation or omits definitive operative control");
+  assert.match(text, /I have an IUD, so I cannot be pregnant/);
+  assert.match(text, /Do not wait for serial beta-hCG or formal imaging/);
+  assert.match(text, /Methotrexate is inappropriate with instability and rupture/);
+  assert.match(text, /RhD negative and not already sensitised[\s\S]*250 International Units[\s\S]*within 72 hours/);
+  assert.match(case30.clinicalSources.map((source) => source.url).join("\n"), /Miscarriage-Ectopic-Pregnancy|g-epl/);
+});
+
+test("Case 31 treats severe hypertension and cerebral irritation before eclampsia develops", () => {
+  const case31 = cases.find((item) => item.id === "case-031");
+  assert.ok(case31, "Case 31 is missing");
+
+  const turns = case31.run.sections.flatMap((section) => section.turns);
+  const turnIds = turns.map((turn) => turn.id);
+  const text = turns.flatMap((turn) => turn.lines).map((line) => line.text).join("\n");
+  const findingsIndex = turnIds.indexOf("c031-turn-assessment-findings");
+  const earlyTreatmentIndex = turnIds.indexOf("c031-turn-early-treatment-action");
+  const resultsIndex = turnIds.indexOf("c031-turn-investigation-results");
+  const seizureIndex = turnIds.indexOf("c031-turn-seizure");
+  const magnesiumIndex = turnIds.indexOf("c031-turn-magnesium");
+  const pressureIndex = turnIds.indexOf("c031-turn-blood-pressure");
+  const fetalMonitoringIndex = turnIds.indexOf("c031-turn-treatment-action");
+  const stabilisedIndex = turnIds.indexOf("c031-turn-stabilised-findings");
+  const birthAssessmentIndex = turnIds.indexOf("c031-turn-fetal-request");
+
+  assert.ok(findingsIndex >= 0 && earlyTreatmentIndex > findingsIndex && resultsIndex > earlyTreatmentIndex, "Case 31 waits for laboratory confirmation before acute treatment");
+  assert.ok(seizureIndex > resultsIndex && magnesiumIndex > seizureIndex && pressureIndex > magnesiumIndex, "Case 31 does not preserve maternal-first eclampsia sequencing");
+  assert.ok(fetalMonitoringIndex > pressureIndex && stabilisedIndex > fetalMonitoringIndex, "Case 31 defers fetal monitoring beyond established ABC support");
+  assert.ok(birthAssessmentIndex > stabilisedIndex, "Case 31 plans birth before maternal stabilisation is demonstrated");
+  assert.match(text, /magnesium sulfate 4 grams intravenously over 20 minutes/);
+  assert.match(text, /Continue until 24 hours after birth or the last seizure, whichever is later/);
+  assert.match(text, /maximum cumulative 80 mg, targeting below 160\/110/);
+  assert.match(text, /Do not give a routine fluid load/);
+  assert.match(text, /calcium gluconate 10%, 10 mL diluted in 100 mL saline intravenously over 10 minutes/);
+  assert.match(text, /Caesarean is not automatic/);
+  assert.match(case31.clinicalSources.map((source) => source.url).join("\n"), /SOMANZ_Hypertension|Management-of-eclampsia|acute-hypertension/);
+});
+
+test("Case 32 gives early tranexamic acid and runs resuscitation with cause-directed haemorrhage control", () => {
+  const case32 = cases.find((item) => item.id === "case-032");
+  assert.ok(case32, "Case 32 is missing");
+
+  const turns = case32.run.sections.flatMap((section) => section.turns);
+  const turnIds = turns.map((turn) => turn.id);
+  const text = turns.flatMap((turn) => turn.lines).map((line) => line.text).join("\n");
+  const earlyCallIndex = turnIds.indexOf("c032-turn-symptom-question");
+  const shockIndex = turnIds.indexOf("c032-turn-primary-findings");
+  const bloodIndex = turnIds.indexOf("c032-turn-blood-plan");
+  const tranexamicIndex = turnIds.indexOf("c032-turn-antifibrinolytic");
+  const toneIndex = turnIds.indexOf("c032-turn-tone-findings");
+  const uterotonicIndex = turnIds.indexOf("c032-turn-tone-treatment");
+  const persistentIndex = turnIds.indexOf("c032-turn-ongoing-findings");
+  const theatreIndex = turnIds.indexOf("c032-turn-escalation");
+  const consentIndex = turnIds.indexOf("c032-turn-theatre-consent-answer");
+
+  assert.ok(earlyCallIndex >= 0 && shockIndex > earlyCallIndex, "Case 32 waits for measured blood loss before calling the haemorrhage team");
+  assert.ok(bloodIndex > shockIndex && tranexamicIndex > bloodIndex && toneIndex > tranexamicIndex, "Case 32 delays tranexamic acid until after cause-directed treatment");
+  assert.ok(uterotonicIndex > toneIndex && persistentIndex > uterotonicIndex && theatreIndex > persistentIndex, "Case 32 does not escalate persistent atony from compression and medicines to theatre");
+  assert.ok(consentIndex > theatreIndex, "Case 32 omits explicit consent for anaesthesia, uterine exploration and possible surgery");
+  assert.match(text, /second 1-gram dose/);
+  assert.match(text, /profoundly hypovolaemic[\s\S]*controlled infusion/);
+  assert.match(text, /Avoid carboprost because asthma creates serious bronchospasm risk/);
+  assert.match(text, /explore the uterus to confirm the cavity is empty and intact before balloon tamponade/);
+  assert.match(text, /Your baby is being cared for and assessed/);
+  assert.match(case32.clinicalSources.map((source) => source.url).join("\n"), /g-pph|Management-Postpartum-Haemorrhage/);
+});
+
 test("every case keeps the station stem clinically neutral", () => {
   cases.forEach((item) => {
     const stemAndTasks = JSON.stringify(item.stem);
     assert.doesNotMatch(
       stemAndTasks,
-      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|\bdiabetic ketoacidosis\b|\beuglycaemic diabetic ketoacidosis\b|\bDKA\b|\bhyperosmolar hyperglyc(?:a|e)emic state\b|\bHHS\b|\bhyperkal(?:a|e)emia\b|\bketonaemia\b|high[- ]anion[- ]gap metabolic acidosis|DKA pathway|fixed[- ]rate intravenous insulin|insulin[- ]glucose infusion|potassium replacement|calcium (?:gluconate|chloride)|peaked T waves?|widened QRS|sine[- ]wave pattern|hypertrophic cardiomyopathy|\bHCM\b|ventricular tachycardia|\bVT\b|complete (?:heart|atrioventricular) block|third[- ]degree (?:heart|atrioventricular) block|bifascicular block|high[- ]risk (?:cardiac )?syncope|sudden[- ]death risk|synchronised cardioversion|transcutaneous pacing|pacemaker|pacing pads|defibrillation pads|monitored transfer|competitive sport restriction|ruptured (?:abdominal )?aortic aneurysm|\babdominal aortic aneurysm\b|\bAAA\b|\bmesenteric ischaemia\b|\bperforated (?:peptic )?ulcer\b|\bperforated viscus\b|\bperitonitis\b|\bpneumoperitoneum\b|\bfree (?:intraperitoneal )?(?:air|gas)\b|\bvascular surgery\b|\bemergency laparotomy\b|\bsource control\b|\bbroad-spectrum antibiotics\b|\bnil by mouth\b|\bCT angiograph(?:y|ic)\b|\bCTA\b|\bbedside aortic ultrasound\b|controlled resuscitation|blood-led|(?:blood|capillary) (?:glucose|ketones?) (?:was|is|of) [0-9]|(?:serum )?potassium (?:was|is|of) [0-9]|(?:venous )?pH (?:was|is|of) [0-9]|(?:serum )?osmolality (?:was|is|of) [0-9]|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
+      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|\bdiabetic ketoacidosis\b|\beuglycaemic diabetic ketoacidosis\b|\bDKA\b|\bhyperosmolar hyperglyc(?:a|e)emic state\b|\bHHS\b|\bhyperkal(?:a|e)emia\b|\bketonaemia\b|high[- ]anion[- ]gap metabolic acidosis|DKA pathway|fixed[- ]rate intravenous insulin|insulin[- ]glucose infusion|potassium replacement|calcium (?:gluconate|chloride)|peaked T waves?|widened QRS|sine[- ]wave pattern|hypertrophic cardiomyopathy|\bHCM\b|ventricular tachycardia|\bVT\b|complete (?:heart|atrioventricular) block|third[- ]degree (?:heart|atrioventricular) block|bifascicular block|high[- ]risk (?:cardiac )?syncope|sudden[- ]death risk|synchronised cardioversion|transcutaneous pacing|pacemaker|pacing pads|defibrillation pads|monitored transfer|competitive sport restriction|ruptured (?:abdominal )?aortic aneurysm|\babdominal aortic aneurysm\b|\bAAA\b|\bmesenteric ischaemia\b|\bperforated (?:peptic )?ulcer\b|\bperforated viscus\b|\bperitonitis\b|\bpneumoperitoneum\b|\bfree (?:intraperitoneal )?(?:air|gas)\b|\bvascular surgery\b|\bemergency laparotomy\b|\bsource control\b|\bbroad-spectrum antibiotics\b|\bnil by mouth\b|\bCT angiograph(?:y|ic)\b|\bCTA\b|\bbedside aortic ultrasound\b|\bectopic pregnancy\b|\bruptured ectopic\b|\bpre[- ]?eclampsia\b|\beclampsia\b|\bpostpartum haemorrhage\b|\bPPH\b|magnesium sul(?:f|ph)ate|\buterotonic\b|\boxytocin\b|\bergometrine\b|\bcarboprost\b|\bbimanual compression\b|\bballoon tamponade\b|\bfetal monitoring\b|\bCTG\b|\bemergency birth\b|\blaparoscop(?:y|ic)\b|\blaparotom(?:y|ic)\b|\bgynaecolog(?:y|ist|ical)\b|controlled resuscitation|blood-led|(?:blood|capillary) (?:glucose|ketones?) (?:was|is|of) [0-9]|(?:serum )?potassium (?:was|is|of) [0-9]|(?:venous )?pH (?:was|is|of) [0-9]|(?:serum )?osmolality (?:was|is|of) [0-9]|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
       `${item.id} stem or tasks disclose the diagnosis or management priority`
     );
   });

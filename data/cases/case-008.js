@@ -28,11 +28,11 @@
         },
         {
           id: "c008-stem-patient",
-          text: "Mr Peter Lang, a 71-year-old man with chronic obstructive pulmonary disease, has worsening breathlessness and cough. His oxygen saturation was 82% on room air at triage, and he has become drowsy while waiting for assessment."
+          text: "Mr Peter Lang, a 71-year-old man with chronic obstructive pulmonary disease, has presented with worsening breathlessness and cough over two days."
         },
         {
           id: "c008-stem-start",
-          text: "State your assessments and actions. The examiner will provide findings and investigation results when requested."
+          text: "Peter is awake and able to answer questions. The examiner will provide findings and investigation results when requested."
         }
       ],
       tasks: [

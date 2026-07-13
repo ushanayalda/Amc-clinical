@@ -63,7 +63,13 @@ if (!failed) {
     "Worsening breathlessness and drowsiness with COPD",
     "Sudden facial droop, arm weakness and speech difficulty",
     "Sudden slurred speech, weakness and confusion",
-    "Headache, vomiting and weakness after a collapse"
+    "Headache, vomiting and weakness after a collapse",
+    "New confusion and reduced intake",
+    "Fever, cough and increasing weakness",
+    "Chills and tiredness after chemotherapy",
+    "Lower abdominal and hip pain after an e-bike collision",
+    "Breathlessness, nausea and marked fatigue",
+    "Neck pain and limb weakness after a diving injury"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

@@ -163,7 +163,7 @@ test("new case files contain complete station voices without learner-facing reas
       .trim()
       .split(/\s+/).length;
     assert.ok(audibleWords >= 750 && audibleWords <= 1300, `${item.id} is not realistic for an 8-minute run`);
-    if (["case-012", "case-013", "case-014"].includes(item.id)) {
+    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017"].includes(item.id)) {
       assert.ok(audibleWords <= 1050, `${item.id} is too dense for an 8-minute run`);
     }
   });
@@ -439,12 +439,99 @@ test("Case 14 treats suspected neutropenic sepsis despite a modest clinic temper
   assert.match(case14.clinicalSources.map((source) => source.url).join("\n"), /eviq[.]org[.]au\/p\/123/);
 });
 
+test("Case 15 recognises concealed pelvic haemorrhage before hypotension and does not wait for CT", () => {
+  const case15 = cases.find((item) => item.id === "case-015");
+  assert.ok(case15, "Case 15 is missing");
+
+  const text = case15.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const recognitionIndex = text.indexOf("normal blood pressure does not exclude significant blood loss");
+  const binderIndex = text.indexOf("pelvic binder centred over the greater trochanters");
+  const bloodIndex = text.indexOf("Give warmed red cells, plasma and platelets");
+  const deteriorationIndex = text.indexOf("blood pressure is 82/48");
+  const noCtIndex = text.indexOf("Do not send him to CT while unstable");
+  const intimateConsentIndex = text.indexOf("may I briefly inspect your groin and perineal area");
+  const intimateFindingIndex = text.indexOf("no perineal bruising or blood at the urethral opening");
+
+  assert.ok(recognitionIndex >= 0, "Case 15 waits for hypotension before recognising blood loss");
+  assert.ok(binderIndex > recognitionIndex && bloodIndex > binderIndex, "Case 15 does not sequence pelvic stabilisation and blood support safely");
+  assert.ok(deteriorationIndex > bloodIndex && noCtIndex > deteriorationIndex, "Case 15 does not respond to decompensation with direct haemorrhage control");
+  assert.ok(intimateConsentIndex >= 0 && intimateFindingIndex > intimateConsentIndex, "Case 15 performs an intimate examination without spoken consent");
+  assert.match(text, /a chaperone/);
+  assert.match(text, /negative eFAST does not assess retroperitoneal bleeding/);
+  assert.match(text, /Haemoglobin is 142 g\/L/);
+  assert.match(text, /initial haemoglobin may remain normal during acute blood loss/);
+  assert.match(text, /Avoid large crystalloid volumes/);
+  assert.match(text, /tranexamic acid according to the local trauma protocol/);
+  assert.match(text, /preperitoneal pelvic packing and mechanical stabilisation.*angiographic embolisation/);
+  assert.match(text, /Reserve laparotomy for a separate intraperitoneal indication/);
+  assert.match(case15.clinicalSources.map((source) => source.url).join("\n"), /blood[.]gov[.]au\/patient-blood-management-guideline-adults-critical-bleeding/);
+});
+
+test("Case 16 identifies cold congested pump failure and avoids automatic fluid loading", () => {
+  const case16 = cases.find((item) => item.id === "case-016");
+  assert.ok(case16, "Case 16 is missing");
+
+  const text = case16.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const noFluidIndex = text.indexOf("I will not give a large fluid bolus");
+  const diagnosisIndex = text.indexOf("cold, congested cardiogenic shock");
+  const noradrenalineIndex = text.indexOf("Commence noradrenaline");
+  const inotropeIndex = text.indexOf("add an inotrope");
+
+  assert.ok(noFluidIndex >= 0 && diagnosisIndex > noFluidIndex, "Case 16 does not identify congestion before avoiding fluid");
+  assert.ok(noradrenalineIndex > diagnosisIndex && inotropeIndex > noradrenalineIndex, "Case 16 does not support pressure before protocol-led inotropy");
+  assert.match(text, /recent illness does not prove a viral cause/);
+  assert.match(text, /Avoid further fluid, nitrates, routine diuretics and beta-blockade while she is profoundly hypotensive/);
+  assert.match(text, /temporary mechanical circulatory support/);
+  assert.match(text, /early endomyocardial biopsy/);
+  assert.match(text, /urine output is 5 millilitres over the preceding hour/);
+  assert.match(case16.clinicalSources.map((source) => source.url).join("\n"), /escardio[.]org\/guidelines/);
+});
+
+test("Case 17 distinguishes neurogenic from spinal shock while continuing the trauma search", () => {
+  const case17 = cases.find((item) => item.id === "case-017");
+  assert.ok(case17, "Case 17 is missing");
+
+  const text = case17.run.sections
+    .flatMap((section) => section.turns)
+    .flatMap((turn) => turn.lines)
+    .map((line) => line.text)
+    .join("\n");
+  const exclusionIndex = text.indexOf("does not exclude bleeding or another traumatic cause");
+  const measuredFluidIndex = text.indexOf("measured 250-millilitre bolus");
+  const distinctionIndex = text.indexOf("They are different problems and can occur together");
+  const noradrenalineIndex = text.indexOf("Start noradrenaline");
+  const airwayIndex = text.indexOf("respiratory function is deteriorating");
+  const intimateConsentIndex = text.indexOf("It is an intimate examination and a chaperone will be present");
+  const sacralExamIndex = text.indexOf("With a chaperone, I assess sacral sensation");
+
+  assert.ok(exclusionIndex >= 0 && measuredFluidIndex > exclusionIndex, "Case 17 assumes neurogenic shock before evaluating trauma causes");
+  assert.ok(distinctionIndex > measuredFluidIndex, "Case 17 does not distinguish spinal shock from neurogenic shock");
+  assert.ok(noradrenalineIndex > distinctionIndex && airwayIndex > noradrenalineIndex, "Case 17 misses haemodynamic or respiratory escalation");
+  assert.ok(intimateConsentIndex >= 0 && sacralExamIndex > intimateConsentIndex, "Case 17 performs the sacral examination without spoken consent");
+  assert.match(text, /normal first haemoglobin does not exclude recent blood loss/);
+  assert.match(text, /lower MAP boundary with spinal and intensive care, usually 75 to 80/);
+  assert.match(text, /avoid augmentation beyond 90 to 95/);
+  assert.match(text, /Individualise the target and its three-to-seven-day duration because the evidence is weak/);
+  assert.match(text, /controlled manner while maintaining cervical alignment/);
+  assert.match(text, /urgent reduction, decompression and stabilisation, ideally within 24 hours when medically feasible/);
+  assert.match(text, /without MRI delay/);
+  assert.match(case17.clinicalSources.map((source) => source.url).join("\n"), /21925682231202348/);
+});
+
 test("every case keeps the station stem clinically neutral", () => {
   cases.forEach((item) => {
     const stemAndTasks = JSON.stringify(item.stem);
     assert.doesNotMatch(
       stemAndTasks,
-      /\burgent\b|\bimmediate\b|\bsepsis\b|\bseptic shock\b|\bneutropeni(?:a|c)\b|resuscitation|ambulance|vasopressor|noradrenaline|lactate|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
+      /\burgent\b|\bimmediate\b|\bsame-day\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|oxygen saturation (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
       `${item.id} stem or tasks disclose the diagnosis or management priority`
     );
   });

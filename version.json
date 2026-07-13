@@ -1,5 +1,5 @@
 {
-  "buildId": "autonomous-exam-p7-v1",
+  "buildId": "autonomous-exam-p8-v1",
   "basePath": "/Amc-clinical/",
   "environment": "github-pages-branch",
   "productModel": "multi-case-optional-reasoning",
@@ -27,7 +27,10 @@
     "case-020",
     "case-021",
     "case-022",
-    "case-023"
+    "case-023",
+    "case-024",
+    "case-025",
+    "case-026"
   ],
-  "checkpoint": "autonomous-exam-pattern-7-core-complete"
+  "checkpoint": "autonomous-exam-pattern-8-core-complete"
 }

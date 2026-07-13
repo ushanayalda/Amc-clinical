@@ -24,11 +24,11 @@
       lines: [
         {
           id: "c005-stem-role",
-          text: "You are a doctor working in the resuscitation area of a metropolitan emergency department."
+          text: "You are a doctor working in a metropolitan emergency department."
         },
         {
           id: "c005-stem-patient",
-          text: "Ms Sophie Nguyen, a 27-year-old woman with asthma, has been brought directly from triage because of worsening breathlessness and wheeze over six hours despite repeated use of her reliever inhaler."
+          text: "Ms Sophie Nguyen, a 27-year-old woman with asthma, presents with worsening breathlessness and wheeze over six hours despite repeated use of her reliever inhaler."
         },
         {
           id: "c005-stem-start",
@@ -42,17 +42,17 @@
       tasks: [
         {
           id: "c005-task-assess",
-          text: "Assess the patient and initiate immediate management.",
+          text: "Assess and manage the patient.",
           timing: "5 minutes"
         },
         {
           id: "c005-task-explain",
-          text: "Explain your assessment and immediate plan to the patient.",
+          text: "Explain your assessment and management plan to the patient.",
           timing: "2 minutes"
         },
         {
           id: "c005-task-examiner",
-          text: "State the severity, important alternative diagnoses and further escalation plan to the examiner.",
+          text: "State the severity, important alternative diagnoses and further management to the examiner.",
           timing: "1 minute"
         }
       ]

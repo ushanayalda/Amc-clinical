@@ -28,11 +28,11 @@
         },
         {
           id: "c006-stem-patient",
-          text: "Ms Maya Patel, a 38-year-old woman, has been brought from the waiting room to the treatment room because of sudden breathlessness, chest tightness and light-headedness that began about 15 minutes ago."
+          text: "Ms Maya Patel, a 38-year-old woman, presents with sudden breathlessness, chest tightness and light-headedness that began about 15 minutes ago."
         },
         {
           id: "c006-stem-start",
-          text: "She is awake and able to answer briefly. A practice nurse and emergency equipment are available. No treatment has been given."
+          text: "She is awake and able to answer briefly. No treatment has been given."
         },
         {
           id: "c006-stem-simulation",
@@ -42,12 +42,12 @@
       tasks: [
         {
           id: "c006-task-assess",
-          text: "Assess the patient and initiate immediate management, explaining your actions to her as her condition permits.",
+          text: "Assess and manage the patient, explaining your actions as her condition permits.",
           timing: "5 minutes"
         },
         {
           id: "c006-task-explain",
-          text: "Address the patient's concerns and explain the ongoing management and transfer plan.",
+          text: "Address the patient's concerns and discuss ongoing management and appropriate disposition.",
           timing: "3 minutes"
         }
       ]

@@ -61,7 +61,8 @@ if (!failed) {
     "Sudden breathlessness and light-headedness",
     "Cough and worsening breathlessness over three days",
     "Worsening breathlessness and drowsiness with COPD",
-    "Sudden facial droop, arm weakness and speech difficulty"
+    "Sudden facial droop, arm weakness and speech difficulty",
+    "Sudden slurred speech, weakness and confusion"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

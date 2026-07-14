@@ -171,9 +171,14 @@
       if (!hint.citationIds || !hint.citationIds.length) {
         errors.push("Hint has no citation: " + hint.id);
       }
-      ["where", "popUp", "pause", "recap", "reorient"].forEach(function (field) {
+      ["where", "popUp"].forEach(function (field) {
         if (!hint[field] || !String(hint[field]).trim()) {
           errors.push("Hint is missing journey field " + field + ": " + hint.id);
+        }
+      });
+      ["pause", "recap", "reorient"].forEach(function (field) {
+        if (Object.prototype.hasOwnProperty.call(hint, field) && !String(hint[field]).trim()) {
+          errors.push("Hint has an empty optional journey field " + field + ": " + hint.id);
         }
       });
       if (!hint.say || !hint.say.length || hint.say.some(function (paragraph) { return !String(paragraph).trim(); })) {

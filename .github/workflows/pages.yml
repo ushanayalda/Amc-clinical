@@ -45,5 +45,5 @@ jobs:
         run: |
           test -f index.html
           test -f version.json
-          grep -q "pattern-13-stable-unstable-chest-pain-v1" index.html
+          grep -q "case5-reasoning-reset-v1" index.html
           grep -q "multi-case-optional-reasoning" version.json

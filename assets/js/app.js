@@ -326,16 +326,6 @@
     });
     detailsBody.appendChild(steps);
 
-    if (currentCase.masteryFocus) {
-      var focus = element("div", "mastery-focus");
-      var caseFocus = element("p", "mastery-focus-item");
-      append(caseFocus, element("strong", "", "Case mastery"), element("span", "", currentCase.masteryFocus.case));
-      var clinicalFocus = element("p", "mastery-focus-item");
-      append(clinicalFocus, element("strong", "", "Clinical mastery"), element("span", "", currentCase.masteryFocus.clinical));
-      append(focus, caseFocus, clinicalFocus);
-      detailsBody.appendChild(focus);
-    }
-
     details.appendChild(detailsBody);
     region.appendChild(details);
     return region;
@@ -621,6 +611,11 @@
     var finalEssentialId = essentialHintIds()[essentialHintIds().length - 1];
     if (hint.id !== finalEssentialId || !currentCase.masteryFocus || !currentCase.masteryFocus.transfer) return null;
     var transfer = element("section", "transfer-check");
+    var caseLesson = element("p", "transfer-mastery");
+    append(caseLesson, element("strong", "", "From this case: "), document.createTextNode(currentCase.masteryFocus.case));
+    var clinicalLesson = element("p", "transfer-mastery");
+    append(clinicalLesson, element("strong", "", "What carries forward: "), document.createTextNode(currentCase.masteryFocus.clinical));
+    append(transfer, caseLesson, clinicalLesson);
     transfer.appendChild(element("p", "transfer-check-label", "Try it in a variation"));
     transfer.appendChild(element("h3", "transfer-check-question", currentCase.masteryFocus.transfer));
     var answer = element("details", "transfer-answer");
@@ -631,9 +626,6 @@
       checks.appendChild(element("li", "", check));
     });
     answer.appendChild(checks);
-    var principle = element("p", "transfer-principle");
-    append(principle, element("strong", "", "What carries forward: "), document.createTextNode(currentCase.masteryFocus.clinical));
-    answer.appendChild(principle);
     var sourceDetails = element("details", "transfer-sources");
     sourceDetails.appendChild(element("summary", "", "Sources for this variation (" + currentCase.masteryFocus.transferCitationIds.length + ")"));
     var sourceList = element("ul");
@@ -654,7 +646,7 @@
   }
 
   function renderRevealedHint(body, hint) {
-    var heading = element("h3", "reasoning-reveal-heading", "Reasoning");
+    var heading = element("h3", "reasoning-reveal-heading", "Thinking it through");
     heading.tabIndex = -1;
     body.appendChild(heading);
     var voice = element("section", "consultant-voice");
@@ -672,9 +664,11 @@
       body.appendChild(flow);
     }
 
-    var hold = element("p", "pause-line");
-    append(hold, element("strong", "", "Hold:"), document.createTextNode(" " + hint.pause));
-    body.appendChild(hold);
+    if (hint.pause) {
+      var hold = element("p", "pause-line");
+      append(hold, element("strong", "", "Hold:"), document.createTextNode(" " + hint.pause));
+      body.appendChild(hold);
+    }
 
     if (hint.clock) {
       var clock = element("p", "journey-clock");
@@ -682,12 +676,17 @@
       body.appendChild(clock);
     }
 
-    var recap = element("p", "recap-line");
-    append(recap, element("strong", "", "So far:"), document.createTextNode(" " + hint.recap));
-    var reorient = element("p", "reorient-line");
-    var nextCopy = String(hint.reorient).replace(/^Now that\b/, "Since").replace(/^Now\s+/, "");
-    append(reorient, element("strong", "", "Next:"), document.createTextNode(" " + nextCopy));
-    append(body, recap, reorient);
+    if (hint.recap) {
+      var recap = element("p", "recap-line");
+      append(recap, element("strong", "", "So far:"), document.createTextNode(" " + hint.recap));
+      body.appendChild(recap);
+    }
+    if (hint.reorient) {
+      var reorient = element("p", "reorient-line");
+      var nextCopy = String(hint.reorient).replace(/^Now that\b/, "Since").replace(/^Now\s+/, "");
+      append(reorient, element("strong", "", "Next:"), document.createTextNode(" " + nextCopy));
+      body.appendChild(reorient);
+    }
 
     if (hint.deeper && hint.deeper.length) {
       var deeper = element("details", "hint-deeper");
@@ -729,12 +728,19 @@
 
     if (!revealed) {
       var pause = element("section", "before-reveal");
-      pause.appendChild(element("p", "", "Pause here. Give yourself a first answer; a few words is enough."));
-      var reveal = element("button", "reveal-reasoning", "Reveal reasoning");
+      pause.appendChild(element("p", "", "Pause here if you want to place the clue first."));
+      var reveal = element("button", "reveal-reasoning", "Continue thinking");
       reveal.type = "button";
-      reveal.addEventListener("click", function () {
+      reveal.addEventListener("click", function (event) {
+        event.stopPropagation();
         markHintVisited(hint.id);
-        populateHintPopover(marker, hint, true);
+        var previousScrollTop = popover.scrollTop;
+        pause.remove();
+        var reasoningHeading = renderRevealedHint(body, hint);
+        popover.hidden = false;
+        positionPopover(marker);
+        popover.scrollTop = previousScrollTop;
+        reasoningHeading.focus({ preventScroll: true });
       });
       pause.appendChild(reveal);
       body.appendChild(pause);
@@ -853,7 +859,8 @@
   }, { passive: true });
   document.addEventListener("click", function (event) {
     if (!popover || popover.hidden) return;
-    if (popover.contains(event.target) || (activeMarker && activeMarker.contains(event.target))) return;
+    var eventPath = typeof event.composedPath === "function" ? event.composedPath() : [];
+    if (eventPath.indexOf(popover) !== -1 || popover.contains(event.target) || (activeMarker && activeMarker.contains(event.target))) return;
     closeHint(false);
   });
   document.addEventListener("keydown", function (event) {

@@ -1,5 +1,5 @@
 {
-  "buildId": "pattern-13-stable-unstable-chest-pain-v1",
+  "buildId": "case5-reasoning-reset-v1",
   "basePath": "/Amc-clinical/",
   "environment": "github-pages-branch",
   "productModel": "multi-case-optional-reasoning",
@@ -48,5 +48,5 @@
     "case-041",
     "case-042"
   ],
-  "checkpoint": "cases-001-042-pattern-13-exam-complete"
+  "checkpoint": "case-005-reasoning-reset"
 }

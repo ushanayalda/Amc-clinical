@@ -158,8 +158,8 @@ test("all Phase 1 cases keep short-term case mastery and long-term clinical mast
   assert.equal(clinicalFocuses.size, reasoningCases.length, "clinical mastery must be a distinct transferable lesson");
 
   const appSource = fs.readFileSync(path.join(root, "assets/js/app.js"), "utf8");
-  assert.match(appSource, /"Case mastery"/);
-  assert.match(appSource, /"Clinical mastery"/);
+  assert.match(appSource, /"From this case: "/);
+  assert.match(appSource, /"What carries forward: "/);
 });
 
 test("every case has one bounded essential journey and optional deeper links", () => {
@@ -210,7 +210,7 @@ test("every case has one bounded essential journey and optional deeper links", (
     assert.ok(item.hints.filter((hint) => Array.isArray(hint.deeper) && hint.deeper.length).length >= 2, `${item.id} needs optional mechanism depth without loading the first reveal`);
 
     item.hints.forEach((hint) => {
-      assert.match(hint.popUp, /[?]/, `${item.id}/${hint.id} must begin with a genuine reasoning question`);
+      assert.ok(hint.popUp.trim(), `${item.id}/${hint.id} must begin with a genuine thought`);
       assert.ok(hint.say.join(" ").trim().split(/\s+/).length <= 50, `${item.id}/${hint.id} first reveal is too dense`);
       if (hint.deeper === undefined) return;
       assert.ok(Array.isArray(hint.deeper), `${item.id}/${hint.id} deeper content must be an array`);
@@ -250,9 +250,12 @@ test("the guided interface pauses before revealing reasoning and preserves route
   const cssSource = fs.readFileSync(path.join(root, "assets/css/styles.css"), "utf8");
 
   assert.match(appSource, /essential \? "\(\*\)" : "\(\+\)"/);
-  assert.match(appSource, /"Reveal reasoning"/);
+  assert.match(appSource, /"Continue thinking"/);
   assert.match(appSource, /if \(!revealed\)/);
   assert.match(appSource, /renderRevealedHint\(body, hint\)/);
+  assert.match(appSource, /reveal[.]addEventListener\("click", function \(event\)/);
+  assert.match(appSource, /event[.]stopPropagation\(\);[\s\S]{0,220}?pause[.]remove\(\);[\s\S]{0,220}?renderRevealedHint\(body, hint\)/);
+  assert.match(appSource, /event[.]composedPath/);
   assert.match(appSource, /window[.]localStorage[.]setItem/);
   assert.match(appSource, /"Previous essential"/);
   assert.match(appSource, /"Close and continue reading"/);
@@ -763,8 +766,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("the Pattern 13 Exam release uses one cache-safe marker", () => {
-  const releaseMarker = "pattern-13-stable-unstable-chest-pain-v1";
+test("the Case 5 reasoning reset uses one cache-safe marker", () => {
+  const releaseMarker = "case5-reasoning-reset-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -776,12 +779,12 @@ test("the Pattern 13 Exam release uses one cache-safe marker", () => {
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
   assert.doesNotMatch(indexSource, /cases18-20-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "cases-001-042-pattern-13-exam-complete");
+  assert.equal(version.checkpoint, "case-005-reasoning-reset");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "pattern-13-stable-unstable-chest-pain-v1" index[.]html/);
+  assert.match(workflow, /grep -q "case5-reasoning-reset-v1" index[.]html/);
   assert.match(readme, /All 40 Phase 1 cases contain completed Reasoning layers/);
   assert.match(readme, /Cases 41 and 42 complete the initial two-case core for Phase 2, Pattern 13/);
-  assert.match(refresh, /Checkpoint: pattern-13-stable-unstable-chest-pain-v1/);
+  assert.match(refresh, /Checkpoint: case5-reasoning-reset-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {
@@ -936,6 +939,34 @@ test("Case 5 recognises quietening breath sounds as deterioration", () => {
   assert.match(text, /maximum of 10 millimoles/);
   assert.match(text, /raised carbon dioxide and acidaemia confirm ventilatory failure/);
   assert.match(text, /Adrenaline is not routine asthma treatment but must be given promptly if anaphylaxis emerges/);
+});
+
+test("Case 5 v2 reasoning waits for each clue and uses the approved consultant voice", () => {
+  const case5 = cases.find((item) => item.id === "case-005");
+  const byId = (id) => case5.hints.find((hint) => hint.id === id);
+  const speech = (id) => byId(id).say.join(" ");
+  const thought = (id) => [byId(id).popUp].concat(byId(id).say).join(" ");
+
+  assert.equal(case5.hints.length, 30, "Case 5 should keep only useful reasoning points");
+  assert.equal(case5.essentialHintIds.length, 16);
+  assert.ok(case5.hints.every((hint) => hint.id.startsWith("c005-v2-")));
+  assert.ok(case5.hints.every((hint) => hint.pause === undefined && hint.recap === undefined && hint.reorient === undefined));
+
+  assert.equal(case5.hints.some((hint) => hint.target.itemId === "c005-stem-role"), false, "the ED setting does not earn a Hint");
+  assert.equal(case5.hints.some((hint) => hint.id === "c005-v2-asthma-background"), false, "background asthma does not earn a premature Hint");
+  assert.equal(case5.essentialHintIds[0], "c005-v2-worsening-pattern");
+  assert.ok(case5.essentialHintIds.includes("c005-v2-oxygen-bronchodilators"), "immediate treatment belongs on the essential route");
+  assert.equal(case5.essentialHintIds.includes("c005-v2-speech"), false, "the essential route should not duplicate severity reasoning");
+  assert.equal(case5.essentialHintIds.at(-1), "c005-v2-station-end");
+
+  assert.doesNotMatch(speech("c005-v2-worsening-pattern"), /six hours|reliever|awake|89%|accessory/i);
+  assert.doesNotMatch(speech("c005-v2-reliever-failure"), /awake|two words|89%|accessory|drowsy/i);
+  assert.doesNotMatch(speech("c005-v2-awake"), /89%|two or three words|accessory|markedly reduced|drowsy/i);
+
+  const compass = JSON.stringify(case5.reasoningCompass);
+  assert.doesNotMatch(compass, /incomplete speech|failed reliever|drowsy|quieter wheeze|intubat|carbon dioxide/i);
+  assert.match(speech("c005-v2-quiet-deterioration"), /too little air is moving[\s\S]*exhaustion, not recovery/i);
+  assert.match(thought("c005-v2-quiet-mechanism"), /Wheeze needs airflow[\s\S]*almost no flow may sound quiet/i);
 });
 
 test("Case 6 gives intramuscular adrenaline before asthma treatment", () => {

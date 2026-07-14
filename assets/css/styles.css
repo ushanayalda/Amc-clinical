@@ -1034,6 +1034,22 @@ a:hover {
   background: #eef6f4;
 }
 
+.transfer-mastery {
+  margin: 0 0 0.58rem;
+  color: #35494f;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.transfer-mastery + .transfer-mastery {
+  padding-bottom: 0.68rem;
+  border-bottom: 1px solid #c8dad5;
+}
+
+.transfer-mastery strong {
+  color: #315d62;
+}
+
 .transfer-check-label {
   margin: 0;
   color: #315d62;

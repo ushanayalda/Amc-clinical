@@ -30,25 +30,27 @@ Every Hint targets an exact phrase in one canonical text item using:
 
 Clicking `(*)` opens one contextual window beside the source phrase on desktop and near it on mobile. Only one window may be open. Closing it returns focus to the marker and must not move the reader to another page.
 
-Hints form one continuous thinking journey from the first stem phrase to the end of the station. They are not separate fact cards. Each new clue must add to the map, change its weighting or test it without silently replacing what came before. Do not reveal the diagnosis before the case evidence reaches it.
+Hints form one continuous thinking journey from the first clinically useful stem phrase to the end of the station. They are not separate fact cards. Do not force a Hint onto a setting, ordinary word or transition when it creates no useful thought. Each new clue must add to the reasoning, change its weighting or test it without silently replacing what came before. Do not reveal the diagnosis before the case evidence reaches it.
+
+Every Hint has a hard disclosure boundary. It may use only the canonical words up to and including its exact target phrase, plus tasks already displayed before that point. It must not borrow from the case title, later words in the same text item, later Stem lines, the Full Run, hidden findings or the expected diagnosis. It may ask what information should come next, but must not state the answer before the case gives it.
 
 Each case also declares one ordered `essentialHintIds` route of 12 to 16 Hints. `(*)` marks this route; `(+)` marks the remaining optional depth. Every stem task must appear in the essential route, and that route must continue through the Full Run to the station-end reset. Keep all useful depth available, but do not make every phrase compete for attention.
 
-The first opening of a Hint shows its exact source phrase and the thought question only. The learner deliberately reveals the reasoning after a genuine pause. Reopening a revealed Hint may show the full response immediately. The interface records opened Hints locally, uses a visible non-colour visited cue and provides a full-case restart. Its compact controls may review a previous Hint, reopen the current Hint or close and continue reading, but must never jump forward over unread canonical text or become a score or performance dashboard.
+The first opening of a Hint shows its exact source phrase and one natural thought. That thought may be a statement, fragment or genuine question; never turn it into a quiz merely to add a question mark. The learner deliberately continues after a brief pause. Revealing the response must expand inside the same window, preserve the source thought and scroll position, and never close or move the reader. Reopening a revealed Hint may show the full response immediately. The interface records opened Hints locally, uses a visible non-colour visited cue and provides a full-case restart. Its compact controls may review a previous Hint, reopen the current Hint or close and continue reading, but must never jump forward over unread canonical text or become a score or performance dashboard.
 
 The last essential Hint includes one case-specific variation. Keep its worked answer, decision checks and dedicated clinical sources hidden until the learner chooses to reveal them. A generic principle without corrective feedback is not sufficient for clinical transfer.
 
-Every Hint should anticipate the thought or panic question that may naturally appear at that exact phrase, then provide:
+When a phrase genuinely earns a Hint, anticipate the thought that may naturally appear there, then provide only what helps at that moment:
 
 - the thought that may pop up;
 - a warm thinking-partner response;
 - a short causal chain where mechanism helps memory;
-- what to keep holding in the growing map;
-- the next question or action;
+- what remains established and uncertain;
+- the next question or action when the disclosed evidence supports one;
 - the current internal-clock anchor when relevant;
 - reassurance that supports safe flexibility rather than certainty seeking.
 
-Put the shortest sufficient consultant response in `say`. Put a memorable mechanism or additional nuance in optional `deeper` paragraphs when it would otherwise interrupt the case journey.
+Put the shortest sufficient consultant response in `say`. Put a memorable mechanism or additional nuance in optional `deeper` paragraphs when it would otherwise interrupt the case journey. Pause, recap and reorientation are a natural rhythm across the journey, not mandatory labelled fields repeated inside every Hint.
 
 Across a case, the journey must connect anatomy, physiology, mechanism, symptom meaning, differential diagnosis, discriminators, investigations, management, patient concerns, examiner logic, traps and variations. Use the memorable chain `structure → mechanism → sensation → symptom pattern → diagnostic weight → next safe thought`. Explain necessary technical terms immediately in everyday language.
 
@@ -85,7 +87,7 @@ Write like speech, not a textbook or generated study note:
 - keep one cognitive move per paragraph;
 - use an arrow chain only when it genuinely makes anatomy or mechanism easier to remember.
 
-The Hint window should read as one flowing conversation. Do not turn every reasoning component into a separate card grid.
+The Hint window should read as one flowing conversation. Do not turn every reasoning component into a separate card grid. Keep case and clinical mastery hidden until the final essential Hint so the overview cannot spoil an unread case.
 
 Use warm, direct, everyday English. Never mention a learner diagnosis or label. Do not use gamification, streaks, points, countdown pressure, progress rings or competing dashboards.
 

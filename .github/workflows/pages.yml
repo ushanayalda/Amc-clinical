@@ -45,5 +45,5 @@ jobs:
         run: |
           test -f index.html
           test -f version.json
-          grep -q "pattern-11-paediatric-acute-v1" index.html
+          grep -q "pattern-12-toxicological-emergency-v1" index.html
           grep -q "multi-case-optional-reasoning" version.json

@@ -1,5 +1,5 @@
 {
-  "buildId": "pattern-11-paediatric-acute-v1",
+  "buildId": "pattern-12-toxicological-emergency-v1",
   "basePath": "/Amc-clinical/",
   "environment": "github-pages-branch",
   "productModel": "multi-case-optional-reasoning",
@@ -39,7 +39,12 @@
     "case-032",
     "case-033",
     "case-034",
-    "case-035"
+    "case-035",
+    "case-036",
+    "case-037",
+    "case-038",
+    "case-039",
+    "case-040"
   ],
-  "checkpoint": "cases-001-020-guided-reasoning-pattern-11-complete"
+  "checkpoint": "cases-001-020-guided-reasoning-pattern-12-complete"
 }

@@ -48,7 +48,7 @@ Open `index.html` directly for a quick source preview, or serve `dist/` after bu
 
 ## Case progression
 
-Case production proceeds autonomously through the registry. Cases 33 to 35 complete Pattern 11, Paediatric Acute Deterioration. Each case receives internal clinical, timing, content-contract and build checks before publication. Per-case user approval is not required.
+Case production proceeds autonomously through the registry. Cases 36 to 40 complete Pattern 12, Toxicological Emergency, and Phase 1 of the pathway. Each case receives internal clinical, timing, content-contract and build checks before publication. Per-case user approval is not required.
 
 ## Source position
 

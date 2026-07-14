@@ -87,7 +87,12 @@ if (!failed) {
     "Ongoing bleeding after a vaginal birth",
     "Fever, reduced feeding and unusual sleepiness",
     "Barking cough and noisy breathing",
-    "A child after a convulsion"
+    "A child after a convulsion",
+    "Drowsiness and slow breathing",
+    "Nausea after taking tablets",
+    "Confusion beside an empty medicine packet",
+    "Agitation, sweating and shaking",
+    "An ankle injury during a bushwalk"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

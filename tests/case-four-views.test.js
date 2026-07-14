@@ -75,11 +75,13 @@ test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
 });
 
-test("all 40 Phase 1 cases expose complete reasoning", () => {
+test("Phase 1 retains complete reasoning while Pattern 13 remains Exam-only", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
+  const phaseOneIds = expectedIds.slice(0, 40);
+  const patternThirteenIds = ["case-041", "case-042"];
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
-  assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds);
-  assert.deepEqual(Array.from(examOnlyCases, (item) => item.id), []);
+  assert.deepEqual(Array.from(reasoningCases, (item) => item.id), phaseOneIds);
+  assert.deepEqual(Array.from(examOnlyCases, (item) => item.id), patternThirteenIds);
 
   reasoningCases.forEach((item) => {
     assert.notEqual(item.reasoningAvailable, false, `${item.id} must expose Reasoning`);
@@ -119,6 +121,8 @@ test("case selection exposes completed reasoning and retains a safe fallback for
   assert.equal(viewModel.viewForCase(cases[16], "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase({ reasoningAvailable: false }, "#reasoning-full-run").id, "exam-full-run");
   assert.equal(viewModel.viewForCase(caseData, "#reasoning-full-run").id, "reasoning-full-run");
+  assert.equal(viewModel.viewForCase(cases[40], "#reasoning-full-run").id, "exam-full-run");
+  assert.equal(viewModel.viewForCase(cases[41], "#reasoning-stem").id, "exam-stem");
 });
 
 test("every Reasoning layer preserves the canonical Stem and Full Run", () => {
@@ -399,7 +403,7 @@ test("Cases 21 to 40 let the Stem reasoning earn rather than disclose the answer
     ["case-040", /snake ?bite|envenom|antivenom|pressure immobili[sz]ation/i]
   ]);
 
-  cases.slice(20).forEach((item) => {
+  cases.slice(20, 40).forEach((item) => {
     const stemJourney = JSON.stringify({
       caseMastery: item.masteryFocus.case,
       compass: item.reasoningCompass.stem,
@@ -444,7 +448,7 @@ test("Cases 21 to 40 keep the always-visible Full Run compass free of later exam
     ["case-040", /collapses|bleeds|weakens|breathing difficulty|antivenom|bandage removal|envenom/i]
   ]);
 
-  cases.slice(20).forEach((item) => {
+  cases.slice(20, 40).forEach((item) => {
     assert.doesNotMatch(
       JSON.stringify(item.reasoningCompass.run),
       forbiddenCompassBeforeRun.get(item.id),
@@ -483,13 +487,13 @@ test("early Phase 1 source labels do not reveal a diagnosis before the case evid
 });
 
 test("Phase 1 completion Hints use one reset cue rather than a duplicated Clock line", () => {
-  cases.slice(20).forEach((item) => {
+  cases.slice(20, 40).forEach((item) => {
     assert.equal(item.hints.at(-1).clock, undefined, `${item.id} duplicates the final reset in Clock and Next`);
   });
 });
 
 test("Cases 21 to 40 keep the natural consultant-companion language lock", () => {
-  const text = JSON.stringify(cases.slice(20).map((item) => ({
+  const text = JSON.stringify(cases.slice(20, 40).map((item) => ({
     masteryFocus: item.masteryFocus,
     reasoningCompass: item.reasoningCompass,
     hints: item.hints
@@ -759,8 +763,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("the complete Phase 1 guided reasoning release uses one cache-safe marker", () => {
-  const releaseMarker = "phase-1-clinical-reasoning-sync-v1";
+test("the Pattern 13 Exam release uses one cache-safe marker", () => {
+  const releaseMarker = "pattern-13-stable-unstable-chest-pain-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -772,11 +776,12 @@ test("the complete Phase 1 guided reasoning release uses one cache-safe marker",
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
   assert.doesNotMatch(indexSource, /cases18-20-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "cases-001-040-phase-1-clinical-reasoning-sync");
+  assert.equal(version.checkpoint, "cases-001-042-pattern-13-exam-complete");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "phase-1-clinical-reasoning-sync-v1" index[.]html/);
+  assert.match(workflow, /grep -q "pattern-13-stable-unstable-chest-pain-v1" index[.]html/);
   assert.match(readme, /All 40 Phase 1 cases contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: phase-1-clinical-reasoning-sync-v1/);
+  assert.match(readme, /Cases 41 and 42 complete the initial two-case core for Phase 2, Pattern 13/);
+  assert.match(refresh, /Checkpoint: pattern-13-stable-unstable-chest-pain-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {
@@ -825,10 +830,11 @@ test("new case files contain complete station voices without learner-facing reas
       .trim()
       .split(/\s+/).length;
     assert.ok(audibleWords >= 750 && audibleWords <= 1300, `${item.id} is not realistic for an 8-minute run`);
-    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020", "case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029", "case-030", "case-031", "case-032", "case-033", "case-034", "case-035", "case-036", "case-037", "case-038", "case-039", "case-040"].includes(item.id)) {
+    const caseNumber = Number.parseInt(item.id.replace("case-", ""), 10);
+    if (caseNumber >= 12) {
       assert.ok(audibleWords <= 1050, `${item.id} is too dense for an 8-minute run`);
     }
-    if (["case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029", "case-030", "case-031", "case-032", "case-033", "case-034", "case-035", "case-036", "case-037", "case-038", "case-039", "case-040"].includes(item.id)) {
+    if (caseNumber >= 21) {
       assert.ok(audibleWords <= 950, `${item.id} exceeds the current pattern spoken-word ceiling`);
     }
   });
@@ -1855,6 +1861,70 @@ test("Case 40 preserves pressure immobilisation until controlled removal and tre
   assert.match(text, /systemic envenoming with venom-induced consumption coagulopathy/);
   assert.match(text, /Do not repeat it solely for an abnormal INR/);
   assert.match(case40.clinicalSources.map((source) => source.url).join("\n"), /first-aid-management-of-australian-snake-bite|pressure-immobilisation-technique|Emergency-Department-Guidelines\/Snake-bite/);
+});
+
+test("Pattern 13 uses a two-case stable-versus-changed trajectory ladder", () => {
+  const patternCases = cases.filter((item) => item.pattern?.id === 13);
+  assert.deepEqual(Array.from(patternCases, (item) => item.id), ["case-041", "case-042"]);
+  patternCases.forEach((item) => {
+    assert.equal(item.phase.id, 2);
+    assert.equal(item.phase.title, "Dangerous Mimics");
+    assert.equal(item.reasoningAvailable, false);
+    assert.equal(item.status, "exam_complete");
+  });
+});
+
+test("Case 41 confirms an unchanged exertional pattern before selecting outpatient assessment", () => {
+  const case41 = cases.find((item) => item.id === "case-041");
+  assert.ok(case41, "Case 41 is missing");
+
+  const turns = case41.run.sections.flatMap((section) => section.turns);
+  const turnIds = turns.map((turn) => turn.id);
+  const text = turns.flatMap((turn) => turn.lines).map((line) => line.text).join("\n");
+  const trajectoryIndex = turnIds.indexOf("c041-turn-pattern-answer");
+  const restIndex = turnIds.indexOf("c041-turn-rest-answer");
+  const diagnosisIndex = turnIds.indexOf("c041-turn-diagnosis");
+  const referralIndex = turnIds.indexOf("c041-turn-investigation-plan");
+  const safetyIndex = turnIds.indexOf("c041-turn-safety-net");
+
+  assert.ok(trajectoryIndex >= 0 && restIndex > trajectoryIndex, "Case 41 does not establish stability through trajectory and rest symptoms");
+  assert.ok(diagnosisIndex > restIndex && referralIndex > diagnosisIndex, "Case 41 names stable angina or plans testing before the stable pattern is established");
+  assert.ok(safetyIndex > referralIndex, "Case 41 omits escalation advice after the outpatient plan");
+  assert.match(text, /trigger, strength, duration and frequency have not changed/);
+  assert.match(text, /normal resting ECG does not exclude coronary artery disease/);
+  assert.match(text, /refer you to cardiology or a rapid-access chest-pain service/);
+  assert.match(text, /Call Triple Zero immediately if symptoms are severe or worsening/);
+  assert.match(text, /new rest pain, a lower activity trigger,[\s\S]*same-day medical assessment/);
+  assert.doesNotMatch(text, /routine community troponin|private car to hospital/);
+  assert.match(case41.clinicalSources.map((source) => source.url).join("\n"), /q=57360|cvdcheck[.]org[.]au|chronic-coronary-syndromes|heart-attack-warning-signs/);
+});
+
+test("Case 42 reclassifies changed angina despite absent pain and a normal first ECG", () => {
+  const case42 = cases.find((item) => item.id === "case-042");
+  assert.ok(case42, "Case 42 is missing");
+
+  const turns = case42.run.sections.flatMap((section) => section.turns);
+  const turnIds = turns.map((turn) => turn.id);
+  const text = turns.flatMap((turn) => turn.lines).map((line) => line.text).join("\n");
+  const restIndex = turnIds.indexOf("c042-turn-rest-answer");
+  const escalationIndex = turnIds.indexOf("c042-turn-escalation");
+  const ecgIndex = turnIds.indexOf("c042-turn-ecg-result");
+  const ecgInterpretationIndex = turnIds.indexOf("c042-turn-ecg-interpretation");
+  const contraindicationIndex = turnIds.indexOf("c042-turn-medicine-answer");
+  const aspirinIndex = turnIds.indexOf("c042-turn-aspirin-action");
+  const handoverIndex = turnIds.indexOf("c042-turn-handover");
+
+  assert.ok(restIndex >= 0 && escalationIndex > restIndex, "Case 42 escalates before the changed trajectory is elicited");
+  assert.ok(ecgIndex > escalationIndex, "Case 42 waits for the ECG before arranging transfer");
+  assert.ok(contraindicationIndex > escalationIndex && aspirinIndex > contraindicationIndex, "Case 42 gives aspirin before screening contraindications");
+  assert.ok(aspirinIndex < ecgIndex && ecgInterpretationIndex > ecgIndex, "Case 42 delays aspirin for the ECG or treats a normal tracing as exclusion");
+  assert.ok(handoverIndex > aspirinIndex, "Case 42 omits transfer of the changed pattern and treatment");
+  assert.match(text, /normal first ECG does not exclude acute coronary syndrome/);
+  assert.match(text, /oxygen saturation is 97%, so you do not need oxygen/);
+  assert.match(text, /do not need GTN while pain-free/);
+  assert.match(text, /serial ECGs and high-sensitivity troponin in a validated pathway/);
+  assert.match(text, /Do not drive or travel by private car/);
+  assert.match(case42.clinicalSources.map((source) => source.url).join("\n"), /ACS-Guideline[.]pdf|guideline-14-1|guideline-14-2/);
 });
 
 test("every case keeps the station stem clinically neutral", () => {

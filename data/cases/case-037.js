@@ -188,7 +188,7 @@
               id: "c037-turn-reassessment-plan",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c037-run-reassessment-plan", text: "Repeat ALT and paracetamol two hours before completion. Continue acetylcysteine if paracetamol exceeds 10 mg/L or ALT exceeds 50 U/L and is rising. Check INR, renal function, glucose and acid-base status, and seek toxicology and liver-unit advice if injury develops." }]
+              lines: [{ id: "c037-run-reassessment-plan", text: "Repeat ALT two hours before completion and paracetamol if toxicology advises. Continue acetylcysteine if paracetamol is above 10 mg/L or ALT is above 50 U/L and rising. Do not stop solely because 20 hours have elapsed. If treatment continues, stop only with toxicology advice when Mirela is clinically well, ALT or AST is falling and INR is below 2. Monitor renal function, glucose and acid-base status; contact the liver unit if injury develops." }]
             },
             {
               id: "c037-turn-reaction-plan",

@@ -164,7 +164,7 @@
               id: "c033-turn-antibiotic-plan",
               speaker: "Doctor",
               kind: "spoken",
-              lines: [{ id: "c033-run-antibiotic-plan", text: "Give ceftriaxone 100 milligrams per kilogram, 650 milligrams, through the intraosseous line now. Under the local meningitis protocol, give dexamethasone 0.15 milligrams per kilogram, approximately 1 milligram, immediately before or with it, but never delay ceftriaxone. Start droplet precautions." }]
+              lines: [{ id: "c033-run-antibiotic-plan", text: "Give IO ceftriaxone 100 milligrams per kilogram, 650 milligrams, now. Give dexamethasone 0.15 milligrams per kilogram, 1 milligram, before or with it; never delay ceftriaxone. Continue six-hourly for four days under local protocol. Start droplet precautions." }]
             },
             {
               id: "c033-turn-fluid-plan",
@@ -254,7 +254,7 @@
               id: "c033-turn-handover",
               speaker: "Doctor",
               kind: "handover",
-              lines: [{ id: "c033-run-handover", text: "Remy Dela Cruz is 4 months old and weighs 6.5 kilograms. After one day of fever, reduced feeding and sleepiness, he presented with weak cry, mottling, four-second refill, pulse 188 and preserved blood pressure, without rash or neck stiffness. Lactate is 4.8 and he deteriorated to 64/36 with new petechiae, consistent with septic shock, possible meningococcal disease and meningitis. IO access and cultures are complete. Ceftriaxone 650 milligrams, protocol dexamethasone and 65 millilitres of crystalloid were given. Adrenaline at 0.1 microgram per kilogram per minute improved pressure to 74/42 and refill to three seconds. He remains drowsy. LP is deferred until stable. Droplet precautions are active and PICU has accepted him." }]
+              lines: [{ id: "c033-run-handover", text: "Remy Dela Cruz is 4 months old and weighs 6.5 kilograms. After one day of fever, reduced feeding and sleepiness, he presented with weak cry, mottling, four-second refill, pulse 188 and preserved blood pressure, without rash or neck stiffness. Lactate is 4.8 and he deteriorated to 64/36 with new petechiae, consistent with septic shock, possible meningococcal disease and meningitis. IO access and cultures are complete. Ceftriaxone 650 milligrams, dexamethasone 1 milligram and 65 millilitres of crystalloid were given. Adrenaline at 0.1 microgram per kilogram per minute improved pressure to 74/42 and refill to three seconds. He remains drowsy. LP is deferred until stable. Droplet precautions are active and PICU has accepted him." }]
             },
             {
               id: "c033-turn-end",

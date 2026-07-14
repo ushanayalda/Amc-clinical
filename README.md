@@ -13,7 +13,7 @@ Every case has two versions and two screens:
 | Exam | Clean station stem | Complete high-standard encounter |
 | Reasoning | Identical stem with guided Hints | Identical encounter with guided Hints |
 
-Each canonical case is stored once in `data/cases/case-NNN.js`. All 40 Phase 1 cases contain completed Reasoning layers. Future cases can still be produced first as Exam Stem and Full Run, then receive their Reasoning layer without changing the case wording.
+Each canonical case is stored once in `data/cases/case-NNN.js`. All 40 Phase 1 cases contain completed Reasoning layers. Cases 41 and 42 begin Phase 2 with completed Exam Stems and Full Runs; their Reasoning layers can be added separately without changing the case wording.
 
 Each case now has a quiet 12-to-16-Hint essential journey marked `(*)`. Optional Hints remain beside their exact phrases as `(+)`, hidden until the learner asks to show them. Additional mechanism detail inside a Hint is also collapsed. A new Hint pauses at the question before revealing the consultant reasoning; opened Hints are remembered on that device until the doctor restarts the case practice. Sources remain clickable but collapsed until requested.
 
@@ -48,7 +48,7 @@ Open `index.html` directly for a quick source preview, or serve `dist/` after bu
 
 ## Case progression
 
-Cases 1 to 40 complete Phase 1 across 12 clinical patterns. Each case has passed clinical, timing, content-contract and build checks before publication. Production can proceed to the next registered phase without requiring per-case approval.
+Cases 1 to 40 complete Phase 1 across 12 clinical patterns. Cases 41 and 42 complete the initial two-case core for Phase 2, Pattern 13: Stable Chest Pain versus Unstable Chest Pain. Each case has passed clinical, timing, content-contract and build checks before publication. Production can continue in registry order without per-case approval.
 
 ## Source position
 

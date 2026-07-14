@@ -92,7 +92,9 @@ if (!failed) {
     "Nausea after taking tablets",
     "Confusion beside an empty medicine packet",
     "Agitation, sweating and shaking",
-    "An ankle injury during a bushwalk"
+    "An ankle injury during a bushwalk",
+    "Chest tightness when walking uphill",
+    "A repeat prescription for chest tightness"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

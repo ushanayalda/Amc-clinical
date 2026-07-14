@@ -72,7 +72,22 @@ if (!failed) {
     "Neck pain and limb weakness after a diving injury",
     "Dark vomit and black bowel motions",
     "Vomiting blood twice in one evening",
-    "Repeated red bowel motions"
+    "Repeated red bowel motions",
+    "Vomiting, abdominal pain and unusual breathing",
+    "Thirst, frequent urination and increasing confusion",
+    "Weak legs and a skipping heartbeat",
+    "A brief collapse at netball training",
+    "A brief blackout after a racing heartbeat",
+    "A fall with a missing moment",
+    "Sudden pain with a brief faint",
+    "Severe abdominal pain over several hours",
+    "Upper abdominal pain that has spread",
+    "Lower abdominal pain and light bleeding",
+    "Headache and upper abdominal discomfort",
+    "Ongoing bleeding after a vaginal birth",
+    "Fever, reduced feeding and unusual sleepiness",
+    "Barking cough and noisy breathing",
+    "A child after a convulsion"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
   });

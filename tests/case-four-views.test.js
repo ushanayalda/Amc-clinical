@@ -55,7 +55,7 @@ test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
 });
 
-test("Cases 1 to 20 expose complete reasoning while Cases 21 to 32 remain exam-only", () => {
+test("Cases 1 to 20 expose complete reasoning while Cases 21 to 35 remain exam-only", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
   assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds.slice(0, 20));
@@ -584,7 +584,7 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
 });
 
 test("Cases 1 to 20 guided reasoning uses one cache-safe release marker", () => {
-  const releaseMarker = "reasoning-journey-v2";
+  const releaseMarker = "pattern-11-paediatric-acute-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -596,11 +596,11 @@ test("Cases 1 to 20 guided reasoning uses one cache-safe release marker", () => 
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
   assert.doesNotMatch(indexSource, /cases18-20-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "cases-001-020-guided-reasoning-pattern-10-complete");
+  assert.equal(version.checkpoint, "cases-001-020-guided-reasoning-pattern-11-complete");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "reasoning-journey-v2" index[.]html/);
+  assert.match(workflow, /grep -q "pattern-11-paediatric-acute-v1" index[.]html/);
   assert.match(readme, /Cases 1 to 20 contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: reasoning-journey-v2/);
+  assert.match(refresh, /Checkpoint: pattern-11-paediatric-acute-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {
@@ -649,10 +649,10 @@ test("new case files contain complete station voices without learner-facing reas
       .trim()
       .split(/\s+/).length;
     assert.ok(audibleWords >= 750 && audibleWords <= 1300, `${item.id} is not realistic for an 8-minute run`);
-    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020", "case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029", "case-030", "case-031", "case-032"].includes(item.id)) {
+    if (["case-012", "case-013", "case-014", "case-015", "case-016", "case-017", "case-018", "case-019", "case-020", "case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029", "case-030", "case-031", "case-032", "case-033", "case-034", "case-035"].includes(item.id)) {
       assert.ok(audibleWords <= 1050, `${item.id} is too dense for an 8-minute run`);
     }
-    if (["case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029", "case-030", "case-031", "case-032"].includes(item.id)) {
+    if (["case-021", "case-022", "case-023", "case-024", "case-025", "case-026", "case-027", "case-028", "case-029", "case-030", "case-031", "case-032", "case-033", "case-034", "case-035"].includes(item.id)) {
       assert.ok(audibleWords <= 950, `${item.id} exceeds the current pattern spoken-word ceiling`);
     }
   });
@@ -711,7 +711,7 @@ test("case identifiers, task clocks and patient names remain internally consiste
     });
 
     const stemText = item.stem.lines.map((line) => line.text).join(" ");
-    const name = stemText.match(/\b(?:Mr|Mrs|Ms) ([A-Za-z]+(?:-[A-Za-z]+)?) ([A-Za-z][A-Za-z'-]*)/);
+    const name = stemText.match(/\b(?:Mr|Mrs|Ms|Master|Miss) ([A-Za-z]+(?:-[A-Za-z]+)?) ([A-Za-z][A-Za-z'-]*)/);
     assert.ok(name, `${item.id} has no identifiable patient surname in the stem`);
     const runText = item.run.sections
       .flatMap((section) => section.turns)
@@ -1484,12 +1484,89 @@ test("Case 32 gives early tranexamic acid and runs resuscitation with cause-dire
   assert.match(case32.clinicalSources.map((source) => source.url).join("\n"), /g-pph|Management-Postpartum-Haemorrhage/);
 });
 
+test("Case 33 treats paediatric septic shock before rash, hypotension or lumbar puncture confirmation", () => {
+  const case33 = cases.find((item) => item.id === "case-033");
+  assert.ok(case33, "Case 33 is missing");
+
+  const turns = case33.run.sections.flatMap((section) => section.turns);
+  const turnIds = turns.map((turn) => turn.id);
+  const text = turns.flatMap((turn) => turn.lines).map((line) => line.text).join("\n");
+  const firstFindingsIndex = turnIds.indexOf("c033-turn-primary-findings");
+  const interpretationIndex = turnIds.indexOf("c033-turn-interpretation");
+  const antibioticIndex = turnIds.indexOf("c033-turn-antibiotic-plan");
+  const fluidIndex = turnIds.indexOf("c033-turn-fluid-plan");
+  const deteriorationIndex = turnIds.indexOf("c033-turn-deterioration");
+  const vasoactiveIndex = turnIds.indexOf("c033-turn-vasoactive-plan");
+  const lumbarPunctureIndex = turnIds.indexOf("c033-turn-lp-plan");
+
+  assert.ok(firstFindingsIndex >= 0 && interpretationIndex > firstFindingsIndex, "Case 33 labels sepsis before assessing the sick-infant pattern");
+  assert.ok(antibioticIndex > interpretationIndex && fluidIndex > antibioticIndex, "Case 33 does not begin antibiotics and measured fluid support in sequence");
+  assert.ok(deteriorationIndex > fluidIndex && vasoactiveIndex > deteriorationIndex, "Case 33 starts vasoactive support before persistent shock is demonstrated");
+  assert.ok(lumbarPunctureIndex > vasoactiveIndex, "Case 33 prioritises lumbar puncture over circulation support");
+  assert.match(text, /Preserved blood pressure, vaccination and no rash or neck stiffness do not exclude it/);
+  assert.match(text, /ceftriaxone 100 milligrams per kilogram, 650 milligrams/);
+  assert.match(text, /Give 10 millilitres per kilogram of balanced crystalloid, 65 millilitres/);
+  assert.match(text, /white count and modest CRP do not exclude early infection/);
+  assert.match(text, /Do not perform lumbar puncture during shock or reduced consciousness/);
+  assert.match(case33.clinicalSources.map((source) => source.url).join("\n"), /acute_meningococcal_disease|paediatric-clinical-guidelines\/sepsis|Meningitis_encephalitis|Lumbar_puncture/);
+});
+
+test("Case 34 recognises quieter stridor with fatigue as life-threatening upper-airway obstruction", () => {
+  const case34 = cases.find((item) => item.id === "case-034");
+  assert.ok(case34, "Case 34 is missing");
+
+  const turns = case34.run.sections.flatMap((section) => section.turns);
+  const turnIds = turns.map((turn) => turn.id);
+  const text = turns.flatMap((turn) => turn.lines).map((line) => line.text).join("\n");
+  const findingsIndex = turnIds.indexOf("c034-turn-primary-findings");
+  const firstTreatmentIndex = turnIds.indexOf("c034-turn-treatment");
+  const deteriorationIndex = turnIds.indexOf("c034-turn-deterioration");
+  const fatigueIndex = turnIds.indexOf("c034-turn-fatigue-recognition");
+  const repeatTreatmentIndex = turnIds.indexOf("c034-turn-life-threatening-care");
+  const responseIndex = turnIds.indexOf("c034-turn-response");
+
+  assert.ok(findingsIndex >= 0 && firstTreatmentIndex > findingsIndex, "Case 34 treats before severe croup findings are provided");
+  assert.ok(deteriorationIndex > firstTreatmentIndex && fatigueIndex > deteriorationIndex, "Case 34 does not reinterpret quieter stridor after the child tires");
+  assert.ok(repeatTreatmentIndex > fatigueIndex && responseIndex > repeatTreatmentIndex, "Case 34 does not repeat treatment and reassess in sequence");
+  assert.match(text, /will not force her mouth open or lie her down/);
+  assert.match(text, /nebulised adrenaline 5 milligrams, equal to 5 millilitres of undiluted 1:1000 solution/);
+  assert.match(text, /dexamethasone 0.6 milligrams per kilogram once, which is 8.4 milligrams/);
+  assert.match(text, /Quieter stridor with drowsiness, poor effort, reduced air entry and hypoxaemia means exhaustion, not recovery/);
+  assert.match(text, /at least three hours after the last dose/);
+  assert.match(case34.clinicalSources.map((source) => source.url).join("\n"), /Croup_Laryngotracheobronchitis|paediatric-clinical-guidelines\/croup/);
+});
+
+test("Case 35 counts home midazolam and moves to ventilation and second-line treatment after two doses", () => {
+  const case35 = cases.find((item) => item.id === "case-035");
+  assert.ok(case35, "Case 35 is missing");
+
+  const turns = case35.run.sections.flatMap((section) => section.turns);
+  const turnIds = turns.map((turn) => turn.id);
+  const text = turns.flatMap((turn) => turn.lines).map((line) => line.text).join("\n");
+  const homeDoseIndex = turnIds.indexOf("c035-turn-medication-history");
+  const hospitalDoseIndex = turnIds.indexOf("c035-turn-first-line-treatment");
+  const persistentIndex = turnIds.indexOf("c035-turn-persistent-findings");
+  const ventilationIndex = turnIds.indexOf("c035-turn-respiratory-support");
+  const secondLineIndex = turnIds.indexOf("c035-turn-second-line");
+  const resolutionIndex = turnIds.indexOf("c035-turn-resolution-findings");
+
+  assert.ok(homeDoseIndex >= 0 && hospitalDoseIndex > homeDoseIndex, "Case 35 gives hospital benzodiazepine before counting the home dose");
+  assert.ok(persistentIndex > hospitalDoseIndex && ventilationIndex > persistentIndex, "Case 35 escalates before five-minute reassessment or delays ventilation after hypoventilation");
+  assert.ok(secondLineIndex > ventilationIndex && resolutionIndex > secondLineIndex, "Case 35 does not move from two benzodiazepine doses to second-line treatment");
+  assert.match(text, /home midazolam counts as dose one/);
+  assert.match(text, /3.75 milligrams[\s\S]*dose two and the final benzodiazepine/);
+  assert.match(text, /Do not give a third benzodiazepine/);
+  assert.match(text, /levetiracetam 60 milligrams per kilogram: 1.5 grams intravenously over five minutes/);
+  assert.match(text, /two-person bag-mask ventilation with 100% oxygen/);
+  assert.match(case35.clinicalSources.map((source) => source.url).join("\n"), /Seizures_acute_management|status-epilepticus|paediatric-advanced-life-support/);
+});
+
 test("every case keeps the station stem clinically neutral", () => {
   cases.forEach((item) => {
     const stemAndTasks = JSON.stringify(item.stem);
     assert.doesNotMatch(
       stemAndTasks,
-      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|\bdiabetic ketoacidosis\b|\beuglycaemic diabetic ketoacidosis\b|\bDKA\b|\bhyperosmolar hyperglyc(?:a|e)emic state\b|\bHHS\b|\bhyperkal(?:a|e)emia\b|\bketonaemia\b|high[- ]anion[- ]gap metabolic acidosis|DKA pathway|fixed[- ]rate intravenous insulin|insulin[- ]glucose infusion|potassium replacement|calcium (?:gluconate|chloride)|peaked T waves?|widened QRS|sine[- ]wave pattern|hypertrophic cardiomyopathy|\bHCM\b|ventricular tachycardia|\bVT\b|complete (?:heart|atrioventricular) block|third[- ]degree (?:heart|atrioventricular) block|bifascicular block|high[- ]risk (?:cardiac )?syncope|sudden[- ]death risk|synchronised cardioversion|transcutaneous pacing|pacemaker|pacing pads|defibrillation pads|monitored transfer|competitive sport restriction|ruptured (?:abdominal )?aortic aneurysm|\babdominal aortic aneurysm\b|\bAAA\b|\bmesenteric ischaemia\b|\bperforated (?:peptic )?ulcer\b|\bperforated viscus\b|\bperitonitis\b|\bpneumoperitoneum\b|\bfree (?:intraperitoneal )?(?:air|gas)\b|\bvascular surgery\b|\bemergency laparotomy\b|\bsource control\b|\bbroad-spectrum antibiotics\b|\bnil by mouth\b|\bCT angiograph(?:y|ic)\b|\bCTA\b|\bbedside aortic ultrasound\b|\bectopic pregnancy\b|\bruptured ectopic\b|\bpre[- ]?eclampsia\b|\beclampsia\b|\bpostpartum haemorrhage\b|\bPPH\b|magnesium sul(?:f|ph)ate|\buterotonic\b|\boxytocin\b|\bergometrine\b|\bcarboprost\b|\bbimanual compression\b|\bballoon tamponade\b|\bfetal monitoring\b|\bCTG\b|\bemergency birth\b|\blaparoscop(?:y|ic)\b|\blaparotom(?:y|ic)\b|\bgynaecolog(?:y|ist|ical)\b|controlled resuscitation|blood-led|(?:blood|capillary) (?:glucose|ketones?) (?:was|is|of) [0-9]|(?:serum )?potassium (?:was|is|of) [0-9]|(?:venous )?pH (?:was|is|of) [0-9]|(?:serum )?osmolality (?:was|is|of) [0-9]|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
+      /\burgent\b|\bimmediate\b|\bsame-day\b|\bunstable\b|\bmassive\b|\bprofuse\b|\bshock\b|\bsepsis\b|\bseptic\b|\bmeningitis\b|\bmeningococcal\b|\bcroup\b|upper airway obstruction|\bstatus epilepticus\b|\bprolonged seizure\b|ongoing convulsion|\bmidazolam\b|\blevetiracetam\b|\bbenzodiazepine\b|nebulised adrenaline|\bdexamethasone\b|\bintubat(?:e|ion)\b|\bneutropeni(?:a|c)\b|\bhaemorrhag(?:e|ic)\b|\bcardiogenic\b|\bneurogenic\b|\bmyocarditis\b|\bvariceal\b|\bulcer\b|\bapixaban\b|\banticoagulant\b|\bhaematemesis\b|\bmelaena\b|\bhaematochezia\b|coffee[- ]ground|\bportal hypertension\b|\bcirrhosis\b|\bupper gastrointestinal\b|\blower gastrointestinal\b|active bleeding|major bleeding|resuscitation|ambulance|vasopressor|noradrenaline|lactate|major haemorrhage|pelvic binder|blood components?|transfus(?:e|ion)|endoscop|angiograph|embolisation|gastroenterology|interventional radiology|factor Xa reversal|prothrombin complex concentrate|mechanical circulatory support|spinal motion restriction|intensive-care clinician|receiving emergency clinician|trauma surgeon|\bdiabetic ketoacidosis\b|\beuglycaemic diabetic ketoacidosis\b|\bDKA\b|\bhyperosmolar hyperglyc(?:a|e)emic state\b|\bHHS\b|\bhyperkal(?:a|e)emia\b|\bketonaemia\b|high[- ]anion[- ]gap metabolic acidosis|DKA pathway|fixed[- ]rate intravenous insulin|insulin[- ]glucose infusion|potassium replacement|calcium (?:gluconate|chloride)|peaked T waves?|widened QRS|sine[- ]wave pattern|hypertrophic cardiomyopathy|\bHCM\b|ventricular tachycardia|\bVT\b|complete (?:heart|atrioventricular) block|third[- ]degree (?:heart|atrioventricular) block|bifascicular block|high[- ]risk (?:cardiac )?syncope|sudden[- ]death risk|synchronised cardioversion|transcutaneous pacing|pacemaker|pacing pads|defibrillation pads|monitored transfer|competitive sport restriction|ruptured (?:abdominal )?aortic aneurysm|\babdominal aortic aneurysm\b|\bAAA\b|\bmesenteric ischaemia\b|\bperforated (?:peptic )?ulcer\b|\bperforated viscus\b|\bperitonitis\b|\bpneumoperitoneum\b|\bfree (?:intraperitoneal )?(?:air|gas)\b|\bvascular surgery\b|\bemergency laparotomy\b|\bsource control\b|\bbroad-spectrum antibiotics\b|\bnil by mouth\b|\bCT angiograph(?:y|ic)\b|\bCTA\b|\bbedside aortic ultrasound\b|\bectopic pregnancy\b|\bruptured ectopic\b|\bpre[- ]?eclampsia\b|\beclampsia\b|\bpostpartum haemorrhage\b|\bPPH\b|magnesium sul(?:f|ph)ate|\buterotonic\b|\boxytocin\b|\bergometrine\b|\bcarboprost\b|\bbimanual compression\b|\bballoon tamponade\b|\bfetal monitoring\b|\bCTG\b|\bemergency birth\b|\blaparoscop(?:y|ic)\b|\blaparotom(?:y|ic)\b|\bgynaecolog(?:y|ist|ical)\b|controlled resuscitation|blood-led|(?:blood|capillary) (?:glucose|ketones?) (?:was|is|of) [0-9]|(?:serum )?potassium (?:was|is|of) [0-9]|(?:venous )?pH (?:was|is|of) [0-9]|(?:serum )?osmolality (?:was|is|of) [0-9]|oxygen saturation (?:was|is) [0-9]|blood pressure (?:was|is) [0-9]|haemoglobin (?:was|is) [0-9]|at triage|while waiting for assessment|become drowsy|obtain (?:an? )?ECG|give oxygen|start oxygen|high-concentration oxygen|oxygen plan|emergency medicines|no imaging has been performed|not required to physically perform|sudden severe chest pain extending into (?:his|her|the) upper back/i,
       `${item.id} stem or tasks disclose the diagnosis or management priority`
     );
   });
@@ -1498,7 +1575,7 @@ test("every case keeps the station stem clinically neutral", () => {
 test("patient first names are varied across the current case set", () => {
   const firstNames = cases.map((item) => {
     const stemText = item.stem.lines.map((line) => line.text).join(" ");
-    const match = stemText.match(/\b(?:Mr|Mrs|Ms) ([A-Za-z]+(?:-[A-Za-z]+)?)/);
+    const match = stemText.match(/\b(?:Mr|Mrs|Ms|Master|Miss) ([A-Za-z]+(?:-[A-Za-z]+)?)/);
     assert.ok(match, `${item.id} has no identifiable patient name in the stem`);
     return match[1].toLowerCase();
   });

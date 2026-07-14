@@ -1,5 +1,5 @@
 {
-  "buildId": "reasoning-journey-v2",
+  "buildId": "pattern-11-paediatric-acute-v1",
   "basePath": "/Amc-clinical/",
   "environment": "github-pages-branch",
   "productModel": "multi-case-optional-reasoning",
@@ -36,7 +36,10 @@
     "case-029",
     "case-030",
     "case-031",
-    "case-032"
+    "case-032",
+    "case-033",
+    "case-034",
+    "case-035"
   ],
-  "checkpoint": "cases-001-020-guided-reasoning-pattern-10-complete"
+  "checkpoint": "cases-001-020-guided-reasoning-pattern-11-complete"
 }

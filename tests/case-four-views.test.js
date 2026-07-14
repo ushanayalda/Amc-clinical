@@ -42,7 +42,27 @@ const canonicalHashes = {
   "case-017": { stem: "b284bae621453e699d1b927930a6d1e3e719c608645c430b3b3e445ee8280caf", run: "fe13a410831883dd635777cc7194363ef3185e2f0d83834829527d48f772d3cd" },
   "case-018": { stem: "cb337d4ace186f1994cf136e7c4b92c342617097236935cf3e00f28a486f6387", run: "c6dfb68a21352d4c1789cb2cbbc298c96bf28e796acd6cb1ceb3a3e4048dc9f8" },
   "case-019": { stem: "01eecf00f98dccf8ab15eed93d81e70b7afbe054dfdb90b32351792a8dc4c7df", run: "5324caf72bbf04dbe792e3ca0edaf03dcd5dcf3d80aec31f134111507b45f5df" },
-  "case-020": { stem: "89b8adc805459321bb8fdfe8a3048fcdf6865559536896761861a0459a1ccb79", run: "d23bde77be063c08eb00736ed6c1a1f9962e473e79959f81be398708fb8367b4" }
+  "case-020": { stem: "89b8adc805459321bb8fdfe8a3048fcdf6865559536896761861a0459a1ccb79", run: "d23bde77be063c08eb00736ed6c1a1f9962e473e79959f81be398708fb8367b4" },
+  "case-021": { stem: "454709d5cb1ad573735bd630a6032a69fdac369d51976c45f29699c393b75457", run: "6e5d5c928909e935cdf45164a11e51905c8efd1980835fb70f2e2238b059e45d" },
+  "case-022": { stem: "2d76b2c20d4a751191e070b4b68f0de9f43dbe498a8b85484ce60fe96917ad3f", run: "ebd52b7cd8c8b1bd677429cad56ab29891e1d874e7ee3376914d6476274f3127" },
+  "case-023": { stem: "d173f819dc23d177d266b83c0c390082ad80d1f4cdc80cd24d4bcf513dc401cd", run: "6d500c88bbaa713277bf9b56794caaee143f53ea0dfbcfe17cd03adbd065eb9f" },
+  "case-024": { stem: "978e50bf6341f7e8adbe8aef078a8bc4af349bdc1c5d7aec2639f68116ca9f31", run: "6cd2130da1f25b1c0aaa13f354037c104e37b58235f94adfbbe7c93371b7642b" },
+  "case-025": { stem: "5cb13b0c84b276b886c2965fb06d6997b7faba4750d20133c32b4f38eb8ac134", run: "6f763d28ef433d705d4f2fbab6f16efea6bc0c44d5a0dad42d0fdfaad9edc8af" },
+  "case-026": { stem: "78c7f7e209c227f51b6a8e0c5265d88d07d5d1b53cc06faa48688896a12ea887", run: "2e2065e0372918b481dee841d294deb3511a7ab3da5d61362c079aae88b22170" },
+  "case-027": { stem: "5375836302865f94b55142d7a2672e45ae1ed4f19568ef2366248ed40f2e6145", run: "108d6e1c8a4cbb0fc2dd9e6c08c08f4157110d0c80d21f1ab230d69f4010e18e" },
+  "case-028": { stem: "d722610b283ca78bf9e8b1c771d51050d9e0d1425b76817f5f5164eafbb8a21f", run: "9b687dfedbd1912b4ff7ab92a45dc193b7ac6e806097480eee387e046555ddce" },
+  "case-029": { stem: "1a41642d26339fa5520979ac58210303ddb7e93a452493e51ff11c50a00cb021", run: "78d01b48a72eb8a7bf3b79da7d664b99862541e2f644fa4fa516d22f69b3e3e4" },
+  "case-030": { stem: "eac6708a142765cc50d3831186ed11c81a717d5fc64e154a564ed84b731e8996", run: "461124df23f814ad2c4128f0bb9866d744a51fa903d4535234956cc85c3010d7" },
+  "case-031": { stem: "42d58f7399dc6b2286904ad5580a0b2a515b9f7c0befc9fe524be13c6f37c9ad", run: "ee66105dcba4b959ac428f5632072ac0638c49b8fbcb390fe37538e355969220" },
+  "case-032": { stem: "4e1927029ac5934fafb8e0d4cba8bcd696991c86d40933677346a096698022a1", run: "0a32fd24e7c5307556777b573dec434570f1820e292435e5119bfea26a0dfd7c" },
+  "case-033": { stem: "cf4bf8a60471393b5d04702a12202fa0c68faad7d3e3cdea799a313702492cfc", run: "b637be8708f66355a7c1952a2194f9efcd64b0fce48591d9e8170d570f4b2a95" },
+  "case-034": { stem: "95baed5fb89b3ad107deb6b3538dee2561057dca127099406957ddb417a9c76e", run: "7f22c59006cab4cf43413b2826f30406862a6c091441110696ff30a484f43949" },
+  "case-035": { stem: "4d9ea151614a300ac4c5f6b8c756bbceae3f88ef6d6d05fbc8593575ba0b8a39", run: "d5b867c209499c9e235eb294af91878be49fb243c11dff91218a487a67fbe2b6" },
+  "case-036": { stem: "a1867840bd11299cf558c7e30a5fa6962abcaa68ce37c2534157caaa13d61e77", run: "e46fbf6e359ceb097334aa43ada00a48c9c936f3e675118bb0512446d0b13ef4" },
+  "case-037": { stem: "417ce829708de0060fc79eff5d67b3a308a3cc4cb37efc5db7d97b5fac1e5593", run: "6b71cbd2fd43c3abda5c80b1dde7e0ffa7b0af0b3cbfd0ca7d3ff210974f2d1f" },
+  "case-038": { stem: "b419c740d24ac6e37ad6282a23a30c79a2eb73e63fef98f250d4d5fb3348c099", run: "a4cf95a98658b3de328a70dd07a976af95aee41712463d8c08714ec44071c193" },
+  "case-039": { stem: "ce02a432642da31f188ecb3cf336328c37f9bf91eda5ec72706c7c7427db8c57", run: "935f87537f956f96139513ec4852308fbb468d2b8b0fc394a100fd6a921162f7" },
+  "case-040": { stem: "40faa2814e5b707e2bb6c8f11f13a6a7513733c41f4a23ecbabd5b0ae983b0eb", run: "0016fb9ba4c4b67e1f2804df187564d15806e888b643924f6a75b6a73067513e" }
 };
 
 test("Case 1 remains the protected canonical four-view case", () => {
@@ -55,11 +75,11 @@ test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(caseData.reasoning, undefined, "annotated case text must not be duplicated");
 });
 
-test("Cases 1 to 20 expose complete reasoning while Cases 21 to 40 remain exam-only", () => {
+test("all 40 Phase 1 cases expose complete reasoning", () => {
   const expectedIds = caseFiles.map((file) => file.replace(/[.]js$/, ""));
   assert.deepEqual(Array.from(cases, (item) => item.id), expectedIds);
-  assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds.slice(0, 20));
-  assert.deepEqual(Array.from(examOnlyCases, (item) => item.id), expectedIds.slice(20));
+  assert.deepEqual(Array.from(reasoningCases, (item) => item.id), expectedIds);
+  assert.deepEqual(Array.from(examOnlyCases, (item) => item.id), []);
 
   reasoningCases.forEach((item) => {
     assert.notEqual(item.reasoningAvailable, false, `${item.id} must expose Reasoning`);
@@ -86,9 +106,7 @@ test("Cases 1 to 20 expose complete reasoning while Cases 21 to 40 remain exam-o
   });
 });
 
-test("case selection exposes completed reasoning and retains a safe exam-only fallback", () => {
-  const examOnlyCase = examOnlyCases[0];
-  assert.ok(examOnlyCase, "an exam-only fallback case is required");
+test("case selection exposes completed reasoning and retains a safe fallback for future exam-only cases", () => {
   assert.equal(viewModel.selectCase(cases, "case-002").id, "case-002");
   assert.equal(viewModel.selectCase(cases, "case-003").id, "case-003");
   assert.equal(viewModel.selectCase(cases, "case-017").id, "case-017");
@@ -97,7 +115,7 @@ test("case selection exposes completed reasoning and retains a safe exam-only fa
   assert.equal(viewModel.viewForCase(caseTwo, "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase(caseThree, "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase(cases[19], "#reasoning-full-run").id, "reasoning-full-run");
-  assert.equal(viewModel.viewForCase(examOnlyCase, "#reasoning-full-run").id, "exam-full-run");
+  assert.equal(viewModel.viewForCase({ reasoningAvailable: false }, "#reasoning-full-run").id, "exam-full-run");
   assert.equal(viewModel.viewForCase(cases[16], "#reasoning-full-run").id, "reasoning-full-run");
   assert.equal(viewModel.viewForCase({ reasoningAvailable: false }, "#reasoning-full-run").id, "exam-full-run");
   assert.equal(viewModel.viewForCase(caseData, "#reasoning-full-run").id, "reasoning-full-run");
@@ -121,7 +139,7 @@ test("every Reasoning layer preserves the canonical Stem and Full Run", () => {
   });
 });
 
-test("Cases 1 to 20 keep short-term case mastery and long-term clinical mastery visible", () => {
+test("all Phase 1 cases keep short-term case mastery and long-term clinical mastery visible", () => {
   const caseFocuses = new Set();
   const clinicalFocuses = new Set();
 
@@ -185,8 +203,11 @@ test("every case has one bounded essential journey and optional deeper links", (
       assert.ok(essentialHints.some((hint) => hint.target.surface === surface && hint.clock), `${item.id} lacks an essential ${surface} clock anchor`);
     });
     assert.ok(item.hints.filter((hint) => hint.clock).length >= 4, `${item.id} needs repeated clock recovery`);
+    assert.ok(item.hints.filter((hint) => Array.isArray(hint.deeper) && hint.deeper.length).length >= 2, `${item.id} needs optional mechanism depth without loading the first reveal`);
 
     item.hints.forEach((hint) => {
+      assert.match(hint.popUp, /[?]/, `${item.id}/${hint.id} must begin with a genuine reasoning question`);
+      assert.ok(hint.say.join(" ").trim().split(/\s+/).length <= 50, `${item.id}/${hint.id} first reveal is too dense`);
       if (hint.deeper === undefined) return;
       assert.ok(Array.isArray(hint.deeper), `${item.id}/${hint.id} deeper content must be an array`);
       hint.deeper.forEach((paragraph) => assert.ok(paragraph.trim(), `${item.id}/${hint.id} has empty deeper content`));
@@ -352,6 +373,131 @@ test("the full Reasoning set keeps the locked consultant-companion voice", () =>
   assert.doesNotMatch(reasoningText, /speed up your safety|heart (?:near|at) the front|stay open|stays open|diagnostic weight|route to danger|on the board|fix the switches|hold the switches|clean return point|route may step down/i);
   assert.doesNotMatch(reasoningText, /reflux owns|physiology outranks|danger threshold|clot-risk stack|clues click|one mechanism unifies|probability shifter/i);
   assert.doesNotMatch(reasoningText, /\b(?:mental|diagnostic|task|clinical) map\b|\b(?:history|heart|diagnostic) lane\b|old case closed/i);
+});
+
+test("Cases 21 to 40 let the Stem reasoning earn rather than disclose the answer", () => {
+  const forbiddenBeforeRun = new Map([
+    ["case-021", /\bDKA\b|diabetic ketoacidosis|ketonaemia|fixed[- ]rate insulin|insulin infusion|\bpotassium\b|missed basal|infusion endpoint/i],
+    ["case-022", /\bHHS\b|hyperosmolar hyperglyc(?:a|e)emic state|pneumonia|kidney injury|delayed insulin|\bpotassium\b/i],
+    ["case-023", /hyperkal(?:a|e)emia|\bpotassium\b|calcium gluconate|myocardial protection|insulin[- ]glucose|urgent dialysis|increasing symmetrical weakness/i],
+    ["case-024", /hypertrophic cardiomyopathy|\bHCM\b|implanted defibrillator|exertional (?:blackout|collapse)/i],
+    ["case-025", /ventricular tachycardia|synchronised cardioversion|amiodarone/i],
+    ["case-026", /complete heart block|third[- ]degree heart block|transcutaneous pacing|pacemaker/i],
+    ["case-027", /abdominal aortic aneurysm|ruptured aneurysm|vascular repair/i],
+    ["case-028", /mesenteric isch(?:a|e)emia|unfractionated heparin|revascularisation|\babrupt\b|recent anticoagulant/i],
+    ["case-029", /perforated (?:peptic )?ulcer|pneumoperitoneum|emergency laparotomy/i],
+    ["case-030", /ectopic pregnancy|laparoscopy|methotrexate/i],
+    ["case-031", /pre[- ]?eclampsia|eclampsia|magnesium sul(?:f|ph)ate|emergency birth/i],
+    ["case-032", /uterine atony|bimanual compression|oxytocin|ergometrine|carboprost/i],
+    ["case-033", /sepsis|meningitis|ceftriaxone|lumbar puncture|vaccin/i],
+    ["case-034", /\bcroup\b|nebulised adrenaline|dexamethasone/i],
+    ["case-035", /status epilepticus|midazolam|levetiracetam/i],
+    ["case-036", /\bopioid|naloxone/i],
+    ["case-037", /acetylcysteine|nomogram|treatment line/i],
+    ["case-038", /tricyclic|amitriptyline|sodium bicarbonate/i],
+    ["case-039", /serotonin toxicity|Hunter criteria|cyproheptadine/i],
+    ["case-040", /snake ?bite|envenom|antivenom|pressure immobili[sz]ation/i]
+  ]);
+
+  cases.slice(20).forEach((item) => {
+    const stemJourney = JSON.stringify({
+      caseMastery: item.masteryFocus.case,
+      compass: item.reasoningCompass.stem,
+      hints: item.hints
+        .filter((hint) => hint.target.surface === "stem")
+        .map((hint) => ({
+          where: hint.where,
+          popUp: hint.popUp,
+          say: hint.say,
+          pause: hint.pause,
+          recap: hint.recap,
+          reorient: hint.reorient,
+          clock: hint.clock,
+          deeper: hint.deeper
+        }))
+    });
+    assert.doesNotMatch(stemJourney, forbiddenBeforeRun.get(item.id), `${item.id} gives away later evidence before the Full Run`);
+  });
+});
+
+test("Cases 21 to 40 keep the always-visible Full Run compass free of later examiner evidence", () => {
+  const forbiddenCompassBeforeRun = new Map([
+    ["case-021", /\bDKA\b|insulin|potassium|acid[- ]base|keton/i],
+    ["case-022", /\bHHS\b|pneumonia|osmolality|insulin|potassium|kidney injury/i],
+    ["case-023", /potassium|dialysis|wider QRS|calcium|myocardial protection/i],
+    ["case-024", /hypertrophic|monitored transfer|murmur|left ventricular/i],
+    ["case-025", /ventricular|monitor captured|drowsiness|hypotension|cardioversion|amiodarone/i],
+    ["case-026", /bradycardia|heart block|pacing|pacemaker|captured cause/i],
+    ["case-027", /aortic|haemorrhage|repair|drowsiness|hypotension/i],
+    ["case-028", /bowel|mesenteric|angiograph|endovascular|laparotom|periton|anticoag/i],
+    ["case-029", /anuria|lactate|periton|source control|perforat/i],
+    ["case-030", /free fluid|ectopic|laparoscop|concealed|haemorrhage/i],
+    ["case-031", /seizure|magnesium/i],
+    ["case-032", /tone, tissue|thrombin|compression|oxytocin/i],
+    ["case-033", /vaccin|sepsis|ceftriaxone|lumbar puncture/i],
+    ["case-034", /quieter|\bcroup\b|adrenaline|dexamethasone/i],
+    ["case-035", /status epilepticus|midazolam|levetiracetam/i],
+    ["case-036", /naloxone|opioid|recurrence/i],
+    ["case-037", /acetylcysteine|nomogram|treatment line/i],
+    ["case-038", /seizure|electrical|bicarbonate|tricyclic|\bQRS\b/i],
+    ["case-039", /rigidity|clonus|serotonin|cooling|sedation/i],
+    ["case-040", /collapses|bleeds|weakens|breathing difficulty|antivenom|bandage removal|envenom/i]
+  ]);
+
+  cases.slice(20).forEach((item) => {
+    assert.doesNotMatch(
+      JSON.stringify(item.reasoningCompass.run),
+      forbiddenCompassBeforeRun.get(item.id),
+      `${item.id} Full Run compass reveals a later examiner finding or decision`
+    );
+  });
+});
+
+test("early Phase 1 source labels do not reveal a diagnosis before the case evidence", () => {
+  const checks = new Map([
+    ["case-021", { hintIds: ["c021-hint-02"], forbidden: /hyperglyc|ketoacidosis|diabetic emergency/i }],
+    ["case-022", { hintIds: ["c022-hint-03", "c022-hint-04"], forbidden: /hyperosmolar|\bHHS\b/i }],
+    ["case-024", { hintIds: ["c024-hint-03"], forbidden: /hypertrophic|cardiomyopathy|\bHCM\b/i }],
+    ["case-027", { hintIds: ["c027-hint-02", "c027-hint-03", "c027-hint-04"], forbidden: /aneurysm|aorto[- ]iliac/i }],
+    ["case-028", { hintIds: ["c028-hint-02", "c028-hint-03", "c028-hint-04", "c028-hint-07"], forbidden: /mesenteric|bowel isch/i }],
+    ["case-029", { hintIds: ["c029-hint-03"], forbidden: /perforated|peptic ulcer/i }],
+    ["case-030", { hintIds: ["c030-hint-02", "c030-hint-03"], forbidden: /ectopic/i }],
+    ["case-033", { hintIds: ["c033-hint-02", "c033-hint-04", "c033-hint-05", "c033-hint-06"], forbidden: /sepsis|meningitis/i }],
+    ["case-034", { hintIds: ["c034-hint-02", "c034-hint-04", "c034-hint-05", "c034-hint-06"], forbidden: /\bcroup\b/i }],
+    ["case-035", { hintIds: ["c035-hint-05", "c035-hint-06"], forbidden: /status epilepticus/i }],
+    ["case-036", { hintIds: ["c036-hint-06"], forbidden: /opioid|naloxone/i }],
+    ["case-039", { hintIds: ["c039-hint-05", "c039-hint-06"], forbidden: /serotonin/i }],
+    ["case-040", { hintIds: ["c040-hint-02", "c040-hint-04", "c040-hint-05", "c040-hint-06"], forbidden: /snake ?bite|envenom|antivenom/i }]
+  ]);
+
+  checks.forEach((check, caseId) => {
+    const item = cases.find((candidate) => candidate.id === caseId);
+    const sourceById = new Map(item.sources.map((source) => [source.id, source]));
+    const titles = check.hintIds.flatMap((hintId) => {
+      const hint = item.hints.find((candidate) => candidate.id === hintId);
+      assert.ok(hint, `${caseId} is missing audited Hint ${hintId}`);
+      return hint.citationIds.map((sourceId) => sourceById.get(sourceId).title);
+    }).join("\n");
+    assert.doesNotMatch(titles, check.forbidden, `${caseId} early source title reveals the diagnosis`);
+  });
+});
+
+test("Phase 1 completion Hints use one reset cue rather than a duplicated Clock line", () => {
+  cases.slice(20).forEach((item) => {
+    assert.equal(item.hints.at(-1).clock, undefined, `${item.id} duplicates the final reset in Clock and Next`);
+  });
+});
+
+test("Cases 21 to 40 keep the natural consultant-companion language lock", () => {
+  const text = JSON.stringify(cases.slice(20).map((item) => ({
+    masteryFocus: item.masteryFocus,
+    reasoningCompass: item.reasoningCompass,
+    hints: item.hints
+  })));
+  assert.doesNotMatch(
+    text,
+    /systems? remain open|evidence streams?|pain journey|causal map|explanation has landed|movement the price|species curiosity|diagnostic ambition|restore unsafe physiology|management coherent|show immediate physiological support/i
+  );
 });
 
 test("Cases 18 to 20 earn source and treatment conclusions from disclosed evidence", () => {
@@ -583,8 +729,8 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
   assert.doesNotMatch(learnerText, /\bmap\b|\blane\b|\bADHD\b|\blearner\b|\bcandidate\b|—/i);
 });
 
-test("Cases 1 to 20 guided reasoning uses one cache-safe release marker", () => {
-  const releaseMarker = "pattern-12-toxicological-emergency-v1";
+test("the complete Phase 1 guided reasoning release uses one cache-safe marker", () => {
+  const releaseMarker = "phase-1-guided-reasoning-complete-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -596,11 +742,11 @@ test("Cases 1 to 20 guided reasoning uses one cache-safe release marker", () => 
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
   assert.doesNotMatch(indexSource, /cases18-20-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "cases-001-020-guided-reasoning-pattern-12-complete");
+  assert.equal(version.checkpoint, "cases-001-040-phase-1-guided-reasoning-complete");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "pattern-12-toxicological-emergency-v1" index[.]html/);
-  assert.match(readme, /Cases 1 to 20 contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: pattern-12-toxicological-emergency-v1/);
+  assert.match(workflow, /grep -q "phase-1-guided-reasoning-complete-v1" index[.]html/);
+  assert.match(readme, /All 40 Phase 1 cases contain completed Reasoning layers/);
+  assert.match(refresh, /Checkpoint: phase-1-guided-reasoning-complete-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {

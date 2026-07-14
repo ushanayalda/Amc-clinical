@@ -1,5 +1,5 @@
 {
-  "buildId": "pattern-12-toxicological-emergency-v1",
+  "buildId": "phase-1-guided-reasoning-complete-v1",
   "basePath": "/Amc-clinical/",
   "environment": "github-pages-branch",
   "productModel": "multi-case-optional-reasoning",
@@ -46,5 +46,5 @@
     "case-039",
     "case-040"
   ],
-  "checkpoint": "cases-001-020-guided-reasoning-pattern-12-complete"
+  "checkpoint": "cases-001-040-phase-1-guided-reasoning-complete"
 }

@@ -264,7 +264,7 @@
       {
         organisation: "Austin Health Clinical Toxicology Service",
         title: "Serotonin (5HT) Toxicity",
-        date: "Version 3, published March 2023; review March 2026; current online guideline accessed July 2026",
+        date: "Version 3; published March 2023; review date March 2026; remained online when accessed July 2026",
         url: "https://www.austin.org.au/Assets/Files/Serotonin%20Toxicity%20Guidelines.March2024.pdf"
       },
       {
@@ -307,7 +307,7 @@
     { id: "acsqhc-deterioration-2026", title: "Recognising and Responding to Acute Deterioration Standard", organisation: "Australian Commission on Safety and Quality in Health Care", date: "Current July 2026", url: "https://www.safetyandquality.gov.au/national-standards/nsqhs-standards/recognising-and-responding-acute-deterioration-standard" },
     { id: "acsqhc-medication-2026", title: "Medication Safety Standard", organisation: "Australian Commission on Safety and Quality in Health Care", date: "Current July 2026", url: "https://www.safetyandquality.gov.au/national-standards/nsqhs-standards/medication-safety-standard" },
     { id: "acsqhc-communication-2026", title: "Communicating for Safety Standard", organisation: "Australian Commission on Safety and Quality in Health Care", date: "Updated April 2026", url: "https://www.safetyandquality.gov.au/national-standards/nsqhs-standards/communicating-safety-standard" },
-    { id: "austin-serotonin-2024", title: "Serotonin (5HT) Toxicity", organisation: "Austin Health Clinical Toxicology Service", date: "Version 3, March 2023; review due March 2026", url: "https://www.austin.org.au/Assets/Files/Serotonin%20Toxicity%20Guidelines.March2024.pdf" },
+    { id: "austin-serotonin-2024", title: "Serotonin (5HT) Toxicity", organisation: "Austin Health Clinical Toxicology Service", date: "Version 3; published March 2023; review date March 2026; remained online when accessed July 2026", url: "https://www.austin.org.au/Assets/Files/Serotonin%20Toxicity%20Guidelines.March2024.pdf" },
     { id: "rch-serotonin-2021", title: "Clinical Practice Guideline: Serotonin toxicity", organisation: "Royal Children's Hospital Melbourne", date: "July 2021", url: "https://www.rch.org.au/clinicalguide/guideline_index/Serotonin_toxicity/" },
     { id: "australian-prescriber-interactions-2021", title: "Opioids and antidepressants: which combinations to avoid", organisation: "Australian Prescriber", date: "April 2021", url: "https://australianprescriber.tg.org.au/articles/opioids-and-antidepressants-which-combinations-to-avoid.html" },
     { id: "vic-poisons-2026", title: "Victorian Poisons Centre", organisation: "Austin Health", date: "Current July 2026", url: "https://www.austin.org.au/poisons" }

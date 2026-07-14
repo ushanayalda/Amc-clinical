@@ -45,5 +45,5 @@ jobs:
         run: |
           test -f index.html
           test -f version.json
-          grep -q "phase-1-guided-reasoning-complete-v1" index.html
+          grep -q "phase-1-clinical-reasoning-sync-v1" index.html
           grep -q "multi-case-optional-reasoning" version.json

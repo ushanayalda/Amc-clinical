@@ -500,6 +500,36 @@ test("Cases 21 to 40 keep the natural consultant-companion language lock", () =>
   );
 });
 
+test("Reasoning follows the audited clinical updates in Cases 8, 33, 37 and 39", () => {
+  const case8 = cases.find((item) => item.id === "case-008");
+  const case33 = cases.find((item) => item.id === "case-033");
+  const case37 = cases.find((item) => item.id === "case-037");
+  const case39 = cases.find((item) => item.id === "case-039");
+  const hint = (item, id) => item.hints.find((candidate) => candidate.id === id);
+
+  assert.doesNotMatch(hint(case8, "c008-hint-11").say.join(" "), /82|99|10 litres/i);
+  assert.match(hint(case8, "c008-hint-12").say.join(" "), /82%[\s\S]*oxygen was necessary[\s\S]*99%[\s\S]*88% to 92%/i);
+  assert.match(hint(case8, "c008-hint-14").deeper.join(" "), /does not prove oxygen is the sole cause/i);
+  assert.doesNotMatch(hint(case8, "c008-hint-37").recap, /what has improved/i);
+
+  assert.match(hint(case33, "c033-hint-18").say.join(" "), /0[.]15 mg\/kg[\s\S]*six-hourly for four days[\s\S]*should delay ceftriaxone/i);
+  assert.match(hint(case33, "c033-hint-18").deeper.join(" "), /within four hours[\s\S]*never after 12 hours[\s\S]*N meningitidis/i);
+  assert.match(case33.masteryFocus.transferAnswer, /dexamethasone 0[.]15 mg\/kg[\s\S]*six-hourly for four days/i);
+  assert.ok(case33.masteryFocus.transferChecks.includes("Dexamethasone timing and ongoing indication"));
+
+  assert.ok(case37.essentialHintIds.includes("c037-hint-21"));
+  assert.match(hint(case37, "c037-hint-21").say.join(" "), /reassessment point[\s\S]*toxicology advice[\s\S]*clinically well[\s\S]*ALT or AST is falling[\s\S]*INR is below 2/i);
+  assert.match(hint(case37, "c037-hint-21").deeper.join(" "), /paracetamol above 10 mg\/L[\s\S]*hepatic synthetic recovery/i);
+  assert.match(case37.masteryFocus.clinical, /scheduled antidote duration is a time to reassess, not an automatic stop/i);
+
+  const austinDates = [
+    case39.clinicalSources.find((source) => source.title === "Serotonin (5HT) Toxicity").date,
+    case39.sources.find((source) => source.id === "austin-serotonin-2024").date
+  ];
+  austinDates.forEach((date) => assert.match(date, /review date March 2026; remained online when accessed July 2026/));
+  assert.doesNotMatch(JSON.stringify([case39.clinicalSources, case39.sources]), /Royal Melbourne Hospital|RMH|Alfred Health|The Alfred/i);
+});
+
 test("Cases 18 to 20 earn source and treatment conclusions from disclosed evidence", () => {
   const case18 = cases.find((item) => item.id === "case-018");
   const case19 = cases.find((item) => item.id === "case-019");
@@ -730,7 +760,7 @@ test("Case 3 sources and consultant-companion language pass the release guardrai
 });
 
 test("the complete Phase 1 guided reasoning release uses one cache-safe marker", () => {
-  const releaseMarker = "phase-1-guided-reasoning-complete-v1";
+  const releaseMarker = "phase-1-clinical-reasoning-sync-v1";
   const indexSource = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const version = JSON.parse(fs.readFileSync(path.join(root, "version.json"), "utf8"));
   const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
@@ -742,11 +772,11 @@ test("the complete Phase 1 guided reasoning release uses one cache-safe marker",
   assert.equal((indexSource.match(new RegExp(`[?]v=${releaseMarker}`, "g")) || []).length, caseFiles.length + 3);
   assert.doesNotMatch(indexSource, /cases18-20-reasoning-v1/);
   assert.equal(version.buildId, releaseMarker);
-  assert.equal(version.checkpoint, "cases-001-040-phase-1-guided-reasoning-complete");
+  assert.equal(version.checkpoint, "cases-001-040-phase-1-clinical-reasoning-sync");
   assert.deepEqual(version.caseIds, caseFiles.map((file) => file.replace(/[.]js$/, "")));
-  assert.match(workflow, /grep -q "phase-1-guided-reasoning-complete-v1" index[.]html/);
+  assert.match(workflow, /grep -q "phase-1-clinical-reasoning-sync-v1" index[.]html/);
   assert.match(readme, /All 40 Phase 1 cases contain completed Reasoning layers/);
-  assert.match(refresh, /Checkpoint: phase-1-guided-reasoning-complete-v1/);
+  assert.match(refresh, /Checkpoint: phase-1-clinical-reasoning-sync-v1/);
 });
 
 test("malformed generated cases fail validation without throwing", () => {

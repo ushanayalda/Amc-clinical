@@ -2471,6 +2471,16 @@ function auditConversation(caseData, blueprint, issues) {
     }
   });
 
+  const handoverLines = lines.filter(function (line) { return line.kind === "handover"; });
+  const visibleTaskText = asArray(caseData && caseData.stem && caseData.stem.tasks)
+    .map(function (task) { return task && task.text; }).filter(isText).join(" ");
+  if (handoverLines.length && !/\bhand[ -]?over\b/i.test(visibleTaskText)) {
+    handoverLines.forEach(function (line) {
+      addIssue(issues, "high", "handover_not_requested_by_task", line.id,
+        "The Full Run performs a handover, but no visible station task asks for one.", line.text);
+    });
+  }
+
   const modality = blueprint && blueprint.station && blueprint.station.modality;
   if (["telephone", "video", "online"].includes(modality)) {
     lines.filter(function (line) { return line.speaker === "Action"; }).forEach(function (line) {

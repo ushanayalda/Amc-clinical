@@ -48,6 +48,7 @@ These rules are stricter editorial controls chosen for this product. They are no
 - Identity is completed before clinical history, with controlled exceptions for record or wristband checking and a documented inability to confirm identity.
 - A Doctor turn contains one information request at a time.
 - Every mapped request has one immediate controlled response, exact answer-evidence phrases and a mandatory human line review. Exact linkage alone is not treated as proof of semantic relevance.
+- A Full Run may perform a handover only when a visible station task explicitly asks for one.
 - A focused mapped participant response over 55 words is held for shortening or splitting before release.
 - Every visible direct address has one exact participant control, and identity-bound address terms must match the confirmed recorded name.
 - Consent uses a positive, scope-aware permission request and an affirmative granted response. Consultation, examination, procedure, information-sharing and sensitive-history consent are modelled when applicable.

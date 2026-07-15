@@ -21,10 +21,10 @@ The next controlled production action is reconstruction of Case 2 only.
 | Record | SHA-256 |
 | --- | --- |
 | Stem | `6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875` |
-| Full Run | `848ecf9cfe383116e70416d2c2e604554d377aa068871bd8e8f42b95f8bd8c78` |
-| Complete visible content | `991b1957b9f5ad32c9aebfeded76bfb420ca80ea26c8ad4791841a5aa73bf1ce` |
-| Review scope | `c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740` |
-| Blueprint package | `01015232dfe4e7e71f28b024a4f864f2118482a50760459bd4ccbba1bbca215f` |
+| Full Run | `d0be5c8e7843a7e4de545a53b008e7c270773ad5be61b9bb560f1b39cc1c6a66` |
+| Complete visible content | `c54637673cc1dbb03be0b5d477b113d85ea9c589f500d39682e834216b062d6a` |
+| Review scope | `737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f` |
+| Blueprint package | `bc5abe0c64d624088ab2f21a4ddb437c909ef0fcc4a003be5c02ffad093477cf` |
 
 The Stem was retained with exam-neutral presentation. Its line review found no diagnosis label, urgency instruction or disposition instruction. The Full Run and its hidden blueprint are bound to the current review-scope and package hashes; later reviewed-content changes invalidate this checkpoint.
 
@@ -35,7 +35,7 @@ The Stem was retained with exam-neutral presentation. Its line review found no d
 - 42 Doctor turns and 29 participant turns were reviewed as dialogue.
 - All 21 mapped Doctor information requests receive one immediate controlled response and are used by a subsequent Doctor line.
 - The audit found 0 multiple-question turns and 0 compound-question turns.
-- The run contains 1,020 spoken words under the collection audit metric.
+- The run contains 971 spoken words under the collection audit metric.
 - Examination findings and the ECG result are released by the Examiner only after the mapped Doctor requests.
 
 ## Independent semantic correction record
@@ -48,22 +48,22 @@ The first structurally passing draft was not accepted as final. Independent sema
 - monitoring initiated later than the recognised high-risk pattern required;
 - aspirin administered later than the reviewed indication and contraindication checks allowed;
 - glyceryl trinitrate discussed without a visible administration action; and
-- a handover duration still bound to an earlier timing estimate.
+- a handover included even though no visible task requested one.
 
-The corrected run was reviewed again as dialogue, clinically rechecked and re-bound to new visible-content, review-scope and package hashes. The final direct audit returned `AUDITED` with zero findings.
+The unrequested handover and its dependent Hint were removed. After teach-back, the consultation now ends only with a brief patient-facing confirmation within the requested concerns-and-management task. The corrected run was reviewed again as dialogue, clinically rechecked and re-bound to new visible-content, review-scope and package hashes. The final direct audit returned `AUDITED` with zero findings.
 
 ## Timing review
 
-The complete timestamped line-by-line spoken and observed-action review recorded 480 seconds. The Examiner's four-minute prompt follows the focused-history summary immediately at 240 seconds, and the final Examiner line occurs at 480 seconds.
+The complete timestamped line-by-line spoken and observed-action review recorded 461 seconds. The Examiner's four-minute prompt follows the focused-history summary immediately at 240 seconds, and the final Examiner line occurs at 461 seconds.
 
 | Task | Observed seconds |
 | --- | ---: |
 | Focused history | 240 |
 | Diagnostic explanation and differentials | 120 |
-| Concerns and management | 120 |
-| Total | 480 |
+| Concerns and management | 101 |
+| Total | 461 |
 
-Observed Action time includes neutral preparation, emergency ambulance activation, the consented examination, consented aspirin administration and consented glyceryl trinitrate administration. Every Full Run line maps to exactly one task. Before the prompt, 479 spoken words plus 26 seconds of observed Action time total 240 seconds; from the prompt onward, 541 spoken words plus 33 seconds of observed Action time total 240 seconds.
+Observed Action time includes neutral preparation, emergency ambulance activation, the consented examination, consented aspirin administration and consented glyceryl trinitrate administration. Every Full Run line maps to exactly one task. Before the prompt, 479 spoken words plus 26 seconds of observed Action time total 240 seconds; from the prompt onward, 492 spoken words plus 33 seconds of observed Action time total 221 seconds.
 
 ## Source and clinical baseline
 
@@ -81,8 +81,8 @@ The source review supports the case's prompt transfer, ECG and monitoring, aspir
 | Check | Result |
 | --- | --- |
 | Case 1 direct Engine 1.1 audit | `AUDITED`; 0 critical, high, medium or low findings |
-| Engine regression suite | 78 passed, 0 failed |
-| Complete repository test suite | 197 passed, 0 failed |
+| Engine regression suite | 79 passed, 0 failed |
+| Complete repository test suite | 198 passed, 0 failed |
 | Canonical case syntax | 42/42 passed |
 | Website build | passed; 42 cases built |
 | Distribution verification | passed |

@@ -1,6 +1,6 @@
 {
   "registryVersion": "1.1.0",
-  "updatedAt": "2026-07-14T21:45:00+10:00",
+  "updatedAt": "2026-07-15T10:43:00+10:00",
   "productionMode": "reconstruction",
   "generationPolicy": {
     "caseSentence": "This case trains [phase purpose] through [pattern], using [station task], to prevent [failure mode], while introducing [new surprise].",
@@ -937,7 +937,7 @@
       "modality": "in_person",
       "predominantArea": "History Taking",
       "status": "audited",
-      "contentSha256": "991b1957b9f5ad32c9aebfeded76bfb420ca80ea26c8ad4791841a5aa73bf1ce",
+      "contentSha256": "c54637673cc1dbb03be0b5d477b113d85ea9c589f500d39682e834216b062d6a",
       "coverageSlot": "dangerous cardiac pattern",
       "distinctJob": "Recognise a persistent exertional cardiac pattern despite a meal-related indigestion explanation.",
       "primaryFailureMode": "premature_closure",

@@ -22,8 +22,8 @@ This is a pass for the production contract and fail-closed audit framework. The 
 
 | Gate | Result |
 | --- | --- |
-| Engine tests | 78 passed, 0 failed |
-| Complete repository tests | 197 passed, 0 failed |
+| Engine tests | 79 passed, 0 failed |
+| Complete repository tests | 198 passed, 0 failed |
 | Independent sealed adversarial scenarios | 43 checked, 0 false passes, 0 valid false rejections |
 | Canonical case syntax | 42/42 passed |
 | Website checks and build | passed |
@@ -59,9 +59,9 @@ The final task-polarity challenge specifically confirmed that a phrase inside â€
 
 ## Case 1 semantic final QA
 
-Independent semantic QA did not rely on the first structural pass. It identified and required correction of a disguised three-part pleuritic-pain question, an unprompted back-pain disclosure, an incorrect timing and four-minute-prompt record, delayed monitoring, delayed aspirin, glyceryl trinitrate that was discussed but not administered, and a stale handover-duration estimate.
+Independent semantic QA did not rely on the first structural pass. It identified and required correction of a disguised three-part pleuritic-pain question, an unprompted back-pain disclosure, an incorrect timing and four-minute-prompt record, delayed monitoring, delayed aspirin, glyceryl trinitrate that was discussed but not administered, and a handover that was not requested by any visible station task.
 
-After correction, the final Case 1 run contains 42 Doctor turns and 29 participant turns, with zero multiple-question and zero compound-question turns. Its timestamped read-through ends at 480 seconds; the focused-history summary is followed immediately by the four-minute Examiner prompt at 240 seconds, and the task review records 240, 120 and 120 seconds. The final direct audit is `AUDITED` with zero findings. Exact stable hashes and the full correction record are in `audits/CASE_001_FINAL_QA.md`.
+After correction, the final Case 1 run contains 42 Doctor turns and 29 participant turns, with zero multiple-question and zero compound-question turns. Its timestamped read-through ends at 461 seconds; the focused-history summary is followed immediately by the four-minute Examiner prompt at 240 seconds, and the task review records 240, 120 and 101 seconds. The final direct audit is `AUDITED` with zero findings. Exact stable hashes and the full correction record are in `audits/CASE_001_FINAL_QA.md`.
 
 ## What the machine proves
 

@@ -25,8 +25,8 @@
     "publication"
   ],
   "verification": {
-    "engineTestsPassed": 78,
-    "repositoryTestsPassed": 197,
+    "engineTestsPassed": 79,
+    "repositoryTestsPassed": 198,
     "canonicalCaseSyntaxPassed": 42,
     "buildPassed": true,
     "distributionVerificationPassed": true,

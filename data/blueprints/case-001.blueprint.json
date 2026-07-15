@@ -3,7 +3,7 @@
   "caseId": "case-001",
   "registryId": "CP-P1-C001",
   "registryVersion": "1.1.0",
-  "revision": 2,
+  "revision": 3,
   "releaseStatus": "audited",
   "station": {
     "displayNumber": "Case 1",
@@ -258,8 +258,7 @@
         "text": "Suspected acute coronary syndrome in primary care requires prompt transfer for definitive assessment",
         "runLineIds": [
           "run-early-escalation-action",
-          "run-escalate",
-          "run-handover"
+          "run-escalate"
         ],
         "sourceClaimIds": [
           "claim-transfer"
@@ -295,8 +294,7 @@
         "runLineIds": [
           "run-early-escalation",
           "run-early-escalation-action",
-          "run-address-concern",
-          "run-handover"
+          "run-address-concern"
         ],
         "sourceClaimIds": [
           "claim-transfer"
@@ -418,8 +416,7 @@
       "text": "The GP initiates assessment and treatment while arranging prompt transfer; definitive serial testing and cardiology management occur in hospital",
       "runLineIds": [
         "run-escalate",
-        "run-no-troponin",
-        "run-handover"
+        "run-no-troponin"
       ],
       "sourceClaimIds": [
         "claim-transfer",
@@ -708,7 +705,7 @@
           "triggerLineId": "run-understanding",
           "responseLineId": "run-understanding-answer",
           "responseText": "You are worried it may be reduced blood flow to my heart. I need the ambulance and hospital tests even though it is not definite yet.",
-          "nextDoctorLineId": "run-handover",
+          "nextDoctorLineId": "run-closing",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
         },
         {
@@ -938,7 +935,7 @@
           "run-oxygen",
           "run-gtn-action",
           "run-gtn-plan",
-          "run-handover"
+          "run-closing"
         ],
         "sourceClaimIds": [
           "claim-exam-standard",
@@ -1510,7 +1507,7 @@
         "responseEvidencePhrases": [
           "ambulance and hospital tests"
         ],
-        "nextDoctorLineId": "run-handover",
+        "nextDoctorLineId": "run-closing",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       }
     ],
@@ -1537,7 +1534,7 @@
     }
   },
   "performance": {
-    "targetSpokenSeconds": 480,
+    "targetSpokenSeconds": 461,
     "actionDurations": [
       {
         "lineId": "run-approach",
@@ -1715,7 +1712,7 @@
           "run-reassure",
           "run-understanding",
           "run-understanding-answer",
-          "run-handover",
+          "run-closing",
           "run-end"
         ],
         "requiredEvidence": [
@@ -1732,7 +1729,7 @@
             "positivePerformancePhrase": "An ambulance provides monitoring and treatment if you deteriorate."
           }
         ],
-        "observedSeconds": 120,
+        "observedSeconds": 101,
         "completed": true
       }
     ],
@@ -1740,11 +1737,11 @@
       "status": "pass",
       "method": "spoken_readthrough",
       "reviewer": "Case-generation engine timing review",
-      "performedAt": "2026-07-15T00:01:00+10:00",
-      "observedSeconds": 480,
-      "caseContentSha256": "991b1957b9f5ad32c9aebfeded76bfb420ca80ea26c8ad4791841a5aa73bf1ce",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
-      "notes": "Timestamped spoken read-through placed the Examiner four-minute prompt immediately after run-summary at 240 seconds and the final Examiner line at 480 seconds. Before the prompt, 479 spoken words at 134.3 words per minute plus 26 seconds of observed Action time total 240 seconds. From the prompt onward, 541 spoken words at 156.8 words per minute plus 33 seconds of observed Action time total 240 seconds. Both segments remain within the audited natural-speech range."
+      "performedAt": "2026-07-15T10:43:00+10:00",
+      "observedSeconds": 461,
+      "caseContentSha256": "c54637673cc1dbb03be0b5d477b113d85ea9c589f500d39682e834216b062d6a",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "notes": "Timestamped spoken read-through placed the Examiner four-minute prompt immediately after run-summary at 240 seconds and the final Examiner line at 461 seconds. Before the prompt, 479 spoken words at 134.3 words per minute plus 26 seconds of observed Action time total 240 seconds. From the prompt onward, 492 spoken words at 157.0 words per minute plus 33 seconds of observed Action time total 221 seconds. Both segments remain within the audited natural-speech range."
     }
   },
   "sourceBasis": {
@@ -1895,8 +1892,7 @@
           "run-early-escalation",
           "run-early-escalation-action",
           "run-escalate",
-          "run-address-concern",
-          "run-handover"
+          "run-address-concern"
         ],
         "taskIds": [
           "task-history",
@@ -1931,8 +1927,7 @@
           "run-ecg-plan",
           "run-ecg-result",
           "run-ecg-response",
-          "run-no-troponin",
-          "run-handover"
+          "run-no-troponin"
         ],
         "taskIds": [
           "task-history",
@@ -1992,7 +1987,7 @@
           "run-bleeding",
           "run-aspirin",
           "run-aspirin-action",
-          "run-handover"
+          "run-escalate"
         ],
         "taskIds": [
           "task-history",
@@ -2107,15 +2102,15 @@
     ]
   },
   "qa": {
-    "caseContentSha256": "991b1957b9f5ad32c9aebfeded76bfb420ca80ea26c8ad4791841a5aa73bf1ce",
-    "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
-    "blueprintPackageSha256": "01015232dfe4e7e71f28b024a4f864f2118482a50760459bd4ccbba1bbca215f",
+    "caseContentSha256": "c54637673cc1dbb03be0b5d477b113d85ea9c589f500d39682e834216b062d6a",
+    "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+    "blueprintPackageSha256": "bc5abe0c64d624088ab2f21a4ddb437c909ef0fcc4a003be5c02ffad093477cf",
     "blueprint": {
       "status": "pass",
       "method": "Executable blueprint integrity review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "automated_test",
@@ -2127,8 +2122,8 @@
       "status": "pass",
       "method": "Diagnosis-alias and urgency-language review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "line_review",
@@ -2140,8 +2135,8 @@
       "status": "pass",
       "method": "Task-to-line and task-evidence review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "line_review",
@@ -2153,8 +2148,8 @@
       "status": "pass",
       "method": "Atomic-question and natural-dialogue review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "line_review",
@@ -2166,8 +2161,8 @@
       "status": "pass",
       "method": "Participant disclosure sequencing review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "line_review",
@@ -2179,8 +2174,8 @@
       "status": "pass",
       "method": "Examiner release and timing-prompt review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "line_review",
@@ -2192,8 +2187,8 @@
       "status": "pass",
       "method": "AMC specification and station-authenticity review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "line_review",
@@ -2205,12 +2200,12 @@
       "status": "pass",
       "method": "Timestamped complete spoken timing review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "listen_test",
-          "reference": "case-001:prompt-240-total-480-seconds"
+          "reference": "case-001:prompt-240-total-461-seconds"
         }
       ]
     },
@@ -2218,8 +2213,8 @@
       "status": "pass",
       "method": "Line-by-line Australian clinical-guideline review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "source_review",
@@ -2231,8 +2226,8 @@
       "status": "pass",
       "method": "Authoritative-source currency and locator review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "source_review",
@@ -2242,10 +2237,10 @@
     },
     "finalQa": {
       "status": "pass",
-      "method": "Engine 1.1 final release audit",
+      "method": "Engine 1.1 task-alignment correction final audit",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T00:01:00+10:00",
-      "reviewScopeSha256": "c127fd03b2adef021c16ba809e76f3edbaa1bdd83d0ee8907238f1caad874740",
+      "reviewedAt": "2026-07-15T10:43:00+10:00",
+      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
       "evidence": [
         {
           "type": "audit_report",

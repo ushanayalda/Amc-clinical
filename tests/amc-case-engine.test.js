@@ -163,12 +163,13 @@ test("one concrete case, blueprint and registry triplet reaches AUDITED", functi
 
 test("Case 1 binds the four-minute prompt and early ACS treatments to the reviewed sequence", function () {
   const blueprint = loadBlueprint(root, "case-001");
-  assert.equal(blueprint.performance.listenTest.observedSeconds, 480);
+  assert.equal(blueprint.performance.listenTest.observedSeconds, 461);
   assert.deepEqual(blueprint.performance.taskEvidence.map(function (item) {
     return item.observedSeconds;
-  }), [240, 120, 120]);
+  }), [240, 120, 101]);
   assert.match(blueprint.performance.listenTest.notes, /prompt immediately after run-summary at 240 seconds/);
-  assert.match(blueprint.performance.listenTest.notes, /final Examiner line at 480 seconds/);
+  assert.match(blueprint.performance.listenTest.notes, /final Examiner line at 461 seconds/);
+  assert.equal(JSON.stringify(blueprint).includes("run-handover"), false);
   assert.equal(blueprint.examiner.scheduledPrompts[0].triggerLineId, "run-summary");
 
   const timingById = new Map(blueprint.clinicalTruth.criticalActionTimings.map(function (item) {
@@ -1637,6 +1638,28 @@ test("visible root extensions and speaker-kind contradictions are rejected", fun
   refreshHashes(wrongKind);
   assert.ok(issueCodes(auditCase(wrongKind.caseData, wrongKind.blueprint, wrongKind.registry))
     .has("speaker_kind_mismatch"));
+});
+
+test("a handover is allowed only when a visible station task requests it", function () {
+  function convertDoctorTurnToHandover(triplet) {
+    const turn = triplet.caseData.run.sections[0].turns.find(function (item) {
+      return item.lines[0].id === "c000-run-opening-question";
+    });
+    turn.kind = "handover";
+    refreshHashes(triplet);
+  }
+
+  const invented = makeValidTriplet();
+  convertDoctorTurnToHandover(invented);
+  assert.ok(issueCodes(auditCase(invented.caseData, invented.blueprint, invented.registry))
+    .has("handover_not_requested_by_task"));
+
+  const requested = makeValidTriplet();
+  requested.caseData.stem.tasks[0].text = "Take a focused history and hand over the case.";
+  requested.blueprint.tasks[0].text = requested.caseData.stem.tasks[0].text;
+  convertDoctorTurnToHandover(requested);
+  assert.equal(issueCodes(auditCase(requested.caseData, requested.blueprint, requested.registry))
+    .has("handover_not_requested_by_task"), false);
 });
 
 test("task controls, learner metadata and urgency language remain exact and neutral", function () {

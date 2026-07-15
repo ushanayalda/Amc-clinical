@@ -418,7 +418,7 @@
                 id: "turn-escalate",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-escalate", text: "The ambulance is on its way. I will assess and treat you here until the paramedics take over." }]
+                lines: [{ id: "run-escalate", text: "The ambulance is on its way. You have already had aspirin 300 milligrams. I will continue monitoring and treatment here until the paramedics arrive." }]
               },
               {
                 id: "turn-patient-ambulance",
@@ -496,7 +496,7 @@
           },
           {
             id: "run-management",
-            heading: "Immediate management and handover",
+            heading: "Immediate management and patient understanding",
             turns: [
               {
                 id: "turn-ecg-plan",
@@ -571,10 +571,10 @@
                 lines: [{ id: "run-understanding-answer", text: "You are worried it may be reduced blood flow to my heart. I need the ambulance and hospital tests even though it is not definite yet." }]
               },
               {
-                id: "turn-handover",
+                id: "turn-closing",
                 speaker: "Doctor",
-                kind: "handover",
-                lines: [{ id: "run-handover", text: "For handover: Daniel Morgan is 60 with ongoing exertional central pressure that began about 35 minutes before this consultation, radiating to the left arm and jaw, with diaphoresis, nausea and dyspnoea, after two recent exertional episodes. He is haemodynamically stable. ECG shows lateral ST depression. Aspirin 300 milligrams has been given. I will provide the ECG, observations, medicine list, allergy and bleeding history, treatments and response, and report any change during transfer." }]
+                kind: "spoken",
+                lines: [{ id: "run-closing", text: "That is correct. I will stay with you, continue monitoring and keep you updated while we wait." }]
               },
               {
                 id: "turn-end",
@@ -924,17 +924,6 @@
             { label: "Trap", text: "Do not wait for a clinic blood result while ongoing ischaemia may be causing harm." }
           ],
           citationIds: ["acs-guideline-2025"]
-        },
-        {
-          id: "hint-handover",
-          target: { surface: "run", itemId: "run-handover", quote: "For handover", occurrence: 1 },
-          title: "Handover preserves the reasoning chain",
-          lead: "A good handover tells the next team what is happening, why you are worried, what has changed and what has already been done.",
-          layers: [
-            { label: "Minimum set", text: "Identity, onset and current symptoms, key positives and negatives, observations, ECG and time, medicines and doses, contraindications, response and deterioration." },
-            { label: "Examiner logic", text: "Management is not complete at 'refer'. Show how care remains safe during transfer and transition." }
-          ],
-          citationIds: ["acs-guideline-2025", "amc-tips-2024"]
         }
       ]
     }
@@ -1211,15 +1200,7 @@
       popUp: "I already explained everything. Why ask the patient to repeat it?",
       pal: "Because a clear explanation in your head may not be clear under fear. Teach-back checks your communication, not the patient's intelligence. It also reveals the exact misunderstanding you need to fix before transfer.",
       hold: "The patient should understand the concern, the uncertainty and why ambulance transfer is needed.",
-      next: "Correct one gap if needed, then hand over the reasoning chain."
-    },
-    "hint-handover": {
-      journeyPoint: "Run · carry the map into the next team",
-      popUp: "What belongs in handover when time is nearly over?",
-      pal: "Give the receiving team the story that controls risk: identity, onset and current symptoms, key positives and negatives, observations, ECG and time, treatments, contraindications and any change.",
-      flow: ["What happened", "Why I am worried", "What I found", "What I did", "What still needs watching"],
-      hold: "Management is not complete at 'refer'. Safe care continues through transfer.",
-      next: "Finish with current stability and the next required action."
+      next: "Correct one gap if needed, then finish the consultation."
     },
     "hint-finish": {
       journeyPoint: "Between stations · release and restart",
@@ -1413,9 +1394,9 @@
       popUp: "Is saying ambulance enough for management?",
       say: [
         "No. Transfer is only one part of the plan.",
-        "Include what you would do immediately, what you would monitor while waiting, which treatments are appropriate, how he should travel and what you would hand over."
+        "Include what you would do immediately, what you would monitor while waiting, which treatments are appropriate and how he should travel."
       ],
-      pause: "State what you will do in the clinic, while waiting for the ambulance and during handover.",
+      pause: "State what you will do in the clinic and while waiting for the ambulance.",
       recap: "The station order is: focused history, diagnostic explanation, patient concern, then management.",
       reorient: "If you lose your place, return to the next part of the task that you have not completed.",
       clock: "History to minute 4. Explanation to minute 6. Concern and management to minute 8."
@@ -1680,18 +1661,7 @@
       ],
       pause: "Use teach-back rather than asking only, 'Do you understand?'",
       recap: "He needs to understand the concern, the uncertainty and why ambulance transfer matters.",
-      reorient: "Clarify any misunderstanding, then prepare the handover."
-    },
-    "hint-handover": {
-      where: "Giving the ambulance handover",
-      popUp: "Time is nearly over. What must go into the handover?",
-      say: [
-        "Tell the paramedics his age, when the symptoms began, how they have changed and what is happening now.",
-        "Include the important positive and negative findings, observations, ECG and its time, treatments given, contraindications and any change in his condition."
-      ],
-      pause: "Include the information that affects urgency and immediate care.",
-      recap: "They need to know why you are worried, what you found and what you already did.",
-      reorient: "Finish with his current state and what still needs to happen."
+      reorient: "Clarify any misunderstanding, then finish the consultation."
     },
     "hint-finish": {
       where: "Moving to the next station",
@@ -1987,16 +1957,6 @@
         "An early result may still be normal.",
         "One early result is not enough.",
         "Repeat troponin at the correct interval and interpret it with the history and ECG."
-      ]
-    },
-    "hint-handover": {
-      "say": [
-        "Tell the paramedics his age, when the symptoms began, how they have changed and what is happening now."
-      ],
-      "recap": "They need to know why you are worried.",
-      "deeper": [
-        "Include the important positive and negative findings, observations, ECG and its time, treatments given, contraindications and any change in his condition.",
-        "They need to know why you are worried, what you found and what you already did."
       ]
     },
     "hint-setting": {

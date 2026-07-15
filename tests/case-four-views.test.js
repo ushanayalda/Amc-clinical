@@ -23,7 +23,7 @@ const reasoningCases = cases.filter((item) => item.reasoningAvailable !== false)
 const examOnlyCases = cases.filter((item) => item.reasoningAvailable === false);
 const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const canonicalHashes = {
-  "case-001": { stem: "6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875", run: "848ecf9cfe383116e70416d2c2e604554d377aa068871bd8e8f42b95f8bd8c78" },
+  "case-001": { stem: "6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875", run: "d0be5c8e7843a7e4de545a53b008e7c270773ad5be61b9bb560f1b39cc1c6a66" },
   "case-002": { stem: "18657f3620eca6ce1bb2a06fe0811dc1b340de7ee73e4a6f79fa6e88df53751d", run: "9b976818df6b4f1a28202aa73a52a38f4914481a6370a907ccabcbd36d58d6a9" },
   "case-003": { stem: "628cd9b24075030fa0b146fe890c5b9514acacc0bbbedfaa5c55c4e37f7db634", run: "95f1c861b3fa40e37be2de87d17616ce21321d7c4813824cf048e76aa1296f67" },
   "case-004": { stem: "a615fe14b9d4d6233646069c60ca8abb99eebcdc7af35e29026882c85aecc8da", run: "253476b2111e2b3df0d00fab56da453ac8cc4d7053e356af300fa778e9364664" },
@@ -2015,8 +2015,8 @@ test("Case 1 preserves the audited atomic and time-critical ACS sequence", () =>
   assert.ok(index("run-gtn") < index("run-gtn-consent"));
   assert.ok(index("run-gtn-consent") < index("run-gtn-action"));
   assert.match(byId.get("run-gtn-action"), /gives one sublingual dose/);
-  assert.match(byId.get("run-handover"), /35 minutes before this consultation/);
-  assert.doesNotMatch(byId.get("run-handover"), /with 35 minutes of ongoing/);
+  assert.equal(byId.has("run-handover"), false);
+  assert.equal(byId.get("run-closing"), "That is correct. I will stay with you, continue monitoring and keep you updated while we wait.");
 });
 
 test("Reasoning text is byte-equivalent to Exam text after markers are removed", () => {
@@ -2031,15 +2031,15 @@ test("Reasoning text is byte-equivalent to Exam text after markers are removed",
   });
 });
 
-test("the approved Stem and Full Run remain byte-for-byte unchanged", () => {
+test("the approved Stem and corrected Full Run remain byte-for-byte locked", () => {
   const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
   assert.equal(digest(caseData.stem), "6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875");
-  assert.equal(digest(caseData.run), "848ecf9cfe383116e70416d2c2e604554d377aa068871bd8e8f42b95f8bd8c78");
+  assert.equal(digest(caseData.run), "d0be5c8e7843a7e4de545a53b008e7c270773ad5be61b9bb560f1b39cc1c6a66");
 });
 
 test("every Hint resolves to an exact phrase and a current source link", () => {
   const sourceIds = new Set(caseData.sources.map((source) => source.id));
-  assert.ok(caseData.hints.length >= 35, "Case 1 needs a start-to-finish reasoning journey");
+  assert.ok(caseData.hints.length >= 34, "Case 1 needs a start-to-finish reasoning journey");
 
   caseData.hints.forEach((hint) => {
     const item = viewModel.itemMap(caseData, hint.target.surface)[hint.target.itemId];
@@ -2060,7 +2060,7 @@ test("every Hint resolves to an exact phrase and a current source link", () => {
   });
 });
 
-test("Hints cover stem, tasks, dialogue, findings, investigations and handover", () => {
+test("Hints cover the requested stem, tasks, dialogue, findings and investigations", () => {
   const targets = new Set(caseData.hints.map((hint) => hint.target.itemId));
   [
     "stem-patient",
@@ -2077,7 +2077,6 @@ test("Hints cover stem, tasks, dialogue, findings, investigations and handover",
     "run-ecg-result",
     "run-aspirin",
     "run-oxygen",
-    "run-handover",
     "run-end"
   ].forEach((id) => assert.ok(targets.has(id), `missing mastery target ${id}`));
 });
@@ -2156,7 +2155,8 @@ test("the model run contains all station voices and observable event types", () 
   const speakers = new Set(turns.map((turn) => turn.speaker));
   const kinds = new Set(turns.map((turn) => turn.kind));
   ["Doctor", "Patient", "Examiner", "Action"].forEach((speaker) => assert.ok(speakers.has(speaker)));
-  ["spoken", "action", "finding", "investigation", "handover"].forEach((kind) => assert.ok(kinds.has(kind)));
+  ["spoken", "action", "finding", "investigation"].forEach((kind) => assert.ok(kinds.has(kind)));
+  assert.equal(kinds.has("handover"), false, "Case 1 adds a handover that is absent from the station tasks");
   assert.equal(turns[0].speaker, "Examiner");
   assert.equal(turns.at(-1).speaker, "Examiner");
 });

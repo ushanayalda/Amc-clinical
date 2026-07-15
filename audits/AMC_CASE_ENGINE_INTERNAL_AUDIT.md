@@ -46,7 +46,7 @@ The final executable suite covers:
 - registry reconstruction order, manifest provenance and generation blocking;
 - exact and near-duplicate collection controls.
 
-Final verification recorded 78/78 engine tests, 197/197 repository tests and 43 independently sealed adversarial scenarios with zero false passes and zero valid false rejections.
+Final verification recorded 79/79 engine tests, 198/198 repository tests and 43 independently sealed adversarial scenarios with zero false passes and zero valid false rejections.
 
 ## Corrected false-pass families
 
@@ -89,9 +89,9 @@ After Case 1 first satisfied the structural engine, an independent semantic revi
 4. Cardiac monitoring was initiated too late for the recognised risk pattern.
 5. Aspirin administration was delayed despite the reviewed indication and contraindication checks.
 6. Glyceryl trinitrate was discussed but not visibly administered.
-7. The handover duration remained bound to a stale timing estimate.
+7. A handover appeared in the Full Run even though no visible station task requested one.
 
-Each defect was corrected and re-bound to the current visible-content, review-scope and package hashes. The final timestamped read-through is 480 seconds, with the four-minute prompt immediately after the focused-history summary at 240 seconds. The final direct Case 1 audit is `AUDITED` with zero findings.
+Each defect was corrected and re-bound to the current visible-content, review-scope and package hashes. The unrequested handover and its dependent Hint were removed, and a regression rule now blocks this defect in future cases. The final timestamped read-through is 461 seconds, with the four-minute prompt immediately after the focused-history summary at 240 seconds. The final direct Case 1 audit is `AUDITED` with zero findings.
 
 ## Current collection report
 
@@ -107,6 +107,7 @@ Case 1 is now `AUDITED`. Cases 2 to 42 remain preserved source material. The cur
 | `doctor_monologue` | 28 |
 | `identity_response_contains_history` | 26 |
 | `identity_mixed_with_clinical_content` | 22 |
+| `handover_not_requested_by_task` | 7 |
 | `stem_signals_urgency` | 4 |
 | `registry_global_id_mismatch` | 3 |
 | `identity_not_first` | 2 |

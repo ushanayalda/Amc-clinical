@@ -24,9 +24,9 @@
     "publication"
   ],
   "verification": {
-    "engineTestsPassed": 79,
-    "repositoryTestsPassed": 200,
-    "canonicalCaseSyntaxPassed": 43,
+    "engineTestsPassed": 81,
+    "repositoryTestsPassed": 202,
+    "canonicalCaseSyntaxPassed": 44,
     "buildPassed": true,
     "distributionVerificationPassed": true,
     "emergencyExploreDiffCheckPassed": true,
@@ -39,17 +39,17 @@
     "plannedCases": 42,
     "nextAction": {
       "mode": "generate_fresh_case_from_registry_slot",
-      "caseId": "case-002"
+      "caseId": "case-003"
     },
     "freshContentGenerationWithinRegistry": true,
     "unregisteredExpansionAllowed": false
   },
   "currentCaseCollection": {
     "status": "HOLD",
-    "total": 1,
-    "audited": 1,
+    "total": 2,
+    "audited": 2,
     "hold": 0,
-    "registryPending": 41,
+    "registryPending": 40,
     "releaseGateBlocked": true,
     "expectedReleaseGateExitCode": 2
   },
@@ -73,5 +73,5 @@
     "performed": false,
     "authorised": false
   },
-  "nextProductionRule": "Generate a fresh Case 2 from the next fixed registry slot. Do not edit Emergency Explore and do not publish without explicit authorisation."
+  "nextProductionRule": "Generate a fresh Case 3 from the next fixed registry slot. Do not edit Emergency Explore and do not publish without explicit authorisation."
 }

@@ -79,7 +79,7 @@ Pattern-specific logic has three honest provenance states:
 - Pattern 13: recovered from legacy Cases 41 and 42.
 - Patterns 14 to 40: missing. Their titles and phase purposes are known, but their dominant capability and core coverage were not recoverable. They remain `generation_blocked` until deliberately designed and source-reviewed.
 
-The fresh canonical Case 1 is `audited`, and its exact checkpoint is recorded in `audits/CASE_001_FINAL_QA.md`. Current Cases 2 to 42 do not yet exist; their fixed registry slots remain pending. The only next production action is to generate a fresh Case 2 from its slot. The earlier 42 source files remain separate under Emergency Explore; Cases 2 to 42 retain the sealed aggregate SHA-256 `55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a`. No publication was performed at the Case 1 checkpoint.
+The fresh canonical Cases 1 and 2 are `audited`, with exact checkpoints recorded in `audits/CASE_001_FINAL_QA.md` and `audits/CASE_002_FINAL_QA.md`. Current Cases 3 to 42 do not yet exist; their fixed registry slots remain pending. The only next production action is to generate a fresh Case 3 from its slot. The earlier 42 source files remain separate under Emergency Explore; Cases 2 to 42 retain the sealed aggregate SHA-256 `55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a`. Case 2 has not been published.
 
 The pinned manifest also binds the registry order, phase definitions and immutable pattern logic. Changing a title, purpose, capacity, reserve or expansion rule requires a deliberate manifest renewal, a new pinned manifest hash and renewed engine QA. Editing the registry alone is insufficient.
 
@@ -119,7 +119,7 @@ The blueprint controls:
 - exact direct-address ownership for every visible vocative;
 - answered-response status and exact response-evidence phrases;
 - variation, duplication and failure-mode decisions;
-- line-to-task mapping and listened timing;
+- line-to-task mapping and measured spoken timing;
 - exact required task-evidence phrases, a standalone positive-performance phrase and an exhaustive actor-bound Action classification;
 - claims, current sources and recorded section or recommendation locators;
 - structured QA evidence and content hashes.
@@ -139,7 +139,7 @@ An audited learner-facing note must identify the case as original practice or si
 8. Complete exact line mappings, claim evidence, task evidence and control records in the blueprint.
 9. Run structural and behavioural audit.
 10. Run clinical, source and AMC-level review.
-11. Read the entire run aloud and record per-task timing and Action durations.
+11. Rehearse the entire run aloud and record per-task timing and Action durations. A human read-through is preferred; a reproducible line-by-line synthetic speech render may verify elapsed-time feasibility when it is explicitly labelled synthetic and dialogue quality is reviewed separately.
 12. Bind the visible content and listen review to a visible-content hash, and bind the entire hidden blueprint package to separate review-scope and package SHA-256 hashes.
 13. Run final QA. Any blocker returns the case to HOLD.
 
@@ -218,7 +218,7 @@ That line review is part of the hash-bound hidden package. Each passing gate car
 
 - Hidden task allocations total exactly eight minutes.
 - The primary task receives more internal time than each secondary task.
-- A spoken read-through records 420 to 480 seconds for the whole run, including observed Action time.
+- A complete spoken timing rehearsal records 420 to 480 seconds for the whole run, including observed Action time.
 - Every Full Run line maps to exactly one task.
 - Every Action line has an observed duration.
 - Observed task time must remain within 40 seconds of its proportional internal allocation.
@@ -230,6 +230,7 @@ That line review is part of the hash-bound hidden package. Each passing gate car
 
 Word count alone is not timing evidence.
 The schema field retains the legacy name `targetSpokenSeconds`, but its executable meaning is target elapsed Full Run time, not speech-only time.
+The schema value `listenTest.method: spoken_readthrough` is also a legacy umbrella. Its reviewer and notes must state whether the evidence came from a human read-through or a reproducible synthetic spoken render. Synthetic evidence may verify duration only; it cannot certify natural dialogue, clinical quality or examiner authenticity.
 
 ## Marking and evidence contract
 
@@ -247,7 +248,7 @@ The engine verifies source-record shape, HTTPS URLs, dates, review intervals, de
 
 These controls do not prove that a page exists, that a locator is accurate, or that the source supports the clinical sentence. Before a case is audited, this thread must open the current primary sources, verify identity, authority, applicability, locator accuracy and each consequential claim, then record `source_review` evidence. Structured evidence proves required type and package binding, not reviewer honesty or review quality. Unsupported, conflicting or uncertain guidance produces HOLD.
 
-The exact catalogue currently contains five entries: two AMC examination sources and three ACS clinical sources. Its current clinical coverage is ACS only. Other clinical topics require deliberate source review and catalogue expansion before case release. Catalogue version `1.0.0` is independent of Engine version `1.1.0`.
+The exact catalogue currently contains eight entries: two AMC examination sources and six clinical sources covering ACS, acute aortic dissection and contextual emergency oxygen use. Other clinical topics require deliberate source review and catalogue expansion before case release. Catalogue version `1.0.0` is independent of Engine version `1.1.0`.
 
 ## Release states
 

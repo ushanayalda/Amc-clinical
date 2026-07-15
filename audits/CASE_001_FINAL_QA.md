@@ -14,11 +14,11 @@ Outcome: `AUDITED`
 
 The fresh canonical Case 1 passes Engine 1.1 with zero case-level findings. This checkpoint does not publish the case and does not approve reasoning-layer content.
 
-The current collection remains `HOLD` only because registry Cases 2 to 42 have not yet been generated. All 42 earlier case files remain separate under **Emergency Explore** and no file in `data/cases/` was changed. The earlier Cases 2 to 42 retain aggregate SHA-256:
+The current collection remains `HOLD` only because registry Cases 3 to 42 have not yet been generated. All 42 earlier case files remain separate under **Emergency Explore** and no file in `data/cases/` was changed. The earlier Cases 2 to 42 retain aggregate SHA-256:
 
 `55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a`
 
-The next production action is a fresh Case 2 from the next fixed registry slot.
+The next production action is a fresh Case 3 from the next fixed registry slot.
 
 ## Content and package binding
 
@@ -27,10 +27,12 @@ The next production action is a fresh Case 2 from the next fixed registry slot.
 | Stem | `02df997578c84393208cf858455ec3a4fd3df2365a016cab5fda2f56bc21638e` |
 | Full Run | `d59fefccac254937b3bb493671dc4761a6d086d6c627a4b9fdea104d2363741e` |
 | Complete visible content | `e6b05df8e4a35aad99e60cc213e6e8bdb2026ef7c4f3b05e98107e73bb935bba` |
-| Review scope | `9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528` |
-| Blueprint package | `f79bfb765990f20c8c1493ad80f4ea0856e61e01ebd565304939e4fec9185bb6` |
+| Review scope | `2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24` |
+| Blueprint package | `b29545acbc21315b527d258edc43a8068a85f1e9fe057dd88b32ade73ef73629` |
 
 The Stem contains no diagnosis label, urgency instruction or disposition instruction. Later changes to the visible case, blueprint, controls, claims, sources or timing invalidate these bindings.
+
+The review and package bindings were refreshed after the authoritative catalogue was extended for Case 2. Case 1's Stem, Full Run and complete visible-content hash did not change.
 
 ## Interaction review
 
@@ -90,14 +92,14 @@ These sources support the atypical symptom pattern, prompt transfer, early vital
 | Check | Result |
 | --- | --- |
 | Case 1 direct Engine 1.1 audit | `AUDITED`; zero findings |
-| Engine regression suite | 79 passed, 0 failed |
-| Complete repository test suite | 200 passed, 0 failed |
-| Case syntax | 1 current + 42 Emergency Explore files passed |
+| Engine regression suite | 81 passed, 0 failed |
+| Complete repository test suite | 202 passed, 0 failed |
+| Case syntax | 2 current + 42 Emergency Explore files passed |
 | Website build | passed; both collections built |
 | Distribution verification | passed |
-| Registry | `READY`; next fixed slot is Case 2 |
-| Current collection | `HOLD`; 1 `AUDITED`, 0 case-level `HOLD`, 41 registry slots pending |
+| Registry | `READY`; next fixed slot is Case 3 |
+| Current collection | `HOLD`; 2 `AUDITED`, 0 case-level `HOLD`, 40 registry slots pending |
 | Emergency Explore diff | empty; earlier 42 files unchanged |
-| Publication | not performed |
+| Publication | no publication performed by this QA refresh |
 
 Case 1 therefore meets the Engine 1.1 `audited` contract at this exact content and blueprint package state. Collection completion and publication are separate gates.

@@ -1,10 +1,11 @@
 {
   "engineVersion": "1.1.0",
-  "engineStatus": "audited_for_reconstruction",
+  "engineStatus": "audited_for_case_generation",
   "finalQa": "pass",
-  "auditedOn": "2026-07-14",
+  "auditedOn": "2026-07-15",
   "scope": [
-    "registry selection and reconstruction order",
+    "fixed registry selection and case order",
+    "fresh canonical case generation",
     "hidden station blueprint",
     "exam-neutral Stem",
     "word-for-word Full Run",
@@ -20,40 +21,44 @@
   ],
   "excludedScope": [
     "reasoning layer",
-    "approval of any current case",
-    "new-case generation",
     "publication"
   ],
   "verification": {
     "engineTestsPassed": 79,
-    "repositoryTestsPassed": 198,
-    "canonicalCaseSyntaxPassed": 42,
+    "repositoryTestsPassed": 200,
+    "canonicalCaseSyntaxPassed": 43,
     "buildPassed": true,
     "distributionVerificationPassed": true,
-    "gitDiffCheckPassed": true,
-    "independentAdversarialRerun": "pass"
+    "emergencyExploreDiffCheckPassed": true,
+    "independentClinicalReview": "pass_after_corrections"
   },
   "registry": {
     "status": "READY",
     "phases": 4,
     "patterns": 40,
-    "totalCases": 42,
+    "plannedCases": 42,
     "nextAction": {
-      "mode": "reconstruct",
+      "mode": "generate_fresh_case_from_registry_slot",
       "caseId": "case-002"
     },
-    "newGenerationAllowed": false
+    "freshContentGenerationWithinRegistry": true,
+    "unregisteredExpansionAllowed": false
   },
-  "existingCaseCollection": {
+  "currentCaseCollection": {
     "status": "HOLD",
-    "total": 42,
+    "total": 1,
     "audited": 1,
-    "hold": 41,
+    "hold": 0,
+    "registryPending": 41,
     "releaseGateBlocked": true,
-    "expectedReleaseGateExitCode": 2,
+    "expectedReleaseGateExitCode": 2
+  },
+  "emergencyExploreCollection": {
+    "status": "SEPARATE_ARCHIVE",
+    "total": 42,
+    "sourceFilesModified": false,
     "legacyCaseSetSha256": "fd244a5be2bcf6512b2d69962de143f9958ea68c0160ce57acc7c478a083c92a",
-    "sealedCasesTwoToFortyTwoSha256": "55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a",
-    "caseFilesModifiedByEngineAudit": true
+    "sealedCasesTwoToFortyTwoSha256": "55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a"
   },
   "humanReviewBoundary": [
     "clinical truth and safety",
@@ -68,5 +73,5 @@
     "performed": false,
     "authorised": false
   },
-  "nextProductionRule": "Case 1 is audited. Reconstruct Case 2 only. Do not generate, skip ahead or publish while legacy reconstruction remains pending."
+  "nextProductionRule": "Generate a fresh Case 2 from the next fixed registry slot. Do not edit Emergency Explore and do not publish without explicit authorisation."
 }

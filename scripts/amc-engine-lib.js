@@ -1751,17 +1751,19 @@ function validateVisibleCase(caseData) {
 }
 
 function loadCases(root) {
-  const directory = path.join(root, "data", "cases");
+  const currentDirectory = path.join(root, "data", "current-cases");
+  const directory = fs.existsSync(currentDirectory) ? currentDirectory : path.join(root, "data", "cases");
   if (!fs.existsSync(directory)) return [];
   const files = fs.readdirSync(directory).filter(function (file) {
     return /^case-[0-9]{3}\.js$/.test(file);
   }).sort();
-  const context = { window: { AMC_CASES: [] } };
+  const collectionName = directory === currentDirectory ? "AMC_CURRENT_CASES" : "AMC_CASES";
+  const context = { window: { AMC_CASES: [], AMC_CURRENT_CASES: [] } };
   files.forEach(function (file) {
-    const before = context.window.AMC_CASES.length;
+    const before = context.window[collectionName].length;
     const source = fs.readFileSync(path.join(directory, file), "utf8");
     vm.runInNewContext(source, context, { filename: file, timeout: 1000 });
-    const added = context.window.AMC_CASES.slice(before);
+    const added = context.window[collectionName].slice(before);
     if (added.length !== 1) {
       throw new Error(file + " must register exactly one case object");
     }
@@ -1770,7 +1772,7 @@ function loadCases(root) {
       throw new Error(file + " must register case id " + expectedId);
     }
   });
-  return Array.from(context.window.AMC_CASES || []);
+  return Array.from(context.window[collectionName] || []);
 }
 
 function loadBlueprint(root, caseId) {

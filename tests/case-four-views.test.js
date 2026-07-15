@@ -808,7 +808,8 @@ test("every canonical case is loaded by the source shell and discovered by the b
   caseFiles.forEach((file) => {
     assert.match(indexSource, new RegExp("data/cases/" + file.replace(/[.]/g, "[.]")));
   });
-  assert.match(buildSource, /readdirSync\(path[.]join\(root, "data", "cases"\)\)/);
+  assert.match(buildSource, /discoverCaseAssets\("current-cases"\)/);
+  assert.match(buildSource, /discoverCaseAssets\("cases"\)/);
 });
 
 test("new case files contain complete station voices without learner-facing reasoning text", () => {

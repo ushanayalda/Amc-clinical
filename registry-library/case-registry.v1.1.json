@@ -1,6 +1,6 @@
 {
   "registryVersion": "1.1.0",
-  "updatedAt": "2026-07-15T10:43:00+10:00",
+  "updatedAt": "2026-07-15T01:54:10.492Z",
   "productionMode": "reconstruction",
   "generationPolicy": {
     "caseSentence": "This case trains [phase purpose] through [pattern], using [station task], to prevent [failure mode], while introducing [new surprise].",
@@ -797,7 +797,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-1-dangerous-chest-pain",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -807,7 +807,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-2-acute-shortness-of-breath",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -817,7 +817,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-3-sudden-neurological-deficit",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -827,7 +827,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-4-sepsis-pattern",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -837,7 +837,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-5-shock-pattern",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -847,7 +847,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-6-unstable-gastrointestinal-bleed",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -857,7 +857,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-7-metabolic-collapse",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -867,7 +867,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-8-cardiac-syncope",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -877,7 +877,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-9-acute-severe-abdominal-pain-with-instability",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -887,7 +887,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-10-obstetric-catastrophe",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -897,7 +897,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-11-paediatric-acute-deterioration",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -907,7 +907,7 @@
       "sourceRefs": [
         {
           "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-12-toxicological-emergency",
-        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+          "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
         }
       ]
     },
@@ -933,13 +933,13 @@
       "registryId": "CP-P1-C001",
       "phaseId": 1,
       "patternId": 1,
-      "title": "Chest discomfort after lunch",
+      "title": "Jaw discomfort while carrying groceries",
       "modality": "in_person",
       "predominantArea": "History Taking",
       "status": "audited",
-      "contentSha256": "c54637673cc1dbb03be0b5d477b113d85ea9c589f500d39682e834216b062d6a",
+      "contentSha256": "e6b05df8e4a35aad99e60cc213e6e8bdb2026ef7c4f3b05e98107e73bb935bba",
       "coverageSlot": "dangerous cardiac pattern",
-      "distinctJob": "Recognise a persistent exertional cardiac pattern despite a meal-related indigestion explanation.",
+      "distinctJob": "Recognise possible myocardial ischaemia when exertional jaw discomfort, breathlessness and nausea are volunteered before central heaviness is elicited.",
       "primaryFailureMode": "premature_closure",
       "admissionDecision": "admitted"
     },

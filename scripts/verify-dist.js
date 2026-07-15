@@ -3,10 +3,15 @@ const path = require("path");
 
 const dist = path.resolve(__dirname, "..", "dist");
 const root = path.resolve(__dirname, "..");
-const expectedCaseIds = fs.readdirSync(path.join(root, "data", "cases"))
-  .filter((file) => /^case-[0-9]+[.]js$/.test(file))
-  .sort()
-  .map((file) => path.basename(file, ".js"));
+function expectedCaseIds(directory) {
+  return fs.readdirSync(path.join(root, "data", directory))
+    .filter((file) => /^case-[0-9]+[.]js$/.test(file))
+    .sort()
+    .map((file) => path.basename(file, ".js"));
+}
+
+const expectedCurrentCaseIds = expectedCaseIds("current-cases");
+const expectedEmergencyExploreCaseIds = expectedCaseIds("cases");
 let failed = false;
 
 function fail(message) {
@@ -34,9 +39,17 @@ if (!failed) {
   const allLearnerText = index + "\n" + bundles;
 
   if (version.productModel !== "multi-case-optional-reasoning") fail("Wrong product model in version.json");
+  if (version.collectionModel !== "current-and-emergency-explore") fail("Wrong collection model in version.json");
+  if (version.defaultCollection !== "current") fail("New cases are not the default collection");
   if (version.defaultCaseId !== "case-001") fail("Case 1 is not the default case");
-  if (JSON.stringify(version.caseIds) !== JSON.stringify(expectedCaseIds)) {
-    fail("Built case registry is incomplete or out of order");
+  if (JSON.stringify(version.currentCaseIds) !== JSON.stringify(expectedCurrentCaseIds)) {
+    fail("Built current-case registry is incomplete or out of order");
+  }
+  if (JSON.stringify(version.emergencyExploreCaseIds) !== JSON.stringify(expectedEmergencyExploreCaseIds)) {
+    fail("Built Emergency Explore registry is incomplete or out of order");
+  }
+  if (JSON.stringify(version.caseIds) !== JSON.stringify(expectedEmergencyExploreCaseIds)) {
+    fail("Legacy built case registry is incomplete or out of order");
   }
   if (!index.includes(`<base href="${version.basePath}">`)) fail("Built base path is missing");
   if (!notFound.includes(`<base href="${version.basePath}">`)) fail("404 base path is missing");
@@ -48,6 +61,8 @@ if (!failed) {
   });
 
   [
+    "New Cases",
+    "Emergency Explore",
     "Exam",
     "Reasoning",
     "Stem",
@@ -97,6 +112,15 @@ if (!failed) {
     "A repeat prescription for chest tightness"
   ].forEach((term) => {
     if (!allLearnerText.includes(term)) fail(`Built site is missing required term: ${term}`);
+  });
+
+  expectedCurrentCaseIds.forEach((caseId) => {
+    const source = `data/current-cases/${caseId}.js`;
+    if (!version.assets.some((asset) => asset.source === source)) fail(`Current case is absent from the built assets: ${source}`);
+  });
+  expectedEmergencyExploreCaseIds.forEach((caseId) => {
+    const source = `data/cases/${caseId}.js`;
+    if (!version.assets.some((asset) => asset.source === source)) fail(`Emergency Explore case is absent from the built assets: ${source}`);
   });
 
   ["Custom GPT", "Timed run", "Progress ring", "Choose one Hint", "migration_only"].forEach((term) => {

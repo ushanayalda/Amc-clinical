@@ -1,93 +1,103 @@
 # Case 1 Final QA
 
 Checkpoint date: 15 July 2026
+
 Case: `case-001` / `CP-P1-C001`
-Title: Chest discomfort after lunch
+
+Title: Jaw discomfort while carrying groceries
+
 Scope: Exam Stem and word-for-word Full Run only
+
 Outcome: `AUDITED`
 
 ## Release boundary
 
-Case 1 has completed Engine 1.1 reconstruction and passed its current machine and human review gates. This checkpoint does not publish the case, authorise bulk generation or approve any reasoning-layer content.
+The fresh canonical Case 1 passes Engine 1.1 with zero case-level findings. This checkpoint does not publish the case and does not approve reasoning-layer content.
 
-The collection remains `HOLD`: Case 1 is `AUDITED`; Cases 2 to 42 remain untouched and `HOLD`. Their aggregate SHA-256 before and after Case 1 reconstruction is:
+The current collection remains `HOLD` only because registry Cases 2 to 42 have not yet been generated. All 42 earlier case files remain separate under **Emergency Explore** and no file in `data/cases/` was changed. The earlier Cases 2 to 42 retain aggregate SHA-256:
 
 `55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a`
 
-The next controlled production action is reconstruction of Case 2 only.
+The next production action is a fresh Case 2 from the next fixed registry slot.
 
 ## Content and package binding
 
 | Record | SHA-256 |
 | --- | --- |
-| Stem | `6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875` |
-| Full Run | `d0be5c8e7843a7e4de545a53b008e7c270773ad5be61b9bb560f1b39cc1c6a66` |
-| Complete visible content | `c54637673cc1dbb03be0b5d477b113d85ea9c589f500d39682e834216b062d6a` |
-| Review scope | `737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f` |
-| Blueprint package | `bc5abe0c64d624088ab2f21a4ddb437c909ef0fcc4a003be5c02ffad093477cf` |
+| Stem | `02df997578c84393208cf858455ec3a4fd3df2365a016cab5fda2f56bc21638e` |
+| Full Run | `d59fefccac254937b3bb493671dc4761a6d086d6c627a4b9fdea104d2363741e` |
+| Complete visible content | `e6b05df8e4a35aad99e60cc213e6e8bdb2026ef7c4f3b05e98107e73bb935bba` |
+| Review scope | `9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528` |
+| Blueprint package | `f79bfb765990f20c8c1493ad80f4ea0856e61e01ebd565304939e4fec9185bb6` |
 
-The Stem was retained with exam-neutral presentation. Its line review found no diagnosis label, urgency instruction or disposition instruction. The Full Run and its hidden blueprint are bound to the current review-scope and package hashes; later reviewed-content changes invalidate this checkpoint.
+The Stem contains no diagnosis label, urgency instruction or disposition instruction. Later changes to the visible case, blueprint, controls, claims, sources or timing invalidate these bindings.
 
 ## Interaction review
 
-- Identity is requested before clinical history, and the participant's identity response contains identity only.
-- Positive consultation, examination and aspirin-treatment consent are each visible before the corresponding content or action.
-- 42 Doctor turns and 29 participant turns were reviewed as dialogue.
-- All 21 mapped Doctor information requests receive one immediate controlled response and are used by a subsequent Doctor line.
-- The audit found 0 multiple-question turns and 0 compound-question turns.
-- The run contains 971 spoken words under the collection audit metric.
-- Examination findings and the ECG result are released by the Examiner only after the mapped Doctor requests.
+- The Doctor introduces herself and requests identity before any clinical question.
+- Mirella confirms her full name and date of birth before consultation consent.
+- Each Doctor information request contains one question or one imperative request.
+- All 20 mapped information requests receive one immediate controlled response and the next Doctor line follows the reviewed response-use sequence.
+- Procedure consent is granted before aspirin administration.
+- The Full Run contains 37 Doctor turns, 26 Patient turns, three Examiner turns and three Action turns.
+- The run contains 851 spoken words under the engine metric.
+- The audit found zero compound-question, multiple-question, disclosure, consent, actor or task-fidelity findings.
+- No handover is present because no visible task requests one.
+- No observation, examination or investigation result is invented. Vital signs and ECG are started, but their results remain unavailable.
 
-## Independent semantic correction record
+## Clinical correction record
 
-The first structurally passing draft was not accepted as final. Independent semantic QA identified and resolved:
+The pre-audit draft was not accepted as final. Review identified and corrected:
 
-- a pleuritic-pain turn that disguised three questions inside one Doctor request;
-- back-pain information disclosed before the Doctor asked for it;
-- an incorrect timing record and misplaced four-minute Examiner prompt;
-- monitoring initiated later than the recognised high-risk pattern required;
-- aspirin administered later than the reviewed indication and contraindication checks allowed;
-- glyceryl trinitrate discussed without a visible administration action; and
-- a handover included even though no visible task requested one.
+- management-directed urgency in the task wording;
+- non-controlled preparation and consent language;
+- repeated one-word patient answers that could release later evidence;
+- delayed observations, ECG and aspirin;
+- omission of a conditional nitrate plan for continuing chest heaviness;
+- an over-dense focused-history section;
+- a clinician-like patient teach-back; and
+- stale controls inherited from the rejected Case 1.
 
-The unrequested handover and its dependent Hint were removed. After teach-back, the consultation now ends only with a brief patient-facing confirmation within the requested concerns-and-management task. The corrected run was reviewed again as dialogue, clinically rechecked and re-bound to new visible-content, review-scope and package hashes. The final direct audit returned `AUDITED` with zero findings.
+The audited run now activates Triple Zero, vital signs, cardiac monitoring, defibrillator availability and a 12-lead ECG once the dangerous pattern is established. Aspirin 300 mg is given after allergy, bleeding and medicine checks plus consent. Glyceryl trinitrate is planned only after blood pressure, ECG and recent-medicine contraindication checks. Oxygen is not routine at saturation 90% or higher and remains conditional on hypoxaemia, heart failure or shock.
 
 ## Timing review
 
-The complete timestamped line-by-line spoken and observed-action review recorded 461 seconds. The Examiner's four-minute prompt follows the focused-history summary immediately at 240 seconds, and the final Examiner line occurs at 461 seconds.
+The complete spoken and observed-action review records 438 seconds. The four-minute Examiner prompt follows the focused-history summary at 240 seconds.
 
 | Task | Observed seconds |
 | --- | ---: |
 | Focused history | 240 |
-| Diagnostic explanation and differentials | 120 |
-| Concerns and management | 101 |
-| Total | 461 |
+| Diagnostic explanation and differentials | 75 |
+| Concerns and management | 123 |
+| Total | 438 |
 
-Observed Action time includes neutral preparation, emergency ambulance activation, the consented examination, consented aspirin administration and consented glyceryl trinitrate administration. Every Full Run line maps to exactly one task. Before the prompt, 479 spoken words plus 26 seconds of observed Action time total 240 seconds; from the prompt onward, 492 spoken words plus 33 seconds of observed Action time total 221 seconds.
+The three Action events total 31 seconds. The task sections contain 452, 129 and 260 spoken words respectively, with the scheduled Examiner prompt accounting for the remaining spoken words. Every Full Run line maps to exactly one task and the implied speaking pace is within the executable range.
 
 ## Source and clinical baseline
 
 The blueprint records current source and locator review against:
 
-- [AMC Clinical Examination Specifications V8.3, June 2026](https://www.amc.org.au/wp-content/uploads/2026/06/2026-04-08-Clinical-Exam-Spec-V8-3.pdf), for station timing, tasks, predominant assessment area, key steps, domains and global rating.
-- [AMC Assessment Domains V1.1, November 2024](https://www.amc.org.au/wp-content/uploads/2024/12/20241112-AIPD-AssessmentDomains.pdf), for official domain vocabulary and expected performance.
-- [2025 Australian clinical guideline for acute coronary syndromes](https://www.heartfoundation.org.au/for-professionals/acs-guideline), for assessment, differential diagnosis, ECG, monitoring, initial treatment and primary-care transfer.
-- [ANZCOR Guideline 14.2: Acute Coronary Syndromes—Initial Medical Therapy](https://www.anzcor.org/home/acute-coronary-syndromes/guideline-14-2-acute-coronary-syndromes-initial-medical-therapy), for oxygen, aspirin and nitrate treatment.
+- [AMC Clinical Examination Specifications V8.3, June 2026](https://www.amc.org.au/wp-content/uploads/2026/06/2026-04-08-Clinical-Exam-Spec-V8-3.pdf).
+- [AMC Assessment Domains V1.1, November 2024](https://www.amc.org.au/wp-content/uploads/2024/12/20241112-AIPD-AssessmentDomains.pdf).
+- [2025 Australian clinical guideline for acute coronary syndromes](https://www.heartfoundation.org.au/for-professionals/acs-guideline).
+- [ANZCOR Guideline 14.1: Acute Coronary Syndromes—Presentation](https://www.anzcor.org/home/acute-coronary-syndromes/guideline-14-1-acute-coronary-syndromes-presentation).
+- [ANZCOR Guideline 14.2: Acute Coronary Syndromes—Initial Medical Therapy](https://www.anzcor.org/home/acute-coronary-syndromes/guideline-14-2-acute-coronary-syndromes-initial-medical-therapy).
 
-The source review supports the case's prompt transfer, ECG and monitoring, aspirin, oxygen-threshold, nitrate and single-test rule-out claims. The detailed claim-to-source and line mappings remain in `data/blueprints/case-001.blueprint.json`.
+These sources support the atypical symptom pattern, prompt transfer, early vital signs and ECG, monitoring, serial testing, aspirin, nitrate and oxygen-threshold controls. Exact claim-to-source and line mappings are stored in `data/blueprints/case-001.blueprint.json`.
 
 ## Verification record
 
 | Check | Result |
 | --- | --- |
-| Case 1 direct Engine 1.1 audit | `AUDITED`; 0 critical, high, medium or low findings |
+| Case 1 direct Engine 1.1 audit | `AUDITED`; zero findings |
 | Engine regression suite | 79 passed, 0 failed |
-| Complete repository test suite | 198 passed, 0 failed |
-| Canonical case syntax | 42/42 passed |
-| Website build | passed; 42 cases built |
+| Complete repository test suite | 200 passed, 0 failed |
+| Case syntax | 1 current + 42 Emergency Explore files passed |
+| Website build | passed; both collections built |
 | Distribution verification | passed |
-| Collection report | `HOLD`; Registry `READY`; 1 `AUDITED`; 41 `HOLD`; no fatal errors |
-| Cases 2 to 42 seal | unchanged before and after reconstruction |
+| Registry | `READY`; next fixed slot is Case 2 |
+| Current collection | `HOLD`; 1 `AUDITED`, 0 case-level `HOLD`, 41 registry slots pending |
+| Emergency Explore diff | empty; earlier 42 files unchanged |
 | Publication | not performed |
 
-Case 1 therefore meets the Engine 1.1 `audited` contract at this exact content and blueprint package state. The collection does not meet the publication gate.
+Case 1 therefore meets the Engine 1.1 `audited` contract at this exact content and blueprint package state. Collection completion and publication are separate gates.

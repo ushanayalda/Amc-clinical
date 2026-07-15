@@ -30,11 +30,20 @@
       "approvedClaimTypes": ["diagnosis", "differential", "threshold", "investigation", "treatment", "dose", "contraindication", "disposition"]
     },
     {
+      "url": "https://www.anzcor.org/home/acute-coronary-syndromes/guideline-14-1-acute-coronary-syndromes-presentation",
+      "sourceType": "australian_clinical_guideline",
+      "organisation": "Australian and New Zealand Committee on Resuscitation",
+      "title": "Guideline 14.1 - Acute Coronary Syndromes: Presentation",
+      "publishedOrUpdated": "2024-12-01",
+      "jurisdiction": "Australia",
+      "approvedClaimTypes": ["diagnosis", "differential", "threshold", "investigation", "disposition"]
+    },
+    {
       "url": "https://www.anzcor.org/home/acute-coronary-syndromes/guideline-14-2-acute-coronary-syndromes-initial-medical-therapy",
       "sourceType": "australian_clinical_guideline",
       "organisation": "Australian and New Zealand Committee on Resuscitation",
       "title": "Guideline 14.2 - Acute Coronary Syndromes: Initial Medical Therapy",
-      "publishedOrUpdated": "undated",
+      "publishedOrUpdated": "2024-12-01",
       "jurisdiction": "Australia",
       "approvedClaimTypes": ["threshold", "investigation", "treatment", "dose", "contraindication", "disposition"]
     }

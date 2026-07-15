@@ -3,11 +3,11 @@
   "caseId": "case-001",
   "registryId": "CP-P1-C001",
   "registryVersion": "1.1.0",
-  "revision": 3,
+  "revision": 1,
   "releaseStatus": "audited",
   "station": {
     "displayNumber": "Case 1",
-    "title": "Chest discomfort after lunch",
+    "title": "Jaw discomfort while carrying groceries",
     "visibleStatus": "audited",
     "statusLabel": "Exam case audited",
     "note": "Original practice station aligned to the current AMC format. It is not an AMC examination station or official marking script.",
@@ -22,8 +22,8 @@
     "grammar": "consultation",
     "predominantArea": "History Taking",
     "modality": "in_person",
-    "setting": "Suburban general practice clinic",
-    "recipient": "Daniel Morgan",
+    "setting": "Community general practice clinic",
+    "recipient": "Mirella Quinn",
     "readingMinutes": 2,
     "assessmentMinutes": 8
   },
@@ -50,12 +50,12 @@
     "lines": [
       {
         "id": "stem-role",
-        "text": "You are a general practitioner working in a suburban medical clinic.",
+        "text": "You are a general practitioner working in a community medical clinic.",
         "purpose": "role_setting"
       },
       {
         "id": "stem-patient",
-        "text": "Mr Daniel Morgan, a 60-year-old man, has attended after developing chest discomfort following lunch.",
+        "text": "Ms Mirella Quinn, a 62-year-old woman, has attended after becoming short of breath and nauseated while carrying groceries from her car. She also noticed an ache in her lower jaw.",
         "purpose": "person_presentation"
       },
       {
@@ -92,7 +92,7 @@
       "text": "Take a focused history.",
       "actionVerb": "Take",
       "assessmentArea": "History Taking",
-      "recipient": "Daniel",
+      "recipient": "Mirella",
       "visibleTiming": "4 minutes",
       "internalMinutes": 4,
       "primary": true
@@ -102,7 +102,7 @@
       "text": "Explain your most likely diagnosis and important differential diagnoses to the patient.",
       "actionVerb": "Explain",
       "assessmentArea": "Diagnostic Formulation",
-      "recipient": "Daniel",
+      "recipient": "the patient",
       "visibleTiming": "2 minutes",
       "internalMinutes": 2,
       "primary": false
@@ -112,7 +112,7 @@
       "text": "Address the patient's concerns and explain your management plan.",
       "actionVerb": "Address",
       "assessmentArea": "Management/Counselling/Education",
-      "recipient": "Daniel",
+      "recipient": "the patient",
       "visibleTiming": "2 minutes",
       "internalMinutes": 2,
       "primary": false
@@ -134,7 +134,7 @@
         "id": "clinical-differential-aortic",
         "text": "Acute aortic syndrome",
         "runLineIds": [
-          "run-dissection-answer",
+          "run-onset-answer",
           "run-differentials"
         ],
         "sourceClaimIds": [
@@ -145,8 +145,9 @@
         "id": "clinical-differential-pe",
         "text": "Pulmonary embolism",
         "runLineIds": [
-          "run-pe-answer",
-          "run-vte-answer",
+          "run-pleuritic-answer",
+          "run-leg-answer",
+          "run-immobility-answer",
           "run-differentials"
         ],
         "sourceClaimIds": [
@@ -157,7 +158,7 @@
         "id": "clinical-differential-pneumothorax",
         "text": "Pneumothorax including tension pneumothorax",
         "runLineIds": [
-          "run-pneumothorax-answer",
+          "run-pleuritic-answer",
           "run-differentials"
         ],
         "sourceClaimIds": [
@@ -167,32 +168,24 @@
     ],
     "essentialClues": [
       {
-        "id": "clinical-clue-pressure",
-        "text": "Persistent central pressure",
+        "id": "clinical-clue-atypical",
+        "text": "Exertional jaw discomfort, breathlessness and nausea without volunteered chest pain",
         "runLineIds": [
           "run-opening-story",
           "run-current-answer",
-          "run-site-answer"
+          "run-chest-answer"
         ],
         "sourceClaimIds": [
           "claim-diagnosis"
         ]
       },
       {
-        "id": "clinical-clue-radiation",
-        "text": "Left arm and jaw radiation",
+        "id": "clinical-clue-pressure",
+        "text": "Persistent central tight heaviness",
         "runLineIds": [
-          "run-radiation-answer"
-        ],
-        "sourceClaimIds": [
-          "claim-diagnosis"
-        ]
-      },
-      {
-        "id": "clinical-clue-autonomic",
-        "text": "Sweating and nausea with breathlessness",
-        "runLineIds": [
-          "run-associated-answer"
+          "run-chest-answer",
+          "run-persistence-answer",
+          "run-character-answer"
         ],
         "sourceClaimIds": [
           "claim-diagnosis"
@@ -200,9 +193,10 @@
       },
       {
         "id": "clinical-clue-exertional",
-        "text": "Current exertional onset with preceding exertional episodes",
+        "text": "Symptoms began with exertion and a previous exertional episode settled with rest",
         "runLineIds": [
           "run-opening-story",
+          "run-rest-answer",
           "run-previous-answer"
         ],
         "sourceClaimIds": [
@@ -210,10 +204,22 @@
         ]
       },
       {
+        "id": "clinical-clue-autonomic",
+        "text": "Nausea, clamminess and light-headedness",
+        "runLineIds": [
+          "run-opening-story",
+          "run-associated-answer"
+        ],
+        "sourceClaimIds": [
+          "claim-diagnosis"
+        ]
+      },
+      {
         "id": "clinical-clue-risk",
-        "text": "Hypertension, dyslipidaemia, past smoking and premature family history",
+        "text": "Diabetes, hypertension, dyslipidaemia, previous smoking and family history",
         "runLineIds": [
           "run-history-answer",
+          "run-medications-answer",
           "run-smoking-answer",
           "run-family-answer"
         ],
@@ -225,11 +231,12 @@
     "discriminators": [
       {
         "id": "clinical-discriminator-pattern",
-        "text": "Pressure is persistent and non-pleuritic, with no abrupt maximum at onset",
+        "text": "Ongoing exertional pressure with autonomic symptoms, without abrupt maximum intensity or pleuritic character",
         "runLineIds": [
-          "run-current-answer",
-          "run-dissection-answer",
-          "run-pneumothorax-answer"
+          "run-onset-answer",
+          "run-persistence-answer",
+          "run-pleuritic-answer",
+          "run-summary"
         ],
         "sourceClaimIds": [
           "claim-diagnosis",
@@ -239,11 +246,11 @@
     ],
     "redFlags": [
       {
-        "id": "clinical-red-flag-persistent",
-        "text": "Ongoing exertional pressure with radiation and autonomic symptoms",
+        "id": "clinical-red-flag-ongoing",
+        "text": "Ongoing exertional symptoms with central heaviness and autonomic features",
         "runLineIds": [
           "run-current-answer",
-          "run-radiation-answer",
+          "run-persistence-answer",
           "run-associated-answer"
         ],
         "sourceClaimIds": [
@@ -257,8 +264,9 @@
         "id": "clinical-threshold-transfer",
         "text": "Suspected acute coronary syndrome in primary care requires prompt transfer for definitive assessment",
         "runLineIds": [
+          "run-early-escalation",
           "run-early-escalation-action",
-          "run-escalate"
+          "run-address-transport"
         ],
         "sourceClaimIds": [
           "claim-transfer"
@@ -266,9 +274,8 @@
       },
       {
         "id": "clinical-threshold-oxygen",
-        "text": "Oxygen saturation of 96% on room air does not require routine oxygen",
+        "text": "Oxygen is reserved for oxygen saturation below 90 percent, heart failure or shock rather than given routinely",
         "runLineIds": [
-          "run-exam-findings",
           "run-oxygen"
         ],
         "sourceClaimIds": [
@@ -276,38 +283,47 @@
         ]
       },
       {
-        "id": "clinical-threshold-nitrate",
-        "text": "Recent phosphodiesterase-5 inhibitor use changes the safety of glyceryl trinitrate",
+        "id": "clinical-threshold-gtn",
+        "text": "Ongoing chest discomfort warrants glyceryl trinitrate after blood pressure and contraindication checks",
         "runLineIds": [
-          "run-pde5",
-          "run-gtn"
+          "run-gtn-plan"
         ],
         "sourceClaimIds": [
-          "claim-nitrate"
+          "claim-gtn"
+        ]
+      },
+      {
+        "id": "clinical-threshold-serial-assessment",
+        "text": "A normal first ECG cannot safely exclude acute coronary syndrome",
+        "runLineIds": [
+          "run-uncertainty",
+          "run-ecg-plan",
+          "run-hospital-plan"
+        ],
+        "sourceClaimIds": [
+          "claim-serial-assessment-threshold"
         ]
       }
     ],
     "criticalActions": [
       {
         "id": "clinical-action-transfer",
-        "text": "Call Triple Zero for an ambulance promptly and provide monitored transfer",
+        "text": "Call Triple Zero promptly and use monitored ambulance transfer",
         "runLineIds": [
           "run-early-escalation",
           "run-early-escalation-action",
-          "run-address-concern"
+          "run-address-transport"
         ],
         "sourceClaimIds": [
           "claim-transfer"
         ]
       },
       {
-        "id": "clinical-action-ecg-monitoring",
-        "text": "Begin continuous cardiac monitoring with defibrillator availability when ongoing ischaemic symptoms are identified, and obtain an ECG within 10 minutes without delaying transfer",
+        "id": "clinical-action-monitoring",
+        "text": "Begin cardiac monitoring with defibrillator availability and arrange a 12-lead ECG within 10 minutes without delaying transfer",
         "runLineIds": [
           "run-early-escalation-action",
-          "run-ecg-plan",
-          "run-ecg-result",
-          "run-ecg-response"
+          "run-ecg-plan"
         ],
         "sourceClaimIds": [
           "claim-investigation"
@@ -315,51 +331,39 @@
       },
       {
         "id": "clinical-action-aspirin",
-        "text": "Give aspirin 300 milligrams chewed promptly after excluding relevant contraindications",
+        "text": "Give aspirin 300 milligrams chewed after excluding true anaphylaxis and active bleeding",
         "runLineIds": [
           "run-allergy",
           "run-bleeding",
+          "run-aspirin-explanation",
           "run-aspirin",
-          "run-aspirin-action"
+          "run-aspirin-action",
+          "run-management-overview"
         ],
         "sourceClaimIds": [
           "claim-aspirin"
-        ]
-      },
-      {
-        "id": "clinical-action-gtn",
-        "text": "Give sublingual glyceryl trinitrate for ongoing pain when no contraindication is present, with continued symptom and blood-pressure monitoring",
-        "runLineIds": [
-          "run-pde5",
-          "run-exam-findings",
-          "run-gtn",
-          "run-gtn-action",
-          "run-gtn-plan"
-        ],
-        "sourceClaimIds": [
-          "claim-nitrate"
         ]
       }
     ],
     "criticalActionTimings": [
       {
-        "id": "timing-prompt-transfer",
+        "id": "timing-transfer",
         "criticalActionConceptId": "clinical-action-transfer",
         "triggerLineId": "run-associated-answer",
-        "latestPermittedLineId": "run-early-escalation",
-        "positiveActionPhrase": "I am asking my colleague to call Triple Zero for an ambulance now.",
-        "rationale": "The complete cardiac pattern is apparent by the associated-symptom response, and current Australian guidance recommends prompt transfer from primary care.",
+        "latestPermittedLineId": "run-early-escalation-action",
+        "positiveActionPhrase": "The doctor directs a clinic colleague to call Triple Zero",
+        "rationale": "The complete high-concern cardiac pattern is established before the remaining history is taken.",
         "sourceClaimIds": [
           "claim-transfer"
         ]
       },
       {
-        "id": "timing-ecg-monitoring",
-        "criticalActionConceptId": "clinical-action-ecg-monitoring",
+        "id": "timing-monitoring",
+        "criticalActionConceptId": "clinical-action-monitoring",
         "triggerLineId": "run-associated-answer",
         "latestPermittedLineId": "run-early-escalation-action",
-        "positiveActionPhrase": "begins continuous cardiac monitoring and keeps the defibrillator ready",
-        "rationale": "Current Australian guidance recommends continuous monitoring and defibrillator availability during assessment when ischaemic symptoms are ongoing; ECG assessment remains required within 10 minutes without delaying transfer.",
+        "positiveActionPhrase": "begins continuous cardiac monitoring",
+        "rationale": "Ongoing ischaemic symptoms require monitoring and defibrillator availability during assessment.",
         "sourceClaimIds": [
           "claim-investigation"
         ]
@@ -367,56 +371,59 @@
       {
         "id": "timing-aspirin",
         "criticalActionConceptId": "clinical-action-aspirin",
-        "triggerLineId": "run-associated-answer",
+        "triggerLineId": "run-bleeding-answer",
         "latestPermittedLineId": "run-aspirin-action",
-        "positiveActionPhrase": "The doctor gives Daniel aspirin 300 milligrams to chew",
-        "rationale": "Current Australian guidance recommends early aspirin 300 milligrams for suspected acute coronary syndrome after true anaphylaxis and bleeding disorder are excluded.",
+        "positiveActionPhrase": "The doctor gives Mirella aspirin 300 milligrams to chew",
+        "rationale": "Aspirin is administered after the relevant contraindication checks and consent.",
         "sourceClaimIds": [
           "claim-aspirin"
-        ]
-      },
-      {
-        "id": "timing-gtn",
-        "criticalActionConceptId": "clinical-action-gtn",
-        "triggerLineId": "run-exam-findings",
-        "latestPermittedLineId": "run-gtn-action",
-        "positiveActionPhrase": "The doctor gives one sublingual dose of glyceryl trinitrate",
-        "rationale": "Ongoing pain, safe blood pressure, no recent phosphodiesterase-5 inhibitor use and no evident contraindication support a monitored sublingual dose for symptom relief.",
-        "sourceClaimIds": [
-          "claim-nitrate"
         ]
       }
     ],
     "unsafeActions": [
       {
         "id": "clinical-unsafe-dismissal",
-        "text": "Do not attribute the presentation to indigestion before dangerous causes are assessed",
+        "text": "Do not dismiss an ACS presentation because the patient does not volunteer chest pain",
         "runLineIds": [
-          "run-address-concern",
+          "run-chest-answer",
+          "run-early-escalation-explanation",
           "run-likely-diagnosis"
         ],
         "sourceClaimIds": [
-          "claim-diagnosis",
+          "claim-atypical-suspicion-threshold"
+        ]
+      },
+      {
+        "id": "clinical-unsafe-private-transport",
+        "text": "Do not use private transport for ongoing suspected acute coronary syndrome",
+        "runLineIds": [
+          "run-patient-transport",
+          "run-address-transport"
+        ],
+        "sourceClaimIds": [
           "claim-transfer"
         ]
       },
       {
-        "id": "clinical-unsafe-single-test",
-        "text": "Do not use one clinic troponin or an unsupported risk score to exclude acute coronary syndrome",
+        "id": "clinical-unsafe-single-ecg",
+        "text": "Do not use one normal ECG to exclude acute coronary syndrome",
         "runLineIds": [
-          "run-no-troponin"
+          "run-uncertainty",
+          "run-ecg-plan",
+          "run-hospital-plan"
         ],
         "sourceClaimIds": [
-          "claim-ruleout-threshold"
+          "claim-serial-assessment-threshold"
         ]
       }
     ],
     "scopeBoundary": {
       "id": "clinical-scope-primary-care",
-      "text": "The GP initiates assessment and treatment while arranging prompt transfer; definitive serial testing and cardiology management occur in hospital",
+      "text": "The GP begins safe assessment and treatment while arranging prompt transfer; serial ECG and troponin assessment occur in hospital",
       "runLineIds": [
-        "run-escalate",
-        "run-no-troponin"
+        "run-early-escalation-action",
+        "run-ecg-plan",
+        "run-hospital-plan"
       ],
       "sourceClaimIds": [
         "claim-transfer",
@@ -429,40 +436,30 @@
       "id": "participant-patient",
       "speakerLabel": "Patient",
       "addressTerms": [
-        "Daniel",
-        "Mr Morgan"
+        "Mirella",
+        "Ms Quinn"
       ],
       "role": "patient",
       "identityRequired": true,
       "identityResponse": {
         "lineId": "run-id",
-        "text": "Daniel Morgan, 14 May 1966.",
-        "fullName": "Daniel Morgan",
-        "dateOfBirthText": "14 May 1966"
+        "text": "Mirella Quinn, 22 April 1964.",
+        "fullName": "Mirella Quinn",
+        "dateOfBirthText": "22 April 1964"
       },
-      "openingAffect": {
-        "text": "pale and clammy",
-        "evidenceLineId": "run-exam-findings"
-      },
+      "openingAffect": null,
       "initialVoluntary": {
         "triggerLineId": "run-open-question",
         "responseLineId": "run-opening-story",
-        "text": "About 35 minutes ago, after lunch, I was walking back to the office when I felt a heavy pressure in the middle of my chest. I sat down, but it has not gone away."
+        "text": "About 25 minutes ago, while carrying groceries, I became breathless and sick, with a dull ache across my lower jaw. It has not settled."
       },
       "concerns": [
         {
-          "id": "concern-seriousness",
-          "text": "Whether an ambulance is necessary",
+          "id": "concern-no-chest-pain",
+          "text": "Why an ambulance is needed without severe chest pain",
           "responseLineId": "run-early-escalation-response",
-          "responseText": "An ambulance? Is it really that serious?",
+          "responseText": "An ambulance? I do not have real chest pain.",
           "nextDoctorLineId": "run-early-escalation-explanation"
-        },
-        {
-          "id": "concern-indigestion-transport",
-          "text": "Indigestion attribution and private transport",
-          "responseLineId": "run-patient-ambulance",
-          "responseText": "I still thought it was indigestion. Could my wife drive me instead?",
-          "nextDoctorLineId": "run-address-concern"
         },
         {
           "id": "concern-certainty",
@@ -470,60 +467,105 @@
           "responseLineId": "run-patient-question",
           "responseText": "Does that mean I am definitely having a heart attack?",
           "nextDoctorLineId": "run-uncertainty"
+        },
+        {
+          "id": "concern-private-transport",
+          "text": "Whether her daughter can drive her",
+          "responseLineId": "run-patient-transport",
+          "responseText": "My daughter is outside. Could she take me straight to hospital instead?",
+          "nextDoctorLineId": "run-address-transport"
         }
       ],
       "disclosures": [
         {
           "id": "disclosure-current",
           "factIds": [
-            "clinical-red-flag-persistent"
+            "clinical-red-flag-ongoing"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about current persistence.",
+          "triggerDescription": "The Doctor makes one focused request about current symptoms.",
           "triggerLineId": "run-current",
           "responseLineId": "run-current-answer",
-          "responseText": "Yes. It is still there.",
-          "nextDoctorLineId": "run-site",
+          "responseText": "Yes, I am still breathless and nauseated.",
+          "nextDoctorLineId": "run-chest",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
         },
         {
-          "id": "disclosure-radiation",
+          "id": "disclosure-chest",
           "factIds": [
-            "clinical-clue-radiation"
+            "clinical-clue-pressure"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about radiation.",
-          "triggerLineId": "run-radiation",
-          "responseLineId": "run-radiation-answer",
-          "responseText": "It goes into my left arm and a little into my jaw.",
-          "nextDoctorLineId": "run-severity",
+          "triggerDescription": "The Doctor makes one focused request about chest discomfort.",
+          "triggerLineId": "run-chest",
+          "responseLineId": "run-chest-answer",
+          "responseText": "The middle feels heavy, but I did not think of it as pain.",
+          "nextDoctorLineId": "run-persistence",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
+        },
+        {
+          "id": "disclosure-persistence",
+          "factIds": [
+            "clinical-red-flag-ongoing"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about persistence.",
+          "triggerLineId": "run-persistence",
+          "responseLineId": "run-persistence-answer",
+          "responseText": "Yes, it is still there.",
+          "nextDoctorLineId": "run-character",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
+        },
+        {
+          "id": "disclosure-character",
+          "factIds": [
+            "clinical-clue-pressure"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about character.",
+          "triggerLineId": "run-character",
+          "responseLineId": "run-character-answer",
+          "responseText": "Like a tight band sitting behind my breastbone.",
+          "nextDoctorLineId": "run-onset",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
+        },
+        {
+          "id": "disclosure-onset",
+          "factIds": [
+            "clinical-differential-aortic"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about time to maximum intensity.",
+          "triggerLineId": "run-onset",
+          "responseLineId": "run-onset-answer",
+          "responseText": "No. It built up over two or three minutes.",
+          "nextDoctorLineId": "run-rest",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
+        },
+        {
+          "id": "disclosure-rest",
+          "factIds": [
+            "clinical-clue-exertional"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about response to rest.",
+          "triggerLineId": "run-rest",
+          "responseLineId": "run-rest-answer",
+          "responseText": "The jaw ache eased, but the heaviness and breathlessness continued.",
+          "nextDoctorLineId": "run-associated",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
         },
         {
           "id": "disclosure-associated",
           "factIds": [
-            "clinical-clue-autonomic",
-            "clinical-red-flag-persistent"
+            "clinical-clue-autonomic"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about associated symptoms.",
+          "triggerDescription": "The Doctor makes one focused request about associated symptoms.",
           "triggerLineId": "run-associated",
           "responseLineId": "run-associated-answer",
-          "responseText": "I feel sweaty and slightly sick. I am more short of breath than usual.",
+          "responseText": "I became clammy and light-headed.",
           "nextDoctorLineId": "run-early-escalation",
-          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
-        },
-        {
-          "id": "disclosure-syncope",
-          "factIds": [
-            "clinical-clue-pressure"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about syncope.",
-          "triggerLineId": "run-syncope",
-          "responseLineId": "run-syncope-answer",
-          "responseText": "No, I have not fainted.",
-          "nextDoctorLineId": "run-previous",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
         },
         {
@@ -532,33 +574,85 @@
             "clinical-clue-exertional"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about previous episodes.",
+          "triggerDescription": "The Doctor makes one focused request about previous episodes.",
           "triggerLineId": "run-previous",
           "responseLineId": "run-previous-answer",
-          "responseText": "Twice this week I felt a milder pressure while hurrying. It settled after a few minutes when I stopped.",
-          "nextDoctorLineId": "run-dissection",
+          "responseText": "Last week, carrying laundry upstairs caused a milder episode that settled with rest.",
+          "nextDoctorLineId": "run-pleuritic",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
         },
         {
-          "id": "disclosure-dissection",
+          "id": "disclosure-pleuritic",
           "factIds": [
-            "clinical-differential-aortic"
+            "clinical-differential-pneumothorax"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about time to maximum intensity.",
-          "triggerLineId": "run-dissection",
-          "responseLineId": "run-dissection-answer",
-          "responseText": "No. It built up over a few minutes.",
+          "triggerDescription": "The Doctor makes one focused request about pleuritic character.",
+          "triggerLineId": "run-pleuritic",
+          "responseLineId": "run-pleuritic-answer",
+          "responseText": "No, breathing does not change it.",
+          "nextDoctorLineId": "run-leg",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
+        },
+        {
+          "id": "disclosure-leg",
+          "factIds": [
+            "clinical-differential-pe"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about unilateral leg swelling.",
+          "triggerLineId": "run-leg",
+          "responseLineId": "run-leg-answer",
+          "responseText": "No, neither leg has been swollen.",
+          "nextDoctorLineId": "run-immobility",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
+        },
+        {
+          "id": "disclosure-immobility",
+          "factIds": [
+            "clinical-differential-pe"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about recent immobility.",
+          "triggerLineId": "run-immobility",
+          "responseLineId": "run-immobility-answer",
+          "responseText": "No, I have been moving around normally.",
+          "nextDoctorLineId": "run-history",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
+        },
+        {
+          "id": "disclosure-history",
+          "factIds": [
+            "clinical-clue-risk"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about medical history.",
+          "triggerLineId": "run-history",
+          "responseLineId": "run-history-answer",
+          "responseText": "Type 2 diabetes, high blood pressure and high cholesterol.",
+          "nextDoctorLineId": "run-medications",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
+        },
+        {
+          "id": "disclosure-medications",
+          "factIds": [
+            "clinical-clue-risk"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about regular medicines.",
+          "triggerLineId": "run-medications",
+          "responseLineId": "run-medications-answer",
+          "responseText": "Metformin, empagliflozin, telmisartan and atorvastatin.",
           "nextDoctorLineId": "run-allergy",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
         },
         {
-          "id": "disclosure-aspirin-allergy",
+          "id": "disclosure-allergy",
           "factIds": [
             "clinical-action-aspirin"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about severe aspirin allergy.",
+          "triggerDescription": "The Doctor makes one focused request about severe aspirin allergy.",
           "triggerLineId": "run-allergy",
           "responseLineId": "run-allergy-answer",
           "responseText": "No, I have never had a severe reaction to aspirin.",
@@ -571,76 +665,24 @@
             "clinical-action-aspirin"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about bleeding disorder.",
+          "triggerDescription": "The Doctor makes one focused request about active bleeding.",
           "triggerLineId": "run-bleeding",
           "responseLineId": "run-bleeding-answer",
-          "responseText": "No, I do not have a bleeding disorder.",
-          "nextDoctorLineId": "run-aspirin",
+          "responseText": "No, I am not bleeding.",
+          "nextDoctorLineId": "run-anticoagulant",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
         },
         {
-          "id": "disclosure-haemoptysis",
+          "id": "disclosure-anticoagulant",
           "factIds": [
-            "clinical-differential-pe"
+            "clinical-action-aspirin"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about haemoptysis.",
-          "triggerLineId": "run-pe",
-          "responseLineId": "run-pe-answer",
-          "responseText": "No, I have not coughed up blood.",
-          "nextDoctorLineId": "run-vte",
-          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
-        },
-        {
-          "id": "disclosure-clot",
-          "factIds": [
-            "clinical-differential-pe"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about previous venous thromboembolism.",
-          "triggerLineId": "run-vte",
-          "responseLineId": "run-vte-answer",
-          "responseText": "No, I have never had a blood clot.",
-          "nextDoctorLineId": "run-pneumothorax",
-          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
-        },
-        {
-          "id": "disclosure-pleuritic",
-          "factIds": [
-            "clinical-differential-pneumothorax"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about pleuritic character.",
-          "triggerLineId": "run-pneumothorax",
-          "responseLineId": "run-pneumothorax-answer",
-          "responseText": "No, breathing does not change it.",
-          "nextDoctorLineId": "run-history",
-          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
-        },
-        {
-          "id": "disclosure-conditions",
-          "factIds": [
-            "clinical-clue-risk"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about medical conditions.",
-          "triggerLineId": "run-history",
-          "responseLineId": "run-history-answer",
-          "responseText": "High blood pressure and high cholesterol.",
-          "nextDoctorLineId": "run-cardiac-history",
-          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
-        },
-        {
-          "id": "disclosure-heart-history",
-          "factIds": [
-            "clinical-clue-risk"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about previous heart disease.",
-          "triggerLineId": "run-cardiac-history",
-          "responseLineId": "run-cardiac-history-answer",
-          "responseText": "No, I have not been diagnosed with heart disease.",
-          "nextDoctorLineId": "run-smoking",
+          "triggerDescription": "The Doctor makes one focused request about anticoagulant use.",
+          "triggerLineId": "run-anticoagulant",
+          "responseLineId": "run-anticoagulant-answer",
+          "responseText": "No, I do not take a blood-thinning medicine.",
+          "nextDoctorLineId": "run-aspirin-explanation",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
         },
         {
@@ -649,10 +691,10 @@
             "clinical-clue-risk"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about smoking history.",
+          "triggerDescription": "The Doctor makes one focused request about smoking history.",
           "triggerLineId": "run-smoking",
           "responseLineId": "run-smoking-answer",
-          "responseText": "I stopped five years ago. Before that, about a packet a day.",
+          "responseText": "I stopped eight years ago. Before that I smoked for about twenty years.",
           "nextDoctorLineId": "run-family",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
         },
@@ -662,77 +704,25 @@
             "clinical-clue-risk"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about premature family cardiac history.",
+          "triggerDescription": "The Doctor makes one focused request about family history.",
           "triggerLineId": "run-family",
           "responseLineId": "run-family-answer",
-          "responseText": "My father had a heart attack at 54.",
-          "nextDoctorLineId": "run-medicines",
-          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
-        },
-        {
-          "id": "disclosure-medicines",
-          "factIds": [
-            "clinical-action-aspirin"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about current medicines.",
-          "triggerLineId": "run-medicines",
-          "responseLineId": "run-medicines-answer",
-          "responseText": "Perindopril and atorvastatin. I took an antacid, but it made no difference.",
-          "nextDoctorLineId": "run-pde5",
-          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
-        },
-        {
-          "id": "disclosure-pde5",
-          "factIds": [
-            "clinical-threshold-nitrate"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about recent erectile-dysfunction medicine.",
-          "triggerLineId": "run-pde5",
-          "responseLineId": "run-pde5-answer",
-          "responseText": "No, I have not used any.",
+          "responseText": "My mother had a heart attack at 61.",
           "nextDoctorLineId": "run-summary",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
         },
         {
           "id": "disclosure-understanding",
           "factIds": [
-            "clinical-threshold-transfer"
+            "clinical-action-transfer"
           ],
           "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about understanding of the plan.",
+          "triggerDescription": "The Doctor makes one focused request about understanding of the plan.",
           "triggerLineId": "run-understanding",
           "responseLineId": "run-understanding-answer",
-          "responseText": "You are worried it may be reduced blood flow to my heart. I need the ambulance and hospital tests even though it is not definite yet.",
+          "responseText": "You think this could be my heart even though the pain is not severe. I need to go by ambulance and have heart tests at hospital.",
           "nextDoctorLineId": "run-closing",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment."
-        },
-        {
-          "id": "disclosure-site",
-          "factIds": [
-            "clinical-clue-pressure"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks the patient to identify the site.",
-          "triggerLineId": "run-site",
-          "responseLineId": "run-site-answer",
-          "responseText": "Right here, across the centre of my chest.",
-          "nextDoctorLineId": "run-radiation",
-          "responseUse": "The central site leads to the radiation question."
-        },
-        {
-          "id": "disclosure-severity",
-          "factIds": [
-            "clinical-red-flag-persistent"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor asks one focused question about current severity.",
-          "triggerLineId": "run-severity",
-          "responseLineId": "run-severity-answer",
-          "responseText": "About seven.",
-          "nextDoctorLineId": "run-associated",
-          "responseUse": "The current severity leads to associated-symptom assessment."
         }
       ]
     }
@@ -745,36 +735,7 @@
     "availableAtStartStemLineIds": [
       "stem-start"
     ],
-    "releases": [
-      {
-        "id": "release-examination",
-        "requestDescription": "The Doctor requests the current observations and examination findings.",
-        "requestLineId": "run-exam-request",
-        "requestExactText": "Please provide the current observations and examination findings.",
-        "responseLineId": "run-exam-findings",
-        "responseText": "The airway is patent. The patient is alert, pale and clammy. Pulse is 96 beats per minute and regular, blood pressure is 148/88 mmHg in both arms, respiratory rate is 20 breaths per minute, and oxygen saturation is 96% on room air. Heart sounds are normal. The chest is clear with equal air entry. There is no chest wall tenderness, calf swelling or clinical heart failure.",
-        "permittedModalities": [
-          "in_person"
-        ],
-        "findingSource": "The Examiner supplies standardised findings after the consented examination is represented.",
-        "nextDoctorLineId": "run-likely-diagnosis",
-        "responseUse": "The Doctor integrates the stable observations and examination into the diagnostic explanation."
-      },
-      {
-        "id": "release-ecg",
-        "requestDescription": "The Doctor requests an immediate ECG when available without delaying transfer.",
-        "requestLineId": "run-ecg-plan",
-        "requestExactText": "We will record a 12-lead ECG within 10 minutes if available, without delaying the ambulance. A normal first ECG would not rule out acute coronary syndrome.",
-        "responseLineId": "run-ecg-result",
-        "responseText": "The ambulance has been called. An ECG is available immediately and does not delay transfer. It shows horizontal ST-segment depression in leads V4 to V6.",
-        "permittedModalities": [
-          "in_person"
-        ],
-        "findingSource": "The Examiner supplies the standardised ECG result after confirming that it is immediately available.",
-        "nextDoctorLineId": "run-ecg-response",
-        "responseUse": "The Doctor interprets the ischaemic change and continues monitoring already begun for ongoing ischaemic symptoms."
-      }
-    ],
+    "releases": [],
     "scheduledPrompts": [
       {
         "id": "prompt-four-minutes",
@@ -782,7 +743,7 @@
         "triggerDescription": "After four minutes have elapsed",
         "triggerLineId": "run-summary",
         "responseLineId": "run-time-prompt",
-        "responseText": "Four minutes have elapsed. Please proceed to the next task.",
+        "responseText": "Four minutes have passed. Please proceed to the remaining tasks.",
         "markingConsequence": "The Doctor proceeds to the remaining tasks; the prompt itself carries no performance inference."
       }
     ],
@@ -798,32 +759,32 @@
     "keySteps": [
       {
         "id": "step-pattern",
-        "description": "Elicits the persistent exertional cardiac pattern and relevant dangerous alternatives",
+        "description": "Elicits the exertional jaw, breathlessness, nausea and central-pressure pattern",
         "taskIds": [
           "task-history"
         ],
         "runLineIds": [
           "run-opening-story",
-          "run-radiation-answer",
+          "run-chest-answer",
           "run-associated-answer",
           "run-previous-answer",
           "run-summary"
         ],
         "sourceClaimIds": [
-          "claim-diagnosis",
-          "claim-differential"
+          "claim-diagnosis"
         ]
       },
       {
         "id": "step-transfer",
-        "description": "Recognises the danger threshold and calls an ambulance without waiting for certainty",
+        "description": "Recognises the danger threshold and activates ambulance transfer before diagnostic certainty",
         "taskIds": [
           "task-history",
           "task-management"
         ],
         "runLineIds": [
+          "run-early-escalation",
           "run-early-escalation-action",
-          "run-address-concern"
+          "run-address-transport"
         ],
         "sourceClaimIds": [
           "claim-transfer"
@@ -831,14 +792,14 @@
       },
       {
         "id": "step-diagnosis",
-        "description": "Explains acute coronary syndrome as the leading diagnosis with important alternatives and uncertainty",
+        "description": "Explains acute coronary syndrome, uncertainty and important alternatives",
         "taskIds": [
           "task-reasoning"
         ],
         "runLineIds": [
           "run-likely-diagnosis",
-          "run-differentials",
-          "run-uncertainty"
+          "run-uncertainty",
+          "run-differentials"
         ],
         "sourceClaimIds": [
           "claim-diagnosis",
@@ -846,28 +807,26 @@
         ]
       },
       {
-        "id": "step-initial-management",
-        "description": "Provides current evidence-based initial assessment and management",
+        "id": "step-management",
+        "description": "Provides evidence-based initial primary-care management without adding a handover",
         "taskIds": [
-          "task-history",
-          "task-reasoning",
           "task-management"
         ],
         "runLineIds": [
-          "run-early-escalation-action",
-          "run-aspirin-action",
+          "run-management-overview",
           "run-ecg-plan",
-          "run-ecg-response",
-          "run-oxygen",
-          "run-gtn-action",
           "run-gtn-plan",
-          "run-no-troponin"
+          "run-hospital-plan",
+          "run-oxygen",
+          "run-address-transport",
+          "run-understanding"
         ],
         "sourceClaimIds": [
+          "claim-transfer",
           "claim-investigation",
+          "claim-gtn",
           "claim-aspirin",
-          "claim-oxygen",
-          "claim-nitrate"
+          "claim-oxygen"
         ]
       }
     ],
@@ -880,11 +839,11 @@
         "runLineIds": [
           "run-open-question",
           "run-current",
-          "run-radiation",
+          "run-chest",
           "run-associated",
           "run-previous",
           "run-history",
-          "run-medicines",
+          "run-medications",
           "run-summary"
         ],
         "sourceClaimIds": [
@@ -899,8 +858,8 @@
         ],
         "runLineIds": [
           "run-likely-diagnosis",
-          "run-differentials",
-          "run-uncertainty"
+          "run-uncertainty",
+          "run-differentials"
         ],
         "sourceClaimIds": [
           "claim-exam-standard",
@@ -911,12 +870,11 @@
       {
         "name": "Choice of investigations",
         "taskIds": [
-          "task-reasoning",
           "task-management"
         ],
         "runLineIds": [
           "run-ecg-plan",
-          "run-no-troponin"
+          "run-hospital-plan"
         ],
         "sourceClaimIds": [
           "claim-exam-standard",
@@ -930,19 +888,18 @@
           "task-management"
         ],
         "runLineIds": [
-          "run-address-concern",
+          "run-early-escalation-action",
+          "run-management-overview",
           "run-aspirin-action",
           "run-oxygen",
-          "run-gtn-action",
-          "run-gtn-plan",
+          "run-address-transport",
           "run-closing"
         ],
         "sourceClaimIds": [
           "claim-exam-standard",
           "claim-transfer",
           "claim-aspirin",
-          "claim-oxygen",
-          "claim-nitrate"
+          "claim-oxygen"
         ]
       },
       {
@@ -953,11 +910,10 @@
           "task-management"
         ],
         "runLineIds": [
-          "run-consent-history",
+          "run-consent",
           "run-early-escalation-explanation",
-          "run-exam-consent",
-          "run-address-concern",
-          "run-reassure",
+          "run-uncertainty",
+          "run-address-transport",
           "run-understanding"
         ],
         "sourceClaimIds": [
@@ -967,10 +923,11 @@
     ],
     "projectSafetyErrors": [
       {
-        "id": "error-premature-closure",
-        "description": "Dismisses persistent pressure as indigestion because it followed lunch",
+        "id": "error-no-chest-pain",
+        "description": "Dismisses ACS because Mirella did not volunteer severe chest pain",
         "preventedByLineIds": [
-          "run-address-concern",
+          "run-chest",
+          "run-early-escalation-explanation",
           "run-likely-diagnosis"
         ],
         "safetyConceptIds": [
@@ -978,16 +935,16 @@
           "clinical-threshold-transfer"
         ],
         "sourceClaimIds": [
-          "claim-diagnosis",
+          "claim-atypical-suspicion-threshold",
           "claim-transfer"
         ]
       },
       {
         "id": "error-delayed-transfer",
-        "description": "Waits for diagnostic certainty before ambulance transfer",
+        "description": "Waits to finish the history or obtain a diagnostic test before transfer",
         "preventedByLineIds": [
-          "run-early-escalation-action",
-          "run-escalate"
+          "run-early-escalation",
+          "run-early-escalation-action"
         ],
         "safetyConceptIds": [
           "clinical-action-transfer",
@@ -998,16 +955,16 @@
         ]
       },
       {
-        "id": "error-unsafe-ruleout",
-        "description": "Uses one clinic troponin or unsupported risk score to exclude acute coronary syndrome",
+        "id": "error-private-transport",
+        "description": "Allows private transport despite ongoing suspected ACS",
         "preventedByLineIds": [
-          "run-no-troponin"
+          "run-address-transport"
         ],
         "safetyConceptIds": [
-          "clinical-unsafe-single-test"
+          "clinical-unsafe-private-transport"
         ],
         "sourceClaimIds": [
-          "claim-investigation"
+          "claim-transfer"
         ]
       }
     ],
@@ -1025,7 +982,7 @@
         7
       ],
       "decisionRule": "The global rating alone determines the station result: ratings 1 to 3 fail and ratings 4 to 7 pass.",
-      "passStandard": "Completes a focused history, recognises the dangerous cardiac pattern, explains uncertainty and provides safe initial management.",
+      "passStandard": "Completes the assigned tasks, recognises the non-classic dangerous cardiac pattern, explains uncertainty and provides safe initial management.",
       "failStandard": "Misses the dangerous pattern, delays transfer, gives unsafe reassurance or substantially fails the assigned tasks."
     }
   },
@@ -1038,53 +995,38 @@
         "participant-patient"
       ],
       "completedBeforeClinicalContent": true,
-      "rationale": "The patient can directly confirm full name and date of birth before clinical questioning."
+      "rationale": "The patient directly confirms full name and date of birth before any clinical question."
     },
     "defaultInformationParticipantId": "participant-patient",
     "directAddresses": [
       {
-        "lineId": "run-consent-history",
+        "lineId": "run-consent",
         "participantId": "participant-patient",
-        "addressTerm": "Daniel"
+        "addressTerm": "Mirella"
       },
       {
         "lineId": "run-early-escalation",
         "participantId": "participant-patient",
-        "addressTerm": "Daniel"
+        "addressTerm": "Mirella"
       },
       {
-        "lineId": "run-exam-consent",
+        "lineId": "run-likely-diagnosis",
         "participantId": "participant-patient",
-        "addressTerm": "Daniel"
+        "addressTerm": "Mirella"
       },
       {
         "lineId": "run-aspirin",
         "participantId": "participant-patient",
-        "addressTerm": "Daniel"
-      },
-      {
-        "lineId": "run-gtn",
-        "participantId": "participant-patient",
-        "addressTerm": "Daniel"
+        "addressTerm": "Mirella"
       }
     ],
     "consents": [
       {
         "id": "consent-consultation",
         "scope": "consultation",
-        "requestLineId": "run-consent-history",
-        "requestText": "Thank you, Daniel. Is it okay if I ask focused questions about the chest discomfort so I can keep you safe?",
-        "responseLineId": "run-consent-history-answer",
-        "responseText": "Yes, that is fine.",
-        "participantId": "participant-patient",
-        "outcome": "granted"
-      },
-      {
-        "id": "consent-examination",
-        "scope": "examination",
-        "requestLineId": "run-exam-consent",
-        "requestText": "Daniel, may I examine you now?",
-        "responseLineId": "run-exam-consent-answer",
+        "requestLineId": "run-consent",
+        "requestText": "Mirella, may I ask about what happened?",
+        "responseLineId": "run-consent-answer",
         "responseText": "Yes.",
         "participantId": "participant-patient",
         "outcome": "granted"
@@ -1093,19 +1035,9 @@
         "id": "consent-aspirin",
         "scope": "procedure",
         "requestLineId": "run-aspirin",
-        "requestText": "Daniel, may I give you aspirin 300 milligrams to chew now?",
+        "requestText": "Mirella, may I give you the aspirin now?",
         "responseLineId": "run-aspirin-consent",
-        "responseText": "Yes, please.",
-        "participantId": "participant-patient",
-        "outcome": "granted"
-      },
-      {
-        "id": "consent-gtn",
-        "scope": "procedure",
-        "requestLineId": "run-gtn",
-        "requestText": "Daniel, may I give one dose of glyceryl trinitrate under your tongue for the pain now?",
-        "responseLineId": "run-gtn-consent",
-        "responseText": "Yes, please.",
+        "responseText": "Yes.",
         "participantId": "participant-patient",
         "outcome": "granted"
       }
@@ -1122,10 +1054,10 @@
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-opening-story",
         "responseParticipantId": "participant-patient",
-        "responseText": "About 35 minutes ago, after lunch, I was walking back to the office when I felt a heavy pressure in the middle of my chest. I sat down, but it has not gone away.",
+        "responseText": "About 25 minutes ago, while carrying groceries, I became breathless and sick, with a dull ache across my lower jaw. It has not settled.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "heavy pressure"
+          "About 25 minutes ago"
         ],
         "nextDoctorLineId": "run-current",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1133,75 +1065,113 @@
       {
         "id": "request-current",
         "lineId": "run-current",
-        "requestText": "Is the pressure still there now?",
+        "requestText": "Are you still feeling unwell now?",
         "taskId": "task-history",
         "requestType": "question",
         "requestCount": 1,
-        "topic": "Current persistence",
+        "topic": "Current symptoms",
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-current-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "Yes. It is still there.",
+        "responseText": "Yes, I am still breathless and nauseated.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "still breathless and nauseated"
+        ],
+        "nextDoctorLineId": "run-chest",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-chest",
+        "lineId": "run-chest",
+        "requestText": "Have you noticed any discomfort in your chest?",
+        "taskId": "task-history",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Chest discomfort",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-chest-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "The middle feels heavy, but I did not think of it as pain.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "middle feels heavy"
+        ],
+        "nextDoctorLineId": "run-persistence",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-persistence",
+        "lineId": "run-persistence",
+        "requestText": "Is the heaviness still present?",
+        "taskId": "task-history",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Persistence",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-persistence-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "Yes, it is still there.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
           "still there"
         ],
-        "nextDoctorLineId": "run-site",
+        "nextDoctorLineId": "run-character",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       },
       {
-        "id": "request-site",
-        "lineId": "run-site",
-        "requestText": "Please point to where you feel it.",
-        "taskId": "task-history",
-        "requestType": "imperative_request",
-        "requestCount": 1,
-        "topic": "Site",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-site-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "Right here, across the centre of my chest.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "centre of my chest"
-        ],
-        "nextDoctorLineId": "run-radiation",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
-        "id": "request-radiation",
-        "lineId": "run-radiation",
-        "requestText": "Does it travel anywhere else?",
+        "id": "request-character",
+        "lineId": "run-character",
+        "requestText": "What does the heaviness feel like?",
         "taskId": "task-history",
         "requestType": "question",
         "requestCount": 1,
-        "topic": "Radiation",
+        "topic": "Character",
         "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-radiation-answer",
+        "expectedResponseLineId": "run-character-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "It goes into my left arm and a little into my jaw.",
+        "responseText": "Like a tight band sitting behind my breastbone.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "left arm"
+          "tight band"
         ],
-        "nextDoctorLineId": "run-severity",
+        "nextDoctorLineId": "run-onset",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       },
       {
-        "id": "request-severity",
-        "lineId": "run-severity",
-        "requestText": "What number from zero to ten describes it now?",
+        "id": "request-onset",
+        "lineId": "run-onset",
+        "requestText": "Did it reach its worst point instantly?",
         "taskId": "task-history",
         "requestType": "question",
         "requestCount": 1,
-        "topic": "Severity",
+        "topic": "Time to maximum intensity",
         "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-severity-answer",
+        "expectedResponseLineId": "run-onset-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "About seven.",
+        "responseText": "No. It built up over two or three minutes.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "seven"
+          "built up over two or three minutes"
+        ],
+        "nextDoctorLineId": "run-rest",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-rest",
+        "lineId": "run-rest",
+        "requestText": "What happened after you stopped carrying the bags?",
+        "taskId": "task-history",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Response to rest",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-rest-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "The jaw ache eased, but the heaviness and breathlessness continued.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "heaviness and breathlessness continued"
         ],
         "nextDoctorLineId": "run-associated",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1209,7 +1179,7 @@
       {
         "id": "request-associated",
         "lineId": "run-associated",
-        "requestText": "What else have you noticed with it?",
+        "requestText": "What other symptoms came with it?",
         "taskId": "task-history",
         "requestType": "question",
         "requestCount": 1,
@@ -1217,37 +1187,18 @@
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-associated-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "I feel sweaty and slightly sick. I am more short of breath than usual.",
+        "responseText": "I became clammy and light-headed.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "sweaty"
+          "clammy and light-headed"
         ],
         "nextDoctorLineId": "run-early-escalation",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       },
       {
-        "id": "request-syncope",
-        "lineId": "run-syncope",
-        "requestText": "Have you fainted?",
-        "taskId": "task-history",
-        "requestType": "question",
-        "requestCount": 1,
-        "topic": "Syncope",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-syncope-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "No, I have not fainted.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "not fainted"
-        ],
-        "nextDoctorLineId": "run-previous",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
         "id": "request-previous",
         "lineId": "run-previous",
-        "requestText": "Have you had anything like this before?",
+        "requestText": "Have you experienced anything similar before?",
         "taskId": "task-history",
         "requestType": "question",
         "requestCount": 1,
@@ -1255,35 +1206,111 @@
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-previous-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "Twice this week I felt a milder pressure while hurrying. It settled after a few minutes when I stopped.",
+        "responseText": "Last week, carrying laundry upstairs caused a milder episode that settled with rest.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "Twice this week"
+          "Last week"
         ],
-        "nextDoctorLineId": "run-dissection",
+        "nextDoctorLineId": "run-pleuritic",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       },
       {
-        "id": "request-dissection",
-        "lineId": "run-dissection",
-        "requestText": "Did the discomfort reach maximum intensity immediately?",
+        "id": "request-pleuritic",
+        "lineId": "run-pleuritic",
+        "requestText": "Does taking a deep breath change the heaviness?",
         "taskId": "task-history",
         "requestType": "question",
         "requestCount": 1,
-        "topic": "Time to maximum intensity",
+        "topic": "Pleuritic character",
         "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-dissection-answer",
+        "expectedResponseLineId": "run-pleuritic-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "No. It built up over a few minutes.",
+        "responseText": "No, breathing does not change it.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "built up over a few minutes"
+          "breathing does not change it"
+        ],
+        "nextDoctorLineId": "run-leg",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-leg",
+        "lineId": "run-leg",
+        "requestText": "Have you recently noticed swelling in one leg?",
+        "taskId": "task-history",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Unilateral leg swelling",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-leg-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "No, neither leg has been swollen.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "neither leg has been swollen"
+        ],
+        "nextDoctorLineId": "run-immobility",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-immobility",
+        "lineId": "run-immobility",
+        "requestText": "Have you recently been immobile for a long period?",
+        "taskId": "task-history",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Recent immobility",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-immobility-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "No, I have been moving around normally.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "moving around normally"
+        ],
+        "nextDoctorLineId": "run-history",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-history",
+        "lineId": "run-history",
+        "requestText": "What medical conditions do you have?",
+        "taskId": "task-history",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Medical history",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-history-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "Type 2 diabetes, high blood pressure and high cholesterol.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "Type 2 diabetes"
+        ],
+        "nextDoctorLineId": "run-medications",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-medications",
+        "lineId": "run-medications",
+        "requestText": "What regular medicines do you take?",
+        "taskId": "task-history",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Regular medicines",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-medications-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "Metformin, empagliflozin, telmisartan and atorvastatin.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "Metformin"
         ],
         "nextDoctorLineId": "run-allergy",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       },
       {
-        "id": "request-aspirin-allergy",
+        "id": "request-allergy",
         "lineId": "run-allergy",
         "requestText": "Have you ever had a severe allergic reaction to aspirin?",
         "taskId": "task-history",
@@ -1304,121 +1331,45 @@
       {
         "id": "request-bleeding",
         "lineId": "run-bleeding",
-        "requestText": "Do you have a bleeding disorder?",
+        "requestText": "Are you bleeding anywhere now?",
         "taskId": "task-history",
         "requestType": "question",
         "requestCount": 1,
-        "topic": "Bleeding disorder",
+        "topic": "Active bleeding",
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-bleeding-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "No, I do not have a bleeding disorder.",
+        "responseText": "No, I am not bleeding.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "do not have a bleeding disorder"
+          "not bleeding"
         ],
-        "nextDoctorLineId": "run-aspirin",
+        "nextDoctorLineId": "run-anticoagulant",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       },
       {
-        "id": "request-haemoptysis",
-        "lineId": "run-pe",
-        "requestText": "Have you coughed up blood?",
+        "id": "request-anticoagulant",
+        "lineId": "run-anticoagulant",
+        "requestText": "Do you take any blood-thinning medicine?",
         "taskId": "task-history",
         "requestType": "question",
         "requestCount": 1,
-        "topic": "Haemoptysis",
+        "topic": "Anticoagulant use",
         "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-pe-answer",
+        "expectedResponseLineId": "run-anticoagulant-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "No, I have not coughed up blood.",
+        "responseText": "No, I do not take a blood-thinning medicine.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "not coughed up blood"
+          "do not take a blood-thinning medicine"
         ],
-        "nextDoctorLineId": "run-vte",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
-        "id": "request-clot",
-        "lineId": "run-vte",
-        "requestText": "Have you previously had a blood clot?",
-        "taskId": "task-history",
-        "requestType": "question",
-        "requestCount": 1,
-        "topic": "Previous venous thromboembolism",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-vte-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "No, I have never had a blood clot.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "never had a blood clot"
-        ],
-        "nextDoctorLineId": "run-pneumothorax",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
-        "id": "request-pleuritic",
-        "lineId": "run-pneumothorax",
-        "requestText": "Is the discomfort worse when you breathe in?",
-        "taskId": "task-history",
-        "requestType": "question",
-        "requestCount": 1,
-        "topic": "Pleuritic character",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-pneumothorax-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "No, breathing does not change it.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "breathing does not change it"
-        ],
-        "nextDoctorLineId": "run-history",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
-        "id": "request-conditions",
-        "lineId": "run-history",
-        "requestText": "What medical conditions have you been treated for?",
-        "taskId": "task-history",
-        "requestType": "question",
-        "requestCount": 1,
-        "topic": "Medical conditions",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-history-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "High blood pressure and high cholesterol.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "High blood pressure"
-        ],
-        "nextDoctorLineId": "run-cardiac-history",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
-        "id": "request-heart-history",
-        "lineId": "run-cardiac-history",
-        "requestText": "Has a doctor diagnosed heart disease in the past?",
-        "taskId": "task-history",
-        "requestType": "question",
-        "requestCount": 1,
-        "topic": "Previous heart disease",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-cardiac-history-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "No, I have not been diagnosed with heart disease.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "not been diagnosed with heart disease"
-        ],
-        "nextDoctorLineId": "run-smoking",
+        "nextDoctorLineId": "run-aspirin-explanation",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       },
       {
         "id": "request-smoking",
         "lineId": "run-smoking",
-        "requestText": "Do you smoke?",
+        "requestText": "Have you ever smoked?",
         "taskId": "task-history",
         "requestType": "question",
         "requestCount": 1,
@@ -1426,10 +1377,10 @@
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-smoking-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "I stopped five years ago. Before that, about a packet a day.",
+        "responseText": "I stopped eight years ago. Before that I smoked for about twenty years.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "stopped five years ago"
+          "stopped eight years ago"
         ],
         "nextDoctorLineId": "run-family",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1437,56 +1388,18 @@
       {
         "id": "request-family",
         "lineId": "run-family",
-        "requestText": "Any close family history of early heart disease?",
+        "requestText": "Has a close relative had heart disease?",
         "taskId": "task-history",
         "requestType": "question",
         "requestCount": 1,
-        "topic": "Premature family cardiac history",
+        "topic": "Family history",
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-family-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "My father had a heart attack at 54.",
+        "responseText": "My mother had a heart attack at 61.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "heart attack at 54"
-        ],
-        "nextDoctorLineId": "run-medicines",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
-        "id": "request-medicines",
-        "lineId": "run-medicines",
-        "requestText": "What medicines do you take?",
-        "taskId": "task-history",
-        "requestType": "question",
-        "requestCount": 1,
-        "topic": "Current medicines",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-medicines-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "Perindopril and atorvastatin. I took an antacid, but it made no difference.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "Perindopril and atorvastatin"
-        ],
-        "nextDoctorLineId": "run-pde5",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
-        "id": "request-pde5",
-        "lineId": "run-pde5",
-        "requestText": "Have you used any erectile-dysfunction medicine recently?",
-        "taskId": "task-history",
-        "requestType": "question",
-        "requestCount": 1,
-        "topic": "Recent erectile-dysfunction medicine",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-pde5-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "No, I have not used any.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "not used any"
+          "heart attack at 61"
         ],
         "nextDoctorLineId": "run-summary",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1494,7 +1407,7 @@
       {
         "id": "request-understanding",
         "lineId": "run-understanding",
-        "requestText": "What do you understand about the plan?",
+        "requestText": "What do you understand about why hospital assessment is needed?",
         "taskId": "task-management",
         "requestType": "question",
         "requestCount": 1,
@@ -1502,10 +1415,10 @@
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-understanding-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "You are worried it may be reduced blood flow to my heart. I need the ambulance and hospital tests even though it is not definite yet.",
+        "responseText": "You think this could be my heart even though the pain is not severe. I need to go by ambulance and have heart tests at hospital.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "ambulance and hospital tests"
+          "go by ambulance"
         ],
         "nextDoctorLineId": "run-closing",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1517,12 +1430,12 @@
     "coverageSlot": "dangerous cardiac pattern",
     "primaryFailureMode": "premature_closure",
     "secondaryFailureMode": "unsafe_delay",
-    "distinctJob": "Recognise a persistent exertional cardiac pattern despite a meal-related indigestion explanation.",
-    "newSurprise": "Two milder exertional episodes emerge only after focused questioning.",
-    "plannedTrap": "The timing after lunch invites premature attribution to reflux.",
+    "distinctJob": "Recognise possible myocardial ischaemia when exertional jaw discomfort, breathlessness and nausea are volunteered before central heaviness is elicited.",
+    "newSurprise": "Central chest heaviness is disclosed only after a focused question because the patient does not regard pressure as pain.",
+    "plannedTrap": "The absence of volunteered chest pain may falsely lower concern despite a coherent exertional and autonomic pattern.",
     "antiFailureFeatures": [
-      "Separate the patient's explanation from the symptom pattern.",
-      "Escalate once the dangerous pattern is established rather than waiting for test certainty."
+      "The Doctor asks directly about chest discomfort without forcing the patient to call it pain.",
+      "Ambulance transfer begins once the dangerous pattern is established, before the remaining history is completed."
     ],
     "duplicateCheck": {
       "comparedCaseIds": [
@@ -1530,11 +1443,11 @@
         "case-003",
         "case-004"
       ],
-      "conclusion": "Case 1 trains acute coronary syndrome recognition with an indigestion attribution trap; Cases 2 to 4 separately train aortic dissection, pulmonary embolism and tension pneumothorax pathways."
+      "conclusion": "This new case trains an atypical ACS presentation without volunteered chest pain. The Emergency Explore comparisons cover aortic dissection, pulmonary embolism and tension pneumothorax rather than this recognition task."
     }
   },
   "performance": {
-    "targetSpokenSeconds": 461,
+    "targetSpokenSeconds": 438,
     "actionDurations": [
       {
         "lineId": "run-approach",
@@ -1548,42 +1461,22 @@
       },
       {
         "lineId": "run-early-escalation-action",
-        "seconds": 12,
+        "seconds": 15,
         "actionClass": "emergency",
         "performedBy": "doctor",
         "performedByParticipantId": null,
         "actorExactPhrase": "The doctor",
         "consentId": null,
-        "exceptionRationale": "The reviewed persistent cardiac pattern requires prompt ambulance activation before diagnostic certainty."
-      },
-      {
-        "lineId": "run-examination-action",
-        "seconds": 25,
-        "actionClass": "examination",
-        "performedBy": "doctor",
-        "performedByParticipantId": null,
-        "actorExactPhrase": "The doctor",
-        "consentId": "consent-examination",
-        "exceptionRationale": null
+        "exceptionRationale": "The reviewed ongoing cardiac pattern requires prompt ambulance activation and monitoring before diagnostic certainty."
       },
       {
         "lineId": "run-aspirin-action",
-        "seconds": 6,
-        "actionClass": "treatment",
-        "performedBy": "doctor",
-        "performedByParticipantId": null,
-        "actorExactPhrase": "The doctor",
-        "consentId": "consent-aspirin",
-        "exceptionRationale": null
-      },
-      {
-        "lineId": "run-gtn-action",
         "seconds": 8,
         "actionClass": "treatment",
         "performedBy": "doctor",
         "performedByParticipantId": null,
         "actorExactPhrase": "The doctor",
-        "consentId": "consent-gtn",
+        "consentId": "consent-aspirin",
         "exceptionRationale": null
       }
     ],
@@ -1595,55 +1488,54 @@
           "run-approach",
           "run-intro",
           "run-id",
-          "run-consent-history",
-          "run-consent-history-answer",
+          "run-consent",
+          "run-consent-answer",
           "run-open-question",
           "run-opening-story",
           "run-current",
           "run-current-answer",
-          "run-site",
-          "run-site-answer",
-          "run-radiation",
-          "run-radiation-answer",
-          "run-severity",
-          "run-severity-answer",
+          "run-chest",
+          "run-chest-answer",
+          "run-persistence",
+          "run-persistence-answer",
+          "run-character",
+          "run-character-answer",
+          "run-onset",
+          "run-onset-answer",
+          "run-rest",
+          "run-rest-answer",
           "run-associated",
           "run-associated-answer",
           "run-early-escalation",
-          "run-early-escalation-action",
           "run-early-escalation-response",
           "run-early-escalation-explanation",
-          "run-syncope",
-          "run-syncope-answer",
+          "run-early-escalation-action",
           "run-previous",
           "run-previous-answer",
-          "run-dissection",
-          "run-dissection-answer",
+          "run-pleuritic",
+          "run-pleuritic-answer",
+          "run-leg",
+          "run-leg-answer",
+          "run-immobility",
+          "run-immobility-answer",
+          "run-history",
+          "run-history-answer",
+          "run-medications",
+          "run-medications-answer",
           "run-allergy",
           "run-allergy-answer",
           "run-bleeding",
           "run-bleeding-answer",
+          "run-anticoagulant",
+          "run-anticoagulant-answer",
+          "run-aspirin-explanation",
           "run-aspirin",
           "run-aspirin-consent",
           "run-aspirin-action",
-          "run-pe",
-          "run-pe-answer",
-          "run-vte",
-          "run-vte-answer",
-          "run-pneumothorax",
-          "run-pneumothorax-answer",
-          "run-history",
-          "run-history-answer",
-          "run-cardiac-history",
-          "run-cardiac-history-answer",
           "run-smoking",
           "run-smoking-answer",
           "run-family",
           "run-family-answer",
-          "run-medicines",
-          "run-medicines-answer",
-          "run-pde5",
-          "run-pde5-answer",
           "run-summary",
           "run-time-prompt"
         ],
@@ -1657,8 +1549,8 @@
           {
             "requirement": "The dangerous pattern is summarised",
             "lineId": "run-summary",
-            "exactPhrase": "You have ongoing exertional central pressure",
-            "positivePerformancePhrase": "You have ongoing exertional central pressure spreading to your arm and jaw"
+            "exactPhrase": "You have ongoing central heaviness",
+            "positivePerformancePhrase": "You have ongoing central heaviness, jaw discomfort, breathlessness, nausea and clamminess after exertion"
           }
         ],
         "observedSeconds": 240,
@@ -1667,49 +1559,38 @@
       {
         "taskId": "task-reasoning",
         "runLineIds": [
-          "run-exam-consent",
-          "run-exam-consent-answer",
-          "run-examination-action",
-          "run-exam-request",
-          "run-exam-findings",
           "run-likely-diagnosis",
-          "run-differentials",
           "run-patient-question",
           "run-uncertainty",
-          "run-ecg-plan",
-          "run-ecg-result",
-          "run-ecg-response"
+          "run-differentials"
         ],
         "requiredEvidence": [
           {
             "requirement": "The most likely diagnosis is explicitly explained",
             "lineId": "run-likely-diagnosis",
-            "exactPhrase": "My most likely diagnosis is acute coronary syndrome",
-            "positivePerformancePhrase": "My most likely diagnosis is acute coronary syndrome"
+            "exactPhrase": "my main concern is acute coronary syndrome",
+            "positivePerformancePhrase": "my main concern is acute coronary syndrome"
           },
           {
             "requirement": "Important differential diagnoses are explicitly explained",
             "lineId": "run-differentials",
-            "exactPhrase": "Important differential diagnoses include a tear in the main artery, a lung clot and a collapsed lung.",
-            "positivePerformancePhrase": "Important differential diagnoses include a tear in the main artery, a lung clot and a collapsed lung."
+            "exactPhrase": "Important differential diagnoses are a clot in the lung, a problem with the aorta and a collapsed lung.",
+            "positivePerformancePhrase": "Important differential diagnoses are a clot in the lung, a problem with the aorta and a collapsed lung."
           }
         ],
-        "observedSeconds": 120,
+        "observedSeconds": 75,
         "completed": true
       },
       {
         "taskId": "task-management",
         "runLineIds": [
-          "run-escalate",
-          "run-patient-ambulance",
-          "run-address-concern",
-          "run-oxygen",
-          "run-gtn",
-          "run-gtn-consent",
-          "run-gtn-action",
+          "run-management-overview",
+          "run-ecg-plan",
           "run-gtn-plan",
-          "run-no-troponin",
-          "run-reassure",
+          "run-hospital-plan",
+          "run-oxygen",
+          "run-patient-transport",
+          "run-address-transport",
           "run-understanding",
           "run-understanding-answer",
           "run-closing",
@@ -1717,19 +1598,19 @@
         ],
         "requiredEvidence": [
           {
-            "requirement": "Prompt ambulance transfer is visibly confirmed",
-            "lineId": "run-escalate",
-            "exactPhrase": "The ambulance is on its way.",
-            "positivePerformancePhrase": "The ambulance is on its way."
+            "requirement": "The management plan is explained",
+            "lineId": "run-management-overview",
+            "exactPhrase": "The ambulance is already on the way and you have had aspirin.",
+            "positivePerformancePhrase": "The ambulance is already on the way and you have had aspirin."
           },
           {
             "requirement": "The patient's concern about private transport is answered",
-            "lineId": "run-address-concern",
-            "exactPhrase": "An ambulance provides monitoring and treatment if you deteriorate.",
-            "positivePerformancePhrase": "An ambulance provides monitoring and treatment if you deteriorate."
+            "lineId": "run-address-transport",
+            "exactPhrase": "The ambulance allows monitoring and treatment during transport",
+            "positivePerformancePhrase": "The ambulance allows monitoring and treatment during transport"
           }
         ],
-        "observedSeconds": 101,
+        "observedSeconds": 123,
         "completed": true
       }
     ],
@@ -1737,11 +1618,11 @@
       "status": "pass",
       "method": "spoken_readthrough",
       "reviewer": "Case-generation engine timing review",
-      "performedAt": "2026-07-15T10:43:00+10:00",
-      "observedSeconds": 461,
-      "caseContentSha256": "c54637673cc1dbb03be0b5d477b113d85ea9c589f500d39682e834216b062d6a",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
-      "notes": "Timestamped spoken read-through placed the Examiner four-minute prompt immediately after run-summary at 240 seconds and the final Examiner line at 461 seconds. Before the prompt, 479 spoken words at 134.3 words per minute plus 26 seconds of observed Action time total 240 seconds. From the prompt onward, 492 spoken words at 157.0 words per minute plus 33 seconds of observed Action time total 221 seconds. Both segments remain within the audited natural-speech range."
+      "performedAt": "2026-07-15T01:54:10.492Z",
+      "observedSeconds": 438,
+      "caseContentSha256": "e6b05df8e4a35aad99e60cc213e6e8bdb2026ef7c4f3b05e98107e73bb935bba",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "notes": "Timestamped read-through places the four-minute Examiner prompt after the focused-history summary at 240 seconds. The diagnostic explanation takes 75 seconds and the concerns plus management discussion takes 123 seconds, for a total of 438 seconds."
     }
   },
   "sourceBasis": {
@@ -1753,8 +1634,8 @@
         "title": "Clinical Examination Specifications V8.3, June 2026",
         "url": "https://www.amc.org.au/wp-content/uploads/2026/06/2026-04-08-Clinical-Exam-Spec-V8-3.pdf",
         "publishedOrUpdated": "2026-06-01",
-        "accessed": "2026-07-14",
-        "reviewDue": "2027-01-14",
+        "accessed": "2026-07-15",
+        "reviewDue": "2027-01-15",
         "jurisdiction": "Australia",
         "applicability": "Current station timing, predominant assessment area, tasks, key steps, domains and global rating.",
         "authoritative": true
@@ -1766,8 +1647,8 @@
         "title": "Assessment Domains V1.1, November 2024",
         "url": "https://www.amc.org.au/wp-content/uploads/2024/12/20241112-AIPD-AssessmentDomains.pdf",
         "publishedOrUpdated": "2024-11-01",
-        "accessed": "2026-07-14",
-        "reviewDue": "2027-01-14",
+        "accessed": "2026-07-15",
+        "reviewDue": "2027-01-15",
         "jurisdiction": "Australia",
         "applicability": "Official domain vocabulary and expected performance at AMC clinical level.",
         "authoritative": true
@@ -1779,10 +1660,23 @@
         "title": "Australian clinical guideline for acute coronary syndromes",
         "url": "https://www.heartfoundation.org.au/for-professionals/acs-guideline",
         "publishedOrUpdated": "2025-02-18",
-        "accessed": "2026-07-14",
-        "reviewDue": "2027-01-14",
+        "accessed": "2026-07-15",
+        "reviewDue": "2027-01-15",
         "jurisdiction": "Australia",
-        "applicability": "Suspected ACS assessment, dangerous differentials, ECG, monitoring, initial treatment and primary-care disposition.",
+        "applicability": "Suspected ACS presentation, primary-care transfer, ECG, monitoring and initial treatment.",
+        "authoritative": true
+      },
+      {
+        "id": "source-anzcor-14-1",
+        "sourceType": "australian_clinical_guideline",
+        "organisation": "Australian and New Zealand Committee on Resuscitation",
+        "title": "Guideline 14.1 - Acute Coronary Syndromes: Presentation",
+        "url": "https://www.anzcor.org/home/acute-coronary-syndromes/guideline-14-1-acute-coronary-syndromes-presentation",
+        "publishedOrUpdated": "2024-12-01",
+        "accessed": "2026-07-15",
+        "reviewDue": "2027-01-15",
+        "jurisdiction": "Australia",
+        "applicability": "ACS symptom patterns, non-specific presentations, risk factors and ECG limitations.",
         "authoritative": true
       },
       {
@@ -1791,11 +1685,11 @@
         "organisation": "Australian and New Zealand Committee on Resuscitation",
         "title": "Guideline 14.2 - Acute Coronary Syndromes: Initial Medical Therapy",
         "url": "https://www.anzcor.org/home/acute-coronary-syndromes/guideline-14-2-acute-coronary-syndromes-initial-medical-therapy",
-        "publishedOrUpdated": "undated",
-        "accessed": "2026-07-14",
-        "reviewDue": "2027-01-14",
+        "publishedOrUpdated": "2024-12-01",
+        "accessed": "2026-07-15",
+        "reviewDue": "2027-01-15",
         "jurisdiction": "Australia",
-        "applicability": "Initial oxygen, aspirin and nitrate therapy for suspected acute coronary syndrome.",
+        "applicability": "Initial oxygen and aspirin therapy for suspected acute coronary syndrome.",
         "authoritative": true
       }
     ],
@@ -1803,27 +1697,37 @@
       {
         "id": "claim-diagnosis",
         "claimType": "diagnosis",
-        "claim": "Persistent exertional central pressure with arm or jaw radiation and autonomic symptoms is a high-concern pattern for acute coronary syndrome.",
+        "claim": "Exertional pressure, jaw discomfort, dyspnoea, nausea and sweating can represent acute coronary syndrome even when the patient does not volunteer chest pain; non-specific presentations occur more often in women and people with diabetes.",
         "sourceIds": [
-          "source-acs-guideline"
+          "source-acs-guideline",
+          "source-anzcor-14-1"
         ],
         "sourceLocators": [
           {
             "sourceId": "source-acs-guideline",
-            "locator": "Comprehensive guideline, pp. 26-27, initial assessment and history of presenting complaint"
+            "locator": "Comprehensive guideline, pp. 26-27, history of presenting complaint"
+          },
+          {
+            "sourceId": "source-anzcor-14-1",
+            "locator": "Clinical presentation section, approved December 2024"
           }
         ],
         "runLineIds": [
           "run-opening-story",
           "run-current-answer",
-          "run-radiation-answer",
+          "run-chest-answer",
+          "run-persistence-answer",
+          "run-character-answer",
+          "run-rest-answer",
           "run-associated-answer",
           "run-previous-answer",
           "run-history-answer",
+          "run-medications-answer",
           "run-smoking-answer",
           "run-family-answer",
           "run-summary",
-          "run-likely-diagnosis"
+          "run-likely-diagnosis",
+          "run-early-escalation-explanation"
         ],
         "taskIds": [
           "task-history",
@@ -1831,13 +1735,44 @@
         ],
         "clinicalConceptIds": [
           "clinical-leading-diagnosis",
+          "clinical-clue-atypical",
           "clinical-clue-pressure",
-          "clinical-clue-radiation",
-          "clinical-clue-autonomic",
           "clinical-clue-exertional",
+          "clinical-clue-autonomic",
           "clinical-clue-risk",
           "clinical-discriminator-pattern",
-          "clinical-red-flag-persistent",
+          "clinical-red-flag-ongoing"
+        ],
+        "blueprintRefs": []
+      },
+      {
+        "id": "claim-atypical-suspicion-threshold",
+        "claimType": "threshold",
+        "claim": "The absence of volunteered chest pain must not be used to dismiss acute coronary syndrome when exertional jaw discomfort, dyspnoea and autonomic symptoms form a concerning pattern.",
+        "sourceIds": [
+          "source-acs-guideline",
+          "source-anzcor-14-1"
+        ],
+        "sourceLocators": [
+          {
+            "sourceId": "source-acs-guideline",
+            "locator": "Comprehensive guideline, pp. 26-27, history of presenting complaint and accompanying symptoms"
+          },
+          {
+            "sourceId": "source-anzcor-14-1",
+            "locator": "Clinical presentation section, non-specific symptoms in women and people with diabetes"
+          }
+        ],
+        "runLineIds": [
+          "run-chest-answer",
+          "run-early-escalation-explanation",
+          "run-likely-diagnosis"
+        ],
+        "taskIds": [
+          "task-history",
+          "task-reasoning"
+        ],
+        "clinicalConceptIds": [
           "clinical-unsafe-dismissal"
         ],
         "blueprintRefs": []
@@ -1845,21 +1780,26 @@
       {
         "id": "claim-differential",
         "claimType": "differential",
-        "claim": "Time-critical alternatives to acute coronary syndrome include aortic dissection, pulmonary embolism and pneumothorax; reflux and musculoskeletal causes remain non-cardiac alternatives.",
+        "claim": "Important time-critical alternatives include acute aortic syndrome, pulmonary embolism and pneumothorax; symptom character and relevant risk features guide discrimination without safely excluding disease from one negative answer.",
         "sourceIds": [
-          "source-acs-guideline"
+          "source-acs-guideline",
+          "source-anzcor-14-1"
         ],
         "sourceLocators": [
           {
             "sourceId": "source-acs-guideline",
-            "locator": "Comprehensive guideline, pp. 26-27, targeted differential diagnoses and Table 2"
+            "locator": "Comprehensive guideline, pp. 26-27, targeted differential diagnoses"
+          },
+          {
+            "sourceId": "source-anzcor-14-1",
+            "locator": "Clinical presentation and differential assessment sections"
           }
         ],
         "runLineIds": [
-          "run-dissection-answer",
-          "run-pe-answer",
-          "run-vte-answer",
-          "run-pneumothorax-answer",
+          "run-onset-answer",
+          "run-pleuritic-answer",
+          "run-leg-answer",
+          "run-immobility-answer",
           "run-differentials"
         ],
         "taskIds": [
@@ -1884,50 +1824,54 @@
         "sourceLocators": [
           {
             "sourceId": "source-acs-guideline",
-            "locator": "Comprehensive guideline, pp. 58-59, primary-care presentation recommendations and initial assessment"
+            "locator": "Primary care setting recommendation"
           }
         ],
         "runLineIds": [
           "run-associated-answer",
           "run-early-escalation",
           "run-early-escalation-action",
-          "run-escalate",
-          "run-address-concern"
+          "run-early-escalation-response",
+          "run-management-overview",
+          "run-patient-transport",
+          "run-address-transport"
         ],
         "taskIds": [
           "task-history",
           "task-management"
         ],
         "clinicalConceptIds": [
+          "clinical-red-flag-ongoing",
           "clinical-threshold-transfer",
           "clinical-action-transfer",
-          "clinical-unsafe-dismissal",
-          "clinical-scope-primary-care",
-          "clinical-red-flag-persistent"
+          "clinical-unsafe-private-transport",
+          "clinical-scope-primary-care"
         ],
         "blueprintRefs": []
       },
       {
         "id": "claim-investigation",
         "claimType": "investigation",
-        "claim": "Ongoing ischaemic symptoms require continuous cardiac monitoring with defibrillator availability during assessment; suspected acute coronary syndrome also requires ECG assessment within 10 minutes and serial troponin-based assessment rather than a single unsupported primary-care rule-out test.",
+        "claim": "Ongoing suspected ACS requires cardiac monitoring with defibrillator availability and a 12-lead ECG within 10 minutes; one normal ECG does not exclude NSTEACS and serial ECG plus troponin assessment is required.",
         "sourceIds": [
-          "source-acs-guideline"
+          "source-acs-guideline",
+          "source-anzcor-14-1"
         ],
         "sourceLocators": [
           {
             "sourceId": "source-acs-guideline",
-            "locator": "Comprehensive guideline, pp. 7-8 and 58-59, ECG, monitoring, troponin and primary-care recommendations"
+            "locator": "Initial ECG assessment and primary-care presentation recommendations"
+          },
+          {
+            "sourceId": "source-anzcor-14-1",
+            "locator": "ECG section: ECG may be normal in over 30% of NSTEACS"
           }
         ],
         "runLineIds": [
-          "run-associated-answer",
           "run-early-escalation-action",
           "run-uncertainty",
           "run-ecg-plan",
-          "run-ecg-result",
-          "run-ecg-response",
-          "run-no-troponin"
+          "run-hospital-plan"
         ],
         "taskIds": [
           "task-history",
@@ -1935,39 +1879,48 @@
           "task-management"
         ],
         "clinicalConceptIds": [
-          "clinical-action-ecg-monitoring",
+          "clinical-action-monitoring",
           "clinical-scope-primary-care"
         ],
         "blueprintRefs": []
       },
       {
-        "id": "claim-ruleout-threshold",
+        "id": "claim-serial-assessment-threshold",
         "claimType": "threshold",
-        "claim": "A single contemporary point-of-care troponin result or unsupported primary-care risk score must not be used to exclude acute myocardial infarction or acute coronary syndrome.",
+        "claim": "A single normal ECG does not exclude non-ST-elevation acute coronary syndrome; ongoing concern requires serial ECG and high-sensitivity troponin assessment.",
         "sourceIds": [
-          "source-acs-guideline"
+          "source-acs-guideline",
+          "source-anzcor-14-1"
         ],
         "sourceLocators": [
           {
             "sourceId": "source-acs-guideline",
-            "locator": "Comprehensive guideline, p. 59, troponin testing and primary-care risk assessment"
+            "locator": "Initial ECG assessment and serial testing recommendations"
+          },
+          {
+            "sourceId": "source-anzcor-14-1",
+            "locator": "ECG section: an ECG may be normal in more than 30% of NSTEACS"
           }
         ],
         "runLineIds": [
-          "run-no-troponin"
+          "run-uncertainty",
+          "run-ecg-plan",
+          "run-hospital-plan"
         ],
         "taskIds": [
+          "task-reasoning",
           "task-management"
         ],
         "clinicalConceptIds": [
-          "clinical-unsafe-single-test"
+          "clinical-threshold-serial-assessment",
+          "clinical-unsafe-single-ecg"
         ],
         "blueprintRefs": []
       },
       {
         "id": "claim-aspirin",
         "claimType": "dose",
-        "claim": "Give aspirin 300 milligrams chewed or dissolved in suspected acute coronary syndrome unless contraindicated, after excluding true anaphylaxis and bleeding disorder.",
+        "claim": "Give aspirin 300 milligrams chewed or dissolved in suspected acute coronary syndrome unless contraindicated, after excluding true anaphylaxis and active bleeding.",
         "sourceIds": [
           "source-acs-guideline",
           "source-anzcor-14-2"
@@ -1975,19 +1928,24 @@
         "sourceLocators": [
           {
             "sourceId": "source-acs-guideline",
-            "locator": "Comprehensive guideline, p. 7, initial therapeutic management"
+            "locator": "Initial therapeutic management recommendation"
           },
           {
             "sourceId": "source-anzcor-14-2",
-            "locator": "Section 2.1 Aspirin administration, paragraphs 62-67"
+            "locator": "Aspirin administration section, approved December 2024"
           }
         ],
         "runLineIds": [
           "run-allergy",
+          "run-allergy-answer",
           "run-bleeding",
+          "run-bleeding-answer",
+          "run-anticoagulant",
+          "run-anticoagulant-answer",
+          "run-aspirin-explanation",
           "run-aspirin",
           "run-aspirin-action",
-          "run-escalate"
+          "run-management-overview"
         ],
         "taskIds": [
           "task-history",
@@ -2001,7 +1959,7 @@
       {
         "id": "claim-oxygen",
         "claimType": "threshold",
-        "claim": "A person with suspected acute coronary syndrome and oxygen saturation of 96% on room air does not require routine oxygen.",
+        "claim": "Supplemental oxygen is not routinely required when oxygen saturation is at least 90 percent; give it for saturation below 90 percent, heart failure or shock, while avoiding hyperoxaemia.",
         "sourceIds": [
           "source-acs-guideline",
           "source-anzcor-14-2"
@@ -2009,19 +1967,17 @@
         "sourceLocators": [
           {
             "sourceId": "source-acs-guideline",
-            "locator": "Comprehensive guideline, p. 8, initial therapeutic management"
+            "locator": "Initial therapeutic management recommendation"
           },
           {
             "sourceId": "source-anzcor-14-2",
-            "locator": "Symptomatic Therapy, paragraphs 46-50"
+            "locator": "Symptomatic therapy section, approved December 2024"
           }
         ],
         "runLineIds": [
-          "run-exam-findings",
           "run-oxygen"
         ],
         "taskIds": [
-          "task-reasoning",
           "task-management"
         ],
         "clinicalConceptIds": [
@@ -2030,9 +1986,9 @@
         "blueprintRefs": []
       },
       {
-        "id": "claim-nitrate",
+        "id": "claim-gtn",
         "claimType": "treatment",
-        "claim": "For ongoing chest pain, give sublingual glyceryl trinitrate every five minutes for up to three doses when no contraindication exists, with continued symptom and blood-pressure monitoring.",
+        "claim": "Give sublingual glyceryl trinitrate for ongoing chest discomfort when blood pressure is adequate and no contraindication such as right ventricular infarction or recent phosphodiesterase-5 inhibitor use is present.",
         "sourceIds": [
           "source-acs-guideline",
           "source-anzcor-14-2"
@@ -2040,36 +1996,28 @@
         "sourceLocators": [
           {
             "sourceId": "source-acs-guideline",
-            "locator": "Comprehensive guideline, p. 8, initial therapeutic management"
+            "locator": "Initial therapeutic management recommendation and nitrates practice points, pp. 35-36"
           },
           {
             "sourceId": "source-anzcor-14-2",
-            "locator": "Symptomatic Therapy, paragraphs 46-53"
+            "locator": "Symptomatic therapy section, nitrates"
           }
         ],
         "runLineIds": [
-          "run-pde5",
-          "run-exam-findings",
-          "run-gtn",
-          "run-gtn-consent",
-          "run-gtn-action",
           "run-gtn-plan"
         ],
         "taskIds": [
-          "task-history",
-          "task-reasoning",
           "task-management"
         ],
         "clinicalConceptIds": [
-          "clinical-threshold-nitrate",
-          "clinical-action-gtn"
+          "clinical-threshold-gtn"
         ],
         "blueprintRefs": []
       },
       {
         "id": "claim-exam-standard",
         "claimType": "exam_standard",
-        "claim": "The station uses the current AMC two-minute reading and eight-minute assessment format, predominant assessment area, observable tasks, key steps, domains and seven-point global rating threshold.",
+        "claim": "The station uses the current AMC two-minute reading and eight-minute assessment format, predominant assessment area, observable tasks, domains and seven-point global rating threshold.",
         "sourceIds": [
           "source-amc-spec",
           "source-amc-domains"
@@ -2077,7 +2025,7 @@
         "sourceLocators": [
           {
             "sourceId": "source-amc-spec",
-            "locator": "Clinical Examination Specifications V8.3, pp. 10-15 and 20, marking, timing and task-performance sections"
+            "locator": "Clinical Examination Specifications V8.3, station structure, timing and task sections"
           },
           {
             "sourceId": "source-amc-domains",
@@ -2102,15 +2050,15 @@
     ]
   },
   "qa": {
-    "caseContentSha256": "c54637673cc1dbb03be0b5d477b113d85ea9c589f500d39682e834216b062d6a",
-    "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
-    "blueprintPackageSha256": "bc5abe0c64d624088ab2f21a4ddb437c909ef0fcc4a003be5c02ffad093477cf",
+    "caseContentSha256": "e6b05df8e4a35aad99e60cc213e6e8bdb2026ef7c4f3b05e98107e73bb935bba",
+    "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+    "blueprintPackageSha256": "f79bfb765990f20c8c1493ad80f4ea0856e61e01ebd565304939e4fec9185bb6",
     "blueprint": {
       "status": "pass",
       "method": "Executable blueprint integrity review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "automated_test",
@@ -2120,10 +2068,10 @@
     },
     "stemNeutrality": {
       "status": "pass",
-      "method": "Diagnosis-alias and urgency-language review",
+      "method": "Diagnosis-alias, urgency-language and management-leakage review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "line_review",
@@ -2133,10 +2081,10 @@
     },
     "taskAlignment": {
       "status": "pass",
-      "method": "Task-to-line and task-evidence review",
+      "method": "Task-to-line and task-evidence review including no-unrequested-handover control",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "line_review",
@@ -2148,8 +2096,8 @@
       "status": "pass",
       "method": "Atomic-question and natural-dialogue review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "line_review",
@@ -2161,8 +2109,8 @@
       "status": "pass",
       "method": "Participant disclosure sequencing review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "line_review",
@@ -2172,10 +2120,10 @@
     },
     "examinerRelease": {
       "status": "pass",
-      "method": "Examiner release and timing-prompt review",
+      "method": "Examiner ownership and four-minute prompt review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "line_review",
@@ -2187,12 +2135,12 @@
       "status": "pass",
       "method": "AMC specification and station-authenticity review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "line_review",
-          "reference": "AMC-specification-V8.3:pp10-20"
+          "reference": "AMC-specification-V8.3"
         }
       ]
     },
@@ -2200,25 +2148,25 @@
       "status": "pass",
       "method": "Timestamped complete spoken timing review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "listen_test",
-          "reference": "case-001:prompt-240-total-461-seconds"
+          "reference": "case-001:prompt-240-total-438-seconds"
         }
       ]
     },
     "clinical": {
       "status": "pass",
-      "method": "Line-by-line Australian clinical-guideline review",
+      "method": "Line-by-line current Australian clinical-guideline review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "source_review",
-          "reference": "ACS-2025:pp7-8,26-27,58-59;ANZCOR-14.2"
+          "reference": "ACS-2025;ANZCOR-14.1;ANZCOR-14.2"
         }
       ]
     },
@@ -2226,8 +2174,8 @@
       "status": "pass",
       "method": "Authoritative-source currency and locator review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "source_review",
@@ -2237,10 +2185,10 @@
     },
     "finalQa": {
       "status": "pass",
-      "method": "Engine 1.1 task-alignment correction final audit",
+      "method": "Engine 1.1 new Case 1 final audit",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T10:43:00+10:00",
-      "reviewScopeSha256": "737a4f38491f11ec25ee6d907a11c867f8dd995d6f28e2f510ef824d8008582f",
+      "reviewedAt": "2026-07-15T01:54:10.492Z",
+      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
       "evidence": [
         {
           "type": "audit_report",

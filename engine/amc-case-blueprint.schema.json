@@ -1,0 +1,990 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical.local/schemas/amc-case-blueprint-v1.1.json",
+  "title": "AMC Case Hidden Production Blueprint v1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "blueprintVersion",
+    "caseId",
+    "registryId",
+    "registryVersion",
+    "revision",
+    "releaseStatus",
+    "station",
+    "stem",
+    "tasks",
+    "clinicalTruth",
+    "participants",
+    "examiner",
+    "marking",
+    "interaction",
+    "variation",
+    "performance",
+    "sourceBasis",
+    "qa"
+  ],
+  "properties": {
+    "blueprintVersion": { "const": "1.1.0" },
+    "caseId": { "type": "string", "pattern": "^case-[0-9]{3}$" },
+    "registryId": { "type": "string", "pattern": "^CP-P[0-9]+-C[0-9]{3}$" },
+    "registryVersion": { "const": "1.1.0" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "releaseStatus": { "enum": ["draft", "hold", "audited"] },
+    "station": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["displayNumber", "title", "visibleStatus", "statusLabel", "note", "phase", "pattern", "grammar", "predominantArea", "modality", "setting", "recipient", "readingMinutes", "assessmentMinutes"],
+      "properties": {
+        "displayNumber": { "type": "string", "pattern": "^Case [0-9]+$" },
+        "title": { "$ref": "#/$defs/text" },
+        "visibleStatus": { "enum": ["draft", "hold", "audited"] },
+        "statusLabel": { "$ref": "#/$defs/text" },
+        "note": { "$ref": "#/$defs/text" },
+        "phase": { "$ref": "#/$defs/idTitle" },
+        "pattern": { "$ref": "#/$defs/idTitle" },
+        "grammar": { "$ref": "#/$defs/grammar" },
+        "predominantArea": { "$ref": "#/$defs/assessmentArea" },
+        "modality": { "$ref": "#/$defs/modality" },
+        "setting": { "$ref": "#/$defs/text" },
+        "recipient": { "$ref": "#/$defs/text" },
+        "readingMinutes": { "const": 2 },
+        "assessmentMinutes": { "const": 8 }
+      }
+    },
+    "stem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["diagnosisVisibility", "diagnosisTerms", "urgencyVisibility", "lines", "forbiddenTerms"],
+      "properties": {
+        "diagnosisVisibility": { "enum": ["hidden_to_be_derived", "provided_as_task_context"] },
+        "diagnosisTerms": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/text" }
+        },
+        "urgencyVisibility": { "const": "not_signalled" },
+        "lines": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "text", "purpose"],
+            "properties": {
+              "id": { "$ref": "#/$defs/lineId" },
+              "text": { "$ref": "#/$defs/text" },
+              "purpose": { "enum": ["role_setting", "person_presentation", "provided_information", "examiner_arrangement", "task_context"] }
+            }
+          }
+        },
+        "forbiddenTerms": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/text" }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "text", "actionVerb", "assessmentArea", "recipient", "visibleTiming", "internalMinutes", "primary"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^task-[a-z0-9-]+$" },
+          "text": { "$ref": "#/$defs/text" },
+          "actionVerb": { "$ref": "#/$defs/text" },
+          "assessmentArea": { "$ref": "#/$defs/assessmentArea" },
+          "recipient": { "$ref": "#/$defs/text" },
+          "visibleTiming": {
+            "oneOf": [
+              { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)? minutes?$" },
+              { "type": "null" }
+            ]
+          },
+          "internalMinutes": { "type": "number", "exclusiveMinimum": 0, "maximum": 8 },
+          "primary": { "type": "boolean" }
+        }
+      }
+    },
+    "clinicalTruth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["leadingDiagnosis", "differentials", "essentialClues", "discriminators", "redFlags", "safetyThresholds", "criticalActions", "criticalActionTimings", "unsafeActions", "scopeBoundary"],
+      "properties": {
+        "leadingDiagnosis": { "$ref": "#/$defs/clinicalConcept" },
+        "differentials": { "type": "array", "items": { "$ref": "#/$defs/clinicalConcept" } },
+        "essentialClues": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/clinicalConcept" } },
+        "discriminators": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/clinicalConcept" } },
+        "redFlags": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/clinicalConcept" } },
+        "safetyThresholds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/clinicalConcept" } },
+        "criticalActions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/clinicalConcept" } },
+        "criticalActionTimings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "criticalActionConceptId", "triggerLineId", "latestPermittedLineId", "positiveActionPhrase", "rationale", "sourceClaimIds"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^timing-[a-z0-9-]+$" },
+              "criticalActionConceptId": { "type": "string", "pattern": "^clinical-[a-z0-9-]+$" },
+              "triggerLineId": { "$ref": "#/$defs/lineId" },
+              "latestPermittedLineId": { "$ref": "#/$defs/lineId" },
+              "positiveActionPhrase": { "$ref": "#/$defs/text" },
+              "rationale": { "$ref": "#/$defs/text" },
+              "sourceClaimIds": { "$ref": "#/$defs/sourceClaimIdList" }
+            }
+          }
+        },
+        "unsafeActions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/clinicalConcept" } },
+        "scopeBoundary": { "$ref": "#/$defs/clinicalConcept" }
+      }
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "speakerLabel", "addressTerms", "role", "identityRequired", "identityResponse", "openingAffect", "initialVoluntary", "concerns", "disclosures"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^participant-[a-z0-9-]+$" },
+          "speakerLabel": {
+            "allOf": [
+              { "$ref": "#/$defs/text" },
+              { "not": { "enum": ["Doctor", "Examiner", "Action"] } }
+            ]
+          },
+          "addressTerms": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/text" } },
+          "role": { "enum": ["patient", "parent", "child", "relative", "carer", "partner", "interpreter", "nurse", "clinician", "other"] },
+          "identityRequired": { "type": "boolean" },
+          "identityResponse": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["lineId", "text", "fullName", "dateOfBirthText"],
+                "properties": {
+                  "lineId": { "$ref": "#/$defs/lineId" },
+                  "text": { "$ref": "#/$defs/text" },
+                  "fullName": { "$ref": "#/$defs/text" },
+                  "dateOfBirthText": { "$ref": "#/$defs/text" }
+                }
+              }
+            ]
+          },
+          "openingAffect": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["text", "evidenceLineId"],
+                "properties": {
+                  "text": { "$ref": "#/$defs/text" },
+                  "evidenceLineId": { "$ref": "#/$defs/lineId" }
+                }
+              }
+            ]
+          },
+          "initialVoluntary": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["triggerLineId", "responseLineId", "text"],
+                "properties": {
+                  "triggerLineId": { "$ref": "#/$defs/lineId" },
+                  "responseLineId": { "$ref": "#/$defs/lineId" },
+                  "text": { "$ref": "#/$defs/text" }
+                }
+              }
+            ]
+          },
+          "concerns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "text", "responseLineId", "responseText", "nextDoctorLineId"],
+              "properties": {
+                "id": { "type": "string", "pattern": "^concern-[a-z0-9-]+$" },
+                "text": { "$ref": "#/$defs/text" },
+                "responseLineId": { "$ref": "#/$defs/lineId" },
+                "responseText": { "$ref": "#/$defs/text" },
+                "nextDoctorLineId": { "$ref": "#/$defs/lineId" }
+              }
+            }
+          },
+          "disclosures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "factIds", "triggerType", "triggerDescription", "triggerLineId", "responseLineId", "responseText", "nextDoctorLineId", "responseUse"],
+              "properties": {
+                "id": { "type": "string", "pattern": "^disclosure-[a-z0-9-]+$" },
+                "factIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^clinical-[a-z0-9-]+$" } },
+                "triggerType": { "enum": ["open_question", "specific_question", "doctor_explanation", "clinical_event", "examiner_prompt"] },
+                "triggerDescription": { "$ref": "#/$defs/text" },
+                "triggerLineId": { "$ref": "#/$defs/lineId" },
+                "responseLineId": { "$ref": "#/$defs/lineId" },
+                "responseText": { "$ref": "#/$defs/text" },
+                "nextDoctorLineId": { "oneOf": [{ "$ref": "#/$defs/lineId" }, { "type": "null" }] },
+                "responseUse": { "$ref": "#/$defs/text" }
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "identityRequired": { "const": true } },
+              "required": ["identityRequired"]
+            },
+            "then": {
+              "properties": { "identityResponse": { "type": "object" } }
+            }
+          }
+        ]
+      }
+    },
+    "examiner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["opening", "availableAtStartStemLineIds", "releases", "scheduledPrompts", "closing"],
+      "properties": {
+        "opening": { "oneOf": [{ "$ref": "#/$defs/exactLine" }, { "type": "null" }] },
+        "availableAtStartStemLineIds": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/lineId" } },
+        "releases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "requestDescription", "requestLineId", "requestExactText", "responseLineId", "responseText", "permittedModalities", "findingSource", "nextDoctorLineId", "responseUse"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^release-[a-z0-9-]+$" },
+              "requestDescription": { "$ref": "#/$defs/text" },
+              "requestLineId": { "$ref": "#/$defs/lineId" },
+              "requestExactText": { "$ref": "#/$defs/text" },
+              "responseLineId": { "$ref": "#/$defs/lineId" },
+              "responseText": { "$ref": "#/$defs/text" },
+              "permittedModalities": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": { "$ref": "#/$defs/modality" }
+              },
+              "findingSource": { "$ref": "#/$defs/text" },
+              "nextDoctorLineId": { "oneOf": [{ "$ref": "#/$defs/lineId" }, { "type": "null" }] },
+              "responseUse": { "$ref": "#/$defs/text" }
+            }
+          }
+        },
+        "scheduledPrompts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "speaker", "triggerDescription", "triggerLineId", "responseLineId", "responseText", "markingConsequence"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^prompt-[a-z0-9-]+$" },
+              "speaker": { "enum": ["Examiner", "Action"] },
+              "triggerDescription": { "$ref": "#/$defs/text" },
+              "triggerLineId": { "oneOf": [{ "$ref": "#/$defs/lineId" }, { "type": "null" }] },
+              "responseLineId": { "$ref": "#/$defs/lineId" },
+              "responseText": { "$ref": "#/$defs/text" },
+              "markingConsequence": { "$ref": "#/$defs/text" }
+            }
+          }
+        },
+        "closing": { "oneOf": [{ "$ref": "#/$defs/exactLine" }, { "type": "null" }] }
+      }
+    },
+    "marking": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceClaimIds", "keySteps", "domains", "projectSafetyErrors", "globalRating"],
+      "properties": {
+        "sourceClaimIds": { "$ref": "#/$defs/sourceClaimIdList" },
+        "keySteps": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "description", "taskIds", "runLineIds", "sourceClaimIds"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^step-[a-z0-9-]+$" },
+              "description": { "$ref": "#/$defs/text" },
+              "taskIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^task-[a-z0-9-]+$" } },
+              "runLineIds": { "$ref": "#/$defs/lineIdList" },
+              "sourceClaimIds": { "$ref": "#/$defs/sourceClaimIdList" }
+            }
+          }
+        },
+        "domains": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "taskIds", "runLineIds", "sourceClaimIds"],
+            "properties": {
+              "name": {
+                "enum": [
+                  "Approach to patient/relative/carer/other health professional",
+                  "History",
+                  "Choice and technique of examination, organisation and sequence",
+                  "Accuracy of examination",
+                  "Familiarity with test equipment",
+                  "Performance of procedure",
+                  "Explanation of procedure",
+                  "Commentary to examiner",
+                  "Choice of investigations",
+                  "Interpretation of investigation",
+                  "Diagnosis/differential diagnoses",
+                  "Management plan",
+                  "Patient counselling/education"
+                ]
+              },
+              "taskIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^task-[a-z0-9-]+$" } },
+              "runLineIds": { "$ref": "#/$defs/lineIdList" },
+              "sourceClaimIds": { "$ref": "#/$defs/sourceClaimIdList" }
+            }
+          }
+        },
+        "projectSafetyErrors": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "description", "preventedByLineIds", "safetyConceptIds", "sourceClaimIds"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^error-[a-z0-9-]+$" },
+              "description": { "$ref": "#/$defs/text" },
+              "preventedByLineIds": { "$ref": "#/$defs/lineIdList" },
+              "safetyConceptIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^clinical-[a-z0-9-]+$" } },
+              "sourceClaimIds": { "$ref": "#/$defs/sourceClaimIdList" }
+            }
+          }
+        },
+        "globalRating": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scale", "failRatings", "passRatings", "decisionRule", "passStandard", "failStandard"],
+          "properties": {
+            "scale": { "const": 7 },
+            "failRatings": { "const": [1, 2, 3] },
+            "passRatings": { "const": [4, 5, 6, 7] },
+            "decisionRule": { "const": "The global rating alone determines the station result: ratings 1 to 3 fail and ratings 4 to 7 pass." },
+            "passStandard": { "$ref": "#/$defs/text" },
+            "failStandard": { "$ref": "#/$defs/text" }
+          }
+        }
+      }
+    },
+    "interaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "defaultInformationParticipantId", "directAddresses", "consents", "informationRequests", "sensitiveTopicLineIds"],
+      "properties": {
+        "identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "verificationLineId", "verificationText", "participantIds", "completedBeforeClinicalContent", "rationale"],
+          "properties": {
+            "mode": { "enum": ["direct", "third_party", "record_or_wristband", "not_possible_with_reason", "not_applicable"] },
+            "verificationLineId": { "oneOf": [{ "$ref": "#/$defs/lineId" }, { "type": "null" }] },
+            "verificationText": { "oneOf": [{ "$ref": "#/$defs/text" }, { "type": "null" }] },
+            "participantIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^participant-[a-z0-9-]+$" } },
+            "completedBeforeClinicalContent": { "const": true },
+            "rationale": { "$ref": "#/$defs/text" }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": { "mode": { "enum": ["direct", "third_party"] } },
+                "required": ["mode"]
+              },
+              "then": {
+                "properties": {
+                  "verificationLineId": { "$ref": "#/$defs/lineId" },
+                  "verificationText": { "$ref": "#/$defs/text" },
+                  "participantIds": { "type": "array", "minItems": 1 }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": { "mode": { "enum": ["record_or_wristband", "not_possible_with_reason"] } },
+                "required": ["mode"]
+              },
+              "then": {
+                "properties": {
+                  "verificationLineId": { "$ref": "#/$defs/lineId" },
+                  "verificationText": { "$ref": "#/$defs/text" },
+                  "participantIds": { "type": "array", "maxItems": 0 }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": { "mode": { "const": "not_applicable" } },
+                "required": ["mode"]
+              },
+              "then": {
+                "properties": {
+                  "verificationLineId": { "type": "null" },
+                  "verificationText": { "type": "null" },
+                  "participantIds": { "type": "array", "maxItems": 0 }
+                }
+              }
+            }
+          ]
+        },
+        "defaultInformationParticipantId": {
+          "oneOf": [
+            { "type": "string", "pattern": "^participant-[a-z0-9-]+$" },
+            { "type": "null" }
+          ]
+        },
+        "directAddresses": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["lineId", "participantId", "addressTerm"],
+            "properties": {
+              "lineId": { "$ref": "#/$defs/lineId" },
+              "participantId": { "type": "string", "pattern": "^participant-[a-z0-9-]+$" },
+              "addressTerm": { "$ref": "#/$defs/text" }
+            }
+          }
+        },
+        "consents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "scope", "requestLineId", "requestText", "responseLineId", "responseText", "participantId", "outcome"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^consent-[a-z0-9-]+$" },
+              "scope": { "enum": ["consultation", "examination", "procedure", "sensitive_history", "information_sharing"] },
+              "requestLineId": { "$ref": "#/$defs/lineId" },
+              "requestText": { "$ref": "#/$defs/text" },
+              "responseLineId": { "$ref": "#/$defs/lineId" },
+              "responseText": { "$ref": "#/$defs/text" },
+              "participantId": { "type": "string", "pattern": "^participant-[a-z0-9-]+$" },
+              "outcome": { "const": "granted" }
+            }
+          }
+        },
+        "informationRequests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "lineId", "requestText", "taskId", "requestType", "requestCount", "topic", "addressedParticipantId", "expectedResponseLineId", "responseParticipantId", "responseText", "responseOutcome", "responseEvidencePhrases", "nextDoctorLineId", "responseUse"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^request-[a-z0-9-]+$" },
+              "lineId": { "$ref": "#/$defs/lineId" },
+              "requestText": { "$ref": "#/$defs/text" },
+              "taskId": { "type": "string", "pattern": "^task-[a-z0-9-]+$" },
+              "requestType": { "enum": ["question", "imperative_request"] },
+              "requestCount": { "const": 1 },
+              "topic": { "$ref": "#/$defs/text" },
+              "addressedParticipantId": { "type": "string", "pattern": "^participant-[a-z0-9-]+$" },
+              "expectedResponseLineId": { "$ref": "#/$defs/lineId" },
+              "responseParticipantId": { "type": "string", "pattern": "^participant-[a-z0-9-]+$" },
+              "responseText": { "$ref": "#/$defs/text" },
+              "responseOutcome": { "const": "answered" },
+              "responseEvidencePhrases": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": { "$ref": "#/$defs/text" }
+              },
+              "nextDoctorLineId": { "$ref": "#/$defs/lineId" },
+              "responseUse": { "$ref": "#/$defs/text" }
+            }
+          }
+        },
+        "sensitiveTopicLineIds": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/lineId" } }
+      }
+    },
+    "variation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["coverageSlot", "primaryFailureMode", "secondaryFailureMode", "distinctJob", "newSurprise", "plannedTrap", "antiFailureFeatures", "duplicateCheck"],
+      "properties": {
+        "coverageSlot": { "$ref": "#/$defs/text" },
+        "primaryFailureMode": { "$ref": "#/$defs/failureMode" },
+        "secondaryFailureMode": { "oneOf": [{ "$ref": "#/$defs/failureMode" }, { "type": "null" }] },
+        "distinctJob": { "$ref": "#/$defs/text" },
+        "newSurprise": { "$ref": "#/$defs/text" },
+        "plannedTrap": { "$ref": "#/$defs/text" },
+        "antiFailureFeatures": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } },
+        "duplicateCheck": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["comparedCaseIds", "conclusion"],
+          "properties": {
+            "comparedCaseIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^case-[0-9]{3}$" } },
+            "conclusion": { "$ref": "#/$defs/text" }
+          }
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["targetSpokenSeconds", "actionDurations", "taskEvidence", "listenTest"],
+      "properties": {
+        "targetSpokenSeconds": { "type": "integer", "minimum": 420, "maximum": 480 },
+        "actionDurations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["lineId", "seconds", "actionClass", "performedBy", "performedByParticipantId", "actorExactPhrase", "consentId", "exceptionRationale"],
+            "properties": {
+              "lineId": { "$ref": "#/$defs/lineId" },
+              "seconds": { "type": "integer", "minimum": 1, "maximum": 120 },
+              "actionClass": { "enum": ["neutral_preparation", "participant_observation", "equipment_event", "examination", "procedure", "treatment", "emergency"] },
+              "performedBy": { "enum": ["doctor", "participant", "third_party", "equipment"] },
+              "performedByParticipantId": {
+                "oneOf": [
+                  { "type": "string", "pattern": "^participant-[a-z0-9-]+$" },
+                  { "type": "null" }
+                ]
+              },
+              "actorExactPhrase": { "$ref": "#/$defs/text" },
+              "consentId": {
+                "oneOf": [
+                  { "type": "string", "pattern": "^consent-[a-z0-9-]+$" },
+                  { "type": "null" }
+                ]
+              },
+              "exceptionRationale": { "oneOf": [{ "$ref": "#/$defs/text" }, { "type": "null" }] }
+            },
+            "allOf": [
+              {
+                "if": { "properties": { "actionClass": { "enum": ["neutral_preparation", "participant_observation", "equipment_event", "emergency"] } }, "required": ["actionClass"] },
+                "then": { "properties": { "consentId": { "type": "null" } } }
+              },
+              {
+                "if": { "properties": { "actionClass": { "enum": ["examination", "procedure", "treatment"] } }, "required": ["actionClass"] },
+                "then": { "properties": { "consentId": { "type": "string", "pattern": "^consent-[a-z0-9-]+$" }, "exceptionRationale": { "type": "null" } } }
+              },
+              {
+                "if": { "properties": { "actionClass": { "enum": ["neutral_preparation", "participant_observation", "equipment_event"] } }, "required": ["actionClass"] },
+                "then": { "properties": { "exceptionRationale": { "type": "null" } } }
+              },
+              {
+                "if": { "properties": { "actionClass": { "const": "emergency" } }, "required": ["actionClass"] },
+                "then": { "properties": { "exceptionRationale": { "$ref": "#/$defs/text" } } }
+              },
+              {
+                "if": { "properties": { "performedBy": { "enum": ["participant", "third_party"] } }, "required": ["performedBy"] },
+                "then": { "properties": { "performedByParticipantId": { "type": "string", "pattern": "^participant-[a-z0-9-]+$" } } }
+              },
+              {
+                "if": { "properties": { "performedBy": { "enum": ["doctor", "equipment"] } }, "required": ["performedBy"] },
+                "then": { "properties": { "performedByParticipantId": { "type": "null" } } }
+              }
+            ]
+          }
+        },
+      "taskEvidence": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["taskId", "runLineIds", "requiredEvidence", "observedSeconds", "completed"],
+            "properties": {
+              "taskId": { "type": "string", "pattern": "^task-[a-z0-9-]+$" },
+              "runLineIds": { "$ref": "#/$defs/lineIdList" },
+              "requiredEvidence": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["requirement", "lineId", "exactPhrase", "positivePerformancePhrase"],
+                  "properties": {
+                    "requirement": { "$ref": "#/$defs/text" },
+                    "lineId": { "$ref": "#/$defs/lineId" },
+                    "exactPhrase": { "$ref": "#/$defs/text" },
+                    "positivePerformancePhrase": { "$ref": "#/$defs/text" }
+                  }
+                }
+              },
+              "observedSeconds": { "type": "integer", "minimum": 1, "maximum": 480 },
+              "completed": { "type": "boolean" }
+            }
+          }
+        },
+        "listenTest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "method", "reviewer", "performedAt", "observedSeconds", "caseContentSha256", "reviewScopeSha256", "notes"],
+          "properties": {
+            "status": { "$ref": "#/$defs/qaStatus" },
+            "method": { "enum": ["not_run", "spoken_readthrough"] },
+            "reviewer": { "oneOf": [{ "$ref": "#/$defs/text" }, { "type": "null" }] },
+            "performedAt": { "oneOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+            "observedSeconds": { "oneOf": [{ "type": "integer", "minimum": 420, "maximum": 480 }, { "type": "null" }] },
+            "caseContentSha256": { "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+            "reviewScopeSha256": { "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+            "notes": { "$ref": "#/$defs/text" }
+          }
+        }
+      }
+    },
+    "sourceBasis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sources", "claimMap"],
+      "properties": {
+        "sources": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "sourceType", "organisation", "title", "url", "publishedOrUpdated", "accessed", "reviewDue", "jurisdiction", "applicability", "authoritative"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^source-[a-z0-9-]+$" },
+              "sourceType": { "enum": ["exam_specification", "assessment_domains", "australian_clinical_guideline", "australian_regulation", "international_guideline", "primary_research", "product_information"] },
+              "organisation": { "$ref": "#/$defs/text" },
+              "title": { "$ref": "#/$defs/text" },
+              "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+              "publishedOrUpdated": { "oneOf": [{ "type": "string", "format": "date" }, { "const": "undated" }] },
+              "accessed": { "type": "string", "format": "date" },
+              "reviewDue": { "type": "string", "format": "date" },
+              "jurisdiction": { "enum": ["Australia", "International"] },
+              "applicability": { "$ref": "#/$defs/text" },
+              "authoritative": { "const": true }
+            }
+          }
+        },
+        "claimMap": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "claimType", "claim", "sourceIds", "sourceLocators", "runLineIds", "taskIds", "clinicalConceptIds", "blueprintRefs"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^claim-[a-z0-9-]+$" },
+              "claimType": { "enum": ["diagnosis", "differential", "threshold", "investigation", "treatment", "dose", "contraindication", "disposition", "communication", "exam_standard"] },
+              "claim": { "$ref": "#/$defs/text" },
+              "sourceIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^source-[a-z0-9-]+$" } },
+              "sourceLocators": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["sourceId", "locator"],
+                  "properties": {
+                    "sourceId": { "type": "string", "pattern": "^source-[a-z0-9-]+$" },
+                    "locator": { "$ref": "#/$defs/text" }
+                  }
+                }
+              },
+              "runLineIds": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/lineId" } },
+              "taskIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^task-[a-z0-9-]+$" } },
+              "clinicalConceptIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^clinical-[a-z0-9-]+$" } },
+              "blueprintRefs": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/text" } }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": { "claimType": { "const": "exam_standard" } },
+                  "required": ["claimType"]
+                },
+                "then": {
+                  "anyOf": [
+                    { "properties": { "taskIds": { "type": "array", "minItems": 1 } } },
+                    { "properties": { "blueprintRefs": { "type": "array", "minItems": 1 } } }
+                  ]
+                },
+                "else": {
+                  "properties": {
+                    "runLineIds": { "type": "array", "minItems": 1 },
+                    "taskIds": { "type": "array", "minItems": 1 },
+                    "clinicalConceptIds": { "type": "array", "minItems": 1 }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "qa": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caseContentSha256", "reviewScopeSha256", "blueprintPackageSha256", "blueprint", "stemNeutrality", "taskAlignment", "conversation", "participantDisclosure", "examinerRelease", "amcLevel", "timing", "clinical", "sources", "finalQa", "blockers"],
+      "properties": {
+        "caseContentSha256": { "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+        "reviewScopeSha256": { "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+        "blueprintPackageSha256": { "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+        "blueprint": { "$ref": "#/$defs/qaGate" },
+        "stemNeutrality": { "$ref": "#/$defs/qaGate" },
+        "taskAlignment": { "$ref": "#/$defs/qaGate" },
+        "conversation": { "$ref": "#/$defs/qaGate" },
+        "participantDisclosure": { "$ref": "#/$defs/qaGate" },
+        "examinerRelease": { "$ref": "#/$defs/qaGate" },
+        "amcLevel": { "$ref": "#/$defs/qaGate" },
+        "timing": { "$ref": "#/$defs/qaGate" },
+        "clinical": { "$ref": "#/$defs/qaGate" },
+        "sources": { "$ref": "#/$defs/qaGate" },
+        "finalQa": { "$ref": "#/$defs/qaGate" },
+        "blockers": { "type": "array", "items": { "$ref": "#/$defs/text" } }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "station": {
+            "type": "object",
+            "properties": {
+              "grammar": {
+                "enum": [
+                  "consultation",
+                  "history",
+                  "diagnostic_formulation",
+                  "management_counselling_education",
+                  "mental_state_risk",
+                  "telephone_third_party",
+                  "mixed"
+                ]
+              }
+            },
+            "required": ["grammar"]
+          }
+        },
+        "required": ["station"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "participants": { "type": "array", "minItems": 1 },
+          "interaction": {
+            "type": "object",
+            "properties": {
+              "consents": {
+                "type": "array",
+                "contains": {
+                  "type": "object",
+                  "properties": { "scope": { "const": "consultation" } },
+                  "required": ["scope"]
+                },
+                "minContains": 1
+              },
+              "informationRequests": { "type": "array", "minItems": 1 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "station": {
+            "type": "object",
+            "properties": { "grammar": { "const": "procedure_consent" } },
+            "required": ["grammar"]
+          }
+        },
+        "required": ["station"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "participants": { "type": "array", "minItems": 1 },
+          "interaction": {
+            "type": "object",
+            "properties": {
+              "consents": {
+                "type": "array",
+                "contains": {
+                  "type": "object",
+                  "properties": { "scope": { "const": "procedure" } },
+                  "required": ["scope"]
+                },
+                "minContains": 1
+              },
+              "informationRequests": { "type": "array", "minItems": 1 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": { "releaseStatus": { "const": "audited" } },
+        "required": ["releaseStatus"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "station": {
+            "type": "object",
+            "properties": {
+              "visibleStatus": { "const": "audited" }
+            }
+          },
+          "qa": {
+            "type": "object",
+            "properties": {
+              "caseContentSha256": { "$ref": "#/$defs/sha256" },
+              "reviewScopeSha256": { "$ref": "#/$defs/sha256" },
+              "blueprintPackageSha256": { "$ref": "#/$defs/sha256" },
+              "blueprint": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "stemNeutrality": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "taskAlignment": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "conversation": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "participantDisclosure": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "examinerRelease": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "amcLevel": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "timing": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "clinical": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "sources": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "finalQa": { "type": "object", "properties": { "status": { "const": "pass" } } },
+              "blockers": { "type": "array", "maxItems": 0 }
+            }
+          },
+          "performance": {
+            "type": "object",
+            "properties": {
+              "taskEvidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": { "completed": { "const": true } }
+                }
+              },
+              "listenTest": {
+                "type": "object",
+                "properties": {
+                  "status": { "const": "pass" },
+                  "method": { "const": "spoken_readthrough" },
+                  "reviewer": { "$ref": "#/$defs/text" },
+                  "performedAt": { "type": "string", "format": "date-time" },
+                  "observedSeconds": { "type": "integer", "minimum": 420, "maximum": 480 },
+                  "caseContentSha256": { "$ref": "#/$defs/sha256" },
+                  "reviewScopeSha256": { "$ref": "#/$defs/sha256" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "lineId": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "lineIdList": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/lineId" } },
+    "sourceClaimIdList": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^claim-[a-z0-9-]+$" } },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "idTitle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title"],
+      "properties": {
+        "id": { "type": "integer", "minimum": 1 },
+        "title": { "$ref": "#/$defs/text" }
+      }
+    },
+    "exactLine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lineId", "text"],
+      "properties": {
+        "lineId": { "$ref": "#/$defs/lineId" },
+        "text": { "$ref": "#/$defs/text" }
+      }
+    },
+    "clinicalConcept": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "runLineIds", "sourceClaimIds"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^clinical-[a-z0-9-]+$" },
+        "text": { "$ref": "#/$defs/text" },
+        "runLineIds": { "$ref": "#/$defs/lineIdList" },
+        "sourceClaimIds": { "$ref": "#/$defs/sourceClaimIdList" }
+      }
+    },
+    "assessmentArea": { "enum": ["History Taking", "Examination", "Diagnostic Formulation", "Management/Counselling/Education"] },
+    "grammar": { "enum": ["consultation", "history", "examination", "diagnostic_formulation", "management_counselling_education", "procedure_consent", "mental_state_risk", "acute_resuscitation", "telephone_third_party", "mixed"] },
+    "modality": { "enum": ["in_person", "online", "telephone", "video", "model_equipment", "third_party"] },
+    "failureMode": { "enum": ["premature_closure", "unsafe_delay", "station_mismatch", "cognitive_overload", "communication_breakdown", "rigidity", "performance_freeze"] },
+    "qaStatus": { "enum": ["hold", "pass", "changes_required"] },
+    "qaGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "method", "reviewer", "reviewedAt", "reviewScopeSha256", "evidence"],
+      "properties": {
+        "status": { "$ref": "#/$defs/qaStatus" },
+        "method": { "$ref": "#/$defs/text" },
+        "reviewer": { "oneOf": [{ "$ref": "#/$defs/text" }, { "type": "null" }] },
+        "reviewedAt": { "oneOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+        "reviewScopeSha256": { "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "reference"],
+            "properties": {
+              "type": { "enum": ["automated_test", "line_review", "source_review", "listen_test", "content_hash", "audit_report"] },
+              "reference": { "$ref": "#/$defs/text" }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "pass" } },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "reviewer": { "$ref": "#/$defs/text" },
+              "reviewedAt": { "type": "string", "format": "date-time" },
+              "reviewScopeSha256": { "$ref": "#/$defs/sha256" },
+              "evidence": { "type": "array", "minItems": 1 }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

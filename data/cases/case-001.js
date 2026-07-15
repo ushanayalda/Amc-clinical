@@ -4,10 +4,15 @@
   window.AMC_CASES = [
     {
       id: "case-001",
+      globalId: "CP-C001",
+      registryId: "CP-P1-C001",
       displayNumber: "Case 1",
       title: "Chest discomfort after lunch",
-      status: "review",
+      status: "audited",
+      statusLabel: "Exam case audited",
       modality: "in_person",
+      phase: { id: 1, title: "Can Kill Fast" },
+      pattern: { id: 1, title: "Dangerous Chest Pain" },
       format: {
         readingTime: "2 minutes",
         assessmentTime: "8 minutes",
@@ -60,11 +65,17 @@
                 lines: [{ id: "run-start", text: "You may begin." }]
               },
               {
+                id: "turn-approach",
+                speaker: "Action",
+                kind: "action",
+                lines: [{ id: "run-approach", text: "The doctor performs hand hygiene, checks that the room is private and approaches the seated patient." }]
+              },
+              {
                 id: "turn-intro",
                 speaker: "Doctor",
                 kind: "spoken",
                 lines: [
-                  { id: "run-intro", text: "Hello, I am Ushana, one of the doctors here. Could I confirm your full name and date of birth?" }
+                  { id: "run-intro", text: "Hello, I am Ushana, one of the doctors here. Could you confirm your full name and date of birth?" }
                 ]
               },
               {
@@ -83,7 +94,7 @@
                 id: "turn-consent-history-answer",
                 speaker: "Patient",
                 kind: "spoken",
-                lines: [{ id: "run-consent-history-answer", text: "Yes. I think lunch just did not agree with me." }]
+                lines: [{ id: "run-consent-history-answer", text: "Yes, that is fine." }]
               },
               {
                 id: "turn-open-question",
@@ -143,7 +154,7 @@
                 id: "turn-severity",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-severity", text: "How severe is it now, from zero to ten?" }]
+                lines: [{ id: "run-severity", text: "What number from zero to ten describes it now?" }]
               },
               {
                 id: "turn-severity-answer",
@@ -173,7 +184,7 @@
                 id: "turn-early-escalation-action",
                 speaker: "Action",
                 kind: "action",
-                lines: [{ id: "run-early-escalation-action", text: "The doctor calls for help, asks a staff member to phone Triple Zero, and requests the emergency equipment and defibrillator." }]
+                lines: [{ id: "run-early-escalation-action", text: "The doctor calls for help, asks a staff member to phone Triple Zero, begins continuous cardiac monitoring and keeps the defibrillator ready." }]
               },
               {
                 id: "turn-early-escalation-response",
@@ -191,13 +202,13 @@
                 id: "turn-syncope",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-syncope", text: "Have you fainted or felt close to fainting?" }]
+                lines: [{ id: "run-syncope", text: "Have you fainted?" }]
               },
               {
                 id: "turn-syncope-answer",
                 speaker: "Patient",
                 kind: "spoken",
-                lines: [{ id: "run-syncope-answer", text: "No." }]
+                lines: [{ id: "run-syncope-answer", text: "No, I have not fainted." }]
               },
               {
                 id: "turn-previous",
@@ -215,19 +226,61 @@
           },
           {
             id: "run-danger-alternatives",
-            heading: "Dangerous alternatives",
+            heading: "Dangerous alternatives and early treatment",
             turns: [
               {
                 id: "turn-dissection",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-dissection", text: "Did the pain reach maximum intensity instantly or feel tearing through to your back?" }]
+                lines: [{ id: "run-dissection", text: "Did the discomfort reach maximum intensity immediately?" }]
               },
               {
                 id: "turn-dissection-answer",
                 speaker: "Patient",
                 kind: "spoken",
-                lines: [{ id: "run-dissection-answer", text: "No. It built up over a few minutes, and there is no back pain." }]
+                lines: [{ id: "run-dissection-answer", text: "No. It built up over a few minutes." }]
+              },
+              {
+                id: "turn-allergy",
+                speaker: "Doctor",
+                kind: "spoken",
+                lines: [{ id: "run-allergy", text: "Have you ever had a severe allergic reaction to aspirin?" }]
+              },
+              {
+                id: "turn-allergy-answer",
+                speaker: "Patient",
+                kind: "spoken",
+                lines: [{ id: "run-allergy-answer", text: "No, I have never had a severe reaction to aspirin." }]
+              },
+              {
+                id: "turn-bleeding",
+                speaker: "Doctor",
+                kind: "spoken",
+                lines: [{ id: "run-bleeding", text: "Do you have a bleeding disorder?" }]
+              },
+              {
+                id: "turn-bleeding-answer",
+                speaker: "Patient",
+                kind: "spoken",
+                lines: [{ id: "run-bleeding-answer", text: "No, I do not have a bleeding disorder." }]
+              },
+              {
+                id: "turn-aspirin",
+                speaker: "Doctor",
+                kind: "spoken",
+                lines: [{ id: "run-aspirin", text: "Daniel, may I give you aspirin 300 milligrams to chew now?" }]
+              },
+              {
+                id: "turn-aspirin-consent",
+                speaker: "Patient",
+                kind: "spoken",
+                lines: [{ id: "run-aspirin-consent", text: "Yes, please." }]
+              },
+              {
+                id: "turn-aspirin-action",
+                speaker: "Action",
+                kind: "action",
+                lines: [{ id: "run-aspirin-action", text: "The doctor gives Daniel aspirin 300 milligrams to chew and records the administration time." }]
               },
               {
                 id: "turn-pe",
@@ -239,31 +292,31 @@
                 id: "turn-pe-answer",
                 speaker: "Patient",
                 kind: "spoken",
-                lines: [{ id: "run-pe-answer", text: "No." }]
+                lines: [{ id: "run-pe-answer", text: "No, I have not coughed up blood." }]
               },
               {
                 id: "turn-vte",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-vte", text: "Any recent leg swelling, long travel, surgery, being confined to bed, cancer, or previous blood clot?" }]
+                lines: [{ id: "run-vte", text: "Have you previously had a blood clot?" }]
               },
               {
                 id: "turn-vte-answer",
                 speaker: "Patient",
                 kind: "spoken",
-                lines: [{ id: "run-vte-answer", text: "No." }]
+                lines: [{ id: "run-vte-answer", text: "No, I have never had a blood clot." }]
               },
               {
                 id: "turn-pneumothorax",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-pneumothorax", text: "Did it begin as a sudden sharp pain that was worse when you breathed in?" }]
+                lines: [{ id: "run-pneumothorax", text: "Is the discomfort worse when you breathe in?" }]
               },
               {
                 id: "turn-pneumothorax-answer",
                 speaker: "Patient",
                 kind: "spoken",
-                lines: [{ id: "run-pneumothorax-answer", text: "No. It is pressure, not a sharp pain." }]
+                lines: [{ id: "run-pneumothorax-answer", text: "No, breathing does not change it." }]
               }
             ]
           },
@@ -287,13 +340,13 @@
                 id: "turn-cardiac-history",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-cardiac-history", text: "Have you ever had heart disease, a stroke, diabetes, or kidney disease?" }]
+                lines: [{ id: "run-cardiac-history", text: "Has a doctor diagnosed heart disease in the past?" }]
               },
               {
                 id: "turn-cardiac-history-answer",
                 speaker: "Patient",
                 kind: "spoken",
-                lines: [{ id: "run-cardiac-history-answer", text: "No." }]
+                lines: [{ id: "run-cardiac-history-answer", text: "No, I have not been diagnosed with heart disease." }]
               },
               {
                 id: "turn-smoking",
@@ -323,7 +376,7 @@
                 id: "turn-medicines",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-medicines", text: "What medicines do you take, including anything you have taken for this discomfort?" }]
+                lines: [{ id: "run-medicines", text: "What medicines do you take?" }]
               },
               {
                 id: "turn-medicines-answer",
@@ -332,28 +385,22 @@
                 lines: [{ id: "run-medicines-answer", text: "Perindopril and atorvastatin. I took an antacid, but it made no difference." }]
               },
               {
-                id: "turn-allergy",
-                speaker: "Doctor",
-                kind: "spoken",
-                lines: [{ id: "run-allergy", text: "Do you have a true allergy to aspirin, or any active bleeding or bleeding disorder?" }]
-              },
-              {
-                id: "turn-allergy-answer",
-                speaker: "Patient",
-                kind: "spoken",
-                lines: [{ id: "run-allergy-answer", text: "No." }]
-              },
-              {
                 id: "turn-pde5",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-pde5", text: "Have you recently used sildenafil, tadalafil, vardenafil, or another medicine for erections?" }]
+                lines: [{ id: "run-pde5", text: "Have you used any erectile-dysfunction medicine recently?" }]
               },
               {
                 id: "turn-pde5-answer",
                 speaker: "Patient",
                 kind: "spoken",
-                lines: [{ id: "run-pde5-answer", text: "No." }]
+                lines: [{ id: "run-pde5-answer", text: "No, I have not used any." }]
+              },
+              {
+                id: "turn-summary",
+                speaker: "Doctor",
+                kind: "spoken",
+                lines: [{ id: "run-summary", text: "You have ongoing exertional central pressure spreading to your arm and jaw, with sweating, nausea and breathlessness, after two milder recent episodes. This concerns me." }]
               },
               {
                 id: "turn-time-prompt",
@@ -368,12 +415,6 @@
             heading: "Immediate assessment and escalation",
             turns: [
               {
-                id: "turn-summary",
-                speaker: "Doctor",
-                kind: "spoken",
-                lines: [{ id: "run-summary", text: "You have ongoing exertional central pressure spreading to your arm and jaw, with sweating, nausea and breathlessness, after two milder recent episodes. This concerns me." }]
-              },
-              {
                 id: "turn-escalate",
                 speaker: "Doctor",
                 kind: "spoken",
@@ -383,7 +424,7 @@
                 id: "turn-patient-ambulance",
                 speaker: "Patient",
                 kind: "spoken",
-                lines: [{ id: "run-patient-ambulance", text: "An ambulance? I thought it was indigestion. Can my wife just drive me?" }]
+                lines: [{ id: "run-patient-ambulance", text: "I still thought it was indigestion. Could my wife drive me instead?" }]
               },
               {
                 id: "turn-address-concern",
@@ -395,7 +436,7 @@
                 id: "turn-exam-consent",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-exam-consent", text: "With your permission, I will check your observations, heart and lungs while help is coming." }]
+                lines: [{ id: "run-exam-consent", text: "Daniel, may I examine you now?" }]
               },
               {
                 id: "turn-exam-consent-answer",
@@ -404,10 +445,16 @@
                 lines: [{ id: "run-exam-consent-answer", text: "Yes." }]
               },
               {
+                id: "turn-examination-action",
+                speaker: "Action",
+                kind: "action",
+                lines: [{ id: "run-examination-action", text: "The doctor assesses airway, breathing, circulation, conscious state and perfusion; records both-arm blood pressure, pulse, respiratory rate and oxygen saturation; then examines the heart, lungs, chest wall and calves." }]
+              },
+              {
                 id: "turn-exam-request",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-exam-request", text: "I assess airway, breathing, circulation, conscious state and perfusion; record both-arm blood pressure, pulse, respiratory rate and oxygen saturation; then examine heart, lungs, chest wall and calves." }]
+                lines: [{ id: "run-exam-request", text: "Please provide the current observations and examination findings." }]
               },
               {
                 id: "turn-exam-findings",
@@ -425,13 +472,13 @@
                 id: "turn-likely-diagnosis",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-likely-diagnosis", text: "My leading diagnosis is acute coronary syndrome: reduced blood flow to heart muscle, including heart attack or unstable angina. I cannot yet tell which type, but we must act now." }]
+                lines: [{ id: "run-likely-diagnosis", text: "My most likely diagnosis is acute coronary syndrome: reduced blood flow to heart muscle, including heart attack or unstable angina. I cannot yet tell which type, but we must act now." }]
               },
               {
                 id: "turn-differentials",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-differentials", text: "Other dangerous causes are a tear in the main artery, a lung clot and a collapsed lung. Your pattern makes these less likely, but new findings could change that. Reflux and chest wall pain are possible only after danger is assessed." }]
+                lines: [{ id: "run-differentials", text: "Important differential diagnoses include a tear in the main artery, a lung clot and a collapsed lung. Your pattern makes these less likely, but new findings could change that. Reflux and chest wall pain are possible only after danger is assessed." }]
               },
               {
                 id: "turn-patient-question",
@@ -467,13 +514,7 @@
                 id: "turn-ecg-response",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-ecg-response", text: "These changes increase concern for ischaemia. I begin continuous cardiac monitoring and keep the defibrillator available." }]
-              },
-              {
-                id: "turn-aspirin",
-                speaker: "Doctor",
-                kind: "spoken",
-                lines: [{ id: "run-aspirin", text: "With no contraindication, I will give you aspirin 300 milligrams, chewed or dissolved, and record the time." }]
+                lines: [{ id: "run-ecg-response", text: "These changes increase concern for ischaemia. I continue cardiac monitoring and keep the defibrillator available." }]
               },
               {
                 id: "turn-oxygen",
@@ -485,7 +526,25 @@
                 id: "turn-gtn",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-gtn", text: "For ongoing pain, I can give glyceryl trinitrate under your tongue every five minutes, up to three doses, while checking blood pressure. Relief would not prove the diagnosis." }]
+                lines: [{ id: "run-gtn", text: "Daniel, may I give one dose of glyceryl trinitrate under your tongue for the pain now?" }]
+              },
+              {
+                id: "turn-gtn-consent",
+                speaker: "Patient",
+                kind: "spoken",
+                lines: [{ id: "run-gtn-consent", text: "Yes, please." }]
+              },
+              {
+                id: "turn-gtn-action",
+                speaker: "Action",
+                kind: "action",
+                lines: [{ id: "run-gtn-action", text: "The doctor gives one sublingual dose of glyceryl trinitrate and continues monitoring Daniel's pain and blood pressure." }]
+              },
+              {
+                id: "turn-gtn-plan",
+                speaker: "Doctor",
+                kind: "spoken",
+                lines: [{ id: "run-gtn-plan", text: "If the pain persists and your blood pressure remains safe, I will repeat the dose every five minutes, up to three doses. Relief would not prove the diagnosis." }]
               },
               {
                 id: "turn-no-troponin",
@@ -503,7 +562,7 @@
                 id: "turn-understanding",
                 speaker: "Doctor",
                 kind: "spoken",
-                lines: [{ id: "run-understanding", text: "Before the ambulance arrives, can you tell me what you understand about the concern and the plan?" }]
+                lines: [{ id: "run-understanding", text: "What do you understand about the plan?" }]
               },
               {
                 id: "turn-understanding-answer",
@@ -515,7 +574,7 @@
                 id: "turn-handover",
                 speaker: "Doctor",
                 kind: "handover",
-                lines: [{ id: "run-handover", text: "For handover: Daniel Morgan is 60 with 35 minutes of ongoing exertional central pressure radiating to the left arm and jaw, with diaphoresis, nausea and dyspnoea, after two recent exertional episodes. He is haemodynamically stable. ECG shows lateral ST depression. Aspirin 300 milligrams has been given. I will provide the ECG, observations, medicine list, allergy and bleeding history, treatments and response, and report any change during transfer." }]
+                lines: [{ id: "run-handover", text: "For handover: Daniel Morgan is 60 with ongoing exertional central pressure that began about 35 minutes before this consultation, radiating to the left arm and jaw, with diaphoresis, nausea and dyspnoea, after two recent exertional episodes. He is haemodynamically stable. ECG shows lateral ST depression. Aspirin 300 milligrams has been given. I will provide the ECG, observations, medicine list, allergy and bleeding history, treatments and response, and report any change during transfer." }]
               },
               {
                 id: "turn-end",
@@ -745,7 +804,7 @@
         },
         {
           id: "hint-dangerous-alternatives",
-          target: { surface: "run", itemId: "run-differentials", quote: "Other dangerous causes", occurrence: 1 },
+          target: { surface: "run", itemId: "run-differentials", quote: "Important differential diagnoses", occurrence: 1 },
           title: "Rank alternatives by danger and fit",
           lead: "A differential is a live comparison, not a list you recite after the diagnosis.",
           layers: [
@@ -791,7 +850,7 @@
         },
         {
           id: "hint-observations",
-          target: { surface: "run", itemId: "run-exam-request", quote: "airway, breathing, circulation", occurrence: 1 },
+          target: { surface: "run", itemId: "run-examination-action", quote: "airway, breathing, circulation", occurrence: 1 },
           title: "Examination answers a decision question",
           lead: "The focused examination looks for instability, complications and dangerous alternatives. It does not need to prove ACS.",
           layers: [
@@ -1191,7 +1250,7 @@
     },
     {
       id: "hint-dissection-question",
-      target: { surface: "run", itemId: "run-dissection", quote: "maximum intensity instantly", occurrence: 1 },
+      target: { surface: "run", itemId: "run-dissection", quote: "maximum intensity immediately", occurrence: 1 },
       citationIds: ["acs-guideline-2025"]
     },
     {
@@ -1216,7 +1275,7 @@
     },
     {
       id: "hint-teach-back",
-      target: { surface: "run", itemId: "run-understanding", quote: "what you understand", occurrence: 1 },
+      target: { surface: "run", itemId: "run-understanding", quote: "understand about the plan", occurrence: 1 },
       citationIds: ["amc-tips-2024"]
     },
     {

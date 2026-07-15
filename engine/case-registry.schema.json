@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical.local/schemas/case-registry-v1.1.json",
+  "title": "AMC Case Production Registry v1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["registryVersion", "updatedAt", "productionMode", "generationPolicy", "phases", "patterns", "patternLogicSources", "cases", "nextAction"],
+  "properties": {
+    "registryVersion": { "const": "1.1.0" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "productionMode": { "enum": ["reconstruction", "generation", "paused"] },
+    "generationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caseSentence", "admissionQuestions", "variationSources", "reserveRule", "missingLogicRule", "namePolicy"],
+      "properties": {
+        "caseSentence": { "type": "string", "minLength": 1, "pattern": "\\S" },
+        "admissionQuestions": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "pattern": "\\S" }
+        },
+        "variationSources": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "pattern": "\\S" }
+        },
+        "reserveRule": { "type": "string", "minLength": 1, "pattern": "\\S" },
+        "missingLogicRule": { "type": "string", "minLength": 1, "pattern": "\\S" },
+        "namePolicy": { "type": "string", "minLength": 1, "pattern": "\\S" }
+      }
+    },
+    "phases": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "internalFunction", "purpose", "patternIds"],
+        "properties": {
+          "id": { "type": "integer", "minimum": 1, "maximum": 4 },
+          "title": { "type": "string", "minLength": 1, "pattern": "\\S" },
+          "internalFunction": { "type": "string", "minLength": 1, "pattern": "\\S" },
+          "purpose": { "type": "string", "minLength": 1, "pattern": "\\S" },
+          "patternIds": { "type": "array", "minItems": 8, "maxItems": 12, "uniqueItems": true, "items": { "type": "integer", "minimum": 1, "maximum": 40 } }
+        }
+      }
+    },
+    "patterns": {
+      "type": "array",
+      "minItems": 40,
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "phaseId",
+          "title",
+          "status",
+          "initialCore",
+          "maximumWithoutExpansion",
+          "objective",
+          "dominantCapability",
+          "coreCoverage",
+          "reserves",
+          "expansionRule",
+          "logicProvenance",
+          "generationStatus"
+        ],
+        "properties": {
+          "id": { "type": "integer", "minimum": 1, "maximum": 40 },
+          "phaseId": { "type": "integer", "minimum": 1, "maximum": 4 },
+          "title": { "type": "string", "minLength": 1, "pattern": "\\S" },
+          "status": { "enum": ["legacy_reconstruction_required", "planned", "active_generation", "complete_audited"] },
+          "initialCore": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "maximumWithoutExpansion": { "type": "integer", "minimum": 1, "maximum": 8 },
+          "objective": { "type": "string", "minLength": 1, "pattern": "\\S" },
+          "dominantCapability": { "oneOf": [{ "type": "string", "minLength": 1, "pattern": "\\S" }, { "type": "null" }] },
+          "coreCoverage": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1, "pattern": "\\S" }
+          },
+          "reserves": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1, "pattern": "\\S" }
+          },
+          "expansionRule": { "type": "string", "minLength": 1, "pattern": "\\S" },
+          "logicProvenance": { "enum": ["recovered_from_uploaded_systems", "recovered_from_cases", "designed_and_source_reviewed", "missing"] },
+          "generationStatus": { "enum": ["reconstruction_only", "generation_ready", "generation_blocked"] }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "logicProvenance": { "const": "missing" } },
+              "required": ["logicProvenance"]
+            },
+            "then": {
+              "properties": {
+                "dominantCapability": { "type": "null" },
+                "coreCoverage": { "type": "array", "maxItems": 0 },
+                "generationStatus": { "const": "generation_blocked" }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": { "generationStatus": { "const": "generation_ready" } },
+              "required": ["generationStatus"]
+            },
+            "then": {
+              "properties": {
+                "dominantCapability": { "type": "string", "minLength": 1, "pattern": "\\S" },
+                "coreCoverage": { "type": "array", "minItems": 1 },
+                "logicProvenance": { "not": { "const": "missing" } }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "patternLogicSources": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["patternId", "basis", "sourceRefs"],
+        "properties": {
+          "patternId": { "type": "integer", "minimum": 1, "maximum": 40 },
+          "basis": { "enum": ["uploaded_systems", "legacy_cases", "designed_pattern_logic"] },
+          "sourceRefs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "contentSha256"],
+              "properties": {
+                "path": { "type": "string", "minLength": 1, "pattern": "\\S" },
+                "contentSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["caseId", "globalId", "registryId", "phaseId", "patternId", "title", "modality", "predominantArea", "status", "contentSha256", "coverageSlot", "distinctJob", "primaryFailureMode", "admissionDecision"],
+        "properties": {
+          "caseId": { "type": "string", "pattern": "^case-[0-9]{3}$" },
+          "globalId": { "type": "string", "pattern": "^CP-C[0-9]{3}$" },
+          "registryId": { "type": "string", "pattern": "^CP-P[0-9]+-C[0-9]{3}$" },
+          "phaseId": { "type": "integer", "minimum": 1, "maximum": 4 },
+          "patternId": { "type": "integer", "minimum": 1, "maximum": 40 },
+          "title": { "type": "string", "minLength": 1, "pattern": "\\S" },
+          "modality": { "enum": ["in_person", "online", "telephone", "video", "model_equipment", "third_party"] },
+          "predominantArea": { "enum": ["History Taking", "Examination", "Diagnostic Formulation", "Management/Counselling/Education"] },
+          "status": { "enum": ["reconstruction_required", "reconstruction_authorized", "audited", "retired"] },
+          "contentSha256": { "oneOf": [{ "type": "string", "pattern": "^[a-f0-9]{64}$" }, { "type": "null" }] },
+          "coverageSlot": { "oneOf": [{ "type": "string", "minLength": 1, "pattern": "\\S" }, { "type": "null" }] },
+          "distinctJob": { "oneOf": [{ "type": "string", "minLength": 1, "pattern": "\\S" }, { "type": "null" }] },
+          "primaryFailureMode": { "oneOf": [{ "enum": ["premature_closure", "unsafe_delay", "station_mismatch", "cognitive_overload", "communication_breakdown", "rigidity", "performance_freeze"] }, { "type": "null" }] },
+          "admissionDecision": { "enum": ["pending_reconstruction", "admitted", "merged", "rejected"] },
+          "retirementReason": { "oneOf": [{ "type": "string", "minLength": 1, "pattern": "\\S" }, { "type": "null" }] },
+          "mergedIntoCaseId": { "oneOf": [{ "type": "string", "pattern": "^case-[0-9]{3}$" }, { "type": "null" }] }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "status": { "const": "reconstruction_required" } },
+              "required": ["status"]
+            },
+            "then": {
+              "properties": {
+                "contentSha256": { "type": "null" },
+                "coverageSlot": { "type": "null" },
+                "distinctJob": { "type": "null" },
+                "primaryFailureMode": { "type": "null" },
+                "admissionDecision": { "const": "pending_reconstruction" }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": { "status": { "const": "reconstruction_authorized" } },
+              "required": ["status"]
+            },
+            "then": {
+              "properties": {
+                "contentSha256": { "type": "null" },
+                "coverageSlot": { "type": "string", "minLength": 1, "pattern": "\\S" },
+                "distinctJob": { "type": "string", "minLength": 1, "pattern": "\\S" },
+                "primaryFailureMode": { "enum": ["premature_closure", "unsafe_delay", "station_mismatch", "cognitive_overload", "communication_breakdown", "rigidity", "performance_freeze"] },
+                "admissionDecision": { "const": "admitted" }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": { "status": { "const": "audited" } },
+              "required": ["status"]
+            },
+            "then": {
+              "properties": {
+                "contentSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+                "coverageSlot": { "type": "string", "minLength": 1, "pattern": "\\S" },
+                "distinctJob": { "type": "string", "minLength": 1, "pattern": "\\S" },
+                "primaryFailureMode": { "enum": ["premature_closure", "unsafe_delay", "station_mismatch", "cognitive_overload", "communication_breakdown", "rigidity", "performance_freeze"] },
+                "admissionDecision": { "const": "admitted" }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "enum": ["reconstruction_required", "reconstruction_authorized", "audited"]
+                }
+              },
+              "required": ["status"]
+            },
+            "then": {
+              "properties": {
+                "retirementReason": { "type": "null" },
+                "mergedIntoCaseId": { "type": "null" }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": { "status": { "const": "retired" } },
+              "required": ["status"]
+            },
+            "then": {
+              "required": ["retirementReason", "mergedIntoCaseId"],
+              "properties": {
+                "admissionDecision": { "enum": ["merged", "rejected"] },
+                "retirementReason": { "type": "string", "minLength": 1, "pattern": "\\S" },
+                "mergedIntoCaseId": { "oneOf": [{ "type": "string", "pattern": "^case-[0-9]{3}$" }, { "type": "null" }] }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "nextAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "caseId", "patternId", "newGenerationAllowed", "reason"],
+      "properties": {
+        "mode": { "enum": ["reconstruct", "generate", "none"] },
+        "caseId": { "oneOf": [{ "type": "string", "pattern": "^case-[0-9]{3}$" }, { "type": "null" }] },
+        "patternId": { "oneOf": [{ "type": "integer", "minimum": 1, "maximum": 40 }, { "type": "null" }] },
+        "newGenerationAllowed": { "type": "boolean" },
+        "reason": { "type": "string", "minLength": 1, "pattern": "\\S" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "mode": { "const": "none" } }, "required": ["mode"] },
+          "then": {
+            "properties": {
+              "caseId": { "type": "null" },
+              "patternId": { "type": "null" },
+              "newGenerationAllowed": { "const": false }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "mode": { "const": "reconstruct" } }, "required": ["mode"] },
+          "then": {
+            "properties": {
+              "caseId": { "type": "string", "pattern": "^case-[0-9]{3}$" },
+              "patternId": { "type": "integer", "minimum": 1, "maximum": 40 },
+              "newGenerationAllowed": { "const": false }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "mode": { "const": "generate" } }, "required": ["mode"] },
+          "then": {
+            "properties": {
+              "caseId": { "type": "string", "pattern": "^case-[0-9]{3}$" },
+              "patternId": { "type": "integer", "minimum": 1, "maximum": 40 },
+              "newGenerationAllowed": { "const": true }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

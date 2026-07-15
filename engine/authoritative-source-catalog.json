@@ -1,0 +1,42 @@
+{
+  "catalogVersion": "1.0.0",
+  "reviewedOn": "2026-07-14",
+  "entries": [
+    {
+      "url": "https://www.amc.org.au/wp-content/uploads/2026/06/2026-04-08-Clinical-Exam-Spec-V8-3.pdf",
+      "sourceType": "exam_specification",
+      "organisation": "Australian Medical Council",
+      "title": "Clinical Examination Specifications V8.3, June 2026",
+      "publishedOrUpdated": "2026-06-01",
+      "jurisdiction": "Australia",
+      "approvedClaimTypes": ["exam_standard"]
+    },
+    {
+      "url": "https://www.amc.org.au/wp-content/uploads/2024/12/20241112-AIPD-AssessmentDomains.pdf",
+      "sourceType": "assessment_domains",
+      "organisation": "Australian Medical Council",
+      "title": "Assessment Domains V1.1, November 2024",
+      "publishedOrUpdated": "2024-11-01",
+      "jurisdiction": "Australia",
+      "approvedClaimTypes": ["exam_standard"]
+    },
+    {
+      "url": "https://www.heartfoundation.org.au/for-professionals/acs-guideline",
+      "sourceType": "australian_clinical_guideline",
+      "organisation": "Heart Foundation and Cardiac Society of Australia and New Zealand",
+      "title": "Australian clinical guideline for acute coronary syndromes",
+      "publishedOrUpdated": "2025-02-18",
+      "jurisdiction": "Australia",
+      "approvedClaimTypes": ["diagnosis", "differential", "threshold", "investigation", "treatment", "dose", "contraindication", "disposition"]
+    },
+    {
+      "url": "https://www.anzcor.org/home/acute-coronary-syndromes/guideline-14-2-acute-coronary-syndromes-initial-medical-therapy",
+      "sourceType": "australian_clinical_guideline",
+      "organisation": "Australian and New Zealand Committee on Resuscitation",
+      "title": "Guideline 14.2 - Acute Coronary Syndromes: Initial Medical Therapy",
+      "publishedOrUpdated": "undated",
+      "jurisdiction": "Australia",
+      "approvedClaimTypes": ["threshold", "investigation", "treatment", "dose", "contraindication", "disposition"]
+    }
+  ]
+}

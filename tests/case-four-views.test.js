@@ -23,7 +23,7 @@ const reasoningCases = cases.filter((item) => item.reasoningAvailable !== false)
 const examOnlyCases = cases.filter((item) => item.reasoningAvailable === false);
 const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const canonicalHashes = {
-  "case-001": { stem: "6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875", run: "cd353fbe9e257718c54ff615b8f0d5bf5128d30bb0e89684589844696e2ac5b9" },
+  "case-001": { stem: "6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875", run: "848ecf9cfe383116e70416d2c2e604554d377aa068871bd8e8f42b95f8bd8c78" },
   "case-002": { stem: "18657f3620eca6ce1bb2a06fe0811dc1b340de7ee73e4a6f79fa6e88df53751d", run: "9b976818df6b4f1a28202aa73a52a38f4914481a6370a907ccabcbd36d58d6a9" },
   "case-003": { stem: "628cd9b24075030fa0b146fe890c5b9514acacc0bbbedfaa5c55c4e37f7db634", run: "95f1c861b3fa40e37be2de87d17616ce21321d7c4813824cf048e76aa1296f67" },
   "case-004": { stem: "a615fe14b9d4d6233646069c60ca8abb99eebcdc7af35e29026882c85aecc8da", run: "253476b2111e2b3df0d00fab56da453ac8cc4d7053e356af300fa778e9364664" },
@@ -68,7 +68,7 @@ const canonicalHashes = {
 test("Case 1 remains the protected canonical four-view case", () => {
   assert.equal(context.window.AMC_CASES.length, caseFiles.length);
   assert.equal(caseData.id, "case-001");
-  assert.equal(caseData.status, "review");
+  assert.equal(caseData.status, "audited");
   assert.equal(caseData.modality, "in_person");
   assert.ok(caseData.stem.lines.length > 0);
   assert.ok(caseData.run.sections.length > 0);
@@ -1996,6 +1996,29 @@ test("the canonical content contract passes", () => {
   assert.deepEqual(viewModel.validateCase(caseData), []);
 });
 
+test("Case 1 preserves the audited atomic and time-critical ACS sequence", () => {
+  const lines = caseData.run.sections.flatMap((section) => section.turns.flatMap((turn) => turn.lines));
+  const byId = new Map(lines.map((line) => [line.id, line.text]));
+  const index = (id) => lines.findIndex((line) => line.id === id);
+
+  assert.equal(byId.get("run-pneumothorax"), "Is the discomfort worse when you breathe in?");
+  assert.equal(byId.get("run-pneumothorax-answer"), "No, breathing does not change it.");
+  assert.equal(byId.get("run-dissection-answer"), "No. It built up over a few minutes.");
+  assert.match(byId.get("run-early-escalation-action"), /begins continuous cardiac monitoring/);
+  assert.ok(index("run-associated-answer") < index("run-early-escalation-action"));
+  assert.ok(index("run-early-escalation-action") < index("run-dissection"));
+  assert.ok(index("run-dissection-answer") < index("run-allergy"));
+  assert.ok(index("run-bleeding-answer") < index("run-aspirin"));
+  assert.ok(index("run-aspirin-action") < index("run-pe"));
+  assert.ok(index("run-pneumothorax-answer") < index("run-history"));
+  assert.ok(index("run-summary") < index("run-time-prompt"));
+  assert.ok(index("run-gtn") < index("run-gtn-consent"));
+  assert.ok(index("run-gtn-consent") < index("run-gtn-action"));
+  assert.match(byId.get("run-gtn-action"), /gives one sublingual dose/);
+  assert.match(byId.get("run-handover"), /35 minutes before this consultation/);
+  assert.doesNotMatch(byId.get("run-handover"), /with 35 minutes of ongoing/);
+});
+
 test("Reasoning text is byte-equivalent to Exam text after markers are removed", () => {
   ["stem", "run"].forEach((surface) => {
     viewModel.itemsForSurface(caseData, surface).forEach((item) => {
@@ -2011,7 +2034,7 @@ test("Reasoning text is byte-equivalent to Exam text after markers are removed",
 test("the approved Stem and Full Run remain byte-for-byte unchanged", () => {
   const digest = (value) => crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
   assert.equal(digest(caseData.stem), "6bfb9fcda2a004205ddf0076b19802c2592b143129f8381ec30cadaf25058875");
-  assert.equal(digest(caseData.run), "cd353fbe9e257718c54ff615b8f0d5bf5128d30bb0e89684589844696e2ac5b9");
+  assert.equal(digest(caseData.run), "848ecf9cfe383116e70416d2c2e604554d377aa068871bd8e8f42b95f8bd8c78");
 });
 
 test("every Hint resolves to an exact phrase and a current source link", () => {
@@ -2048,7 +2071,7 @@ test("Hints cover stem, tasks, dialogue, findings, investigations and handover",
     "task-management",
     "run-opening-story",
     "run-time-prompt",
-    "run-exam-request",
+    "run-examination-action",
     "run-exam-findings",
     "run-ecg-plan",
     "run-ecg-result",

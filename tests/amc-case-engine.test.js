@@ -100,18 +100,22 @@ test("the machine registry is structurally and semantically coherent", function 
   assert.equal(machineRegistry.nextAction.mode, "reconstruct");
   assert.equal(machineRegistry.nextAction.newGenerationAllowed, false);
   assert.equal(engineStatus.engineVersion, ENGINE_VERSION);
-  assert.equal(engineStatus.engineStatus, "audited_for_reconstruction");
+  assert.equal(engineStatus.engineStatus, "audited_for_case_generation");
   assert.equal(engineStatus.finalQa, "pass");
   assert.equal(engineStatus.registry.status, "READY");
   assert.equal(engineStatus.registry.nextAction.caseId, "case-002");
-  assert.equal(engineStatus.registry.newGenerationAllowed, false);
+  assert.equal(engineStatus.registry.freshContentGenerationWithinRegistry, true);
+  assert.equal(engineStatus.registry.unregisteredExpansionAllowed, false);
   assert.deepEqual(
-    [engineStatus.existingCaseCollection.total, engineStatus.existingCaseCollection.audited,
-      engineStatus.existingCaseCollection.hold, engineStatus.existingCaseCollection.status],
-    [42, 1, 41, "HOLD"]
+    [engineStatus.currentCaseCollection.total, engineStatus.currentCaseCollection.audited,
+      engineStatus.currentCaseCollection.hold, engineStatus.currentCaseCollection.registryPending,
+      engineStatus.currentCaseCollection.status],
+    [1, 1, 0, 41, "HOLD"]
   );
-  assert.equal(engineStatus.existingCaseCollection.expectedReleaseGateExitCode, 2);
-  assert.equal(engineStatus.existingCaseCollection.legacyCaseSetSha256,
+  assert.equal(engineStatus.currentCaseCollection.expectedReleaseGateExitCode, 2);
+  assert.equal(engineStatus.emergencyExploreCollection.total, 42);
+  assert.equal(engineStatus.emergencyExploreCollection.sourceFilesModified, false);
+  assert.equal(engineStatus.emergencyExploreCollection.legacyCaseSetSha256,
     "fd244a5be2bcf6512b2d69962de143f9958ea68c0160ce57acc7c478a083c92a");
   assert.equal(engineStatus.publication.performed, false);
   assert.equal(engineStatus.publication.authorised, false);
@@ -161,24 +165,27 @@ test("one concrete case, blueprint and registry triplet reaches AUDITED", functi
   assert.deepEqual(report.issues, []);
 });
 
-test("Case 1 binds the four-minute prompt and early ACS treatments to the reviewed sequence", function () {
+test("Case 1 binds the four-minute prompt and early ACS safety actions to the reviewed sequence", function () {
   const blueprint = loadBlueprint(root, "case-001");
-  assert.equal(blueprint.performance.listenTest.observedSeconds, 461);
+  assert.equal(blueprint.performance.listenTest.observedSeconds, 438);
   assert.deepEqual(blueprint.performance.taskEvidence.map(function (item) {
     return item.observedSeconds;
-  }), [240, 120, 101]);
-  assert.match(blueprint.performance.listenTest.notes, /prompt immediately after run-summary at 240 seconds/);
-  assert.match(blueprint.performance.listenTest.notes, /final Examiner line at 461 seconds/);
+  }), [240, 75, 123]);
+  assert.match(blueprint.performance.listenTest.notes, /focused-history summary at 240 seconds/);
+  assert.match(blueprint.performance.listenTest.notes, /total of 438 seconds/);
   assert.equal(JSON.stringify(blueprint).includes("run-handover"), false);
   assert.equal(blueprint.examiner.scheduledPrompts[0].triggerLineId, "run-summary");
 
   const timingById = new Map(blueprint.clinicalTruth.criticalActionTimings.map(function (item) {
     return [item.id, item];
   }));
-  assert.equal(timingById.get("timing-ecg-monitoring").latestPermittedLineId, "run-early-escalation-action");
-  assert.equal(timingById.get("timing-aspirin").triggerLineId, "run-associated-answer");
-  assert.equal(timingById.get("timing-gtn").latestPermittedLineId, "run-gtn-action");
-  assert.ok(blueprint.interaction.consents.some(function (item) { return item.id === "consent-gtn"; }));
+  assert.equal(timingById.get("timing-transfer").latestPermittedLineId, "run-early-escalation-action");
+  assert.equal(timingById.get("timing-monitoring").latestPermittedLineId, "run-early-escalation-action");
+  assert.equal(timingById.get("timing-aspirin").latestPermittedLineId, "run-aspirin-action");
+  assert.ok(blueprint.interaction.consents.some(function (item) { return item.id === "consent-aspirin"; }));
+  assert.ok(blueprint.clinicalTruth.safetyThresholds.some(function (item) {
+    return item.id === "clinical-threshold-gtn" && item.runLineIds.includes("run-gtn-plan");
+  }));
 });
 
 test("unknown root and nested properties are rejected", function () {
@@ -2567,16 +2574,15 @@ test("near-identical audited clinical scripts are blocked after cosmetic one-wor
   assert.equal(collection.releaseReady, false);
 });
 
-test("the current 42-case collection is honestly HOLD and the CLI fails closed", function () {
+test("the restarted collection audits Case 1 and remains HOLD until the registry is complete", function () {
   const report = runAudit(root);
   assert.equal(report.engineVersion, "1.1.0");
   assert.equal(report.collectionStatus, "HOLD");
-  assert.equal(report.collection.totalCases, 42);
+  assert.equal(report.collection.totalCases, 1);
   assert.equal(report.collection.auditedCases, 1);
-  assert.equal(report.collection.holdCases, 41);
-  assert.equal(report.issueTotals.missing_blueprint, 41);
-  assert.ok(report.issueTotals.compound_question_in_turn >= 150);
-  assert.ok(report.issueTotals.multiple_questions_in_turn >= 100);
+  assert.equal(report.collection.holdCases, 0);
+  assert.deepEqual(report.issueTotals, {});
+  assert.equal(report.collection.registryOnlyCases.length, 41);
   assert.equal(report.collection.registryReady, true);
 
   const cli = spawnSync(process.execPath, ["scripts/audit-amc-cases.js", "--json"], {
@@ -2586,7 +2592,9 @@ test("the current 42-case collection is honestly HOLD and the CLI fails closed",
   assert.equal(cli.status, 2);
   const cliReport = JSON.parse(cli.stdout);
   assert.equal(cliReport.collectionStatus, "HOLD");
-  assert.equal(cliReport.collection.holdCases, 41);
+  assert.equal(cliReport.collection.totalCases, 1);
+  assert.equal(cliReport.collection.auditedCases, 1);
+  assert.equal(cliReport.collection.holdCases, 0);
 
   const reportOnlyJson = spawnSync(process.execPath, ["scripts/audit-amc-cases.js", "--report-only", "--json"], {
     cwd: root,

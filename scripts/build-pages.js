@@ -9,13 +9,19 @@ const basePath = normalizeBasePath(process.env.BASE_PATH || "/Amc-clinical/");
 const buildId = process.env.BUILD_ID || getGitSha() || new Date().toISOString();
 const generatedAt = new Date().toISOString();
 
-const caseAssets = fs.readdirSync(path.join(root, "data", "cases"))
-  .filter((name) => /^case-[0-9]+[.]js$/.test(name))
-  .sort()
-  .map((name) => "data/cases/" + name);
+function discoverCaseAssets(directory) {
+  return fs.readdirSync(path.join(root, "data", directory))
+    .filter((name) => /^case-[0-9]+[.]js$/.test(name))
+    .sort()
+    .map((name) => "data/" + directory + "/" + name);
+}
+
+const currentCaseAssets = discoverCaseAssets("current-cases");
+const emergencyExploreAssets = discoverCaseAssets("cases");
 
 const assets = ["assets/css/styles.css"]
-  .concat(caseAssets)
+  .concat(currentCaseAssets)
+  .concat(emergencyExploreAssets)
   .concat(["assets/js/case-views.js", "assets/js/app.js"]);
 
 function normalizeBasePath(value) {
@@ -60,6 +66,13 @@ function buildShell(manifest) {
   html = html.replace(/(<meta name="x-build-id" content=")[^"]+("[^>]*>)/, `$1${buildId}$2`);
   html = html.replace(/window\.__BUILD_ID__ = "[^"]+";/, `window.__BUILD_ID__ = ${JSON.stringify(buildId)};`);
 
+  html = html.replace(/\s*<script src="data\/(?:current-cases|cases)\/case-[0-9]+[.]js(?:[?]v=[^"]+)?"><\/script>/g, "");
+  const caseScriptTags = manifest
+    .filter((asset) => /^data\/(?:current-cases|cases)\/case-[0-9]+[.]js$/.test(asset.source))
+    .map((asset) => `  <script src="${asset.url}"></script>`)
+    .join("\n");
+  html = html.replace("<!-- CASE_COLLECTION_SCRIPTS -->", caseScriptTags);
+
   manifest.forEach((asset) => {
     html = html.split(asset.source).join(asset.url);
   });
@@ -79,10 +92,14 @@ fs.writeFileSync(path.join(dist, "version.json"), JSON.stringify({
   basePath,
   generatedAt,
   environment: "github-pages",
+  defaultCollection: "current",
   defaultCaseId: "case-001",
-  caseIds: caseAssets.map((asset) => path.basename(asset, ".js")),
+  currentCaseIds: currentCaseAssets.map((asset) => path.basename(asset, ".js")),
+  emergencyExploreCaseIds: emergencyExploreAssets.map((asset) => path.basename(asset, ".js")),
+  caseIds: emergencyExploreAssets.map((asset) => path.basename(asset, ".js")),
+  collectionModel: "current-and-emergency-explore",
   productModel: "multi-case-optional-reasoning",
   assets: manifest
 }, null, 2) + "\n");
 
-console.log(`Built ${caseAssets.length} cases with build id ${buildId}`);
+console.log(`Built ${currentCaseAssets.length} current cases and ${emergencyExploreAssets.length} Emergency Explore cases with build id ${buildId}`);

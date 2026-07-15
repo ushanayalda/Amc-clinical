@@ -1,12 +1,12 @@
 # AMC Case Production Engine 1.1
 
-Implementation status: `AUDITED_FOR_RECONSTRUCTION`
+Implementation status: `AUDITED_FOR_CASE_GENERATION`
 
 Collection status: `HOLD`
 
-Generation status: `BLOCKED`
+Generation status: `ACTIVE_CASE_BY_CASE`
 
-This engine governs only the Exam Stem and word-for-word Full Run. The reasoning layer is outside its scope. Case 1 has completed reconstruction and is `audited`; Cases 2 to 42 remain preserved source material on `HOLD`. No new case may be generated while reconstruction mode is active.
+This engine governs only the Exam Stem and word-for-word Full Run. The reasoning layer is outside its scope. Fresh canonical cases are generated in `data/current-cases/` from the fixed registry, beginning again at Case 1. The earlier 42 files remain byte-preserved in `data/cases/` and are presented separately as **Emergency Explore**. The registry retains the machine term `reconstruction` for consuming its recovered slots in order; it does not mean editing or republishing the Emergency Explore files.
 
 ## Controlling files
 
@@ -16,7 +16,7 @@ This engine governs only the Exam Stem and word-for-word Full Run. The reasoning
 - `engine/amc-case-blueprint.template.json` is the non-releasable authoring template.
 - `engine/amc-visible-case.schema.json` controls the learner-facing Exam projection.
 - `engine/ENGINE_STATUS.json` records the current audited engine and collection state and is checked by the engine suite.
-- `engine/legacy-case-manifest.v1.1.json` pins the 42 legacy case identities and the 40 pattern capacity and logic baselines during reconstruction.
+- `engine/legacy-case-manifest.v1.1.json` pins the 42 registry identities and the 40 pattern capacity and logic baselines while fresh canonical cases consume those slots in order.
 - `engine/authoritative-source-catalog.json` is the reviewed allowlist for exact source title, authority, date, type, jurisdiction and permitted claim scope.
 - `scripts/amc-engine-lib.js` performs semantic and behavioural checks.
 - `scripts/audit-amc-cases.js` audits the collection. Default release-gate mode exits 2 while any case is on HOLD; `--report-only` deliberately exits 0 after producing the same report.
@@ -79,9 +79,9 @@ Pattern-specific logic has three honest provenance states:
 - Pattern 13: recovered from legacy Cases 41 and 42.
 - Patterns 14 to 40: missing. Their titles and phase purposes are known, but their dominant capability and core coverage were not recoverable. They remain `generation_blocked` until deliberately designed and source-reviewed.
 
-Case 1 has completed reconstruction and is `audited`. Its stable final checkpoint is recorded in `audits/CASE_001_FINAL_QA.md`. Cases 2 to 42 remain `reconstruction_required` and `HOLD`; their sealed aggregate SHA-256 is `55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a`. The only authorised next production action is reconstruction of Case 2. Reconstruction must proceed in case-number order. Generation is rejected while any legacy reconstruction remains pending. There are zero generation-ready patterns. No publication was performed at the Case 1 checkpoint.
+The fresh canonical Case 1 is `audited`, and its exact checkpoint is recorded in `audits/CASE_001_FINAL_QA.md`. Current Cases 2 to 42 do not yet exist; their fixed registry slots remain pending. The only next production action is to generate a fresh Case 2 from its slot. The earlier 42 source files remain separate under Emergency Explore; Cases 2 to 42 retain the sealed aggregate SHA-256 `55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a`. No publication was performed at the Case 1 checkpoint.
 
-The pinned manifest also binds the reconstruction generation policy, phase definitions and immutable pattern logic. Changing a title, purpose, capacity, reserve or expansion rule requires a deliberate manifest renewal, a new pinned manifest hash and renewed engine QA. Editing the registry alone is insufficient.
+The pinned manifest also binds the registry order, phase definitions and immutable pattern logic. Changing a title, purpose, capacity, reserve or expansion rule requires a deliberate manifest renewal, a new pinned manifest hash and renewed engine QA. Editing the registry alone is insufficient.
 
 ## Case admission and variation
 
@@ -94,7 +94,7 @@ Case admission is completed across the registry planning record and the hidden b
 5. What should the learner be able to do afterward?
 6. Does an existing case already train the same job?
 
-The `reconstruction_authorized` registry state records the controlled planning subset: pattern, coverage slot, distinct job, primary failure mode and admission decision. The exact task, new surprise, retained capability and duplicate-case comparison are then completed and evidenced in the blueprint. Duplicate distinct jobs inside one pattern are rejected. A reserve opens only for a genuinely different decision or demonstrated learning gap.
+The registry's legacy `reconstruction_authorized` state records the controlled planning subset: pattern, coverage slot, distinct job, primary failure mode and admission decision. A fresh case is then written from zero, while its exact task, new surprise, retained capability and duplicate-case comparison are completed and evidenced in the blueprint. Duplicate distinct jobs inside one pattern are rejected. A reserve opens only for a genuinely different decision or demonstrated learning gap.
 
 Names must be varied, realistic and pronounceable in Australian practice. Names must not be cultural stereotypes or diagnostic clues. Name quality and intentional continuity are human editorial checks.
 
@@ -247,7 +247,7 @@ The engine verifies source-record shape, HTTPS URLs, dates, review intervals, de
 
 These controls do not prove that a page exists, that a locator is accurate, or that the source supports the clinical sentence. Before a case is audited, this thread must open the current primary sources, verify identity, authority, applicability, locator accuracy and each consequential claim, then record `source_review` evidence. Structured evidence proves required type and package binding, not reviewer honesty or review quality. Unsupported, conflicting or uncertain guidance produces HOLD.
 
-The exact catalogue currently contains four entries: two AMC examination sources and two ACS clinical sources. Its current clinical coverage is ACS only. Reconstruction of other clinical topics requires deliberate source review and catalogue expansion before case release. Catalogue version `1.0.0` is independent of Engine version `1.1.0`.
+The exact catalogue currently contains five entries: two AMC examination sources and three ACS clinical sources. Its current clinical coverage is ACS only. Other clinical topics require deliberate source review and catalogue expansion before case release. Catalogue version `1.0.0` is independent of Engine version `1.1.0`.
 
 ## Release states
 
@@ -255,7 +255,7 @@ The exact catalogue currently contains four entries: two AMC examination sources
 - `hold`: one or more blockers exist.
 - `audited`: the blueprint, visible case, registry row, clinical review, source review, line review, listen review and content hashes all pass.
 
-Engine implementation audit and collection release are separate. Engine 1.1 may govern reconstruction while the collection remains HOLD. A collection audit reports `collectionStatus`, not engine implementation status.
+Engine implementation audit and collection release are separate. Engine 1.1 may generate individually audited cases while the incomplete collection remains HOLD. A collection audit reports `collectionStatus`, not engine implementation status.
 
 Registry readiness is also separated into structure, provenance and executable-action evidence. An action is allowed only when all three pass through the collection audit. A caller cannot make an action executable by supplying an untrusted case-report object.
 

@@ -3,10 +3,16 @@ const path = require("path");
 const { spawnSync } = require("child_process");
 
 const root = path.resolve(__dirname, "..");
-const caseFiles = fs.readdirSync(path.join(root, "data", "cases"))
-  .filter((name) => /^case-[0-9]+[.]js$/.test(name))
-  .sort()
-  .map((name) => path.join(root, "data", "cases", name));
+function discoverCaseFiles(directory) {
+  return fs.readdirSync(path.join(root, "data", directory))
+    .filter((name) => /^case-[0-9]+[.]js$/.test(name))
+    .sort()
+    .map((name) => path.join(root, "data", directory, name));
+}
+
+const currentCaseFiles = discoverCaseFiles("current-cases");
+const emergencyExploreFiles = discoverCaseFiles("cases");
+const caseFiles = currentCaseFiles.concat(emergencyExploreFiles);
 
 const files = caseFiles.concat([
   path.join(root, "assets", "js", "case-views.js"),
@@ -20,4 +26,4 @@ files.forEach((file) => {
   if (result.status !== 0) process.exit(result.status || 1);
 });
 
-console.log(`Syntax checked ${caseFiles.length} canonical case files.`);
+console.log(`Syntax checked ${currentCaseFiles.length} current case files and ${emergencyExploreFiles.length} Emergency Explore case files.`);

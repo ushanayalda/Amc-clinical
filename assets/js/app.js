@@ -2,9 +2,25 @@
   "use strict";
 
   var app = document.getElementById("app");
-  var cases = window.AMC_CASES || [];
+  var currentCases = window.AMC_CURRENT_CASES || [];
+  var emergencyExploreCases = window.AMC_CASES || [];
   var viewModel = window.AMCViewModel;
-  var requestedCaseId = new URLSearchParams(window.location.search).get("case");
+  var query = new URLSearchParams(window.location.search);
+  var requestedCaseId = query.get("case");
+  var requestedCollectionId = query.get("collection");
+  var collectionId = requestedCollectionId === "emergency-explore" ? "emergency-explore" : "current";
+
+  if (!requestedCollectionId && requestedCaseId &&
+      !currentCases.some(function (caseData) { return caseData.id === requestedCaseId; }) &&
+      emergencyExploreCases.some(function (caseData) { return caseData.id === requestedCaseId; })) {
+    collectionId = "emergency-explore";
+  }
+
+  if (collectionId === "current" && !currentCases.length && emergencyExploreCases.length) {
+    collectionId = "emergency-explore";
+  }
+
+  var cases = collectionId === "emergency-explore" ? emergencyExploreCases : currentCases;
   var currentCase = viewModel ? viewModel.selectCase(cases, requestedCaseId) : null;
   var activeMarker = null;
   var popover = null;
@@ -43,11 +59,18 @@
     return "#" + mode + "-" + screen;
   }
 
-  function caseHref(caseId) {
+  function caseHref(caseId, targetCollectionId) {
     var url = new URL(window.location.href);
+    url.searchParams.set("collection", targetCollectionId || collectionId);
     url.searchParams.set("case", caseId);
     url.hash = "exam-stem";
     return url.pathname + url.search + url.hash;
+  }
+
+  function collectionHref(targetCollectionId) {
+    var targetCases = targetCollectionId === "emergency-explore" ? emergencyExploreCases : currentCases;
+    var firstCaseId = targetCases.length ? targetCases[0].id : "case-001";
+    return caseHref(firstCaseId, targetCollectionId);
   }
 
   function currentView() {
@@ -59,7 +82,7 @@
   }
 
   function visitedStorageKey() {
-    return "amc-reasoning-journey-v2:" + currentCase.id;
+    return "amc-reasoning-journey-v2:" + collectionId + ":" + currentCase.id;
   }
 
   function loadVisitedHintIds() {
@@ -141,6 +164,32 @@
     return field;
   }
 
+  function renderCollectionTabs() {
+    var tabs = element("nav", "collection-tabs");
+    tabs.setAttribute("aria-label", "Case collection");
+    [
+      { id: "current", label: "New Cases", available: currentCases.length > 0 },
+      { id: "emergency-explore", label: "Emergency Explore", available: emergencyExploreCases.length > 0 }
+    ].forEach(function (collection) {
+      var tab = link(collectionHref(collection.id), "collection-tab" + (collection.id === collectionId ? " is-active" : ""), collection.label);
+      if (collection.id === collectionId) tab.setAttribute("aria-current", "page");
+      if (!collection.available) {
+        tab.classList.add("is-disabled");
+        tab.setAttribute("aria-disabled", "true");
+        tab.removeAttribute("href");
+      }
+      tabs.appendChild(tab);
+    });
+    return tabs;
+  }
+
+  function renderCollectionNote() {
+    if (collectionId !== "emergency-explore") return null;
+    var note = element("p", "collection-note");
+    append(note, element("strong", "", "Emergency Explore"), document.createTextNode(" preserves the earlier generated emergency cases as a separate exploration library."));
+    return note;
+  }
+
   function renderSegments(parent, surface, item) {
     var view = viewModel.viewParts(window.location.hash);
     if (view.mode !== "reasoning") {
@@ -186,7 +235,8 @@
     var identity = element("div", "site-identity");
     var eyebrow = element("p", "eyebrow", "AMC Clinical Mastery");
     var title = element("h1", "site-title", currentCase.displayNumber + ": " + currentCase.title);
-    var status = element("span", "review-status", currentCase.statusLabel || "Exam case complete");
+    var statusText = collectionId === "emergency-explore" ? "Emergency Explore" : (currentCase.statusLabel || "Exam case complete");
+    var status = element("span", "review-status", statusText);
     append(identity, eyebrow, title, status);
 
     var controls = element("div", "view-controls");
@@ -792,7 +842,8 @@
     if (requestedView.id !== view.id) {
       window.history.replaceState(null, "", viewHref("exam", view.screen));
     }
-    document.title = currentCase.displayNumber + " | AMC Clinical Mastery";
+    document.title = currentCase.displayNumber + (collectionId === "emergency-explore" ? " | Emergency Explore" : "") + " | AMC Clinical Mastery";
+    app.dataset.collection = collectionId;
     app.dataset.mode = view.mode;
     app.dataset.screen = view.screen;
     app.dataset.deeperMarkers = showDeeperMarkers ? "shown" : "hidden";
@@ -800,7 +851,7 @@
 
     journeyDock = null;
     var shell = element("div", "site-shell");
-    append(shell, renderHeader(view), renderModeNote(view), renderReasoningCompass(view), renderJourneyDock(view));
+    append(shell, renderCollectionTabs(), renderCollectionNote(), renderHeader(view), renderModeNote(view), renderReasoningCompass(view), renderJourneyDock(view));
     var main = element("main", "case-main");
     main.appendChild(view.screen === "stem" ? renderStem() : renderRun());
     append(shell, main, renderFooter());

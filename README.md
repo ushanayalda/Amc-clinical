@@ -2,38 +2,45 @@
 
 A static, case-by-case learning site for original AMC-style clinical stations.
 
-The site now loads a canonical case registry and lets the learner move between completed cases.
+## Learner collections
 
-## Four views from one source
+The site has two deliberately separate collections:
 
-Every case has two versions and two screens:
+- **New Cases** is the default production collection. Cases are generated fresh from the fixed registry and contain an exam-neutral Stem plus a complete word-for-word Full Run.
+- **Emergency Explore** preserves the earlier 42 generated cases as a separate exploration library. Those source files remain unchanged and are not treated as the current production collection.
 
-| Version | Stem | Full Run |
-|---|---|---|
-| Exam | Clean station stem | Complete high-standard encounter |
-| Reasoning | Identical stem with guided Hints | Identical encounter with guided Hints |
+The new collection begins again at Case 1. Its reasoning layer is produced in a separate workflow and is not part of this case-generation path.
 
-Each canonical case is stored once in `data/cases/case-NNN.js`. All 40 Phase 1 cases contain completed Reasoning layers. Cases 41 and 42 begin Phase 2 with completed Exam Stems and Full Runs; their Reasoning layers can be added separately without changing the case wording.
-
-Each case now has a quiet 12-to-16-Hint essential journey marked `(*)`. Optional Hints remain beside their exact phrases as `(+)`, hidden until the learner asks to show them. Additional mechanism detail inside a Hint is also collapsed. A new Hint pauses at the question before revealing the consultant reasoning; opened Hints are remembered on that device until the doctor restarts the case practice. Sources remain clickable but collapsed until requested.
-
-Reasoning mode also carries a compact authored task plan and a collapsible full plan. Reading controls never jump forward over the canonical consultation: the doctor closes each Hint and continues from the source phrase. The plan divides the 2-minute reading period and 8-minute run according to the exact station tasks. Danger can interrupt that clock; after urgent action, the doctor is returned to the question or action that was paused.
-
-## Two mastery horizons
-
-Every Reasoning view states two linked goals. **Case mastery** identifies what should become reliable in the current station. **Clinical mastery** identifies the reasoning that should transfer to an unfamiliar patient. The final essential Hint adds one changed-presentation question. Its answer, decision checks and case-relevant sources stay hidden until the doctor has attempted it.
-
-## Active production path
+## Current production path
 
 ```text
-data/cases/case-NNN.js
+registry-library/case-registry.v1.1.json
+  -> data/current-cases/case-NNN.js
+  -> data/blueprints/case-NNN.blueprint.json
+  -> scripts/amc-engine-lib.js
   -> assets/js/case-views.js
   -> assets/js/app.js
   -> scripts/build-pages.js
-  -> GitHub Pages
 ```
 
-No Custom GPT, model API, migration gate, release lock or multi-engine handoff is required.
+The Emergency Explore source path remains:
+
+```text
+data/cases/case-NNN.js
+```
+
+No Custom GPT or multi-engine handoff is required.
+
+## Current checkpoint
+
+- Fresh Case 1: `AUDITED`
+- Current collection: one audited case, 41 fixed registry slots pending
+- Registry: `READY`
+- Next production case: Case 2
+- Emergency Explore: 42 earlier case files, unchanged
+- Publication: not performed by this checkpoint
+
+The collection-level gate remains `HOLD` until every planned current case exists. This does not change the individual `AUDITED` result for Case 1.
 
 ## Local checks
 
@@ -42,16 +49,22 @@ npm run check
 npm test
 npm run build
 npm run verify:dist
+npm run audit:amc:report
 ```
 
-Open `index.html` directly for a quick source preview, or serve `dist/` after building to test the production artifact.
+Open `index.html` directly for a source preview, or serve `dist/` after building to test the production artifact.
 
-## Case progression
+## Production rules
 
-Cases 1 to 40 complete Phase 1 across 12 clinical patterns. Cases 41 and 42 complete the initial two-case core for Phase 2, Pattern 13: Stable Chest Pain versus Unstable Chest Pain. Each case has passed clinical, timing, content-contract and build checks before publication. Production can continue in registry order without per-case approval.
+- The Stem must not announce the diagnosis, urgency or required disposition.
+- The Full Run follows only the visible tasks.
+- Identity and consent precede clinical questioning.
+- Doctor information requests are asked one at a time.
+- A handover is included only when a visible task requests one.
+- Clinical claims use current authoritative Australian sources.
+- Each full run is listened and timed against the eight-minute station.
+- A new case can be individually audited while the incomplete collection remains on `HOLD`.
 
 ## Source position
 
-Cases are original practice material aligned to current official AMC specifications. They are not AMC examination stations, official marking scripts or pass guarantees. Current Australian clinical sources are recorded with each case and can be presented quietly by the separate Reasoning layer.
-
-Legacy Engine 2 and audio material remains in the repository history and is not loaded by the active site.
+Cases are original practice material aligned to current official AMC specifications. They are not AMC examination stations, official marking scripts or pass guarantees.

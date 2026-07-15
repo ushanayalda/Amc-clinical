@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amc-clinical.local/schemas/amc-visible-case-v1.1.json",
+  "title": "AMC Visible Stem and Full Run Contract v1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "globalId", "registryId", "displayNumber", "title", "status", "statusLabel", "note", "modality", "phase", "pattern", "format", "stem", "run"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^case-[0-9]{3}$" },
+    "globalId": { "type": "string", "pattern": "^CP-C[0-9]{3}$" },
+    "registryId": { "type": "string", "pattern": "^CP-P[0-9]+-C[0-9]{3}$" },
+    "displayNumber": { "type": "string", "pattern": "^Case [0-9]+$" },
+    "title": { "$ref": "#/$defs/text" },
+    "status": { "enum": ["draft", "hold", "audited"] },
+    "statusLabel": { "$ref": "#/$defs/text" },
+    "note": { "$ref": "#/$defs/text" },
+    "modality": { "$ref": "#/$defs/modality" },
+    "phase": { "$ref": "#/$defs/idTitle" },
+    "pattern": { "$ref": "#/$defs/idTitle" },
+    "format": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["readingTime", "assessmentTime", "predominantArea"],
+      "properties": {
+        "readingTime": { "const": "2 minutes" },
+        "assessmentTime": { "const": "8 minutes" },
+        "predominantArea": { "$ref": "#/$defs/assessmentArea" }
+      }
+    },
+    "stem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lines", "tasks"],
+      "properties": {
+        "lines": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": { "$ref": "#/$defs/visibleLine" }
+        },
+        "tasks": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "text"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^task-[a-z0-9-]+$" },
+              "text": { "$ref": "#/$defs/text" },
+              "timing": { "type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)? minutes?$" }
+            }
+          }
+        }
+      }
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sections"],
+      "properties": {
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "heading", "turns"],
+            "properties": {
+              "id": { "$ref": "#/$defs/lineId" },
+              "heading": { "$ref": "#/$defs/text" },
+              "turns": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["id", "speaker", "kind", "lines"],
+                  "properties": {
+                    "id": { "$ref": "#/$defs/lineId" },
+                    "speaker": { "$ref": "#/$defs/text" },
+                    "kind": { "enum": ["spoken", "action", "finding", "investigation", "handover"] },
+                    "lines": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": { "$ref": "#/$defs/visibleLine" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "lineId": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "visibleLine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text"],
+      "properties": {
+        "id": { "$ref": "#/$defs/lineId" },
+        "text": { "$ref": "#/$defs/text" }
+      }
+    },
+    "idTitle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title"],
+      "properties": {
+        "id": { "type": "integer", "minimum": 1 },
+        "title": { "$ref": "#/$defs/text" }
+      }
+    },
+    "assessmentArea": {
+      "enum": ["History Taking", "Examination", "Diagnostic Formulation", "Management/Counselling/Education"]
+    },
+    "modality": {
+      "enum": ["in_person", "online", "telephone", "video", "model_equipment", "third_party"]
+    }
+  }
+}

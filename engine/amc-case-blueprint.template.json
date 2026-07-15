@@ -1,0 +1,517 @@
+{
+  "blueprintVersion": "1.1.0",
+  "caseId": "case-000",
+  "registryId": "CP-P1-C000",
+  "registryVersion": "1.1.0",
+  "revision": 1,
+  "releaseStatus": "hold",
+  "station": {
+    "displayNumber": "Case 0",
+    "title": "[[station title]]",
+    "visibleStatus": "hold",
+    "statusLabel": "Exam case on hold",
+    "note": "Original practice station. It is not an AMC examination station or official marking script.",
+    "phase": { "id": 1, "title": "[[phase title]]" },
+    "pattern": { "id": 1, "title": "[[pattern title]]" },
+    "grammar": "consultation",
+    "predominantArea": "History Taking",
+    "modality": "in_person",
+    "setting": "[[clinical setting]]",
+    "recipient": "[[task recipient]]",
+    "readingMinutes": 2,
+    "assessmentMinutes": 8
+  },
+  "stem": {
+    "diagnosisVisibility": "hidden_to_be_derived",
+    "diagnosisTerms": ["[[leading diagnosis]]", "[[diagnostic acronym or common synonym]]"],
+    "urgencyVisibility": "not_signalled",
+    "lines": [
+      { "id": "c000-stem-role", "text": "[[role and setting line]]", "purpose": "role_setting" },
+      { "id": "c000-stem-person", "text": "[[person and presenting information line]]", "purpose": "person_presentation" },
+      { "id": "c000-stem-examiner", "text": "[[examiner arrangement line]]", "purpose": "examiner_arrangement" }
+    ],
+    "forbiddenTerms": ["[[leading diagnosis]]", "[[diagnostic acronym or common synonym]]", "urgent", "immediate treatment"]
+  },
+  "tasks": [
+    {
+      "id": "task-primary",
+      "text": "[[primary observable task]]",
+      "actionVerb": "Take",
+      "assessmentArea": "History Taking",
+      "recipient": "[[primary recipient]]",
+      "visibleTiming": null,
+      "internalMinutes": 4,
+      "primary": true
+    },
+    {
+      "id": "task-secondary",
+      "text": "[[second observable task]]",
+      "actionVerb": "Explain",
+      "assessmentArea": "Management/Counselling/Education",
+      "recipient": "[[second recipient]]",
+      "visibleTiming": null,
+      "internalMinutes": 3,
+      "primary": false
+    },
+    {
+      "id": "task-close",
+      "text": "[[closing observable task]]",
+      "actionVerb": "Address",
+      "assessmentArea": "Management/Counselling/Education",
+      "recipient": "[[closing recipient]]",
+      "visibleTiming": null,
+      "internalMinutes": 1,
+      "primary": false
+    }
+  ],
+  "clinicalTruth": {
+    "leadingDiagnosis": {
+      "id": "clinical-leading-diagnosis",
+      "text": "[[leading diagnosis]]",
+      "runLineIds": ["c000-run-assessment"],
+      "sourceClaimIds": ["claim-diagnosis"]
+    },
+    "differentials": [
+      {
+        "id": "clinical-dangerous-alternative",
+        "text": "[[dangerous alternative]]",
+        "runLineIds": ["c000-run-assessment"],
+        "sourceClaimIds": ["claim-diagnosis"]
+      },
+      {
+        "id": "clinical-plausible-alternative",
+        "text": "[[plausible alternative]]",
+        "runLineIds": ["c000-run-assessment"],
+        "sourceClaimIds": ["claim-diagnosis"]
+      }
+    ],
+    "essentialClues": [
+      {
+        "id": "clinical-clue-onset",
+        "text": "[[essential onset clue]]",
+        "runLineIds": ["c000-run-onset-response"],
+        "sourceClaimIds": ["claim-diagnosis"]
+      },
+      {
+        "id": "clinical-clue-pattern",
+        "text": "[[essential pattern clue]]",
+        "runLineIds": ["c000-run-opening-response"],
+        "sourceClaimIds": ["claim-diagnosis"]
+      }
+    ],
+    "discriminators": [
+      {
+        "id": "clinical-discriminator",
+        "text": "[[discriminating feature]]",
+        "runLineIds": ["c000-run-onset-response"],
+        "sourceClaimIds": ["claim-diagnosis"]
+      }
+    ],
+    "redFlags": [
+      {
+        "id": "clinical-red-flag",
+        "text": "[[red flag]]",
+        "runLineIds": ["c000-run-observations-response"],
+        "sourceClaimIds": ["claim-safety"]
+      }
+    ],
+    "safetyThresholds": [
+      {
+        "id": "clinical-safety-threshold",
+        "text": "[[threshold changing action]]",
+        "runLineIds": ["c000-run-observations-response"],
+        "sourceClaimIds": ["claim-safety"]
+      }
+    ],
+    "criticalActions": [
+      {
+        "id": "clinical-critical-action",
+        "text": "[[critical safe action]]",
+        "runLineIds": ["c000-run-plan"],
+        "sourceClaimIds": ["claim-safety"]
+      }
+    ],
+    "criticalActionTimings": [
+      {
+        "id": "timing-critical-action",
+        "criticalActionConceptId": "clinical-critical-action",
+        "triggerLineId": "c000-run-observations-response",
+        "latestPermittedLineId": "c000-run-plan",
+        "positiveActionPhrase": "[[exact positive action phrase in the timely line]]",
+        "rationale": "[[source-reviewed reason this action must occur within this visible interval]]",
+        "sourceClaimIds": ["claim-safety"]
+      }
+    ],
+    "unsafeActions": [
+      {
+        "id": "clinical-unsafe-action",
+        "text": "[[unsafe action or omission]]",
+        "runLineIds": ["c000-run-plan"],
+        "sourceClaimIds": ["claim-safety"]
+      }
+    ],
+    "scopeBoundary": {
+      "id": "clinical-scope-boundary",
+      "text": "[[expected-level scope boundary]]",
+      "runLineIds": ["c000-run-plan"],
+      "sourceClaimIds": ["claim-safety"]
+    }
+  },
+  "participants": [
+    {
+      "id": "participant-patient",
+      "speakerLabel": "Patient",
+      "addressTerms": ["[[patient first name]]", "[[patient title and surname]]"],
+      "role": "patient",
+      "identityRequired": true,
+      "identityResponse": {
+        "lineId": "c000-run-identity-response",
+        "text": "[[patient identity response]]",
+        "fullName": "[[patient full name]]",
+        "dateOfBirthText": "[[date of birth exactly as spoken]]"
+      },
+      "openingAffect": {
+        "text": "[[observable opening affect]]",
+        "evidenceLineId": "c000-run-approach"
+      },
+      "initialVoluntary": {
+        "triggerLineId": "c000-run-opening-question",
+        "responseLineId": "c000-run-opening-response",
+        "text": "[[brief initial account]]"
+      },
+      "concerns": [
+        {
+          "id": "concern-primary",
+          "text": "[[principal concern]]",
+          "responseLineId": "c000-run-concern-response",
+          "responseText": "[[exact concern response]]",
+          "nextDoctorLineId": "c000-run-concern-answer"
+        }
+      ],
+      "disclosures": [
+        {
+          "id": "disclosure-onset",
+          "factIds": ["clinical-clue-onset", "clinical-discriminator"],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor asks one question about onset.",
+          "triggerLineId": "c000-run-onset-question",
+          "responseLineId": "c000-run-onset-response",
+          "responseText": "[[onset answer]]",
+          "nextDoctorLineId": "c000-run-observations-request",
+          "responseUse": "The time course informs the next assessment step."
+        }
+      ]
+    }
+  ],
+  "examiner": {
+    "opening": { "lineId": "c000-run-start", "text": "You may begin." },
+    "availableAtStartStemLineIds": ["c000-stem-examiner"],
+    "releases": [
+      {
+        "id": "release-observations",
+        "requestDescription": "The Doctor requests the relevant observations.",
+        "requestLineId": "c000-run-observations-request",
+        "requestExactText": "[[exact observations request]]",
+        "responseLineId": "c000-run-observations-response",
+        "responseText": "[[exact observations response]]",
+        "permittedModalities": ["in_person"],
+        "findingSource": "[[how these findings are available in this modality]]",
+        "nextDoctorLineId": "c000-run-assessment",
+        "responseUse": "The Doctor interprets the supplied observations."
+      }
+    ],
+    "scheduledPrompts": [],
+    "closing": { "lineId": "c000-run-end", "text": "Thank you. The station is complete." }
+  },
+  "marking": {
+    "sourceClaimIds": ["claim-exam-standard"],
+    "keySteps": [
+      {
+        "id": "step-assessment",
+        "description": "[[case-specific assessment key step]]",
+        "taskIds": ["task-primary"],
+        "runLineIds": ["c000-run-opening-question", "c000-run-onset-question"],
+        "sourceClaimIds": ["claim-diagnosis"]
+      },
+      {
+        "id": "step-safety",
+        "description": "[[case-specific safety key step]]",
+        "taskIds": ["task-secondary"],
+        "runLineIds": ["c000-run-observations-request", "c000-run-assessment", "c000-run-plan"],
+        "sourceClaimIds": ["claim-safety"]
+      }
+    ],
+    "domains": [
+      { "name": "History", "taskIds": ["task-primary"], "runLineIds": ["c000-run-opening-question", "c000-run-onset-question"], "sourceClaimIds": ["claim-exam-standard"] },
+      { "name": "Diagnosis/differential diagnoses", "taskIds": ["task-secondary"], "runLineIds": ["c000-run-assessment"], "sourceClaimIds": ["claim-exam-standard", "claim-diagnosis"] },
+      { "name": "Approach to patient/relative/carer/other health professional", "taskIds": ["task-primary", "task-close"], "runLineIds": ["c000-run-consent-question", "c000-run-concern-question", "c000-run-concern-answer"], "sourceClaimIds": ["claim-exam-standard"] }
+    ],
+    "projectSafetyErrors": [
+      {
+        "id": "error-unsafe-omission",
+        "description": "[[case-specific critical error]]",
+        "preventedByLineIds": ["c000-run-plan"],
+        "safetyConceptIds": ["clinical-critical-action"],
+        "sourceClaimIds": ["claim-safety"]
+      }
+    ],
+    "globalRating": {
+      "scale": 7,
+      "failRatings": [1, 2, 3],
+      "passRatings": [4, 5, 6, 7],
+      "decisionRule": "The global rating alone determines the station result: ratings 1 to 3 fail and ratings 4 to 7 pass.",
+      "passStandard": "[[case-specific observable passing performance]]",
+      "failStandard": "[[case-specific observable failing performance]]"
+    }
+  },
+  "interaction": {
+    "identity": {
+      "mode": "direct",
+      "verificationLineId": "c000-run-identity-question",
+      "verificationText": "[[exact identity request]]",
+      "participantIds": ["participant-patient"],
+      "completedBeforeClinicalContent": true,
+      "rationale": "Confirm identity before clinical content."
+    },
+    "defaultInformationParticipantId": "participant-patient",
+    "directAddresses": [
+      { "lineId": "c000-run-consent-question", "participantId": "participant-patient", "addressTerm": "[[exact controlled address term]]" },
+      { "lineId": "c000-run-assessment", "participantId": "participant-patient", "addressTerm": "[[exact controlled address term]]" }
+    ],
+    "consents": [
+      {
+        "id": "consent-consultation",
+        "scope": "consultation",
+        "requestLineId": "c000-run-consent-question",
+        "requestText": "[[exact consultation consent request]]",
+        "responseLineId": "c000-run-consent-response",
+        "responseText": "[[exact consultation consent response]]",
+        "participantId": "participant-patient",
+        "outcome": "granted"
+      }
+    ],
+    "informationRequests": [
+      {
+        "id": "request-opening",
+        "lineId": "c000-run-opening-question",
+        "requestText": "[[exact opening question]]",
+        "taskId": "task-primary",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Initial account",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "c000-run-opening-response",
+        "responseParticipantId": "participant-patient",
+        "responseText": "[[brief initial account]]",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": ["[[exact phrase in the response that answers the opening request]]"],
+        "nextDoctorLineId": "c000-run-onset-question",
+        "responseUse": "The next question clarifies the time course introduced in the account."
+      },
+      {
+        "id": "request-onset",
+        "lineId": "c000-run-onset-question",
+        "requestText": "[[exact onset question]]",
+        "taskId": "task-primary",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Onset",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "c000-run-onset-response",
+        "responseParticipantId": "participant-patient",
+        "responseText": "[[onset answer]]",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": ["[[exact phrase in the response that answers onset]]"],
+        "nextDoctorLineId": "c000-run-observations-request",
+        "responseUse": "The time course informs the next assessment step."
+      },
+      {
+        "id": "request-concern",
+        "lineId": "c000-run-concern-question",
+        "requestText": "[[exact concern question]]",
+        "taskId": "task-close",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Person's concern",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "c000-run-concern-response",
+        "responseParticipantId": "participant-patient",
+        "responseText": "[[exact concern response]]",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": ["[[exact phrase in the response stating the concern]]"],
+        "nextDoctorLineId": "c000-run-concern-answer",
+        "responseUse": "The Doctor answers the stated concern."
+      }
+    ],
+    "sensitiveTopicLineIds": []
+  },
+  "variation": {
+    "coverageSlot": "[[controlled pattern core-coverage slot]]",
+    "primaryFailureMode": "premature_closure",
+    "secondaryFailureMode": null,
+    "distinctJob": "[[unique learning job]]",
+    "newSurprise": "[[new clinical or performance surprise]]",
+    "plannedTrap": "[[case-specific trap]]",
+    "antiFailureFeatures": ["[[observable safe recovery feature]]"],
+    "duplicateCheck": {
+      "comparedCaseIds": [],
+      "conclusion": "[[why this case is not a duplicate]]"
+    }
+  },
+  "performance": {
+    "targetSpokenSeconds": 450,
+    "actionDurations": [
+      { "lineId": "c000-run-approach", "seconds": 10, "actionClass": "neutral_preparation", "performedBy": "doctor", "performedByParticipantId": null, "actorExactPhrase": "The doctor", "consentId": null, "exceptionRationale": null }
+    ],
+    "taskEvidence": [
+      {
+        "taskId": "task-primary",
+        "runLineIds": [
+          "c000-run-start",
+          "c000-run-approach",
+          "c000-run-identity-question",
+          "c000-run-identity-response",
+          "c000-run-consent-question",
+          "c000-run-consent-response",
+          "c000-run-opening-question",
+          "c000-run-opening-response",
+          "c000-run-onset-question",
+          "c000-run-onset-response",
+          "c000-run-observations-request",
+          "c000-run-observations-response"
+        ],
+        "requiredEvidence": [
+          { "requirement": "Focused history is visibly performed", "lineId": "c000-run-opening-question", "exactPhrase": "[[exact opening-question phrase]]", "positivePerformancePhrase": "[[exact positive question or action phrase]]" }
+        ],
+        "observedSeconds": 240,
+        "completed": false
+      },
+      {
+        "taskId": "task-secondary",
+        "runLineIds": ["c000-run-assessment", "c000-run-plan"],
+        "requiredEvidence": [
+          { "requirement": "Assessment and management are visibly explained", "lineId": "c000-run-plan", "exactPhrase": "[[exact management phrase]]", "positivePerformancePhrase": "[[exact positive explanation phrase]]" }
+        ],
+        "observedSeconds": 150,
+        "completed": false
+      },
+      {
+        "taskId": "task-close",
+        "runLineIds": ["c000-run-concern-question", "c000-run-concern-response", "c000-run-concern-answer", "c000-run-end"],
+        "requiredEvidence": [
+          { "requirement": "The person's concern is visibly answered", "lineId": "c000-run-concern-answer", "exactPhrase": "[[exact concern-answer phrase]]", "positivePerformancePhrase": "[[exact positive concern-answer phrase]]" }
+        ],
+        "observedSeconds": 60,
+        "completed": false
+      }
+    ],
+    "listenTest": {
+      "status": "hold",
+      "method": "not_run",
+      "reviewer": null,
+      "performedAt": null,
+      "observedSeconds": null,
+      "caseContentSha256": null,
+      "reviewScopeSha256": null,
+      "notes": "Run a spoken read-through after the Full Run is complete."
+    }
+  },
+  "sourceBasis": {
+    "sources": [
+      {
+        "id": "source-amc-spec",
+        "sourceType": "exam_specification",
+        "organisation": "Australian Medical Council",
+        "title": "Clinical Examination Specifications V8.3, June 2026",
+        "url": "https://www.amc.org.au/wp-content/uploads/2026/06/2026-04-08-Clinical-Exam-Spec-V8-3.pdf",
+        "publishedOrUpdated": "2026-06-01",
+        "accessed": "2026-07-14",
+        "reviewDue": "2027-01-14",
+        "jurisdiction": "Australia",
+        "applicability": "Station format, expected level, tasks, key steps and domains.",
+        "authoritative": true
+      },
+      {
+        "id": "source-amc-domains",
+        "sourceType": "assessment_domains",
+        "organisation": "Australian Medical Council",
+        "title": "Assessment Domains V1.1, November 2024",
+        "url": "https://www.amc.org.au/wp-content/uploads/2024/12/20241112-AIPD-AssessmentDomains.pdf",
+        "publishedOrUpdated": "2024-11-01",
+        "accessed": "2026-07-14",
+        "reviewDue": "2027-01-14",
+        "jurisdiction": "Australia",
+        "applicability": "Official domain vocabulary and domain-specific performance expectations.",
+        "authoritative": true
+      },
+      {
+        "id": "source-clinical-primary",
+        "sourceType": "australian_clinical_guideline",
+        "organisation": "[[authoritative clinical organisation]]",
+        "title": "[[current clinical source]]",
+        "url": "https://example.org/replace-this-source",
+        "publishedOrUpdated": "undated",
+        "accessed": "2026-07-14",
+        "reviewDue": "2027-01-14",
+        "jurisdiction": "Australia",
+        "applicability": "[[supported diagnosis, threshold and management claims]]",
+        "authoritative": true
+      }
+    ],
+    "claimMap": [
+      {
+        "id": "claim-diagnosis",
+        "claimType": "diagnosis",
+        "claim": "[[diagnostic claim]]",
+        "sourceIds": ["source-clinical-primary"],
+        "sourceLocators": [{ "sourceId": "source-clinical-primary", "locator": "[[section, recommendation or page supporting the diagnostic claim]]" }],
+        "runLineIds": ["c000-run-opening-response", "c000-run-onset-response", "c000-run-assessment"],
+        "taskIds": ["task-primary", "task-secondary"],
+        "clinicalConceptIds": ["clinical-leading-diagnosis", "clinical-dangerous-alternative", "clinical-plausible-alternative", "clinical-clue-onset", "clinical-clue-pattern", "clinical-discriminator"],
+        "blueprintRefs": []
+      },
+      {
+        "id": "claim-safety",
+        "claimType": "treatment",
+        "claim": "[[safety and management claim]]",
+        "sourceIds": ["source-clinical-primary"],
+        "sourceLocators": [{ "sourceId": "source-clinical-primary", "locator": "[[section, recommendation or page supporting the management claim]]" }],
+        "runLineIds": ["c000-run-observations-response", "c000-run-plan"],
+        "taskIds": ["task-secondary"],
+        "clinicalConceptIds": ["clinical-red-flag", "clinical-safety-threshold", "clinical-critical-action", "clinical-unsafe-action", "clinical-scope-boundary"],
+        "blueprintRefs": []
+      },
+      {
+        "id": "claim-exam-standard",
+        "claimType": "exam_standard",
+        "claim": "The station uses the current AMC format, official assessment-domain vocabulary and seven-point global rating threshold.",
+        "sourceIds": ["source-amc-spec", "source-amc-domains"],
+        "sourceLocators": [
+          { "sourceId": "source-amc-spec", "locator": "Station timing and global rating sections" },
+          { "sourceId": "source-amc-domains", "locator": "Official assessment-domain definitions" }
+        ],
+        "runLineIds": [],
+        "taskIds": ["task-primary", "task-secondary", "task-close"],
+        "clinicalConceptIds": [],
+        "blueprintRefs": ["station", "tasks", "marking.keySteps", "marking.domains", "marking.globalRating"]
+      }
+    ]
+  },
+  "qa": {
+    "caseContentSha256": null,
+    "reviewScopeSha256": null,
+    "blueprintPackageSha256": null,
+    "blueprint": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "stemNeutrality": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "taskAlignment": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "conversation": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "participantDisclosure": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "examinerRelease": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "amcLevel": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "timing": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "clinical": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "sources": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "finalQa": { "status": "hold", "method": "Not run", "reviewer": null, "reviewedAt": null, "reviewScopeSha256": null, "evidence": [] },
+    "blockers": ["Authoring template contains unresolved fields and cannot be released."]
+  }
+}

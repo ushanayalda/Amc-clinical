@@ -1,0 +1,1610 @@
+{
+  "registryVersion": "1.1.0",
+  "updatedAt": "2026-07-14T21:45:00+10:00",
+  "productionMode": "reconstruction",
+  "generationPolicy": {
+    "caseSentence": "This case trains [phase purpose] through [pattern], using [station task], to prevent [failure mode], while introducing [new surprise].",
+    "admissionQuestions": [
+      "Which pattern does this case belong to?",
+      "What exact AMC-style task is being tested?",
+      "What clinical or performance failure could occur?",
+      "What new surprise makes this case different?",
+      "What must the learner be able to do after this case?",
+      "Does an existing case already train the same job?"
+    ],
+    "variationSources": [
+      "subtle presentation",
+      "dangerous mimic or overlap",
+      "patient resistance",
+      "falsely reassuring investigation",
+      "different task or recipient",
+      "time pressure",
+      "recovery after an initially wrong direction"
+    ],
+    "reserveRule": "Open a reserve only when it adds a distinct surprise, addresses a demonstrated weakness or receives explicit approval. Merge or retain it as a reserve when an existing case already trains the same job.",
+    "missingLogicRule": "A pattern with missing pattern-specific logic cannot enter generation. Its objective, central capability and core coverage must be deliberately designed and source-reviewed first.",
+    "namePolicy": "Use varied, realistic and pronounceable names found in Australian practice. Do not use a name as a cultural stereotype or diagnostic clue, and do not repeat a first name from the previous twenty cases unless continuity is intentional and recorded."
+  },
+  "phases": [
+    {
+      "id": 1,
+      "title": "Can Kill Fast",
+      "internalFunction": "Catastrophic Control",
+      "purpose": "Recognise danger and act before diagnostic certainty.",
+      "patternIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Dangerous Mimics",
+      "internalFunction": "Differentiation Control",
+      "purpose": "Compare close alternatives without premature closure.",
+      "patternIds": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Common Stations",
+      "internalFunction": "System Depth",
+      "purpose": "Build reliable performance in common clinical stations.",
+      "patternIds": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Hard Conversations",
+      "internalFunction": "High Communication",
+      "purpose": "Communicate risk, uncertainty and difficult decisions safely.",
+      "patternIds": [
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "id": 1,
+      "phaseId": 1,
+      "title": "Dangerous Chest Pain",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Distinguish immediately dangerous cardiothoracic causes and enter the correct pathway before certainty.",
+      "coreCoverage": [
+        "dangerous cardiac pattern",
+        "aortic dissection",
+        "pulmonary embolism",
+        "tension pneumothorax"
+      ],
+      "reserves": [
+        "normal first ECG with ongoing concern",
+        "atypical acute coronary syndrome in diabetes",
+        "pericarditis overlap",
+        "reflux overlap"
+      ],
+      "expansionRule": "Open a reserve only when it adds a distinct recognition or safety decision not already trained by the four legacy cases.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 2,
+      "phaseId": 1,
+      "title": "Acute Shortness of Breath",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Recognise respiratory deterioration and choose cause-specific first treatment.",
+      "coreCoverage": [
+        "severe asthma",
+        "anaphylaxis",
+        "acute heart failure",
+        "COPD with oxygen and hypercapnia safety"
+      ],
+      "reserves": [],
+      "expansionRule": "The fourth legacy case is justified by a distinct oxygen-safety decision. Further expansion requires a new central decision.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 3,
+      "phaseId": 1,
+      "title": "Sudden Neurological Deficit",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Preserve the neurological time anchor while checking reversible mimics and haemorrhage.",
+      "coreCoverage": [
+        "wake-up stroke",
+        "hypoglycaemic mimic",
+        "intracerebral haemorrhage"
+      ],
+      "reserves": [],
+      "expansionRule": "Expand only for a distinct neurological time-critical decision not covered by stroke, mimic or haemorrhage.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 4,
+      "phaseId": 1,
+      "title": "Sepsis Pattern",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Recognise organ dysfunction, reassess response and account for high-risk hosts.",
+      "coreCoverage": [
+        "occult-source sepsis with delirium",
+        "persistent septic shock after fluid",
+        "neutropenic sepsis"
+      ],
+      "reserves": [],
+      "expansionRule": "Expand only when a host, source or treatment decision cannot be absorbed into the existing sepsis ladder.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 5,
+      "phaseId": 1,
+      "title": "Shock Pattern",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Differentiate concealed blood loss, pump failure and loss of vascular tone before selecting resuscitation.",
+      "coreCoverage": [
+        "occult pelvic haemorrhage",
+        "cardiogenic shock from myocarditis",
+        "neurogenic shock"
+      ],
+      "reserves": [],
+      "expansionRule": "Expand only for a shock mechanism or resuscitation decision not trained by the existing ladder or other Phase 1 patterns.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 6,
+      "phaseId": 1,
+      "title": "Unstable Gastrointestinal Bleed",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Match physiology and likely source to the appropriate resuscitation and source-control pathway.",
+      "coreCoverage": [
+        "non-variceal upper gastrointestinal bleed",
+        "variceal haemorrhage",
+        "major haematochezia during factor-Xa inhibition"
+      ],
+      "reserves": [
+        "aortoenteric fistula after aortic graft surgery"
+      ],
+      "expansionRule": "Keep generic shock and early-haemoglobin traps inside core cases. Open the reserve only for its distinct catastrophic clue.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 7,
+      "phaseId": 1,
+      "title": "Metabolic Collapse",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Identify the controlling metabolic process and apply treatment in the correct sequence.",
+      "coreCoverage": [
+        "diabetic ketoacidosis",
+        "hyperosmolar hyperglycaemic state",
+        "ECG-toxic hyperkalaemia"
+      ],
+      "reserves": [
+        "euglycaemic ketoacidosis",
+        "adrenal crisis",
+        "severe symptomatic hyponatraemia",
+        "hypercalcaemic crisis",
+        "mixed diabetic ketoacidosis and hyperosmolar state"
+      ],
+      "expansionRule": "Open a reserve only when its first treatment sequence adds a central decision not trained by the three core pathways.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 8,
+      "phaseId": 1,
+      "title": "Cardiac Syncope",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Separate structural risk, fast rhythm and slow rhythm despite recovery between events.",
+      "coreCoverage": [
+        "hypertrophic cardiomyopathy risk",
+        "intermittent ventricular tachycardia",
+        "intermittent complete heart block"
+      ],
+      "reserves": [
+        "severe aortic stenosis",
+        "inherited channelopathy or convulsive syncope"
+      ],
+      "expansionRule": "Keep benign-versus-cardiac differentiation in Pattern 18 and medication-triggered torsades in Pattern 12 unless a dedicated gap is demonstrated.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 9,
+      "phaseId": 1,
+      "title": "Acute Severe Abdominal Pain with Instability",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Distinguish rupture, arterial occlusion and contamination while choosing imaging or surgery from physiology.",
+      "coreCoverage": [
+        "ruptured abdominal aortic aneurysm",
+        "mesenteric ischaemia",
+        "perforated peptic ulcer"
+      ],
+      "reserves": [
+        "strangulated closed-loop obstruction or incarcerated hernia",
+        "severe pancreatitis"
+      ],
+      "expansionRule": "Defer stable localisation to later patterns and expand only for a distinct unstable imaging or source-control decision.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 10,
+      "phaseId": 1,
+      "title": "Obstetric Catastrophe",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Manage distinct early-pregnancy, late-pregnancy and postpartum emergencies.",
+      "coreCoverage": [
+        "ruptured ectopic pregnancy",
+        "severe pre-eclampsia and eclampsia",
+        "atonic postpartum haemorrhage"
+      ],
+      "reserves": [
+        "umbilical-cord prolapse",
+        "placental abruption"
+      ],
+      "expansionRule": "Open a reserve only when its pregnancy-specific immediate action cannot be absorbed into the three core periods.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 11,
+      "phaseId": 1,
+      "title": "Paediatric Acute Deterioration",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Recognise paediatric deterioration through circulation, airway or neurological failure.",
+      "coreCoverage": [
+        "infant septic shock",
+        "severe croup",
+        "convulsive status epilepticus"
+      ],
+      "reserves": [
+        "severe dehydration with shock",
+        "bronchiolitis with apnoea or exhaustion"
+      ],
+      "expansionRule": "Expand only when an age-specific first decision is not already trained by paediatric or parallel adult emergency patterns.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 12,
+      "phaseId": 1,
+      "title": "Toxicological Emergency",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "objective": "Recognise danger and act before diagnostic certainty.",
+      "dominantCapability": "Choose the first life-saving action from ventilation, elapsed time, ECG toxicity, heat production or envenoming evidence.",
+      "coreCoverage": [
+        "opioid toxicity",
+        "delayed paracetamol ingestion",
+        "tricyclic antidepressant cardiotoxicity",
+        "serotonin toxicity",
+        "Australian snakebite"
+      ],
+      "reserves": [
+        "torsades",
+        "salicylate poisoning",
+        "beta-blocker or calcium-channel-blocker toxicity",
+        "carbon monoxide poisoning",
+        "organophosphate poisoning",
+        "toxic alcohol poisoning",
+        "digoxin toxicity",
+        "lithium toxicity"
+      ],
+      "expansionRule": "The five-case legacy expansion is closed. A reserve requires an explicit new central life-saving decision and variation review.",
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 13,
+      "phaseId": 2,
+      "title": "Stable Chest Pain versus Unstable Chest Pain",
+      "status": "legacy_reconstruction_required",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Compare close alternatives without premature closure.",
+      "dominantCapability": "Classify chest pain from symptom trajectory rather than the label, current pain state or one ECG.",
+      "coreCoverage": [
+        "unchanged exertional pattern requiring outpatient assessment and safety-netting",
+        "changed angina pattern requiring reclassification despite absent pain and a normal first ECG"
+      ],
+      "reserves": [],
+      "expansionRule": "Expand only for a trajectory decision not trained by the stable and changed two-case ladder.",
+      "logicProvenance": "recovered_from_cases",
+      "generationStatus": "reconstruction_only"
+    },
+    {
+      "id": 14,
+      "phaseId": 2,
+      "title": "COPD versus Asthma versus Pneumonia",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Compare close alternatives without premature closure.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 15,
+      "phaseId": 2,
+      "title": "Peripheral Vertigo versus Central Vertigo",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Compare close alternatives without premature closure.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 16,
+      "phaseId": 2,
+      "title": "Migraine versus Subarachnoid Haemorrhage",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Compare close alternatives without premature closure.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 17,
+      "phaseId": 2,
+      "title": "Reflux versus Cardiac Chest Pain",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Compare close alternatives without premature closure.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 18,
+      "phaseId": 2,
+      "title": "Vasovagal Syncope versus Cardiac Syncope",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Compare close alternatives without premature closure.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 19,
+      "phaseId": 2,
+      "title": "Red Leg Pattern",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Compare close alternatives without premature closure.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 20,
+      "phaseId": 2,
+      "title": "Delirium versus Dementia versus Depression",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Compare close alternatives without premature closure.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 21,
+      "phaseId": 2,
+      "title": "Anaemia Interpretation",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Compare close alternatives without premature closure.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 22,
+      "phaseId": 2,
+      "title": "Acute Abdomen Localisation",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Compare close alternatives without premature closure.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 23,
+      "phaseId": 3,
+      "title": "Right Upper Quadrant Pain",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Build reliable performance in common clinical stations.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 24,
+      "phaseId": 3,
+      "title": "Left Iliac Fossa Pain",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Build reliable performance in common clinical stations.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 25,
+      "phaseId": 3,
+      "title": "Dysmenorrhoea",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Build reliable performance in common clinical stations.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 26,
+      "phaseId": 3,
+      "title": "Amenorrhoea",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Build reliable performance in common clinical stations.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 27,
+      "phaseId": 3,
+      "title": "Mastalgia",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Build reliable performance in common clinical stations.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 28,
+      "phaseId": 3,
+      "title": "Breast Lump",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Build reliable performance in common clinical stations.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 29,
+      "phaseId": 3,
+      "title": "Knee Swelling",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Build reliable performance in common clinical stations.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 30,
+      "phaseId": 3,
+      "title": "Thyroid Disorder",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Build reliable performance in common clinical stations.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 31,
+      "phaseId": 3,
+      "title": "Diabetes Review",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Build reliable performance in common clinical stations.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 32,
+      "phaseId": 3,
+      "title": "Hypertension Counselling",
+      "status": "planned",
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "objective": "Build reliable performance in common clinical stations.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 33,
+      "phaseId": 4,
+      "title": "Breaking Bad News",
+      "status": "planned",
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "objective": "Communicate risk, uncertainty and difficult decisions safely.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 34,
+      "phaseId": 4,
+      "title": "Palliative Care Discussion",
+      "status": "planned",
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "objective": "Communicate risk, uncertainty and difficult decisions safely.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 35,
+      "phaseId": 4,
+      "title": "Do Not Resuscitate Discussion",
+      "status": "planned",
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "objective": "Communicate risk, uncertainty and difficult decisions safely.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 36,
+      "phaseId": 4,
+      "title": "Domestic Violence Safety Assessment",
+      "status": "planned",
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "objective": "Communicate risk, uncertainty and difficult decisions safely.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 37,
+      "phaseId": 4,
+      "title": "Sexual Health Counselling",
+      "status": "planned",
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "objective": "Communicate risk, uncertainty and difficult decisions safely.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 38,
+      "phaseId": 4,
+      "title": "Postpartum Psychosis Risk",
+      "status": "planned",
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "objective": "Communicate risk, uncertainty and difficult decisions safely.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 39,
+      "phaseId": 4,
+      "title": "Capacity Assessment",
+      "status": "planned",
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "objective": "Communicate risk, uncertainty and difficult decisions safely.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    },
+    {
+      "id": 40,
+      "phaseId": 4,
+      "title": "Suicidal Ideation Risk Assessment",
+      "status": "planned",
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "objective": "Communicate risk, uncertainty and difficult decisions safely.",
+      "dominantCapability": null,
+      "coreCoverage": [],
+      "reserves": [],
+      "expansionRule": "Design and source the pattern-specific blueprint before generation.",
+      "logicProvenance": "missing",
+      "generationStatus": "generation_blocked"
+    }
+  ],
+  "patternLogicSources": [
+    {
+      "patternId": 1,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-1-dangerous-chest-pain",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 2,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-2-acute-shortness-of-breath",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 3,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-3-sudden-neurological-deficit",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 4,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-4-sepsis-pattern",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 5,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-5-shock-pattern",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 6,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-6-unstable-gastrointestinal-bleed",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 7,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-7-metabolic-collapse",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 8,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-8-cardiac-syncope",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 9,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-9-acute-severe-abdominal-pain-with-instability",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 10,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-10-obstetric-catastrophe",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 11,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-11-paediatric-acute-deterioration",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 12,
+      "basis": "uploaded_systems",
+      "sourceRefs": [
+        {
+          "path": "registry-library/AMC-Clinical-Pathway-Consolidated-Master-Registry-v1.md#pattern-12-toxicological-emergency",
+        "contentSha256": "8e7d14ecee3fcc780f8eb19ac168aa5f463725477e0662845206bab0c8176e12"
+        }
+      ]
+    },
+    {
+      "patternId": 13,
+      "basis": "legacy_cases",
+      "sourceRefs": [
+        {
+          "path": "data/cases/case-041.js",
+          "contentSha256": "97495d8b07c9686b626d28610b428ec32e30bc8e7a6f17351e14ef5c91ffaf7b"
+        },
+        {
+          "path": "data/cases/case-042.js",
+          "contentSha256": "bf93a9c4afee68a06eaa89a2f29875338601ae405640797c2d6880c4727ac5c8"
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "caseId": "case-001",
+      "globalId": "CP-C001",
+      "registryId": "CP-P1-C001",
+      "phaseId": 1,
+      "patternId": 1,
+      "title": "Chest discomfort after lunch",
+      "modality": "in_person",
+      "predominantArea": "History Taking",
+      "status": "audited",
+      "contentSha256": "991b1957b9f5ad32c9aebfeded76bfb420ca80ea26c8ad4791841a5aa73bf1ce",
+      "coverageSlot": "dangerous cardiac pattern",
+      "distinctJob": "Recognise a persistent exertional cardiac pattern despite a meal-related indigestion explanation.",
+      "primaryFailureMode": "premature_closure",
+      "admissionDecision": "admitted"
+    },
+    {
+      "caseId": "case-002",
+      "globalId": "CP-C002",
+      "registryId": "CP-P1-C002",
+      "phaseId": 1,
+      "patternId": 1,
+      "title": "Sudden chest and back pain",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-003",
+      "globalId": "CP-C003",
+      "registryId": "CP-P1-C003",
+      "phaseId": 1,
+      "patternId": 1,
+      "title": "Sharp chest discomfort after dinner",
+      "modality": "in_person",
+      "predominantArea": "History Taking",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-004",
+      "globalId": "CP-C004",
+      "registryId": "CP-P1-C004",
+      "phaseId": 1,
+      "patternId": 1,
+      "title": "Breathlessness after a motorcycle collision",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-005",
+      "globalId": "CP-C005",
+      "registryId": "CP-P2-C001",
+      "phaseId": 1,
+      "patternId": 2,
+      "title": "Worsening breathlessness despite reliever use",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-006",
+      "globalId": "CP-C006",
+      "registryId": "CP-P2-C002",
+      "phaseId": 1,
+      "patternId": 2,
+      "title": "Sudden breathlessness and light-headedness",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-007",
+      "globalId": "CP-C007",
+      "registryId": "CP-P2-C003",
+      "phaseId": 1,
+      "patternId": 2,
+      "title": "Cough and worsening breathlessness over three days",
+      "modality": "in_person",
+      "predominantArea": "History Taking",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-008",
+      "globalId": "CP-C008",
+      "registryId": "CP-P2-C004",
+      "phaseId": 1,
+      "patternId": 2,
+      "title": "Worsening breathlessness with COPD",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-009",
+      "globalId": "CP-C009",
+      "registryId": "CP-P3-C001",
+      "phaseId": 1,
+      "patternId": 3,
+      "title": "Sudden facial droop, arm weakness and speech difficulty",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-010",
+      "globalId": "CP-C010",
+      "registryId": "CP-P3-C002",
+      "phaseId": 1,
+      "patternId": 3,
+      "title": "Sudden slurred speech, weakness and confusion",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-011",
+      "globalId": "CP-C011",
+      "registryId": "CP-P3-C003",
+      "phaseId": 1,
+      "patternId": 3,
+      "title": "Headache, vomiting and weakness after a collapse",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-012",
+      "globalId": "CP-C012",
+      "registryId": "CP-P4-C001",
+      "phaseId": 1,
+      "patternId": 4,
+      "title": "New confusion and reduced intake",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-013",
+      "globalId": "CP-C013",
+      "registryId": "CP-P4-C002",
+      "phaseId": 1,
+      "patternId": 4,
+      "title": "Fever, cough and increasing weakness",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-014",
+      "globalId": "CP-C014",
+      "registryId": "CP-P4-C003",
+      "phaseId": 1,
+      "patternId": 4,
+      "title": "Chills and tiredness after chemotherapy",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-015",
+      "globalId": "CP-C015",
+      "registryId": "CP-P5-C001",
+      "phaseId": 1,
+      "patternId": 5,
+      "title": "Lower abdominal and hip pain after an e-bike collision",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-016",
+      "globalId": "CP-C016",
+      "registryId": "CP-P5-C002",
+      "phaseId": 1,
+      "patternId": 5,
+      "title": "Breathlessness, nausea and marked fatigue",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-017",
+      "globalId": "CP-C017",
+      "registryId": "CP-P5-C003",
+      "phaseId": 1,
+      "patternId": 5,
+      "title": "Neck pain and limb weakness after a diving injury",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-018",
+      "globalId": "CP-C018",
+      "registryId": "CP-P6-C001",
+      "phaseId": 1,
+      "patternId": 6,
+      "title": "Dark vomit and black bowel motions",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-019",
+      "globalId": "CP-C019",
+      "registryId": "CP-P6-C002",
+      "phaseId": 1,
+      "patternId": 6,
+      "title": "Vomiting blood twice in one evening",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-020",
+      "globalId": "CP-C020",
+      "registryId": "CP-P6-C003",
+      "phaseId": 1,
+      "patternId": 6,
+      "title": "Repeated red bowel motions",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-021",
+      "globalId": "CP-C021",
+      "registryId": "CP-P7-C001",
+      "phaseId": 1,
+      "patternId": 7,
+      "title": "Vomiting, abdominal pain and unusual breathing",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-022",
+      "globalId": "CP-C022",
+      "registryId": "CP-P7-C002",
+      "phaseId": 1,
+      "patternId": 7,
+      "title": "Thirst, frequent urination and increasing confusion",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-023",
+      "globalId": "CP-C023",
+      "registryId": "CP-P7-C003",
+      "phaseId": 1,
+      "patternId": 7,
+      "title": "Weak legs and a skipping heartbeat",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-024",
+      "globalId": "CP-C024",
+      "registryId": "CP-P8-C001",
+      "phaseId": 1,
+      "patternId": 8,
+      "title": "A brief collapse at netball training",
+      "modality": "in_person",
+      "predominantArea": "History Taking",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-025",
+      "globalId": "CP-C025",
+      "registryId": "CP-P8-C002",
+      "phaseId": 1,
+      "patternId": 8,
+      "title": "A brief blackout after a racing heartbeat",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-026",
+      "globalId": "CP-C026",
+      "registryId": "CP-P8-C003",
+      "phaseId": 1,
+      "patternId": 8,
+      "title": "A fall with a missing moment",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-027",
+      "globalId": "CP-C027",
+      "registryId": "CP-P9-C001",
+      "phaseId": 1,
+      "patternId": 9,
+      "title": "Sudden pain with a brief faint",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-028",
+      "globalId": "CP-C028",
+      "registryId": "CP-P9-C002",
+      "phaseId": 1,
+      "patternId": 9,
+      "title": "Severe abdominal pain over several hours",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-029",
+      "globalId": "CP-C029",
+      "registryId": "CP-P9-C003",
+      "phaseId": 1,
+      "patternId": 9,
+      "title": "Upper abdominal pain that has spread",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-030",
+      "globalId": "CP-C030",
+      "registryId": "CP-P10-C001",
+      "phaseId": 1,
+      "patternId": 10,
+      "title": "Lower abdominal pain and light bleeding",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-031",
+      "globalId": "CP-C031",
+      "registryId": "CP-P10-C002",
+      "phaseId": 1,
+      "patternId": 10,
+      "title": "Headache and upper abdominal discomfort",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-032",
+      "globalId": "CP-C032",
+      "registryId": "CP-P10-C003",
+      "phaseId": 1,
+      "patternId": 10,
+      "title": "Ongoing bleeding after a vaginal birth",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-033",
+      "globalId": "CP-C033",
+      "registryId": "CP-P11-C001",
+      "phaseId": 1,
+      "patternId": 11,
+      "title": "Fever, reduced feeding and unusual sleepiness",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-034",
+      "globalId": "CP-C034",
+      "registryId": "CP-P11-C002",
+      "phaseId": 1,
+      "patternId": 11,
+      "title": "Barking cough and noisy breathing",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-035",
+      "globalId": "CP-C035",
+      "registryId": "CP-P11-C003",
+      "phaseId": 1,
+      "patternId": 11,
+      "title": "A child after a convulsion",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-036",
+      "globalId": "CP-C036",
+      "registryId": "CP-P12-C001",
+      "phaseId": 1,
+      "patternId": 12,
+      "title": "Drowsiness and slow breathing",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-037",
+      "globalId": "CP-C037",
+      "registryId": "CP-P12-C002",
+      "phaseId": 1,
+      "patternId": 12,
+      "title": "Nausea after taking tablets",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-038",
+      "globalId": "CP-C038",
+      "registryId": "CP-P12-C003",
+      "phaseId": 1,
+      "patternId": 12,
+      "title": "Confusion beside an empty medicine packet",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-039",
+      "globalId": "CP-C039",
+      "registryId": "CP-P12-C004",
+      "phaseId": 1,
+      "patternId": 12,
+      "title": "Agitation, sweating and shaking",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-040",
+      "globalId": "CP-C040",
+      "registryId": "CP-P12-C005",
+      "phaseId": 1,
+      "patternId": 12,
+      "title": "An ankle injury during a bushwalk",
+      "modality": "in_person",
+      "predominantArea": "Management/Counselling/Education",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-041",
+      "globalId": "CP-C041",
+      "registryId": "CP-P13-C001",
+      "phaseId": 2,
+      "patternId": 13,
+      "title": "Chest tightness when walking uphill",
+      "modality": "in_person",
+      "predominantArea": "History Taking",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    },
+    {
+      "caseId": "case-042",
+      "globalId": "CP-C042",
+      "registryId": "CP-P13-C002",
+      "phaseId": 2,
+      "patternId": 13,
+      "title": "A repeat prescription for chest tightness",
+      "modality": "in_person",
+      "predominantArea": "Diagnostic Formulation",
+      "status": "reconstruction_required",
+      "contentSha256": null,
+      "coverageSlot": null,
+      "distinctJob": null,
+      "primaryFailureMode": null,
+      "admissionDecision": "pending_reconstruction"
+    }
+  ],
+  "nextAction": {
+    "mode": "reconstruct",
+    "caseId": "case-002",
+    "patternId": 1,
+    "newGenerationAllowed": false,
+    "reason": "Case 1 has passed reconstruction. Case 2 is the next controlled legacy case."
+  }
+}

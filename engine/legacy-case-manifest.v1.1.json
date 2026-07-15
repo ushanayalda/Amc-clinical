@@ -1,0 +1,720 @@
+{
+  "manifestVersion": "1.1.0",
+  "createdAt": "2026-07-14T00:00:00+10:00",
+  "legacyCount": 42,
+  "registryPolicySha256": "42d7333c86a52da31636a6db45a2118f115f68fe7b402c47e78c8ebb0dc42d12",
+  "legacyCases": [
+    {
+      "caseId": "case-001",
+      "globalId": "CP-C001",
+      "registryId": "CP-P1-C001",
+      "phaseId": 1,
+      "patternId": 1
+    },
+    {
+      "caseId": "case-002",
+      "globalId": "CP-C002",
+      "registryId": "CP-P1-C002",
+      "phaseId": 1,
+      "patternId": 1
+    },
+    {
+      "caseId": "case-003",
+      "globalId": "CP-C003",
+      "registryId": "CP-P1-C003",
+      "phaseId": 1,
+      "patternId": 1
+    },
+    {
+      "caseId": "case-004",
+      "globalId": "CP-C004",
+      "registryId": "CP-P1-C004",
+      "phaseId": 1,
+      "patternId": 1
+    },
+    {
+      "caseId": "case-005",
+      "globalId": "CP-C005",
+      "registryId": "CP-P2-C001",
+      "phaseId": 1,
+      "patternId": 2
+    },
+    {
+      "caseId": "case-006",
+      "globalId": "CP-C006",
+      "registryId": "CP-P2-C002",
+      "phaseId": 1,
+      "patternId": 2
+    },
+    {
+      "caseId": "case-007",
+      "globalId": "CP-C007",
+      "registryId": "CP-P2-C003",
+      "phaseId": 1,
+      "patternId": 2
+    },
+    {
+      "caseId": "case-008",
+      "globalId": "CP-C008",
+      "registryId": "CP-P2-C004",
+      "phaseId": 1,
+      "patternId": 2
+    },
+    {
+      "caseId": "case-009",
+      "globalId": "CP-C009",
+      "registryId": "CP-P3-C001",
+      "phaseId": 1,
+      "patternId": 3
+    },
+    {
+      "caseId": "case-010",
+      "globalId": "CP-C010",
+      "registryId": "CP-P3-C002",
+      "phaseId": 1,
+      "patternId": 3
+    },
+    {
+      "caseId": "case-011",
+      "globalId": "CP-C011",
+      "registryId": "CP-P3-C003",
+      "phaseId": 1,
+      "patternId": 3
+    },
+    {
+      "caseId": "case-012",
+      "globalId": "CP-C012",
+      "registryId": "CP-P4-C001",
+      "phaseId": 1,
+      "patternId": 4
+    },
+    {
+      "caseId": "case-013",
+      "globalId": "CP-C013",
+      "registryId": "CP-P4-C002",
+      "phaseId": 1,
+      "patternId": 4
+    },
+    {
+      "caseId": "case-014",
+      "globalId": "CP-C014",
+      "registryId": "CP-P4-C003",
+      "phaseId": 1,
+      "patternId": 4
+    },
+    {
+      "caseId": "case-015",
+      "globalId": "CP-C015",
+      "registryId": "CP-P5-C001",
+      "phaseId": 1,
+      "patternId": 5
+    },
+    {
+      "caseId": "case-016",
+      "globalId": "CP-C016",
+      "registryId": "CP-P5-C002",
+      "phaseId": 1,
+      "patternId": 5
+    },
+    {
+      "caseId": "case-017",
+      "globalId": "CP-C017",
+      "registryId": "CP-P5-C003",
+      "phaseId": 1,
+      "patternId": 5
+    },
+    {
+      "caseId": "case-018",
+      "globalId": "CP-C018",
+      "registryId": "CP-P6-C001",
+      "phaseId": 1,
+      "patternId": 6
+    },
+    {
+      "caseId": "case-019",
+      "globalId": "CP-C019",
+      "registryId": "CP-P6-C002",
+      "phaseId": 1,
+      "patternId": 6
+    },
+    {
+      "caseId": "case-020",
+      "globalId": "CP-C020",
+      "registryId": "CP-P6-C003",
+      "phaseId": 1,
+      "patternId": 6
+    },
+    {
+      "caseId": "case-021",
+      "globalId": "CP-C021",
+      "registryId": "CP-P7-C001",
+      "phaseId": 1,
+      "patternId": 7
+    },
+    {
+      "caseId": "case-022",
+      "globalId": "CP-C022",
+      "registryId": "CP-P7-C002",
+      "phaseId": 1,
+      "patternId": 7
+    },
+    {
+      "caseId": "case-023",
+      "globalId": "CP-C023",
+      "registryId": "CP-P7-C003",
+      "phaseId": 1,
+      "patternId": 7
+    },
+    {
+      "caseId": "case-024",
+      "globalId": "CP-C024",
+      "registryId": "CP-P8-C001",
+      "phaseId": 1,
+      "patternId": 8
+    },
+    {
+      "caseId": "case-025",
+      "globalId": "CP-C025",
+      "registryId": "CP-P8-C002",
+      "phaseId": 1,
+      "patternId": 8
+    },
+    {
+      "caseId": "case-026",
+      "globalId": "CP-C026",
+      "registryId": "CP-P8-C003",
+      "phaseId": 1,
+      "patternId": 8
+    },
+    {
+      "caseId": "case-027",
+      "globalId": "CP-C027",
+      "registryId": "CP-P9-C001",
+      "phaseId": 1,
+      "patternId": 9
+    },
+    {
+      "caseId": "case-028",
+      "globalId": "CP-C028",
+      "registryId": "CP-P9-C002",
+      "phaseId": 1,
+      "patternId": 9
+    },
+    {
+      "caseId": "case-029",
+      "globalId": "CP-C029",
+      "registryId": "CP-P9-C003",
+      "phaseId": 1,
+      "patternId": 9
+    },
+    {
+      "caseId": "case-030",
+      "globalId": "CP-C030",
+      "registryId": "CP-P10-C001",
+      "phaseId": 1,
+      "patternId": 10
+    },
+    {
+      "caseId": "case-031",
+      "globalId": "CP-C031",
+      "registryId": "CP-P10-C002",
+      "phaseId": 1,
+      "patternId": 10
+    },
+    {
+      "caseId": "case-032",
+      "globalId": "CP-C032",
+      "registryId": "CP-P10-C003",
+      "phaseId": 1,
+      "patternId": 10
+    },
+    {
+      "caseId": "case-033",
+      "globalId": "CP-C033",
+      "registryId": "CP-P11-C001",
+      "phaseId": 1,
+      "patternId": 11
+    },
+    {
+      "caseId": "case-034",
+      "globalId": "CP-C034",
+      "registryId": "CP-P11-C002",
+      "phaseId": 1,
+      "patternId": 11
+    },
+    {
+      "caseId": "case-035",
+      "globalId": "CP-C035",
+      "registryId": "CP-P11-C003",
+      "phaseId": 1,
+      "patternId": 11
+    },
+    {
+      "caseId": "case-036",
+      "globalId": "CP-C036",
+      "registryId": "CP-P12-C001",
+      "phaseId": 1,
+      "patternId": 12
+    },
+    {
+      "caseId": "case-037",
+      "globalId": "CP-C037",
+      "registryId": "CP-P12-C002",
+      "phaseId": 1,
+      "patternId": 12
+    },
+    {
+      "caseId": "case-038",
+      "globalId": "CP-C038",
+      "registryId": "CP-P12-C003",
+      "phaseId": 1,
+      "patternId": 12
+    },
+    {
+      "caseId": "case-039",
+      "globalId": "CP-C039",
+      "registryId": "CP-P12-C004",
+      "phaseId": 1,
+      "patternId": 12
+    },
+    {
+      "caseId": "case-040",
+      "globalId": "CP-C040",
+      "registryId": "CP-P12-C005",
+      "phaseId": 1,
+      "patternId": 12
+    },
+    {
+      "caseId": "case-041",
+      "globalId": "CP-C041",
+      "registryId": "CP-P13-C001",
+      "phaseId": 2,
+      "patternId": 13
+    },
+    {
+      "caseId": "case-042",
+      "globalId": "CP-C042",
+      "registryId": "CP-P13-C002",
+      "phaseId": 2,
+      "patternId": 13
+    }
+  ],
+  "patternLocks": [
+    {
+      "id": 1,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Distinguish immediately dangerous cardiothoracic causes and enter the correct pathway before certainty.",
+      "coreCoverage": [
+        "dangerous cardiac pattern",
+        "aortic dissection",
+        "pulmonary embolism",
+        "tension pneumothorax"
+      ]
+    },
+    {
+      "id": 2,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Recognise respiratory deterioration and choose cause-specific first treatment.",
+      "coreCoverage": [
+        "severe asthma",
+        "anaphylaxis",
+        "acute heart failure",
+        "COPD with oxygen and hypercapnia safety"
+      ]
+    },
+    {
+      "id": 3,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Preserve the neurological time anchor while checking reversible mimics and haemorrhage.",
+      "coreCoverage": [
+        "wake-up stroke",
+        "hypoglycaemic mimic",
+        "intracerebral haemorrhage"
+      ]
+    },
+    {
+      "id": 4,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Recognise organ dysfunction, reassess response and account for high-risk hosts.",
+      "coreCoverage": [
+        "occult-source sepsis with delirium",
+        "persistent septic shock after fluid",
+        "neutropenic sepsis"
+      ]
+    },
+    {
+      "id": 5,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Differentiate concealed blood loss, pump failure and loss of vascular tone before selecting resuscitation.",
+      "coreCoverage": [
+        "occult pelvic haemorrhage",
+        "cardiogenic shock from myocarditis",
+        "neurogenic shock"
+      ]
+    },
+    {
+      "id": 6,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Match physiology and likely source to the appropriate resuscitation and source-control pathway.",
+      "coreCoverage": [
+        "non-variceal upper gastrointestinal bleed",
+        "variceal haemorrhage",
+        "major haematochezia during factor-Xa inhibition"
+      ]
+    },
+    {
+      "id": 7,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Identify the controlling metabolic process and apply treatment in the correct sequence.",
+      "coreCoverage": [
+        "diabetic ketoacidosis",
+        "hyperosmolar hyperglycaemic state",
+        "ECG-toxic hyperkalaemia"
+      ]
+    },
+    {
+      "id": 8,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Separate structural risk, fast rhythm and slow rhythm despite recovery between events.",
+      "coreCoverage": [
+        "hypertrophic cardiomyopathy risk",
+        "intermittent ventricular tachycardia",
+        "intermittent complete heart block"
+      ]
+    },
+    {
+      "id": 9,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Distinguish rupture, arterial occlusion and contamination while choosing imaging or surgery from physiology.",
+      "coreCoverage": [
+        "ruptured abdominal aortic aneurysm",
+        "mesenteric ischaemia",
+        "perforated peptic ulcer"
+      ]
+    },
+    {
+      "id": 10,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Manage distinct early-pregnancy, late-pregnancy and postpartum emergencies.",
+      "coreCoverage": [
+        "ruptured ectopic pregnancy",
+        "severe pre-eclampsia and eclampsia",
+        "atonic postpartum haemorrhage"
+      ]
+    },
+    {
+      "id": 11,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Recognise paediatric deterioration through circulation, airway or neurological failure.",
+      "coreCoverage": [
+        "infant septic shock",
+        "severe croup",
+        "convulsive status epilepticus"
+      ]
+    },
+    {
+      "id": 12,
+      "phaseId": 1,
+      "initialCore": 3,
+      "maximumWithoutExpansion": 5,
+      "logicProvenance": "recovered_from_uploaded_systems",
+      "dominantCapability": "Choose the first life-saving action from ventilation, elapsed time, ECG toxicity, heat production or envenoming evidence.",
+      "coreCoverage": [
+        "opioid toxicity",
+        "delayed paracetamol ingestion",
+        "tricyclic antidepressant cardiotoxicity",
+        "serotonin toxicity",
+        "Australian snakebite"
+      ]
+    },
+    {
+      "id": 13,
+      "phaseId": 2,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "recovered_from_cases",
+      "dominantCapability": "Classify chest pain from symptom trajectory rather than the label, current pain state or one ECG.",
+      "coreCoverage": [
+        "unchanged exertional pattern requiring outpatient assessment and safety-netting",
+        "changed angina pattern requiring reclassification despite absent pain and a normal first ECG"
+      ]
+    },
+    {
+      "id": 14,
+      "phaseId": 2,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 15,
+      "phaseId": 2,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 16,
+      "phaseId": 2,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 17,
+      "phaseId": 2,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 18,
+      "phaseId": 2,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 19,
+      "phaseId": 2,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 20,
+      "phaseId": 2,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 21,
+      "phaseId": 2,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 22,
+      "phaseId": 2,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 23,
+      "phaseId": 3,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 24,
+      "phaseId": 3,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 25,
+      "phaseId": 3,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 26,
+      "phaseId": 3,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 27,
+      "phaseId": 3,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 28,
+      "phaseId": 3,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 29,
+      "phaseId": 3,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 30,
+      "phaseId": 3,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 31,
+      "phaseId": 3,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 32,
+      "phaseId": 3,
+      "initialCore": 2,
+      "maximumWithoutExpansion": 4,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 33,
+      "phaseId": 4,
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 34,
+      "phaseId": 4,
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 35,
+      "phaseId": 4,
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 36,
+      "phaseId": 4,
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 37,
+      "phaseId": 4,
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 38,
+      "phaseId": 4,
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 39,
+      "phaseId": 4,
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    },
+    {
+      "id": 40,
+      "phaseId": 4,
+      "initialCore": 1,
+      "maximumWithoutExpansion": 3,
+      "logicProvenance": "missing",
+      "dominantCapability": null,
+      "coreCoverage": []
+    }
+  ],
+  "allowedLegacyRetirements": []
+}

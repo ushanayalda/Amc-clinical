@@ -1,13 +1,19 @@
 {
   "name": "amc-clinical-pathway",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "One-source, four-view AMC clinical mastery site for GitHub Pages.",
   "scripts": {
+    "audit:amc": "node scripts/audit-amc-cases.js",
+    "audit:amc:report": "node scripts/audit-amc-cases.js --report-only",
     "build": "node scripts/build-pages.js",
     "check": "node scripts/check-sources.js",
-    "test": "node --test tests/case-four-views.test.js",
+    "test": "node --test tests/*.test.js",
+    "test:engine": "node --test tests/amc-case-engine.test.js",
     "verify:dist": "node scripts/verify-dist.js"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
 }

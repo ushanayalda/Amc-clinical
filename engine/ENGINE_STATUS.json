@@ -1,0 +1,72 @@
+{
+  "engineVersion": "1.1.0",
+  "engineStatus": "audited_for_reconstruction",
+  "finalQa": "pass",
+  "auditedOn": "2026-07-14",
+  "scope": [
+    "registry selection and reconstruction order",
+    "hidden station blueprint",
+    "exam-neutral Stem",
+    "word-for-word Full Run",
+    "identity, consent and direct-address control",
+    "atomic information requests and participant disclosure control",
+    "Examiner release and modality control",
+    "actor-bound Action classification",
+    "task, marking and critical-action evidence",
+    "clinical source mapping",
+    "listen-through timing",
+    "behavioural release gate",
+    "collection balance and duplication audit"
+  ],
+  "excludedScope": [
+    "reasoning layer",
+    "approval of any current case",
+    "new-case generation",
+    "publication"
+  ],
+  "verification": {
+    "engineTestsPassed": 78,
+    "repositoryTestsPassed": 197,
+    "canonicalCaseSyntaxPassed": 42,
+    "buildPassed": true,
+    "distributionVerificationPassed": true,
+    "gitDiffCheckPassed": true,
+    "independentAdversarialRerun": "pass"
+  },
+  "registry": {
+    "status": "READY",
+    "phases": 4,
+    "patterns": 40,
+    "totalCases": 42,
+    "nextAction": {
+      "mode": "reconstruct",
+      "caseId": "case-002"
+    },
+    "newGenerationAllowed": false
+  },
+  "existingCaseCollection": {
+    "status": "HOLD",
+    "total": 42,
+    "audited": 1,
+    "hold": 41,
+    "releaseGateBlocked": true,
+    "expectedReleaseGateExitCode": 2,
+    "legacyCaseSetSha256": "fd244a5be2bcf6512b2d69962de143f9958ea68c0160ce57acc7c478a083c92a",
+    "sealedCasesTwoToFortyTwoSha256": "55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a",
+    "caseFilesModifiedByEngineAudit": true
+  },
+  "humanReviewBoundary": [
+    "clinical truth and safety",
+    "source existence, applicability and locator accuracy",
+    "diagnosis-alias completeness and indirect Stem leakage",
+    "AMC-level task authenticity",
+    "semantic relevance of mapped evidence",
+    "natural dialogue and spoken performance",
+    "reviewer competence and honesty"
+  ],
+  "publication": {
+    "performed": false,
+    "authorised": false
+  },
+  "nextProductionRule": "Case 1 is audited. Reconstruct Case 2 only. Do not generate, skip ahead or publish while legacy reconstruction remains pending."
+}

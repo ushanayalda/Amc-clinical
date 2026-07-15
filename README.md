@@ -9,6 +9,8 @@ The site has two deliberately separate collections:
 - **New Cases** is the default production collection. Cases are generated fresh from the fixed registry and contain an exam-neutral Stem plus a complete word-for-word Full Run.
 - **Emergency Explore** preserves the earlier 42 generated cases as a separate exploration library. Those source files remain unchanged and are not treated as the current production collection.
 
+Emergency Explore retains the original staging. All 40 Phase 1 cases contain completed Reasoning layers. Cases 41 and 42 complete the initial two-case core for Phase 2, Pattern 13 and remain Exam-only.
+
 The new collection begins again at Case 1. Its reasoning layer is produced in a separate workflow and is not part of this case-generation path.
 
 ## Current production path
@@ -38,7 +40,7 @@ No Custom GPT or multi-engine handoff is required.
 - Registry: `READY`
 - Next production case: Case 2
 - Emergency Explore: 42 earlier case files, unchanged
-- Publication: not performed by this checkpoint
+- Publication: Case 1 is the current public production case
 
 The collection-level gate remains `HOLD` until every planned current case exists. This does not change the individual `AUDITED` result for Case 1.
 

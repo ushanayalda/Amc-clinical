@@ -26,6 +26,7 @@ test("new cases and Emergency Explore register as separate collections", () => {
   assert.equal(context.window.AMC_CURRENT_CASES.length, filesIn("current-cases").length);
   assert.equal(context.window.AMC_CASES.length, filesIn("cases").length);
   assert.equal(context.window.AMC_CURRENT_CASES[0].id, "case-001");
+  assert.equal(context.window.AMC_CURRENT_CASES[1].id, "case-002");
   assert.equal(context.window.AMC_CASES[0].id, "case-001");
   assert.notEqual(context.window.AMC_CURRENT_CASES[0].title, context.window.AMC_CASES[0].title);
 });
@@ -36,8 +37,10 @@ test("the source shell and build discover both learner collections", () => {
   const buildSource = fs.readFileSync(path.join(root, "scripts", "build-pages.js"), "utf8");
 
   assert.match(indexSource, /data\/current-cases\/case-001[.]js/);
+  assert.match(indexSource, /data\/current-cases\/case-002[.]js/);
   assert.match(indexSource, /data\/cases\/case-001[.]js/);
   assert.ok(indexSource.indexOf("data/current-cases/case-001.js") < indexSource.indexOf("data/cases/case-001.js"));
+  assert.ok(indexSource.indexOf("data/current-cases/case-002.js") < indexSource.indexOf("data/cases/case-001.js"));
   assert.match(appSource, /window[.]AMC_CURRENT_CASES/);
   assert.match(appSource, /window[.]AMC_CASES/);
   assert.match(appSource, /Emergency Explore/);
@@ -46,4 +49,3 @@ test("the source shell and build discover both learner collections", () => {
   assert.match(buildSource, /discoverCaseAssets\("current-cases"\)/);
   assert.match(buildSource, /discoverCaseAssets\("cases"\)/);
 });
-

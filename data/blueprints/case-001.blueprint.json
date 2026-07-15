@@ -1618,10 +1618,10 @@
       "status": "pass",
       "method": "spoken_readthrough",
       "reviewer": "Case-generation engine timing review",
-      "performedAt": "2026-07-15T01:54:10.492Z",
+      "performedAt": "2026-07-15T03:49:01.656Z",
       "observedSeconds": 438,
       "caseContentSha256": "e6b05df8e4a35aad99e60cc213e6e8bdb2026ef7c4f3b05e98107e73bb935bba",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "notes": "Timestamped read-through places the four-minute Examiner prompt after the focused-history summary at 240 seconds. The diagnostic explanation takes 75 seconds and the concerns plus management discussion takes 123 seconds, for a total of 438 seconds."
     }
   },
@@ -2051,14 +2051,14 @@
   },
   "qa": {
     "caseContentSha256": "e6b05df8e4a35aad99e60cc213e6e8bdb2026ef7c4f3b05e98107e73bb935bba",
-    "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
-    "blueprintPackageSha256": "f79bfb765990f20c8c1493ad80f4ea0856e61e01ebd565304939e4fec9185bb6",
+    "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
+    "blueprintPackageSha256": "b29545acbc21315b527d258edc43a8068a85f1e9fe057dd88b32ade73ef73629",
     "blueprint": {
       "status": "pass",
       "method": "Executable blueprint integrity review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "automated_test",
@@ -2070,8 +2070,8 @@
       "status": "pass",
       "method": "Diagnosis-alias, urgency-language and management-leakage review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "line_review",
@@ -2083,8 +2083,8 @@
       "status": "pass",
       "method": "Task-to-line and task-evidence review including no-unrequested-handover control",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "line_review",
@@ -2096,8 +2096,8 @@
       "status": "pass",
       "method": "Atomic-question and natural-dialogue review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "line_review",
@@ -2109,8 +2109,8 @@
       "status": "pass",
       "method": "Participant disclosure sequencing review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "line_review",
@@ -2122,8 +2122,8 @@
       "status": "pass",
       "method": "Examiner ownership and four-minute prompt review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "line_review",
@@ -2135,8 +2135,8 @@
       "status": "pass",
       "method": "AMC specification and station-authenticity review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "line_review",
@@ -2148,8 +2148,8 @@
       "status": "pass",
       "method": "Timestamped complete spoken timing review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "listen_test",
@@ -2161,8 +2161,8 @@
       "status": "pass",
       "method": "Line-by-line current Australian clinical-guideline review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "source_review",
@@ -2174,8 +2174,8 @@
       "status": "pass",
       "method": "Authoritative-source currency and locator review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "source_review",
@@ -2187,8 +2187,8 @@
       "status": "pass",
       "method": "Engine 1.1 new Case 1 final audit",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T01:54:10.492Z",
-      "reviewScopeSha256": "9bf7552d1fce7fd019403411716045c349fa97f2dd8f8bd096e05c5dd881b528",
+      "reviewedAt": "2026-07-15T03:49:01.656Z",
+      "reviewScopeSha256": "2702cc8b46f87e247b9fe4d6454a937a8e48821b6e030238218b829042456e24",
       "evidence": [
         {
           "type": "audit_report",

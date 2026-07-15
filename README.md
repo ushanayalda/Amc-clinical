@@ -35,14 +35,14 @@ No Custom GPT or multi-engine handoff is required.
 
 ## Current checkpoint
 
-- Fresh Case 1: `AUDITED`
-- Current collection: one audited case, 41 fixed registry slots pending
+- Fresh Cases 1 and 2: `AUDITED`
+- Current collection: two audited cases, 40 fixed registry slots pending
 - Registry: `READY`
-- Next production case: Case 2
+- Next production case: Case 3
 - Emergency Explore: 42 earlier case files, unchanged
-- Publication: Case 1 is the current public production case
+- Publication: Case 1 remains the current public production case; Case 2 has not been published
 
-The collection-level gate remains `HOLD` until every planned current case exists. This does not change the individual `AUDITED` result for Case 1.
+The collection-level gate remains `HOLD` until every planned current case exists. This does not change the individual `AUDITED` results for Cases 1 and 2.
 
 ## Local checks
 

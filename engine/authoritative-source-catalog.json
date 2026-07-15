@@ -1,6 +1,6 @@
 {
   "catalogVersion": "1.0.0",
-  "reviewedOn": "2026-07-14",
+  "reviewedOn": "2026-07-15",
   "entries": [
     {
       "url": "https://www.amc.org.au/wp-content/uploads/2026/06/2026-04-08-Clinical-Exam-Spec-V8-3.pdf",
@@ -46,6 +46,33 @@
       "publishedOrUpdated": "2024-12-01",
       "jurisdiction": "Australia",
       "approvedClaimTypes": ["threshold", "investigation", "treatment", "dose", "contraindication", "disposition"]
+    },
+    {
+      "url": "https://aci.health.nsw.gov.au/networks/eci/clinical/tools/aortic-dissection",
+      "sourceType": "australian_clinical_guideline",
+      "organisation": "NSW Agency for Clinical Innovation, Emergency Care Institute",
+      "title": "Aortic dissection clinical tool",
+      "publishedOrUpdated": "2025-05-01",
+      "jurisdiction": "Australia",
+      "approvedClaimTypes": ["diagnosis", "differential", "threshold", "investigation", "treatment", "contraindication", "disposition"]
+    },
+    {
+      "url": "https://professional.heart.org/en/science-news/2022-guideline-for-the-diagnosis-and-management-of-aortic-disease",
+      "sourceType": "international_guideline",
+      "organisation": "American College of Cardiology and American Heart Association",
+      "title": "2022 ACC/AHA Guideline for the Diagnosis and Management of Aortic Disease",
+      "publishedOrUpdated": "2022-11-02",
+      "jurisdiction": "International",
+      "approvedClaimTypes": ["threshold", "treatment", "disposition"]
+    },
+    {
+      "url": "https://www.anzcor.org/home/first-aid/guideline-9-2-10-the-use-of-oxygen-in-emergencies",
+      "sourceType": "australian_clinical_guideline",
+      "organisation": "Australian and New Zealand Committee on Resuscitation",
+      "title": "Guideline 9.2.10 - The Use of Oxygen in Emergencies",
+      "publishedOrUpdated": "2021-04-01",
+      "jurisdiction": "Australia",
+      "approvedClaimTypes": ["threshold", "treatment"]
     }
   ]
 }

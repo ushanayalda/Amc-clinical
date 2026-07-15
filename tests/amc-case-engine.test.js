@@ -1,11 +1,13 @@
 "use strict";
 
 const assert = require("node:assert/strict");
+const crypto = require("node:crypto");
 const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
 const test = require("node:test");
+const vm = require("node:vm");
 
 const blueprintSchema = require("../engine/amc-case-blueprint.schema.json");
 const registrySchema = require("../engine/case-registry.schema.json");
@@ -103,14 +105,14 @@ test("the machine registry is structurally and semantically coherent", function 
   assert.equal(engineStatus.engineStatus, "audited_for_case_generation");
   assert.equal(engineStatus.finalQa, "pass");
   assert.equal(engineStatus.registry.status, "READY");
-  assert.equal(engineStatus.registry.nextAction.caseId, "case-002");
+  assert.equal(engineStatus.registry.nextAction.caseId, "case-003");
   assert.equal(engineStatus.registry.freshContentGenerationWithinRegistry, true);
   assert.equal(engineStatus.registry.unregisteredExpansionAllowed, false);
   assert.deepEqual(
     [engineStatus.currentCaseCollection.total, engineStatus.currentCaseCollection.audited,
       engineStatus.currentCaseCollection.hold, engineStatus.currentCaseCollection.registryPending,
       engineStatus.currentCaseCollection.status],
-    [1, 1, 0, 41, "HOLD"]
+    [2, 2, 0, 40, "HOLD"]
   );
   assert.equal(engineStatus.currentCaseCollection.expectedReleaseGateExitCode, 2);
   assert.equal(engineStatus.emergencyExploreCollection.total, 42);
@@ -186,6 +188,54 @@ test("Case 1 binds the four-minute prompt and early ACS safety actions to the re
   assert.ok(blueprint.clinicalTruth.safetyThresholds.some(function (item) {
     return item.id === "clinical-threshold-gtn" && item.runLineIds.includes("run-gtn-plan");
   }));
+});
+
+test("Case 2 preserves a neutral Stem and an atomic, source-bound acute aortic sequence", function () {
+  const blueprint = loadBlueprint(root, "case-002");
+  const context = { window: { AMC_CURRENT_CASES: [] } };
+  const casePath = path.join(root, "data", "current-cases", "case-002.js");
+  vm.runInNewContext(fs.readFileSync(casePath, "utf8"), context, { filename: casePath });
+  const caseData = context.window.AMC_CURRENT_CASES[0];
+  const turns = caseData.run.sections.flatMap(function (section) { return section.turns; });
+  const lines = turns.flatMap(function (turn) {
+    return turn.lines.map(function (line) { return { id: line.id, text: line.text, speaker: turn.speaker }; });
+  });
+  const byId = new Map(lines.map(function (line) { return [line.id, line]; }));
+  const positions = new Map(lines.map(function (line, index) { return [line.id, index]; }));
+  const stemText = caseData.stem.lines.concat(caseData.stem.tasks).map(function (item) { return item.text; }).join(" ");
+
+  assert.doesNotMatch(stemText, /acute aortic|dissect|urgent|immediate|resuscitation|angiograph|surgery|unstable/i);
+  assert.equal(JSON.stringify(caseData).includes("handover"), false);
+  assert.ok(positions.get("run-id") < positions.get("run-consent"));
+  assert.ok(positions.get("run-consent-answer") < positions.get("run-open-question"));
+  turns.filter(function (turn) { return turn.speaker === "Doctor"; }).forEach(function (turn) {
+    turn.lines.forEach(function (line) {
+      assert.ok((line.text.match(/[?]/g) || []).length <= 1, line.id + " contains multiple questions");
+      if (line.id !== "run-intro") assert.equal(hasCompoundQuestion(line.text), false, line.id + " is compound");
+    });
+  });
+  blueprint.interaction.informationRequests.forEach(function (request) {
+    assert.equal(request.requestCount, 1, request.id + " is not atomic");
+  });
+
+  assert.ok(positions.get("run-observations-response") < positions.get("run-early-action"));
+  assert.ok(positions.get("run-cardiovascular-response") < positions.get("run-early-action"));
+  assert.match(byId.get("run-cardiovascular-response").text, /lungs are clear/i);
+  assert.match(byId.get("run-cardiovascular-response").text, /normal speech, symmetrical facial movement, equal limb power and no sensory loss/i);
+  assert.match(byId.get("run-early-action").text, /continuous cardiac, oxygen-saturation and frequent blood-pressure monitoring/i);
+  assert.match(byId.get("run-early-action").text, /withholds supplemental oxygen because his saturation is 97 percent/i);
+  assert.match(byId.get("run-aspirin-response").text, /will withhold it until dissection is excluded/i);
+  assert.match(byId.get("run-ecg-plan").text, /Aspirin and clot-dissolving treatment remain withheld/i);
+  assert.ok(byId.get("run-beta-action").text.indexOf("beta-blockade") < byId.get("run-beta-action").text.indexOf("vasodilator"));
+  assert.match(byId.get("run-imaging-explanation").text, /stable enough for immediate CT angiography/i);
+  assert.match(byId.get("run-imaging-explanation").text, /If CT becomes unsafe.*bedside heart ultrasound/i);
+  assert.doesNotMatch(lines.map(function (line) { return line.text; }).join(" "), /D-dimer/i);
+  assert.ok(blueprint.performance.listenTest.observedSeconds >= 420);
+  assert.ok(blueprint.performance.listenTest.observedSeconds <= 480);
+
+  const report = auditCase(caseData, blueprint, machineRegistry, { root });
+  assert.equal(report.status, "AUDITED");
+  assert.deepEqual(report.issues, []);
 });
 
 test("unknown root and nested properties are rejected", function () {
@@ -2188,7 +2238,7 @@ test("registry provenance, reconstruction order and generation authority fail cl
   skipped.nextAction.caseId = "case-042";
   skipped.nextAction.patternId = 13;
   assert.ok(validateRegistry(skipped, { root }).errors.some(function (message) {
-    return /next sequential pending case case-002/.test(message);
+    return /next sequential pending case case-003/.test(message);
   }));
 
   const overCap = clone(machineRegistry);
@@ -2272,7 +2322,7 @@ test("the pinned legacy registry cannot be skipped, remapped, retired or expande
     reason: "Adversarial queue bypass."
   };
   assert.ok(validateRegistry(laterAuthorised, { root }).errors.some(function (message) {
-    return /next sequential pending case case-002|only the next sequential pending case case-002/.test(message);
+    return /next sequential pending case case-003|only the next sequential pending case case-003/.test(message);
   }));
 
   const removed = clone(machineRegistry);
@@ -2377,13 +2427,6 @@ test("production readiness requires provenance and current case-audit evidence",
     primaryFailureMode: "premature_closure",
     admissionDecision: "admitted"
   });
-  fabricatedAudit.nextAction = {
-    mode: "reconstruct",
-    caseId: "case-002",
-    patternId: 1,
-    newGenerationAllowed: false,
-    reason: "Attempt to advance without a current case audit."
-  };
   const result = validateRegistry(fabricatedAudit, { root });
   assert.equal(result.registryReady, true);
   assert.equal(result.actionReady, false);
@@ -2445,7 +2488,7 @@ test("an individual production case cannot audit against an unverified rootless 
   });
   productionRegistry.nextAction = {
     mode: "reconstruct",
-    caseId: "case-002",
+    caseId: "case-003",
     patternId: 1,
     newGenerationAllowed: false,
     reason: "Continue sequential reconstruction."
@@ -2574,15 +2617,48 @@ test("near-identical audited clinical scripts are blocked after cosmetic one-wor
   assert.equal(collection.releaseReady, false);
 });
 
-test("the restarted collection audits Case 1 and remains HOLD until the registry is complete", function () {
+test("Case 2 timing evidence is reproducible, content-bound and reflected in the audited blueprint", function () {
+  const caseContext = { window: { AMC_CURRENT_CASES: [] } };
+  const casePath = path.join(root, "data", "current-cases", "case-002.js");
+  vm.runInNewContext(fs.readFileSync(casePath, "utf8"), caseContext, { filename: casePath });
+  const caseData = caseContext.window.AMC_CURRENT_CASES[0];
+  const blueprint = JSON.parse(fs.readFileSync(path.join(root, "data", "blueprints", "case-002.blueprint.json"), "utf8"));
+  const evidencePath = path.join(root, "audits", "CASE_002_TIMING_EVIDENCE.json");
+  const evidenceRaw = fs.readFileSync(evidencePath);
+  const evidence = JSON.parse(evidenceRaw.toString("utf8"));
+  const evidenceHash = crypto.createHash("sha256").update(evidenceRaw).digest("hex");
+  const visibleLineIds = caseData.run.sections.flatMap(function (section) {
+    return section.turns.flatMap(function (turn) { return turn.lines.map(function (line) { return line.id; }); });
+  });
+
+  assert.equal(evidence.caseId, "case-002");
+  assert.equal(evidence.method, "ffmpeg_libflite_line_by_line_audio_render");
+  assert.equal(evidence.caseContentSha256, contentHash(caseData));
+  assert.deepEqual(evidence.lineTimings.map(function (line) { return line.lineId; }), Array.from(visibleLineIds));
+  assert.equal(Math.round(evidence.rawTotalSeconds), evidence.totalObservedSeconds);
+  assert.equal(evidence.totalObservedSeconds, blueprint.performance.listenTest.observedSeconds);
+  assert.ok(evidence.totalObservedSeconds >= 420 && evidence.totalObservedSeconds <= 480);
+  assert.ok(evidence.milestones.threeMinutePromptStartSeconds >= 178);
+  assert.ok(evidence.milestones.threeMinutePromptStartSeconds <= 183);
+  assert.equal(evidence.taskTotals.reduce(function (sum, task) { return sum + task.observedSeconds; }, 0), evidence.totalObservedSeconds);
+  assert.deepEqual(
+    blueprint.performance.taskEvidence.map(function (task) { return [task.taskId, task.observedSeconds]; }),
+    evidence.taskTotals.map(function (task) { return [task.taskId, task.observedSeconds]; })
+  );
+  assert.match(blueprint.performance.listenTest.reviewer, /synthetic/i);
+  assert.match(blueprint.performance.listenTest.notes, new RegExp(evidenceHash));
+  assert.match(blueprint.qa.timing.evidence[0].reference, new RegExp(evidenceHash));
+});
+
+test("the restarted collection audits Cases 1 and 2 and remains HOLD until the registry is complete", function () {
   const report = runAudit(root);
   assert.equal(report.engineVersion, "1.1.0");
   assert.equal(report.collectionStatus, "HOLD");
-  assert.equal(report.collection.totalCases, 1);
-  assert.equal(report.collection.auditedCases, 1);
+  assert.equal(report.collection.totalCases, 2);
+  assert.equal(report.collection.auditedCases, 2);
   assert.equal(report.collection.holdCases, 0);
   assert.deepEqual(report.issueTotals, {});
-  assert.equal(report.collection.registryOnlyCases.length, 41);
+  assert.equal(report.collection.registryOnlyCases.length, 40);
   assert.equal(report.collection.registryReady, true);
 
   const cli = spawnSync(process.execPath, ["scripts/audit-amc-cases.js", "--json"], {
@@ -2592,8 +2668,8 @@ test("the restarted collection audits Case 1 and remains HOLD until the registry
   assert.equal(cli.status, 2);
   const cliReport = JSON.parse(cli.stdout);
   assert.equal(cliReport.collectionStatus, "HOLD");
-  assert.equal(cliReport.collection.totalCases, 1);
-  assert.equal(cliReport.collection.auditedCases, 1);
+  assert.equal(cliReport.collection.totalCases, 2);
+  assert.equal(cliReport.collection.auditedCases, 2);
   assert.equal(cliReport.collection.holdCases, 0);
 
   const reportOnlyJson = spawnSync(process.execPath, ["scripts/audit-amc-cases.js", "--report-only", "--json"], {

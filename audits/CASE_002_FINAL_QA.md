@@ -12,95 +12,106 @@ Outcome: `AUDITED`
 
 ## Release boundary
 
-The fresh canonical Case 2 passes Engine 1.1 with zero case-level findings. This checkpoint does not publish the case and does not approve reasoning-layer content.
+Revision 2 passes Engine 1.1 with zero case-level findings. The Stem and its three tasks are byte-for-byte unchanged. The Full Run was rebuilt after the rejected revision enacted emergency-department procedures and treatment that the visible task did not request.
 
-The current collection remains `HOLD` only because registry Cases 3 to 42 have not yet been generated. All 42 earlier case files remain separate under **Emergency Explore**, and no file in `data/cases/` was changed. The next production action is a fresh Case 3 from the next fixed registry slot.
+Publication was authorised on 16 July 2026. This corrected checkpoint replaces the earlier rejected public revision. Reasoning-layer content is outside this checkpoint.
+
+The collection remains `HOLD` only because registry Cases 3 to 42 have not yet been generated. The 42 earlier files under **Emergency Explore** remain unchanged.
 
 ## Content and package binding
 
 | Record | SHA-256 |
 | --- | --- |
 | Stem | `666b2c4cdaa6118f43c06c6306ba116784afdc17c01aeee75e189543fd08995e` |
-| Full Run | `052fad04969d530c5bd4aa2bbe25f8e29b065ea5326fbcc62c6df261cf7f9ecb` |
-| Complete visible content | `8ba0025a5e3f45a5c0105d2f5063ebb9c68b8e96ce81c5a06fefb24a82c0f33e` |
-| Review scope | `1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180` |
-| Blueprint package | `685099bd36e6c04ec12bf655af158ae82fa93e21129325883d091130b326347f` |
-| Timing evidence | `8a5b96b8102794c4879c2bc823da6f1a845b9beb5d9cc772ac4b58e4a0288c38` |
+| Full Run | `154d2b6b04c3227479a60772d2c464a58298c6b0d38100f9c3c46ef55ba04ec2` |
+| Complete visible content | `288eac0b05e309532a4684ebc2c6d4a731c0bb29fefaa628a248f9e5439eb149` |
+| Review scope | `695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3` |
+| Blueprint package | `94294b81de83e0374c1552804a393a68f8d26c8fc6115ab88b4e3d9c5aee28ef` |
+| Timing evidence | `3e5171b05d2f9ea8ed262203c0080e2c0039505e6467fbad4d57c4d4acb60296` |
 
-The Stem contains no diagnosis label, urgency instruction, abnormal result, treatment instruction or required disposition. The three visible task timings allocate three minutes to focused assessment, one minute to diagnostic explanation and four minutes to concerns and management; they describe station structure, not clinical urgency.
+The Stem contains no diagnosis label, urgency instruction, abnormal result, treatment instruction or required disposition. Its visible timings allocate three minutes to focused assessment, one minute to diagnostic explanation and four minutes to concerns and management.
+
+## Task-scope correction
+
+The management task says: `Address the patient's concerns and explain your management plan.` It therefore authorises explanation, not enactment.
+
+The corrected Full Run:
+
+- contains one Action only: hand hygiene and approach;
+- contains no enacted examination, cannulation, blood collection, drug administration, imaging, transfer or treatment;
+- contains no procedure or treatment consent because no procedure or treatment is performed;
+- explains IV access, blood tests, ECG, analgesia, heart-rate-first blood-pressure treatment, CT angiography and specialist involvement as future management steps;
+- contains no handover because no visible task requests one; and
+- binds the same rule into the engine: explanation and discussion tasks now fail if mapped to non-neutral Action lines.
 
 ## Interaction review
 
-- The Doctor performs hand hygiene, introduces herself and requests identity before any clinical observation, disclosure, question or action.
-- Julian confirms his full name and date of birth before consultation consent.
-- Every Doctor information request contains one question or one imperative request.
-- All 14 mapped information requests receive one immediate, uniquely attributable response.
-- Examination and procedure consent occur before examination, cannulation, blood sampling, analgesia, beta-blockade and CT angiography.
-- The run contains 39 Doctor turns, 26 Patient turns, five Examiner turns and eight Action turns.
-- The engine counts 867 spoken words.
-- The audit found zero multi-question, compound-question, disclosure, consent, actor, Examiner-release or task-fidelity findings.
-- No handover is present because no visible task requests one.
+- The Doctor introduces herself and makes one standalone administrative request for full name and date of birth.
+- Julian confirms both identifiers before consultation consent and clinical questioning.
+- Every clinical Doctor request contains one question or one imperative request.
+- All 17 mapped information requests receive one immediate, uniquely attributable response.
+- Consultation and examination consent are separate and precede their respective scopes.
+- The run contains 40 Doctor turns, 29 Patient turns, five Examiner turns and one Action turn.
+- The engine counts 1,184 spoken words.
+- The audit found zero multi-question, compound-question, disclosure, consent, actor, Examiner-release, task-scope or task-fidelity findings.
 
-## Clinical and task review
+## Clinical and AMC-level review
 
-The station tests a distinct aortic-dissection job within the Dangerous Chest Pain pattern. The candidate must recognise abrupt maximum-at-onset chest-to-back pain, near-syncope, marked inter-arm pressure difference and radial-pulse asymmetry, then act before imaging confirms the diagnosis.
+This is a management/counselling-predominant station. The diagnosis is deliberately recognisable because the assessed challenge is a focused safety assessment followed by clear explanation of uncertainty, important alternatives, immediate management and patient concerns.
 
 The audited run:
 
-- starts monitoring, senior review and aortic-team involvement when the high-risk pattern is established;
-- keeps the remaining history focused rather than completing an exhaustive risk-factor checklist;
-- checks cardiovascular, respiratory, neurological and peripheral-perfusion findings through one focused controlled Examiner release;
-- records an ECG and relevant blood tests without delaying definitive aortic imaging;
-- withholds aspirin and fibrinolysis while dissection is strongly suspected;
-- does not give routine oxygen at an oxygen saturation of 97% on room air;
-- provides titrated analgesia and beta-blocker-first anti-impulse treatment, adding a vasodilator only after heart-rate control if pressure remains above target;
-- uses immediate CT angiography while stable and a bedside heart-ultrasound pathway if instability makes CT unsafe;
-- distinguishes ascending from uncomplicated descending dissection management in patient-centred language; and
-- answers the patient's indigestion, artery-tear, aspirin and partner concerns.
+- identifies abrupt maximum-at-onset chest-to-back pain, near-syncope, marked inter-arm pressure difference and radial-pulse asymmetry;
+- requests observations and one focused cardiovascular, respiratory, neurological and peripheral-vascular finding set from the Examiner;
+- explains aortic dissection without claiming confirmation before imaging;
+- retains acute coronary syndrome, pulmonary embolism and pneumothorax as dangerous alternatives;
+- explains monitored senior and specialist review when the high-risk pattern is established;
+- explains that ECG and blood tests must not delay definitive aortic imaging;
+- withholds aspirin and fibrinolysis while dissection remains strongly suspected;
+- explains strong analgesia and heart-rate control before careful blood-pressure reduction;
+- uses urgent CT angiography while the patient is not showing circulatory collapse; and
+- distinguishes likely urgent surgery for proximal dissection from initial medical management for uncomplicated descending dissection.
 
-The pre-audit draft was corrected for pre-identity clinical observation, actor-inexact consent, repeated generic negative answers, an overextended focused history, unsupported broad anticoagulation wording, artificial technical phrasing, fragmented examination requests and unmeasured timing.
+No routine oxygen is narrated at an oxygen saturation of 97% on room air, and no oxygen treatment is enacted.
 
 ## Timing review
 
-A reproducible FFmpeg/libflite synthetic timing rehearsal records 338.750 seconds of rendered speech plus 94 seconds of reviewed Action intervals, for 432.750 seconds raw and 433 seconds rounded. The Examiner's three-minute prompt begins at 181.505 seconds, approximately three minutes into the station. No human listen-through is claimed.
+A reproducible FFmpeg/libflite synthetic timing rehearsal records 417.440 seconds of rendered speech plus eight seconds for the neutral approach, for 425.440 seconds raw and 425 seconds rounded. The Examiner's three-minute prompt begins at 182.730 seconds. No human listen-through is claimed.
 
-The legacy `spoken_readthrough` method identifier is retained for Engine 1.1 schema compatibility. The timing evidence verifies elapsed-time feasibility only; natural dialogue, clinical quality and Examiner authenticity were reviewed separately.
-
-| Task | Whole-second task-evidence allocation |
+| Task | Whole-second allocation |
 | --- | ---: |
-| Focused assessment | 148 |
-| Diagnostic explanation and differentials | 47 |
-| Concerns and management, including early protection | 238 |
-| Total | 433 |
+| Focused assessment | 173 |
+| Diagnostic explanation and differentials | 52 |
+| Concerns and management explanation | 200 |
+| Total | 425 |
 
-Management actions are intentionally interleaved before the three-minute prompt once the high-risk aortic pattern is established. Every Full Run line maps to exactly one task, the management task remains predominant, and each task's implied speaking pace remains within the executable range.
+Every Full Run line maps to exactly one task. The management task remains predominant, and each task's implied speaking pace remains within the executable range.
 
-## Source and clinical baseline
+## Source baseline
 
-The blueprint records current source and locator review against:
+The hidden blueprint records claim and locator review against:
 
 - [AMC Clinical Examination Specifications V8.3, June 2026](https://www.amc.org.au/wp-content/uploads/2026/06/2026-04-08-Clinical-Exam-Spec-V8-3.pdf).
 - [AMC Assessment Domains V1.1, November 2024](https://www.amc.org.au/wp-content/uploads/2024/12/20241112-AIPD-AssessmentDomains.pdf).
 - [NSW Agency for Clinical Innovation: Aortic dissection clinical tool, minor revision May 2025](https://aci.health.nsw.gov.au/networks/eci/clinical/tools/aortic-dissection).
 - [2025 Heart Foundation and CSANZ Australian clinical guideline for acute coronary syndromes](https://www.heartfoundation.org.au/for-professionals/acs-guideline).
 - [2022 ACC/AHA Guideline for the Diagnosis and Management of Aortic Disease](https://professional.heart.org/en/science-news/2022-guideline-for-the-diagnosis-and-management-of-aortic-disease).
-- [ANZCOR Guideline 9.2.10: The Use of Oxygen in Emergencies](https://www.anzcor.org/home/first-aid/guideline-9-2-10-the-use-of-oxygen-in-emergencies).
 
-The May 2025 NSW tool is the primary Australian aortic source for presentation, stable-versus-unstable imaging, referral, haemodynamic targets and Type A/Type B disposition. The joint ACC/AHA guideline supplements beta-blocker-first sequencing. The Heart Foundation–CSANZ guideline supports the dangerous chest-pain differential set. ANZCOR is used only for the contextual normoxaemic-oxygen decision and is not treated as an aortic-management guideline.
+The NSW ACI tool is the primary Australian source for recognition, imaging and emergency management. The ACC/AHA guideline supplements heart-rate-first anti-impulse sequencing and definitive Type A/Type B management. The Heart Foundation and CSANZ guideline supports the dangerous chest-pain differential framework.
 
 ## Verification record
 
 | Check | Result |
 | --- | --- |
 | Case 2 direct Engine 1.1 audit | `AUDITED`; zero findings |
-| Engine regression suite | 81 passed, 0 failed |
-| Complete repository test suite | 202 passed, 0 failed |
+| Engine regression suite | 82 passed, 0 failed |
+| Complete repository test suite | 203 passed, 0 failed |
 | Case syntax | 2 current + 42 Emergency Explore files passed |
 | Website build | passed; both collections built |
 | Distribution verification | passed |
-| Registry | `READY`; next fixed slot is Case 3 |
+| Registry | `READY`; next fixed generation slot is Case 3 |
 | Current collection | `HOLD`; 2 `AUDITED`, 0 case-level `HOLD`, 40 registry slots pending |
 | Emergency Explore diff | empty; earlier 42 files unchanged |
-| Publication | not performed |
+| Corrected revision publication | authorised for this release |
 
-Case 2 therefore meets the Engine 1.1 `audited` contract at this exact visible-content and blueprint-package state. Collection completion and publication remain separate gates.
+Case 2 therefore meets the Engine 1.1 `audited` contract at this exact visible-content and blueprint-package state. Case 3 generation remains a separate action.

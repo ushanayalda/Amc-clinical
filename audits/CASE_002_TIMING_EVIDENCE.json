@@ -1,8 +1,8 @@
 {
   "evidenceVersion": "1.0.0",
   "caseId": "case-002",
-  "caseContentSha256": "8ba0025a5e3f45a5c0105d2f5063ebb9c68b8e96ce81c5a06fefb24a82c0f33e",
-  "generatedAt": "2026-07-15T04:25:50.879Z",
+  "caseContentSha256": "288eac0b05e309532a4684ebc2c6d4a731c0bb29fefaa628a248f9e5439eb149",
+  "generatedAt": "2026-07-15T13:14:04.946Z",
   "method": "ffmpeg_libflite_line_by_line_audio_render",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "audioFormat": {
@@ -19,40 +19,40 @@
   "boundaryModel": "Each visible non-Action line is rendered separately. Libflite's own leading and trailing silence supplies the turn boundary; no extra pause is added.",
   "actionModel": "Action intervals are the explicitly reviewed integer durations in the hidden blueprint and are reported separately from rendered speech.",
   "limitation": "Synthetic speech verifies reproducible elapsed-time feasibility only. It does not replace the separate natural-dialogue and clinical-quality reviews.",
-  "spokenWords": 867,
-  "renderedSpeechSeconds": 338.75,
-  "actionSeconds": 94,
-  "rawTotalSeconds": 432.75,
-  "totalObservedSeconds": 433,
-  "impliedRenderedWordsPerMinute": 153.6,
+  "spokenWords": 1184,
+  "renderedSpeechSeconds": 417.44,
+  "actionSeconds": 8,
+  "rawTotalSeconds": 425.44,
+  "totalObservedSeconds": 425,
+  "impliedRenderedWordsPerMinute": 170.2,
   "milestones": {
-    "threeMinutePromptStartSeconds": 181.505,
-    "threeMinutePromptEndSeconds": 185.635
+    "threeMinutePromptStartSeconds": 182.73,
+    "threeMinutePromptEndSeconds": 186.86
   },
   "taskTotals": [
     {
       "taskId": "task-assessment",
-      "spokenWords": 277,
-      "speechSeconds": 114.585,
-      "actionSeconds": 33,
-      "rawTotalSeconds": 147.585,
-      "observedSeconds": 148
+      "spokenWords": 420,
+      "speechSeconds": 164.585,
+      "actionSeconds": 8,
+      "rawTotalSeconds": 172.585,
+      "observedSeconds": 173
     },
     {
       "taskId": "task-reasoning",
-      "spokenWords": 129,
-      "speechSeconds": 46.795,
+      "spokenWords": 163,
+      "speechSeconds": 52.46,
       "actionSeconds": 0,
-      "rawTotalSeconds": 46.795,
-      "observedSeconds": 47
+      "rawTotalSeconds": 52.46,
+      "observedSeconds": 52
     },
     {
       "taskId": "task-management",
-      "spokenWords": 461,
-      "speechSeconds": 177.37,
-      "actionSeconds": 61,
-      "rawTotalSeconds": 238.37,
-      "observedSeconds": 238
+      "spokenWords": 601,
+      "speechSeconds": 200.395,
+      "actionSeconds": 0,
+      "rawTotalSeconds": 200.395,
+      "observedSeconds": 200
     }
   ],
   "lineTimings": [
@@ -99,10 +99,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "rms",
-      "spokenWords": 5,
-      "observedSeconds": 4.475,
+      "spokenWords": 14,
+      "observedSeconds": 5.985,
       "elapsedStartSeconds": 14.87,
-      "elapsedEndSeconds": 19.345
+      "elapsedEndSeconds": 20.855
     },
     {
       "lineId": "run-consent",
@@ -111,10 +111,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 6,
-      "observedSeconds": 2.47,
-      "elapsedStartSeconds": 19.345,
-      "elapsedEndSeconds": 21.815
+      "spokenWords": 13,
+      "observedSeconds": 4.205,
+      "elapsedStartSeconds": 20.855,
+      "elapsedEndSeconds": 25.06
     },
     {
       "lineId": "run-consent-answer",
@@ -125,8 +125,8 @@
       "voice": "rms",
       "spokenWords": 1,
       "observedSeconds": 0.88,
-      "elapsedStartSeconds": 21.815,
-      "elapsedEndSeconds": 22.695
+      "elapsedStartSeconds": 25.06,
+      "elapsedEndSeconds": 25.94
     },
     {
       "lineId": "run-open-question",
@@ -137,8 +137,8 @@
       "voice": "slt",
       "spokenWords": 4,
       "observedSeconds": 1.53,
-      "elapsedStartSeconds": 22.695,
-      "elapsedEndSeconds": 24.225
+      "elapsedStartSeconds": 25.94,
+      "elapsedEndSeconds": 27.47
     },
     {
       "lineId": "run-opening-story",
@@ -147,10 +147,58 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "rms",
-      "spokenWords": 33,
-      "observedSeconds": 11.295,
-      "elapsedStartSeconds": 24.225,
-      "elapsedEndSeconds": 35.52
+      "spokenWords": 45,
+      "observedSeconds": 15.255,
+      "elapsedStartSeconds": 27.47,
+      "elapsedEndSeconds": 42.725
+    },
+    {
+      "lineId": "run-pain-site",
+      "taskId": "task-assessment",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 5,
+      "observedSeconds": 1.635,
+      "elapsedStartSeconds": 42.725,
+      "elapsedEndSeconds": 44.36
+    },
+    {
+      "lineId": "run-pain-site-answer",
+      "taskId": "task-assessment",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 14,
+      "observedSeconds": 4.47,
+      "elapsedStartSeconds": 44.36,
+      "elapsedEndSeconds": 48.83
+    },
+    {
+      "lineId": "run-pain-character",
+      "taskId": "task-assessment",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 6,
+      "observedSeconds": 2.025,
+      "elapsedStartSeconds": 48.83,
+      "elapsedEndSeconds": 50.855
+    },
+    {
+      "lineId": "run-pain-character-answer",
+      "taskId": "task-assessment",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 12,
+      "observedSeconds": 4.035,
+      "elapsedStartSeconds": 50.855,
+      "elapsedEndSeconds": 54.89
     },
     {
       "lineId": "run-current-pain",
@@ -161,8 +209,8 @@
       "voice": "slt",
       "spokenWords": 10,
       "observedSeconds": 2.785,
-      "elapsedStartSeconds": 35.52,
-      "elapsedEndSeconds": 38.305
+      "elapsedStartSeconds": 54.89,
+      "elapsedEndSeconds": 57.675
     },
     {
       "lineId": "run-current-pain-answer",
@@ -171,10 +219,34 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "rms",
-      "spokenWords": 5,
-      "observedSeconds": 2.005,
-      "elapsedStartSeconds": 38.305,
-      "elapsedEndSeconds": 40.31
+      "spokenWords": 1,
+      "observedSeconds": 0.925,
+      "elapsedStartSeconds": 57.675,
+      "elapsedEndSeconds": 58.6
+    },
+    {
+      "lineId": "run-loss-consciousness",
+      "taskId": "task-assessment",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 4,
+      "observedSeconds": 1.45,
+      "elapsedStartSeconds": 58.6,
+      "elapsedEndSeconds": 60.05
+    },
+    {
+      "lineId": "run-loss-consciousness-answer",
+      "taskId": "task-assessment",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 6,
+      "observedSeconds": 2.805,
+      "elapsedStartSeconds": 60.05,
+      "elapsedEndSeconds": 62.855
     },
     {
       "lineId": "run-observations-request",
@@ -185,8 +257,8 @@
       "voice": "slt",
       "spokenWords": 4,
       "observedSeconds": 2.395,
-      "elapsedStartSeconds": 40.31,
-      "elapsedEndSeconds": 42.705
+      "elapsedStartSeconds": 62.855,
+      "elapsedEndSeconds": 65.25
     },
     {
       "lineId": "run-observations-response",
@@ -197,8 +269,8 @@
       "voice": "awb",
       "spokenWords": 34,
       "observedSeconds": 18.25,
-      "elapsedStartSeconds": 42.705,
-      "elapsedEndSeconds": 60.955
+      "elapsedStartSeconds": 65.25,
+      "elapsedEndSeconds": 83.5
     },
     {
       "lineId": "run-examination-consent",
@@ -207,10 +279,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 6,
-      "observedSeconds": 2.5,
-      "elapsedStartSeconds": 60.955,
-      "elapsedEndSeconds": 63.455
+      "spokenWords": 5,
+      "observedSeconds": 2.255,
+      "elapsedStartSeconds": 83.5,
+      "elapsedEndSeconds": 85.755
     },
     {
       "lineId": "run-examination-consent-answer",
@@ -221,20 +293,8 @@
       "voice": "rms",
       "spokenWords": 1,
       "observedSeconds": 0.88,
-      "elapsedStartSeconds": 63.455,
-      "elapsedEndSeconds": 64.335
-    },
-    {
-      "lineId": "run-examination-action",
-      "taskId": "task-assessment",
-      "speaker": "Action",
-      "kind": "action",
-      "evidenceType": "reviewed_action_interval",
-      "voice": null,
-      "spokenWords": 0,
-      "observedSeconds": 25,
-      "elapsedStartSeconds": 64.335,
-      "elapsedEndSeconds": 89.335
+      "elapsedStartSeconds": 85.755,
+      "elapsedEndSeconds": 86.635
     },
     {
       "lineId": "run-cardiovascular-request",
@@ -243,10 +303,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 6,
-      "observedSeconds": 3.44,
-      "elapsedStartSeconds": 89.335,
-      "elapsedEndSeconds": 92.775
+      "spokenWords": 12,
+      "observedSeconds": 7.955,
+      "elapsedStartSeconds": 86.635,
+      "elapsedEndSeconds": 94.59
     },
     {
       "lineId": "run-cardiovascular-response",
@@ -257,8 +317,8 @@
       "voice": "awb",
       "spokenWords": 46,
       "observedSeconds": 16.495,
-      "elapsedStartSeconds": 92.775,
-      "elapsedEndSeconds": 109.27
+      "elapsedStartSeconds": 94.59,
+      "elapsedEndSeconds": 111.085
     },
     {
       "lineId": "run-early-explanation",
@@ -267,46 +327,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 24,
-      "observedSeconds": 9.77,
-      "elapsedStartSeconds": 109.27,
-      "elapsedEndSeconds": 119.04
-    },
-    {
-      "lineId": "run-early-action",
-      "taskId": "task-management",
-      "speaker": "Action",
-      "kind": "action",
-      "evidenceType": "reviewed_action_interval",
-      "voice": null,
-      "spokenWords": 0,
-      "observedSeconds": 15,
-      "elapsedStartSeconds": 119.04,
-      "elapsedEndSeconds": 134.04
-    },
-    {
-      "lineId": "run-indigestion-concern",
-      "taskId": "task-management",
-      "speaker": "Patient",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "rms",
-      "spokenWords": 10,
-      "observedSeconds": 3.97,
-      "elapsedStartSeconds": 134.04,
-      "elapsedEndSeconds": 138.01
-    },
-    {
-      "lineId": "run-indigestion-response",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 23,
-      "observedSeconds": 9.31,
-      "elapsedStartSeconds": 138.01,
-      "elapsedEndSeconds": 147.32
+      "spokenWords": 40,
+      "observedSeconds": 14.275,
+      "elapsedStartSeconds": 111.085,
+      "elapsedEndSeconds": 125.36
     },
     {
       "lineId": "run-breathing",
@@ -317,8 +341,8 @@
       "voice": "slt",
       "spokenWords": 7,
       "observedSeconds": 2.23,
-      "elapsedStartSeconds": 147.32,
-      "elapsedEndSeconds": 149.55
+      "elapsedStartSeconds": 125.36,
+      "elapsedEndSeconds": 127.59
     },
     {
       "lineId": "run-breathing-answer",
@@ -329,8 +353,32 @@
       "voice": "rms",
       "spokenWords": 5,
       "observedSeconds": 2.265,
-      "elapsedStartSeconds": 149.55,
-      "elapsedEndSeconds": 151.815
+      "elapsedStartSeconds": 127.59,
+      "elapsedEndSeconds": 129.855
+    },
+    {
+      "lineId": "run-breathlessness",
+      "taskId": "task-assessment",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 5,
+      "observedSeconds": 1.5,
+      "elapsedStartSeconds": 129.855,
+      "elapsedEndSeconds": 131.355
+    },
+    {
+      "lineId": "run-breathlessness-answer",
+      "taskId": "task-assessment",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 8,
+      "observedSeconds": 3.105,
+      "elapsedStartSeconds": 131.355,
+      "elapsedEndSeconds": 134.46
     },
     {
       "lineId": "run-weakness",
@@ -341,8 +389,8 @@
       "voice": "slt",
       "spokenWords": 5,
       "observedSeconds": 1.87,
-      "elapsedStartSeconds": 151.815,
-      "elapsedEndSeconds": 153.685
+      "elapsedStartSeconds": 134.46,
+      "elapsedEndSeconds": 136.33
     },
     {
       "lineId": "run-weakness-answer",
@@ -353,8 +401,56 @@
       "voice": "rms",
       "spokenWords": 2,
       "observedSeconds": 1.165,
-      "elapsedStartSeconds": 153.685,
-      "elapsedEndSeconds": 154.85
+      "elapsedStartSeconds": 136.33,
+      "elapsedEndSeconds": 137.495
+    },
+    {
+      "lineId": "run-numbness",
+      "taskId": "task-assessment",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 5,
+      "observedSeconds": 1.825,
+      "elapsedStartSeconds": 137.495,
+      "elapsedEndSeconds": 139.32
+    },
+    {
+      "lineId": "run-numbness-answer",
+      "taskId": "task-assessment",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 2,
+      "observedSeconds": 1.13,
+      "elapsedStartSeconds": 139.32,
+      "elapsedEndSeconds": 140.45
+    },
+    {
+      "lineId": "run-speech",
+      "taskId": "task-assessment",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 5,
+      "observedSeconds": 2.145,
+      "elapsedStartSeconds": 140.45,
+      "elapsedEndSeconds": 142.595
+    },
+    {
+      "lineId": "run-speech-answer",
+      "taskId": "task-assessment",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 4,
+      "observedSeconds": 1.87,
+      "elapsedStartSeconds": 142.595,
+      "elapsedEndSeconds": 144.465
     },
     {
       "lineId": "run-abdominal",
@@ -365,8 +461,8 @@
       "voice": "slt",
       "spokenWords": 5,
       "observedSeconds": 2.275,
-      "elapsedStartSeconds": 154.85,
-      "elapsedEndSeconds": 157.125
+      "elapsedStartSeconds": 144.465,
+      "elapsedEndSeconds": 146.74
     },
     {
       "lineId": "run-abdominal-answer",
@@ -377,8 +473,8 @@
       "voice": "rms",
       "spokenWords": 3,
       "observedSeconds": 1.625,
-      "elapsedStartSeconds": 157.125,
-      "elapsedEndSeconds": 158.75
+      "elapsedStartSeconds": 146.74,
+      "elapsedEndSeconds": 148.365
     },
     {
       "lineId": "run-aorta-history",
@@ -387,10 +483,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 7,
-      "observedSeconds": 2.54,
-      "elapsedStartSeconds": 158.75,
-      "elapsedEndSeconds": 161.29
+      "spokenWords": 14,
+      "observedSeconds": 3.55,
+      "elapsedStartSeconds": 148.365,
+      "elapsedEndSeconds": 151.915
     },
     {
       "lineId": "run-aorta-history-answer",
@@ -399,10 +495,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "rms",
-      "spokenWords": 3,
-      "observedSeconds": 1.875,
-      "elapsedStartSeconds": 161.29,
-      "elapsedEndSeconds": 163.165
+      "spokenWords": 5,
+      "observedSeconds": 2.3,
+      "elapsedStartSeconds": 151.915,
+      "elapsedEndSeconds": 154.215
     },
     {
       "lineId": "run-medical-history",
@@ -413,8 +509,8 @@
       "voice": "slt",
       "spokenWords": 6,
       "observedSeconds": 2.62,
-      "elapsedStartSeconds": 163.165,
-      "elapsedEndSeconds": 165.785
+      "elapsedStartSeconds": 154.215,
+      "elapsedEndSeconds": 156.835
     },
     {
       "lineId": "run-medical-history-answer",
@@ -425,8 +521,8 @@
       "voice": "rms",
       "spokenWords": 3,
       "observedSeconds": 1.4,
-      "elapsedStartSeconds": 165.785,
-      "elapsedEndSeconds": 167.185
+      "elapsedStartSeconds": 156.835,
+      "elapsedEndSeconds": 158.235
     },
     {
       "lineId": "run-medications",
@@ -436,9 +532,9 @@
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
       "spokenWords": 6,
-      "observedSeconds": 2.36,
-      "elapsedStartSeconds": 167.185,
-      "elapsedEndSeconds": 169.545
+      "observedSeconds": 2.22,
+      "elapsedStartSeconds": 158.235,
+      "elapsedEndSeconds": 160.455
     },
     {
       "lineId": "run-medications-answer",
@@ -449,8 +545,56 @@
       "voice": "rms",
       "spokenWords": 6,
       "observedSeconds": 2.485,
-      "elapsedStartSeconds": 169.545,
-      "elapsedEndSeconds": 172.03
+      "elapsedStartSeconds": 160.455,
+      "elapsedEndSeconds": 162.94
+    },
+    {
+      "lineId": "run-blood-thinner",
+      "taskId": "task-assessment",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 6,
+      "observedSeconds": 2.03,
+      "elapsedStartSeconds": 162.94,
+      "elapsedEndSeconds": 164.97
+    },
+    {
+      "lineId": "run-blood-thinner-answer",
+      "taskId": "task-assessment",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 3,
+      "observedSeconds": 1.195,
+      "elapsedStartSeconds": 164.97,
+      "elapsedEndSeconds": 166.165
+    },
+    {
+      "lineId": "run-allergies",
+      "taskId": "task-assessment",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 6,
+      "observedSeconds": 2.35,
+      "elapsedStartSeconds": 166.165,
+      "elapsedEndSeconds": 168.515
+    },
+    {
+      "lineId": "run-allergies-answer",
+      "taskId": "task-assessment",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 3,
+      "observedSeconds": 1.755,
+      "elapsedStartSeconds": 168.515,
+      "elapsedEndSeconds": 170.27
     },
     {
       "lineId": "run-summary",
@@ -459,10 +603,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 27,
-      "observedSeconds": 9.475,
-      "elapsedStartSeconds": 172.03,
-      "elapsedEndSeconds": 181.505
+      "spokenWords": 38,
+      "observedSeconds": 12.46,
+      "elapsedStartSeconds": 170.27,
+      "elapsedEndSeconds": 182.73
     },
     {
       "lineId": "run-time-prompt",
@@ -473,8 +617,8 @@
       "voice": "awb",
       "spokenWords": 10,
       "observedSeconds": 4.13,
-      "elapsedStartSeconds": 181.505,
-      "elapsedEndSeconds": 185.635
+      "elapsedStartSeconds": 182.73,
+      "elapsedEndSeconds": 186.86
     },
     {
       "lineId": "run-leading-diagnosis",
@@ -483,10 +627,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 29,
-      "observedSeconds": 9.97,
-      "elapsedStartSeconds": 185.635,
-      "elapsedEndSeconds": 195.605
+      "spokenWords": 50,
+      "observedSeconds": 15.32,
+      "elapsedStartSeconds": 186.86,
+      "elapsedEndSeconds": 202.18
     },
     {
       "lineId": "run-tear-concern",
@@ -497,8 +641,8 @@
       "voice": "rms",
       "spokenWords": 7,
       "observedSeconds": 2.605,
-      "elapsedStartSeconds": 195.605,
-      "elapsedEndSeconds": 198.21
+      "elapsedStartSeconds": 202.18,
+      "elapsedEndSeconds": 204.785
     },
     {
       "lineId": "run-uncertainty",
@@ -507,34 +651,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 21,
-      "observedSeconds": 7.345,
-      "elapsedStartSeconds": 198.21,
-      "elapsedEndSeconds": 205.555
-    },
-    {
-      "lineId": "run-heart-attack-concern",
-      "taskId": "task-reasoning",
-      "speaker": "Patient",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "rms",
-      "spokenWords": 11,
-      "observedSeconds": 3.97,
-      "elapsedStartSeconds": 205.555,
-      "elapsedEndSeconds": 209.525
-    },
-    {
-      "lineId": "run-aspirin-response",
-      "taskId": "task-reasoning",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 32,
-      "observedSeconds": 12.185,
-      "elapsedStartSeconds": 209.525,
-      "elapsedEndSeconds": 221.71
+      "spokenWords": 43,
+      "observedSeconds": 12.3,
+      "elapsedStartSeconds": 204.785,
+      "elapsedEndSeconds": 217.085
     },
     {
       "lineId": "run-differentials",
@@ -543,10 +663,58 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 29,
-      "observedSeconds": 10.72,
-      "elapsedStartSeconds": 221.71,
-      "elapsedEndSeconds": 232.43
+      "spokenWords": 63,
+      "observedSeconds": 22.235,
+      "elapsedStartSeconds": 217.085,
+      "elapsedEndSeconds": 239.32
+    },
+    {
+      "lineId": "run-indigestion-concern",
+      "taskId": "task-management",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 10,
+      "observedSeconds": 3.97,
+      "elapsedStartSeconds": 239.32,
+      "elapsedEndSeconds": 243.29
+    },
+    {
+      "lineId": "run-indigestion-response",
+      "taskId": "task-management",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 34,
+      "observedSeconds": 12.115,
+      "elapsedStartSeconds": 243.29,
+      "elapsedEndSeconds": 255.405
+    },
+    {
+      "lineId": "run-seriousness-concern",
+      "taskId": "task-management",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 4,
+      "observedSeconds": 1.63,
+      "elapsedStartSeconds": 255.405,
+      "elapsedEndSeconds": 257.035
+    },
+    {
+      "lineId": "run-seriousness-response",
+      "taskId": "task-management",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 47,
+      "observedSeconds": 13.32,
+      "elapsedStartSeconds": 257.035,
+      "elapsedEndSeconds": 270.355
     },
     {
       "lineId": "run-management-overview",
@@ -555,262 +723,34 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 24,
-      "observedSeconds": 11.47,
-      "elapsedStartSeconds": 232.43,
-      "elapsedEndSeconds": 243.9
+      "spokenWords": 28,
+      "observedSeconds": 9.915,
+      "elapsedStartSeconds": 270.355,
+      "elapsedEndSeconds": 280.27
     },
     {
-      "lineId": "run-blood-thinner",
+      "lineId": "run-tests-plan",
       "taskId": "task-management",
       "speaker": "Doctor",
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 6,
-      "observedSeconds": 2.03,
-      "elapsedStartSeconds": 243.9,
-      "elapsedEndSeconds": 245.93
+      "spokenWords": 44,
+      "observedSeconds": 13.325,
+      "elapsedStartSeconds": 280.27,
+      "elapsedEndSeconds": 293.595
     },
     {
-      "lineId": "run-blood-thinner-answer",
+      "lineId": "run-scan-concern",
       "taskId": "task-management",
       "speaker": "Patient",
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "rms",
-      "spokenWords": 6,
-      "observedSeconds": 2.125,
-      "elapsedStartSeconds": 245.93,
-      "elapsedEndSeconds": 248.055
-    },
-    {
-      "lineId": "run-allergies",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 6,
-      "observedSeconds": 2.35,
-      "elapsedStartSeconds": 248.055,
-      "elapsedEndSeconds": 250.405
-    },
-    {
-      "lineId": "run-allergies-answer",
-      "taskId": "task-management",
-      "speaker": "Patient",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "rms",
-      "spokenWords": 3,
-      "observedSeconds": 1.755,
-      "elapsedStartSeconds": 250.405,
-      "elapsedEndSeconds": 252.16
-    },
-    {
-      "lineId": "run-iv-consent",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 8,
-      "observedSeconds": 3.82,
-      "elapsedStartSeconds": 252.16,
-      "elapsedEndSeconds": 255.98
-    },
-    {
-      "lineId": "run-iv-consent-answer",
-      "taskId": "task-management",
-      "speaker": "Patient",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "rms",
-      "spokenWords": 1,
-      "observedSeconds": 0.88,
-      "elapsedStartSeconds": 255.98,
-      "elapsedEndSeconds": 256.86
-    },
-    {
-      "lineId": "run-iv-action",
-      "taskId": "task-management",
-      "speaker": "Action",
-      "kind": "action",
-      "evidenceType": "reviewed_action_interval",
-      "voice": null,
-      "spokenWords": 0,
-      "observedSeconds": 10,
-      "elapsedStartSeconds": 256.86,
-      "elapsedEndSeconds": 266.86
-    },
-    {
-      "lineId": "run-blood-consent",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 8,
-      "observedSeconds": 2.325,
-      "elapsedStartSeconds": 266.86,
-      "elapsedEndSeconds": 269.185
-    },
-    {
-      "lineId": "run-blood-consent-answer",
-      "taskId": "task-management",
-      "speaker": "Patient",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "rms",
-      "spokenWords": 1,
-      "observedSeconds": 0.88,
-      "elapsedStartSeconds": 269.185,
-      "elapsedEndSeconds": 270.065
-    },
-    {
-      "lineId": "run-blood-action",
-      "taskId": "task-management",
-      "speaker": "Action",
-      "kind": "action",
-      "evidenceType": "reviewed_action_interval",
-      "voice": null,
-      "spokenWords": 0,
-      "observedSeconds": 8,
-      "elapsedStartSeconds": 270.065,
-      "elapsedEndSeconds": 278.065
-    },
-    {
-      "lineId": "run-ecg-plan",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 20,
-      "observedSeconds": 8.87,
-      "elapsedStartSeconds": 278.065,
-      "elapsedEndSeconds": 286.935
-    },
-    {
-      "lineId": "run-analgesia-explanation",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 20,
-      "observedSeconds": 8.455,
-      "elapsedStartSeconds": 286.935,
-      "elapsedEndSeconds": 295.39
-    },
-    {
-      "lineId": "run-analgesia-consent",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 8,
-      "observedSeconds": 2.84,
-      "elapsedStartSeconds": 295.39,
-      "elapsedEndSeconds": 298.23
-    },
-    {
-      "lineId": "run-analgesia-consent-answer",
-      "taskId": "task-management",
-      "speaker": "Patient",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "rms",
-      "spokenWords": 2,
-      "observedSeconds": 1.285,
-      "elapsedStartSeconds": 298.23,
-      "elapsedEndSeconds": 299.515
-    },
-    {
-      "lineId": "run-analgesia-action",
-      "taskId": "task-management",
-      "speaker": "Action",
-      "kind": "action",
-      "evidenceType": "reviewed_action_interval",
-      "voice": null,
-      "spokenWords": 0,
-      "observedSeconds": 8,
-      "elapsedStartSeconds": 299.515,
-      "elapsedEndSeconds": 307.515
-    },
-    {
-      "lineId": "run-anti-impulse-explanation",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 53,
-      "observedSeconds": 18.575,
-      "elapsedStartSeconds": 307.515,
-      "elapsedEndSeconds": 326.09
-    },
-    {
-      "lineId": "run-asthma",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
       "spokenWords": 5,
-      "observedSeconds": 1.565,
-      "elapsedStartSeconds": 326.09,
-      "elapsedEndSeconds": 327.655
-    },
-    {
-      "lineId": "run-asthma-answer",
-      "taskId": "task-management",
-      "speaker": "Patient",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "rms",
-      "spokenWords": 6,
-      "observedSeconds": 2.07,
-      "elapsedStartSeconds": 327.655,
-      "elapsedEndSeconds": 329.725
-    },
-    {
-      "lineId": "run-beta-consent",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 12,
-      "observedSeconds": 3.955,
-      "elapsedStartSeconds": 329.725,
-      "elapsedEndSeconds": 333.68
-    },
-    {
-      "lineId": "run-beta-consent-answer",
-      "taskId": "task-management",
-      "speaker": "Patient",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "rms",
-      "spokenWords": 1,
-      "observedSeconds": 0.88,
-      "elapsedStartSeconds": 333.68,
-      "elapsedEndSeconds": 334.56
-    },
-    {
-      "lineId": "run-beta-action",
-      "taskId": "task-management",
-      "speaker": "Action",
-      "kind": "action",
-      "evidenceType": "reviewed_action_interval",
-      "voice": null,
-      "spokenWords": 0,
-      "observedSeconds": 12,
-      "elapsedStartSeconds": 334.56,
-      "elapsedEndSeconds": 346.56
+      "observedSeconds": 1.79,
+      "elapsedStartSeconds": 293.595,
+      "elapsedEndSeconds": 295.385
     },
     {
       "lineId": "run-imaging-explanation",
@@ -820,93 +760,117 @@
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
       "spokenWords": 41,
-      "observedSeconds": 15.5,
-      "elapsedStartSeconds": 346.56,
-      "elapsedEndSeconds": 362.06
+      "observedSeconds": 13.19,
+      "elapsedStartSeconds": 295.385,
+      "elapsedEndSeconds": 308.575
     },
     {
-      "lineId": "run-contrast-reaction",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 7,
-      "observedSeconds": 2.715,
-      "elapsedStartSeconds": 362.06,
-      "elapsedEndSeconds": 364.775
-    },
-    {
-      "lineId": "run-contrast-reaction-answer",
+      "lineId": "run-scan-risk-concern",
       "taskId": "task-management",
       "speaker": "Patient",
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "rms",
-      "spokenWords": 3,
-      "observedSeconds": 1.45,
-      "elapsedStartSeconds": 364.775,
-      "elapsedEndSeconds": 366.225
+      "spokenWords": 4,
+      "observedSeconds": 1.75,
+      "elapsedStartSeconds": 308.575,
+      "elapsedEndSeconds": 310.325
     },
     {
-      "lineId": "run-kidney-disease",
+      "lineId": "run-scan-risk-response",
       "taskId": "task-management",
       "speaker": "Doctor",
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
+      "spokenWords": 35,
+      "observedSeconds": 11.72,
+      "elapsedStartSeconds": 310.325,
+      "elapsedEndSeconds": 322.045
+    },
+    {
+      "lineId": "run-heart-attack-concern",
+      "taskId": "task-management",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 11,
+      "observedSeconds": 3.97,
+      "elapsedStartSeconds": 322.045,
+      "elapsedEndSeconds": 326.015
+    },
+    {
+      "lineId": "run-aspirin-response",
+      "taskId": "task-management",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 29,
+      "observedSeconds": 10.26,
+      "elapsedStartSeconds": 326.015,
+      "elapsedEndSeconds": 336.275
+    },
+    {
+      "lineId": "run-analgesia-explanation",
+      "taskId": "task-management",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 28,
+      "observedSeconds": 8.11,
+      "elapsedStartSeconds": 336.275,
+      "elapsedEndSeconds": 344.385
+    },
+    {
+      "lineId": "run-anti-impulse-explanation",
+      "taskId": "task-management",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 35,
+      "observedSeconds": 11.78,
+      "elapsedStartSeconds": 344.385,
+      "elapsedEndSeconds": 356.165
+    },
+    {
+      "lineId": "run-medicine-concern",
+      "taskId": "task-management",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
+      "spokenWords": 6,
+      "observedSeconds": 2.435,
+      "elapsedStartSeconds": 356.165,
+      "elapsedEndSeconds": 358.6
+    },
+    {
+      "lineId": "run-medicine-response",
+      "taskId": "task-management",
+      "speaker": "Doctor",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "slt",
+      "spokenWords": 37,
+      "observedSeconds": 11.565,
+      "elapsedStartSeconds": 358.6,
+      "elapsedEndSeconds": 370.165
+    },
+    {
+      "lineId": "run-surgery-concern",
+      "taskId": "task-management",
+      "speaker": "Patient",
+      "kind": "spoken",
+      "evidenceType": "rendered_pcm_audio",
+      "voice": "rms",
       "spokenWords": 5,
-      "observedSeconds": 1.735,
-      "elapsedStartSeconds": 366.225,
-      "elapsedEndSeconds": 367.96
-    },
-    {
-      "lineId": "run-kidney-disease-answer",
-      "taskId": "task-management",
-      "speaker": "Patient",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "rms",
-      "spokenWords": 7,
-      "observedSeconds": 2.675,
-      "elapsedStartSeconds": 367.96,
-      "elapsedEndSeconds": 370.635
-    },
-    {
-      "lineId": "run-cta-consent",
-      "taskId": "task-management",
-      "speaker": "Doctor",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "slt",
-      "spokenWords": 14,
-      "observedSeconds": 5.575,
-      "elapsedStartSeconds": 370.635,
-      "elapsedEndSeconds": 376.21
-    },
-    {
-      "lineId": "run-cta-consent-answer",
-      "taskId": "task-management",
-      "speaker": "Patient",
-      "kind": "spoken",
-      "evidenceType": "rendered_pcm_audio",
-      "voice": "rms",
-      "spokenWords": 1,
-      "observedSeconds": 0.88,
-      "elapsedStartSeconds": 376.21,
-      "elapsedEndSeconds": 377.09
-    },
-    {
-      "lineId": "run-cta-action",
-      "taskId": "task-management",
-      "speaker": "Action",
-      "kind": "action",
-      "evidenceType": "reviewed_action_interval",
-      "voice": null,
-      "spokenWords": 0,
-      "observedSeconds": 8,
-      "elapsedStartSeconds": 377.09,
-      "elapsedEndSeconds": 385.09
+      "observedSeconds": 2.02,
+      "elapsedStartSeconds": 370.165,
+      "elapsedEndSeconds": 372.185
     },
     {
       "lineId": "run-surgery-plan",
@@ -915,10 +879,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 44,
-      "observedSeconds": 17.425,
-      "elapsedStartSeconds": 385.09,
-      "elapsedEndSeconds": 402.515
+      "spokenWords": 43,
+      "observedSeconds": 16.03,
+      "elapsedStartSeconds": 372.185,
+      "elapsedEndSeconds": 388.215
     },
     {
       "lineId": "run-family-concern",
@@ -929,8 +893,8 @@
       "voice": "rms",
       "spokenWords": 12,
       "observedSeconds": 3.57,
-      "elapsedStartSeconds": 402.515,
-      "elapsedEndSeconds": 406.085
+      "elapsedStartSeconds": 388.215,
+      "elapsedEndSeconds": 391.785
     },
     {
       "lineId": "run-family-response",
@@ -939,10 +903,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 25,
-      "observedSeconds": 7.65,
-      "elapsedStartSeconds": 406.085,
-      "elapsedEndSeconds": 413.735
+      "spokenWords": 34,
+      "observedSeconds": 9.45,
+      "elapsedStartSeconds": 391.785,
+      "elapsedEndSeconds": 401.235
     },
     {
       "lineId": "run-understanding",
@@ -952,9 +916,9 @@
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
       "spokenWords": 9,
-      "observedSeconds": 2.64,
-      "elapsedStartSeconds": 413.735,
-      "elapsedEndSeconds": 416.375
+      "observedSeconds": 2.75,
+      "elapsedStartSeconds": 401.235,
+      "elapsedEndSeconds": 403.985
     },
     {
       "lineId": "run-understanding-answer",
@@ -963,10 +927,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "rms",
-      "spokenWords": 25,
-      "observedSeconds": 8.795,
-      "elapsedStartSeconds": 416.375,
-      "elapsedEndSeconds": 425.17
+      "spokenWords": 34,
+      "observedSeconds": 12.195,
+      "elapsedStartSeconds": 403.985,
+      "elapsedEndSeconds": 416.18
     },
     {
       "lineId": "run-closing",
@@ -975,10 +939,10 @@
       "kind": "spoken",
       "evidenceType": "rendered_pcm_audio",
       "voice": "slt",
-      "spokenWords": 15,
-      "observedSeconds": 5.08,
-      "elapsedStartSeconds": 425.17,
-      "elapsedEndSeconds": 430.25
+      "spokenWords": 20,
+      "observedSeconds": 6.76,
+      "elapsedStartSeconds": 416.18,
+      "elapsedEndSeconds": 422.94
     },
     {
       "lineId": "run-end",
@@ -989,8 +953,8 @@
       "voice": "awb",
       "spokenWords": 6,
       "observedSeconds": 2.5,
-      "elapsedStartSeconds": 430.25,
-      "elapsedEndSeconds": 432.75
+      "elapsedStartSeconds": 422.94,
+      "elapsedEndSeconds": 425.44
     }
   ]
 }

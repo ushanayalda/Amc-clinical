@@ -3277,9 +3277,24 @@ function auditEvidenceAndPerformance(caseData, blueprint, conversation, registry
       !(line.speaker === "Action" && isNeutralPreIdentityAction(line.text));
   }
   const taskById = new Map(asArray(blueprint.tasks).filter(isObject).map(function (task) { return [task.id, task]; }));
+  const actionClassByLineId = new Map(asArray(blueprint.performance && blueprint.performance.actionDurations)
+    .filter(isObject).map(function (item) { return [item.lineId, item.actionClass]; }));
   taskEvidence.forEach(function (mapping) {
     const task = taskById.get(mapping.taskId);
     if (!task) return;
+    const taskText = String(task.text || "");
+    const explanationOnly = /\b(?:explain|discuss|outline|counsel|educate|advise|address)\b/i.test(taskText) &&
+      !/\b(?:perform|demonstrate|administer|insert|remove|collect|commence|initiate|institute|treat)\b/i.test(taskText);
+    if (explanationOnly) {
+      asArray(mapping.runLineIds).forEach(function (lineId) {
+        const line = linesById.get(lineId);
+        const actionClass = actionClassByLineId.get(lineId);
+        if (line && line.speaker === "Action" && actionClass !== "neutral_preparation") {
+          addIssue(issues, "critical", "task_performance_mode_mismatch", lineId,
+            "A task that asks for explanation or discussion cannot enact a procedure, treatment, examination or emergency-department intervention.", task.text);
+        }
+      });
+    }
     const candidateLines = asArray(mapping.runLineIds).map(function (lineId) { return linesById.get(lineId); })
       .filter(function (line) {
         return line && ["Doctor", "Action"].includes(line.speaker) && isSubstantiveClinicalLine(line.id);

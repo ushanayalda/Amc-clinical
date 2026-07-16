@@ -1,6 +1,6 @@
 {
   "registryVersion": "1.1.0",
-  "updatedAt": "2026-07-15T04:26:01.009Z",
+  "updatedAt": "2026-07-15T13:14:11.046Z",
   "productionMode": "reconstruction",
   "generationPolicy": {
     "caseSentence": "This case trains [phase purpose] through [pattern], using [station task], to prevent [failure mode], while introducing [new surprise].",
@@ -953,9 +953,9 @@
       "modality": "in_person",
       "predominantArea": "Management/Counselling/Education",
       "status": "audited",
-      "contentSha256": "8ba0025a5e3f45a5c0105d2f5063ebb9c68b8e96ce81c5a06fefb24a82c0f33e",
+      "contentSha256": "288eac0b05e309532a4684ebc2c6d4a731c0bb29fefaa628a248f9e5439eb149",
       "coverageSlot": "aortic dissection",
-      "distinctJob": "Recognise acute aortic syndrome from abrupt maximum-at-onset chest-to-back pain plus vascular asymmetry, activate the aortic pathway before confirmation, and avoid unsafe empirical aspirin or fibrinolytic treatment.",
+      "distinctJob": "Recognise acute aortic syndrome from abrupt maximum-at-onset chest-to-back pain plus vascular asymmetry, then explain the immediate safe plan and why empirical aspirin or fibrinolysis is withheld.",
       "primaryFailureMode": "unsafe_delay",
       "admissionDecision": "admitted"
     },

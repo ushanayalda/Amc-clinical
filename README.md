@@ -40,7 +40,7 @@ No Custom GPT or multi-engine handoff is required.
 - Registry: `READY`
 - Next production case: Case 3
 - Emergency Explore: 42 earlier case files, unchanged
-- Publication: Case 1 remains the current public production case; Case 2 has not been published
+- Publication: corrected audited Cases 1 and 2 are published
 
 The collection-level gate remains `HOLD` until every planned current case exists. This does not change the individual `AUDITED` results for Cases 1 and 2.
 
@@ -60,6 +60,7 @@ Open `index.html` directly for a source preview, or serve `dist/` after building
 
 - The Stem must not announce the diagnosis, urgency or required disposition.
 - The Full Run follows only the visible tasks.
+- Task verbs control performance mode: explain, discuss, address and outline produce spoken explanation, not enacted procedures or treatment.
 - Identity and consent precede clinical questioning.
 - Doctor information requests are asked one at a time.
 - A handover is included only when a visible task requests one.

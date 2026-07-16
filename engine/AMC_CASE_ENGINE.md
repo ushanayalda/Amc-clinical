@@ -49,6 +49,7 @@ These rules are stricter editorial controls chosen for this product. They are no
 - A Doctor turn contains one information request at a time.
 - Every mapped request has one immediate controlled response, exact answer-evidence phrases and a mandatory human line review. Exact linkage alone is not treated as proof of semantic relevance.
 - A Full Run may perform a handover only when a visible station task explicitly asks for one.
+- The visible task verb fixes performance mode. `Explain`, `discuss`, `address`, `outline`, `counsel`, `educate` and `advise` authorise spoken explanation only. They do not authorise enacted examination, cannulation, blood collection, imaging, medication, transfer or other emergency-department intervention. Enactment requires an explicit task verb such as `perform`, `demonstrate`, `administer`, `insert`, `collect`, `commence`, `initiate`, `institute` or `treat`.
 - A focused mapped participant response over 55 words is held for shortening or splitting before release.
 - Every visible direct address has one exact participant control, and identity-bound address terms must match the confirmed recorded name.
 - Consent uses a positive, scope-aware permission request and an affirmative granted response. Consultation, examination, procedure, information-sharing and sensitive-history consent are modelled when applicable.
@@ -79,7 +80,7 @@ Pattern-specific logic has three honest provenance states:
 - Pattern 13: recovered from legacy Cases 41 and 42.
 - Patterns 14 to 40: missing. Their titles and phase purposes are known, but their dominant capability and core coverage were not recoverable. They remain `generation_blocked` until deliberately designed and source-reviewed.
 
-The fresh canonical Cases 1 and 2 are `audited`, with exact checkpoints recorded in `audits/CASE_001_FINAL_QA.md` and `audits/CASE_002_FINAL_QA.md`. Current Cases 3 to 42 do not yet exist; their fixed registry slots remain pending. The only next production action is to generate a fresh Case 3 from its slot. The earlier 42 source files remain separate under Emergency Explore; Cases 2 to 42 retain the sealed aggregate SHA-256 `55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a`. Case 2 has not been published.
+The fresh canonical Cases 1 and 2 are `audited` and published, with exact checkpoints recorded in `audits/CASE_001_FINAL_QA.md` and `audits/CASE_002_FINAL_QA.md`. Current Cases 3 to 42 do not yet exist; their fixed registry slots remain pending, and Case 3 remains the next generation slot. The earlier 42 source files remain separate under Emergency Explore; Cases 2 to 42 retain the sealed aggregate SHA-256 `55c64befc778ac8f8c763334f4e68ce2aa96b9db86e730f34a8240a3a28e2e6a`.
 
 The pinned manifest also binds the registry order, phase definitions and immutable pattern logic. Changing a title, purpose, capacity, reserve or expansion rule requires a deliberate manifest renewal, a new pinned manifest hash and renewed engine QA. Editing the registry alone is insufficient.
 

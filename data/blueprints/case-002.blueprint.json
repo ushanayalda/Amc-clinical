@@ -3,7 +3,7 @@
   "caseId": "case-002",
   "registryId": "CP-P1-C002",
   "registryVersion": "1.1.0",
-  "revision": 1,
+  "revision": 2,
   "releaseStatus": "audited",
   "station": {
     "displayNumber": "Case 2",
@@ -124,8 +124,6 @@
         "id": "clinical-differential-acs",
         "text": "Acute coronary syndrome",
         "runLineIds": [
-          "run-heart-attack-concern",
-          "run-aspirin-response",
           "run-differentials"
         ],
         "sourceClaimIds": [
@@ -262,10 +260,9 @@
     "safetyThresholds": [
       {
         "id": "clinical-threshold-aortic-pathway",
-        "text": "The high-risk pain pattern plus vascular asymmetry requires immediate monitored aortic-pathway assessment and specialist involvement before confirmation",
+        "text": "The high-risk pain pattern plus vascular asymmetry requires an immediate plan for monitored assessment and specialist involvement before confirmation",
         "runLineIds": [
           "run-early-explanation",
-          "run-early-action",
           "run-management-overview"
         ],
         "sourceClaimIds": [
@@ -274,10 +271,9 @@
       },
       {
         "id": "clinical-threshold-imaging",
-        "text": "A haemodynamically stable patient proceeds to CT angiography; an unstable patient needs bedside echocardiographic assessment without falsely excluding dissection from a negative bedside scan",
+        "text": "A patient without circulatory collapse proceeds to urgent CT angiography",
         "runLineIds": [
-          "run-imaging-explanation",
-          "run-cta-action"
+          "run-imaging-explanation"
         ],
         "sourceClaimIds": [
           "claim-imaging-threshold"
@@ -285,34 +281,21 @@
       },
       {
         "id": "clinical-threshold-anti-impulse",
-        "text": "Aim for heart rate 60 to 80 and systolic pressure 100 to 120 or the lowest pressure that maintains organ perfusion",
+        "text": "The management explanation places heart-rate control before careful blood-pressure reduction while organ perfusion is maintained",
         "runLineIds": [
-          "run-anti-impulse-explanation",
-          "run-beta-action"
+          "run-anti-impulse-explanation"
         ],
         "sourceClaimIds": [
           "claim-anti-impulse-target"
-        ]
-      },
-      {
-        "id": "clinical-threshold-oxygen",
-        "text": "At oxygen saturation 97 percent on room air without shock, supplemental oxygen is not routinely indicated",
-        "runLineIds": [
-          "run-observations-response",
-          "run-early-action"
-        ],
-        "sourceClaimIds": [
-          "claim-oxygen"
         ]
       }
     ],
     "criticalActions": [
       {
         "id": "clinical-action-aortic-pathway",
-        "text": "Start resuscitation-area monitoring and involve emergency, radiology, intensive-care and aortic surgical teams immediately",
+        "text": "Explain immediate monitored senior and specialist assessment",
         "runLineIds": [
           "run-early-explanation",
-          "run-early-action",
           "run-management-overview"
         ],
         "sourceClaimIds": [
@@ -321,12 +304,10 @@
       },
       {
         "id": "clinical-action-anti-impulse",
-        "text": "Treat severe pain and begin beta-blocker-first anti-impulse therapy with continuous monitoring",
+        "text": "Explain strong analgesia and beta-blocker-first anti-impulse treatment under continuous monitoring",
         "runLineIds": [
           "run-analgesia-explanation",
-          "run-analgesia-action",
-          "run-anti-impulse-explanation",
-          "run-beta-action"
+          "run-anti-impulse-explanation"
         ],
         "sourceClaimIds": [
           "claim-anti-impulse-treatment",
@@ -335,10 +316,9 @@
       },
       {
         "id": "clinical-action-definitive-imaging",
-        "text": "Obtain immediate CT angiography with monitored transfer when stable",
+        "text": "Explain urgent CT angiography while the patient is not showing circulatory collapse",
         "runLineIds": [
-          "run-imaging-explanation",
-          "run-cta-action"
+          "run-imaging-explanation"
         ],
         "sourceClaimIds": [
           "claim-imaging"
@@ -350,9 +330,9 @@
         "id": "timing-aortic-pathway",
         "criticalActionConceptId": "clinical-action-aortic-pathway",
         "triggerLineId": "run-cardiovascular-response",
-        "latestPermittedLineId": "run-early-action",
-        "positiveActionPhrase": "starts continuous cardiac, oxygen-saturation and frequent blood-pressure monitoring",
-        "rationale": "The pulse and blood-pressure asymmetry completes a high-risk acute aortic pattern requiring immediate monitored escalation.",
+        "latestPermittedLineId": "run-early-explanation",
+        "positiveActionPhrase": "I would ask the senior emergency doctor to review you now, keep you closely monitored and arrange pain relief while I ask a few essential questions.",
+        "rationale": "The pulse and blood-pressure asymmetry completes a high-risk acute aortic pattern, so the management explanation cannot be deferred until the end of a prolonged history.",
         "sourceClaimIds": [
           "claim-aortic-pathway"
         ]
@@ -361,9 +341,9 @@
         "id": "timing-anti-impulse",
         "criticalActionConceptId": "clinical-action-anti-impulse",
         "triggerLineId": "run-early-explanation",
-        "latestPermittedLineId": "run-beta-action",
-        "positiveActionPhrase": "The doctor then begins titrated intravenous beta-blockade with continuous monitoring",
-        "rationale": "Once acute aortic syndrome is strongly suspected, analgesia and beta-blocker-first anti-impulse treatment are started under monitored senior care.",
+        "latestPermittedLineId": "run-anti-impulse-explanation",
+        "positiveActionPhrase": "With senior supervision and continuous monitoring, we will first use medicine to slow your heart, then lower the blood pressure carefully.",
+        "rationale": "The assigned management task requires a safe explanation of analgesia and beta-blocker-first anti-impulse treatment under monitored senior care.",
         "sourceClaimIds": [
           "claim-anti-impulse-treatment",
           "claim-anti-impulse-target"
@@ -373,9 +353,9 @@
         "id": "timing-definitive-imaging",
         "criticalActionConceptId": "clinical-action-definitive-imaging",
         "triggerLineId": "run-early-explanation",
-        "latestPermittedLineId": "run-cta-action",
-        "positiveActionPhrase": "The doctor confirms immediate CT angiography and continuous monitored transfer with the emergency and radiology teams.",
-        "rationale": "A stable high-risk presentation requires immediate definitive aortic imaging without delay from lower-yield testing.",
+        "latestPermittedLineId": "run-imaging-explanation",
+        "positiveActionPhrase": "As you are not showing signs of circulatory collapse, the main test is an urgent CT angiogram.",
+        "rationale": "A high-risk patient without circulatory collapse requires urgent definitive aortic imaging without delay from lower-yield testing.",
         "sourceClaimIds": [
           "claim-imaging"
         ]
@@ -386,8 +366,7 @@
         "id": "clinical-unsafe-antiplatelet-fibrinolysis",
         "text": "Do not give routine aspirin or fibrinolysis while aortic dissection is strongly suspected",
         "runLineIds": [
-          "run-aspirin-response",
-          "run-ecg-plan"
+          "run-aspirin-response"
         ],
         "sourceClaimIds": [
           "claim-antiplatelet-fibrinolysis-hazard"
@@ -395,10 +374,9 @@
       },
       {
         "id": "clinical-unsafe-vasodilator-first",
-        "text": "Do not start a vasodilator before heart-rate control because reflex tachycardia can increase aortic wall stress",
+        "text": "Do not lower blood pressure before heart-rate control in the explained anti-impulse sequence",
         "runLineIds": [
-          "run-anti-impulse-explanation",
-          "run-beta-action"
+          "run-anti-impulse-explanation"
         ],
         "sourceClaimIds": [
           "claim-anti-impulse-treatment"
@@ -407,7 +385,7 @@
     ],
     "scopeBoundary": {
       "id": "clinical-scope-emergency-registrar",
-      "text": "The emergency registrar provides monitored stabilisation, analgesia, anti-impulse treatment and imaging coordination while definitive Type A or complicated Type B decisions are made with the aortic surgical and intensive-care teams",
+      "text": "The candidate explains the immediate monitored plan, analgesia, anti-impulse treatment, imaging and specialist disposition without enacting unrequested emergency-department procedures",
       "runLineIds": [
         "run-management-overview",
         "run-surgery-plan",
@@ -431,7 +409,7 @@
       "identityRequired": true,
       "identityResponse": {
         "lineId": "run-id",
-        "text": "Julian Merrick, 7 September 1966.",
+        "text": "My name is Julian Merrick, and my date of birth is 7 September 1966.",
         "fullName": "Julian Merrick",
         "dateOfBirthText": "7 September 1966"
       },
@@ -439,7 +417,7 @@
       "initialVoluntary": {
         "triggerLineId": "run-open-question",
         "responseLineId": "run-opening-story",
-        "text": "Half an hour ago, while sitting at a cafe, severe pain struck the centre of my chest and shot between my shoulder blades. It was at its worst immediately, and I nearly fainted."
+        "text": "Half an hour ago, while I was sitting at a cafe, severe pain suddenly struck the centre of my chest and shot between my shoulder blades. It was at its worst immediately. I became sweaty, felt sick and nearly fainted. The pain has not eased."
       },
       "concerns": [
         {
@@ -457,11 +435,46 @@
           "nextDoctorLineId": "run-uncertainty"
         },
         {
+          "id": "concern-seriousness",
+          "text": "How serious the possible diagnosis is",
+          "responseLineId": "run-seriousness-concern",
+          "responseText": "How serious is this?",
+          "nextDoctorLineId": "run-seriousness-response"
+        },
+        {
+          "id": "concern-scan",
+          "text": "Which scan is needed",
+          "responseLineId": "run-scan-concern",
+          "responseText": "What scan do I need?",
+          "nextDoctorLineId": "run-imaging-explanation"
+        },
+        {
+          "id": "concern-scan-risk",
+          "text": "Whether the scan is dangerous",
+          "responseLineId": "run-scan-risk-concern",
+          "responseText": "Is the scan dangerous?",
+          "nextDoctorLineId": "run-scan-risk-response"
+        },
+        {
           "id": "concern-aspirin",
           "text": "Whether aspirin should be given because his father died from a heart attack",
           "responseLineId": "run-heart-attack-concern",
           "responseText": "My father died from a heart attack. Should I have aspirin?",
           "nextDoctorLineId": "run-aspirin-response"
+        },
+        {
+          "id": "concern-medicine",
+          "text": "Whether medicine will fix the problem",
+          "responseLineId": "run-medicine-concern",
+          "responseText": "Will those medicines fix the problem?",
+          "nextDoctorLineId": "run-medicine-response"
+        },
+        {
+          "id": "concern-surgery",
+          "text": "Whether an operation will be needed",
+          "responseLineId": "run-surgery-concern",
+          "responseText": "Will I need an operation?",
+          "nextDoctorLineId": "run-surgery-plan"
         },
         {
           "id": "concern-partner",
@@ -473,6 +486,32 @@
       ],
       "disclosures": [
         {
+          "id": "disclosure-pain-site",
+          "factIds": [
+            "clinical-clue-abrupt-pattern"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about current pain location.",
+          "triggerLineId": "run-pain-site",
+          "responseLineId": "run-pain-site-answer",
+          "responseText": "It is still in the middle of my chest and between my shoulder blades.",
+          "nextDoctorLineId": "run-pain-character",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
+        },
+        {
+          "id": "disclosure-pain-character",
+          "factIds": [
+            "clinical-clue-abrupt-pattern"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about pain character.",
+          "triggerLineId": "run-pain-character",
+          "responseLineId": "run-pain-character-answer",
+          "responseText": "It feels deep and tearing. I have never felt anything like it.",
+          "nextDoctorLineId": "run-current-pain",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
+        },
+        {
           "id": "disclosure-current-pain",
           "factIds": [
             "clinical-red-flag-persistent-pain"
@@ -481,7 +520,20 @@
           "triggerDescription": "The Doctor makes one focused request about current pain severity.",
           "triggerLineId": "run-current-pain",
           "responseLineId": "run-current-pain-answer",
-          "responseText": "Nine. It has not eased.",
+          "responseText": "Nine.",
+          "nextDoctorLineId": "run-loss-consciousness",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
+        },
+        {
+          "id": "disclosure-loss-consciousness",
+          "factIds": [
+            "clinical-clue-near-syncope"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about loss of consciousness.",
+          "triggerLineId": "run-loss-consciousness",
+          "responseLineId": "run-loss-consciousness-answer",
+          "responseText": "I nearly fainted but stayed conscious.",
           "nextDoctorLineId": "run-observations-request",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
         },
@@ -495,6 +547,19 @@
           "triggerLineId": "run-breathing",
           "responseLineId": "run-breathing-answer",
           "responseText": "No, breathing makes no difference.",
+          "nextDoctorLineId": "run-breathlessness",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
+        },
+        {
+          "id": "disclosure-breathlessness",
+          "factIds": [
+            "clinical-discriminator-aortic-pattern"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about breathlessness.",
+          "triggerLineId": "run-breathlessness",
+          "responseLineId": "run-breathlessness-answer",
+          "responseText": "Only a little because the pain frightens me.",
           "nextDoctorLineId": "run-weakness",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
         },
@@ -508,6 +573,32 @@
           "triggerLineId": "run-weakness",
           "responseLineId": "run-weakness-answer",
           "responseText": "No weakness.",
+          "nextDoctorLineId": "run-numbness",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
+        },
+        {
+          "id": "disclosure-numbness",
+          "factIds": [
+            "clinical-discriminator-no-current-deficit"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about focal numbness.",
+          "triggerLineId": "run-numbness",
+          "responseLineId": "run-numbness-answer",
+          "responseText": "No numbness.",
+          "nextDoctorLineId": "run-speech",
+          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
+        },
+        {
+          "id": "disclosure-speech",
+          "factIds": [
+            "clinical-discriminator-no-current-deficit"
+          ],
+          "triggerType": "specific_question",
+          "triggerDescription": "The Doctor makes one focused request about speech disturbance.",
+          "triggerLineId": "run-speech",
+          "responseLineId": "run-speech-answer",
+          "responseText": "My speech is normal.",
           "nextDoctorLineId": "run-abdominal",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
         },
@@ -533,7 +624,7 @@
           "triggerDescription": "The Doctor makes one focused request about known aortic enlargement.",
           "triggerLineId": "run-aorta-history",
           "responseLineId": "run-aorta-history-answer",
-          "responseText": "No, nobody has.",
+          "responseText": "Nobody has told me that.",
           "nextDoctorLineId": "run-medical-history",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
         },
@@ -560,7 +651,7 @@
           "triggerLineId": "run-medications",
           "responseLineId": "run-medications-answer",
           "responseText": "Irbesartan, but I missed it today.",
-          "nextDoctorLineId": "run-summary",
+          "nextDoctorLineId": "run-blood-thinner",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
         },
         {
@@ -572,7 +663,7 @@
           "triggerDescription": "The Doctor makes one focused request about current blood-thinning medicine.",
           "triggerLineId": "run-blood-thinner",
           "responseLineId": "run-blood-thinner-answer",
-          "responseText": "No, I do not take one.",
+          "responseText": "I take none.",
           "nextDoctorLineId": "run-allergies",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
         },
@@ -586,46 +677,7 @@
           "triggerLineId": "run-allergies",
           "responseLineId": "run-allergies-answer",
           "responseText": "No known allergies.",
-          "nextDoctorLineId": "run-iv-consent",
-          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
-        },
-        {
-          "id": "disclosure-asthma",
-          "factIds": [
-            "clinical-action-anti-impulse"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor makes one focused request about asthma.",
-          "triggerLineId": "run-asthma",
-          "responseLineId": "run-asthma-answer",
-          "responseText": "No, I have never had asthma.",
-          "nextDoctorLineId": "run-beta-consent",
-          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
-        },
-        {
-          "id": "disclosure-contrast-reaction",
-          "factIds": [
-            "clinical-action-definitive-imaging"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor makes one focused request about previous ct contrast reaction.",
-          "triggerLineId": "run-contrast-reaction",
-          "responseLineId": "run-contrast-reaction-answer",
-          "responseText": "No, I haven't.",
-          "nextDoctorLineId": "run-kidney-disease",
-          "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
-        },
-        {
-          "id": "disclosure-kidney-disease",
-          "factIds": [
-            "clinical-action-definitive-imaging"
-          ],
-          "triggerType": "specific_question",
-          "triggerDescription": "The Doctor makes one focused request about kidney disease.",
-          "triggerLineId": "run-kidney-disease",
-          "responseLineId": "run-kidney-disease-answer",
-          "responseText": "No, I do not have kidney disease.",
-          "nextDoctorLineId": "run-cta-consent",
+          "nextDoctorLineId": "run-summary",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
         },
         {
@@ -637,7 +689,7 @@
           "triggerDescription": "The Doctor makes one focused request about understanding of the plan.",
           "triggerLineId": "run-understanding",
           "responseLineId": "run-understanding-answer",
-          "responseText": "There may be a split in my main artery. You are treating my pain and blood pressure, arranging the scan and involving the surgical team.",
+          "responseText": "You are worried there may be a problem in my main artery, but it is not confirmed. I need close monitoring, pain and blood-pressure treatment, an urgent scan and review by the surgical team.",
           "nextDoctorLineId": "run-closing",
           "responseUse": "The next Doctor turn incorporates the answer into the focused assessment or management plan."
         }
@@ -669,17 +721,17 @@
       },
       {
         "id": "release-focused-examination",
-        "requestDescription": "The Doctor requests the focused examination findings after performing the consented examination.",
+        "requestDescription": "After obtaining consent, the Doctor requests the focused examination findings available from the Examiner.",
         "requestLineId": "run-cardiovascular-request",
-        "requestExactText": "Please provide the focused examination findings.",
+        "requestExactText": "Please provide the focused cardiovascular, respiratory, neurological and peripheral vascular examination findings.",
         "responseLineId": "run-cardiovascular-response",
         "responseText": "The left radial pulse is weaker. Heart sounds are dual without a murmur. Air entry is equal and the lungs are clear. He is alert, with normal speech, symmetrical facial movement, equal limb power and no sensory loss. Peripheries are warm; capillary refill is two seconds.",
         "permittedModalities": [
           "in_person"
         ],
-        "findingSource": "Findings from the Doctor's visible focused cardiovascular, respiratory, neurological and peripheral-perfusion examination in the in-person station.",
+        "findingSource": "Focused cardiovascular, respiratory, neurological and peripheral-vascular findings available from the Examiner as stated in the Stem.",
         "nextDoctorLineId": "run-early-explanation",
-        "responseUse": "The Doctor identifies vascular asymmetry, checks major complications and dangerous chest-pain alternatives, then begins immediate protection."
+        "responseUse": "The Doctor recognises vascular asymmetry and immediately explains the need for monitored senior review before completing essential questions."
       }
     ],
     "scheduledPrompts": [
@@ -722,13 +774,12 @@
       },
       {
         "id": "step-early-safety",
-        "description": "Recognises the high-risk acute aortic pattern and starts monitored specialist escalation before diagnostic confirmation",
+        "description": "Recognises the high-risk acute aortic pattern and explains the need for monitored senior review before diagnostic confirmation",
         "taskIds": [
           "task-management"
         ],
         "runLineIds": [
-          "run-early-explanation",
-          "run-early-action"
+          "run-early-explanation"
         ],
         "sourceClaimIds": [
           "claim-aortic-pathway"
@@ -743,27 +794,24 @@
         "runLineIds": [
           "run-leading-diagnosis",
           "run-uncertainty",
-          "run-aspirin-response",
           "run-differentials"
         ],
         "sourceClaimIds": [
           "claim-diagnosis",
-          "claim-differential",
-          "claim-antiplatelet-fibrinolysis-hazard"
+          "claim-differential"
         ]
       },
       {
         "id": "step-management",
-        "description": "Explains and initiates safe analgesia, beta-blocker-first anti-impulse treatment, definitive imaging and specialist disposition",
+        "description": "Explains safe analgesia, heart-rate-first anti-impulse treatment, definitive imaging and specialist disposition",
         "taskIds": [
           "task-management"
         ],
         "runLineIds": [
           "run-management-overview",
-          "run-analgesia-action",
-          "run-beta-action",
+          "run-analgesia-explanation",
+          "run-anti-impulse-explanation",
           "run-imaging-explanation",
-          "run-cta-action",
           "run-surgery-plan"
         ],
         "sourceClaimIds": [
@@ -799,7 +847,6 @@
         ],
         "runLineIds": [
           "run-examination-consent",
-          "run-examination-action",
           "run-cardiovascular-request",
           "run-cardiovascular-response"
         ],
@@ -831,11 +878,11 @@
         ],
         "runLineIds": [
           "run-management-overview",
-          "run-ecg-plan",
-          "run-analgesia-action",
-          "run-beta-action",
+          "run-tests-plan",
+          "run-aspirin-response",
+          "run-analgesia-explanation",
+          "run-anti-impulse-explanation",
           "run-imaging-explanation",
-          "run-cta-action",
           "run-surgery-plan"
         ],
         "sourceClaimIds": [
@@ -868,10 +915,9 @@
     "projectSafetyErrors": [
       {
         "id": "error-delayed-aortic-pathway",
-        "description": "Completes a prolonged history before monitored escalation despite the high-risk aortic pattern",
+        "description": "Completes a prolonged history before explaining monitored senior review despite the high-risk aortic pattern",
         "preventedByLineIds": [
-          "run-early-explanation",
-          "run-early-action"
+          "run-early-explanation"
         ],
         "safetyConceptIds": [
           "clinical-action-aortic-pathway",
@@ -883,10 +929,9 @@
       },
       {
         "id": "error-unsafe-antiplatelet-fibrinolysis",
-        "description": "Gives routine aspirin or fibrinolytic treatment before dissection is excluded",
+        "description": "Recommends routine aspirin or fibrinolytic treatment before dissection is excluded",
         "preventedByLineIds": [
-          "run-aspirin-response",
-          "run-ecg-plan"
+          "run-aspirin-response"
         ],
         "safetyConceptIds": [
           "clinical-unsafe-antiplatelet-fibrinolysis"
@@ -897,9 +942,9 @@
       },
       {
         "id": "error-vasodilator-before-rate-control",
-        "description": "Uses a vasodilator before beta-blocker heart-rate control",
+        "description": "Explains blood-pressure reduction before heart-rate control",
         "preventedByLineIds": [
-          "run-beta-action"
+          "run-anti-impulse-explanation"
         ],
         "safetyConceptIds": [
           "clinical-unsafe-vasodilator-first",
@@ -911,10 +956,10 @@
       },
       {
         "id": "error-delayed-definitive-imaging",
-        "description": "Delays definitive aortic imaging in a stable high-risk patient",
+        "description": "Allows lower-yield tests to delay definitive aortic imaging",
         "preventedByLineIds": [
-          "run-imaging-explanation",
-          "run-cta-action"
+          "run-tests-plan",
+          "run-imaging-explanation"
         ],
         "safetyConceptIds": [
           "clinical-action-definitive-imaging",
@@ -940,8 +985,8 @@
         7
       ],
       "decisionRule": "The global rating alone determines the station result: ratings 1 to 3 fail and ratings 4 to 7 pass.",
-      "passStandard": "Completes the assigned assessment, explanation and management tasks; recognises the high-risk acute aortic pattern; and initiates safe monitored imaging, anti-impulse treatment and specialist escalation without unsafe empirical aspirin or fibrinolysis.",
-      "failStandard": "Misses the acute aortic pattern, delays definitive assessment, gives unsafe aspirin or fibrinolysis, reverses anti-impulse sequencing or substantially fails the assigned tasks."
+      "passStandard": "Completes the assigned assessment and explanations; recognises the high-risk acute aortic pattern; and clearly explains monitored review, imaging, heart-rate-first treatment and specialist involvement without enacting unrequested procedures or recommending unsafe empirical aspirin or fibrinolysis.",
+      "failStandard": "Misses the acute aortic pattern, recommends unsafe aspirin or fibrinolysis, reverses the heart-rate-first sequence, enacts unrequested procedures or substantially fails the assigned tasks."
     }
   },
   "interaction": {
@@ -976,11 +1021,6 @@
         "lineId": "run-leading-diagnosis",
         "participantId": "participant-patient",
         "addressTerm": "Julian"
-      },
-      {
-        "lineId": "run-iv-consent",
-        "participantId": "participant-patient",
-        "addressTerm": "Julian"
       }
     ],
     "consents": [
@@ -988,7 +1028,7 @@
         "id": "consent-consultation",
         "scope": "consultation",
         "requestLineId": "run-consent",
-        "requestText": "Julian, may I ask what happened?",
+        "requestText": "Julian, is it okay if I ask you some questions about the pain?",
         "responseLineId": "run-consent-answer",
         "responseText": "Yes.",
         "participantId": "participant-patient",
@@ -998,58 +1038,8 @@
         "id": "consent-examination",
         "scope": "examination",
         "requestLineId": "run-examination-consent",
-        "requestText": "Julian, may I examine you now?",
+        "requestText": "Julian, may I examine you?",
         "responseLineId": "run-examination-consent-answer",
-        "responseText": "Yes.",
-        "participantId": "participant-patient",
-        "outcome": "granted"
-      },
-      {
-        "id": "consent-iv",
-        "scope": "procedure",
-        "requestLineId": "run-iv-consent",
-        "requestText": "Julian, may I insert two intravenous cannulas now?",
-        "responseLineId": "run-iv-consent-answer",
-        "responseText": "Yes.",
-        "participantId": "participant-patient",
-        "outcome": "granted"
-      },
-      {
-        "id": "consent-bloods",
-        "scope": "procedure",
-        "requestLineId": "run-blood-consent",
-        "requestText": "May I take blood samples through a cannula?",
-        "responseLineId": "run-blood-consent-answer",
-        "responseText": "Yes.",
-        "participantId": "participant-patient",
-        "outcome": "granted"
-      },
-      {
-        "id": "consent-analgesia",
-        "scope": "procedure",
-        "requestLineId": "run-analgesia-consent",
-        "requestText": "May I give you intravenous pain medicine now?",
-        "responseLineId": "run-analgesia-consent-answer",
-        "responseText": "Yes, please.",
-        "participantId": "participant-patient",
-        "outcome": "granted"
-      },
-      {
-        "id": "consent-beta-blocker",
-        "scope": "procedure",
-        "requestLineId": "run-beta-consent",
-        "requestText": "May I start intravenous treatment to reduce the force on the aorta?",
-        "responseLineId": "run-beta-consent-answer",
-        "responseText": "Yes.",
-        "participantId": "participant-patient",
-        "outcome": "granted"
-      },
-      {
-        "id": "consent-cta",
-        "scope": "procedure",
-        "requestLineId": "run-cta-consent",
-        "requestText": "May I arrange for urgent CT angiography to be performed once radiology is ready?",
-        "responseLineId": "run-cta-consent-answer",
         "responseText": "Yes.",
         "participantId": "participant-patient",
         "outcome": "granted"
@@ -1067,10 +1057,48 @@
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-opening-story",
         "responseParticipantId": "participant-patient",
-        "responseText": "Half an hour ago, while sitting at a cafe, severe pain struck the centre of my chest and shot between my shoulder blades. It was at its worst immediately, and I nearly fainted.",
+        "responseText": "Half an hour ago, while I was sitting at a cafe, severe pain suddenly struck the centre of my chest and shot between my shoulder blades. It was at its worst immediately. I became sweaty, felt sick and nearly fainted. The pain has not eased.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "Half an hour ago, while sitting at a cafe, severe pain struck the centre of my chest and shot between my shoulder blades. It was at its worst immediately, and I nearly fainted."
+          "Half an hour ago, while I was sitting at a cafe, severe pain suddenly struck the centre of my chest and shot between my shoulder blades. It was at its worst immediately. I became sweaty, felt sick and nearly fainted. The pain has not eased."
+        ],
+        "nextDoctorLineId": "run-pain-site",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-pain-site",
+        "lineId": "run-pain-site",
+        "requestText": "Where is the pain now?",
+        "taskId": "task-assessment",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Current pain location",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-pain-site-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "It is still in the middle of my chest and between my shoulder blades.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "It is still in the middle of my chest and between my shoulder blades."
+        ],
+        "nextDoctorLineId": "run-pain-character",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-pain-character",
+        "lineId": "run-pain-character",
+        "requestText": "How would you describe the pain?",
+        "taskId": "task-assessment",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Pain character",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-pain-character-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "It feels deep and tearing. I have never felt anything like it.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "It feels deep and tearing. I have never felt anything like it."
         ],
         "nextDoctorLineId": "run-current-pain",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1086,10 +1114,29 @@
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-current-pain-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "Nine. It has not eased.",
+        "responseText": "Nine.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "Nine. It has not eased."
+          "Nine."
+        ],
+        "nextDoctorLineId": "run-loss-consciousness",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-loss-consciousness",
+        "lineId": "run-loss-consciousness",
+        "requestText": "Did you black out?",
+        "taskId": "task-assessment",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Loss of consciousness",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-loss-consciousness-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "I nearly fainted but stayed conscious.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "I nearly fainted but stayed conscious."
         ],
         "nextDoctorLineId": "run-observations-request",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1110,6 +1157,25 @@
         "responseEvidencePhrases": [
           "No, breathing makes no difference."
         ],
+        "nextDoctorLineId": "run-breathlessness",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-breathlessness",
+        "lineId": "run-breathlessness",
+        "requestText": "Are you short of breath?",
+        "taskId": "task-assessment",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Breathlessness",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-breathlessness-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "Only a little because the pain frightens me.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "Only a little because the pain frightens me."
+        ],
         "nextDoctorLineId": "run-weakness",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       },
@@ -1128,6 +1194,44 @@
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
           "No weakness."
+        ],
+        "nextDoctorLineId": "run-numbness",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-numbness",
+        "lineId": "run-numbness",
+        "requestText": "Have you noticed any numbness?",
+        "taskId": "task-assessment",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Focal numbness",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-numbness-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "No numbness.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "No numbness."
+        ],
+        "nextDoctorLineId": "run-speech",
+        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
+      },
+      {
+        "id": "request-speech",
+        "lineId": "run-speech",
+        "requestText": "Have you had difficulty speaking?",
+        "taskId": "task-assessment",
+        "requestType": "question",
+        "requestCount": 1,
+        "topic": "Speech disturbance",
+        "addressedParticipantId": "participant-patient",
+        "expectedResponseLineId": "run-speech-answer",
+        "responseParticipantId": "participant-patient",
+        "responseText": "My speech is normal.",
+        "responseOutcome": "answered",
+        "responseEvidencePhrases": [
+          "My speech is normal."
         ],
         "nextDoctorLineId": "run-abdominal",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1154,7 +1258,7 @@
       {
         "id": "request-aorta-history",
         "lineId": "run-aorta-history",
-        "requestText": "Has anyone said your aorta is enlarged?",
+        "requestText": "Have you ever been told that the main artery from your heart is enlarged?",
         "taskId": "task-assessment",
         "requestType": "question",
         "requestCount": 1,
@@ -1162,10 +1266,10 @@
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-aorta-history-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "No, nobody has.",
+        "responseText": "Nobody has told me that.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "No, nobody has."
+          "Nobody has told me that."
         ],
         "nextDoctorLineId": "run-medical-history",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1192,7 +1296,7 @@
       {
         "id": "request-medications",
         "lineId": "run-medications",
-        "requestText": "What regular medicines do you take?",
+        "requestText": "What regular medicine do you take?",
         "taskId": "task-assessment",
         "requestType": "question",
         "requestCount": 1,
@@ -1205,24 +1309,24 @@
         "responseEvidencePhrases": [
           "Irbesartan, but I missed it today."
         ],
-        "nextDoctorLineId": "run-summary",
+        "nextDoctorLineId": "run-blood-thinner",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       },
       {
         "id": "request-blood-thinner",
         "lineId": "run-blood-thinner",
         "requestText": "Do you take a blood-thinning medicine?",
-        "taskId": "task-management",
+        "taskId": "task-assessment",
         "requestType": "question",
         "requestCount": 1,
         "topic": "Current blood-thinning medicine",
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-blood-thinner-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "No, I do not take one.",
+        "responseText": "I take none.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "No, I do not take one."
+          "I take none."
         ],
         "nextDoctorLineId": "run-allergies",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1231,7 +1335,7 @@
         "id": "request-allergies",
         "lineId": "run-allergies",
         "requestText": "Do you have any medicine allergies?",
-        "taskId": "task-management",
+        "taskId": "task-assessment",
         "requestType": "question",
         "requestCount": 1,
         "topic": "Medicine allergies",
@@ -1243,70 +1347,13 @@
         "responseEvidencePhrases": [
           "No known allergies."
         ],
-        "nextDoctorLineId": "run-iv-consent",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
-        "id": "request-asthma",
-        "lineId": "run-asthma",
-        "requestText": "Have you ever had asthma?",
-        "taskId": "task-management",
-        "requestType": "question",
-        "requestCount": 1,
-        "topic": "Asthma",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-asthma-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "No, I have never had asthma.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "No, I have never had asthma."
-        ],
-        "nextDoctorLineId": "run-beta-consent",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
-        "id": "request-contrast-reaction",
-        "lineId": "run-contrast-reaction",
-        "requestText": "Have you ever reacted to CT contrast?",
-        "taskId": "task-management",
-        "requestType": "question",
-        "requestCount": 1,
-        "topic": "Previous CT contrast reaction",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-contrast-reaction-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "No, I haven't.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "No, I haven't."
-        ],
-        "nextDoctorLineId": "run-kidney-disease",
-        "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
-      },
-      {
-        "id": "request-kidney-disease",
-        "lineId": "run-kidney-disease",
-        "requestText": "Do you have kidney disease?",
-        "taskId": "task-management",
-        "requestType": "question",
-        "requestCount": 1,
-        "topic": "Kidney disease",
-        "addressedParticipantId": "participant-patient",
-        "expectedResponseLineId": "run-kidney-disease-answer",
-        "responseParticipantId": "participant-patient",
-        "responseText": "No, I do not have kidney disease.",
-        "responseOutcome": "answered",
-        "responseEvidencePhrases": [
-          "No, I do not have kidney disease."
-        ],
-        "nextDoctorLineId": "run-cta-consent",
+        "nextDoctorLineId": "run-summary",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
       },
       {
         "id": "request-understanding",
         "lineId": "run-understanding",
-        "requestText": "Could you tell me your understanding of the plan?",
+        "requestText": "Could you tell me what you understand so far?",
         "taskId": "task-management",
         "requestType": "question",
         "requestCount": 1,
@@ -1314,10 +1361,10 @@
         "addressedParticipantId": "participant-patient",
         "expectedResponseLineId": "run-understanding-answer",
         "responseParticipantId": "participant-patient",
-        "responseText": "There may be a split in my main artery. You are treating my pain and blood pressure, arranging the scan and involving the surgical team.",
+        "responseText": "You are worried there may be a problem in my main artery, but it is not confirmed. I need close monitoring, pain and blood-pressure treatment, an urgent scan and review by the surgical team.",
         "responseOutcome": "answered",
         "responseEvidencePhrases": [
-          "There may be a split in my main artery. You are treating my pain and blood pressure, arranging the scan and involving the surgical team."
+          "You are worried there may be a problem in my main artery, but it is not confirmed. I need close monitoring, pain and blood-pressure treatment, an urgent scan and review by the surgical team."
         ],
         "nextDoctorLineId": "run-closing",
         "responseUse": "The next Doctor turn uses this answer to continue the assigned task."
@@ -1329,13 +1376,13 @@
     "coverageSlot": "aortic dissection",
     "primaryFailureMode": "unsafe_delay",
     "secondaryFailureMode": "premature_closure",
-    "distinctJob": "Recognise acute aortic syndrome from abrupt maximum-at-onset chest-to-back pain plus vascular asymmetry, activate the aortic pathway before confirmation, and avoid unsafe empirical aspirin or fibrinolytic treatment.",
+    "distinctJob": "Recognise acute aortic syndrome from abrupt maximum-at-onset chest-to-back pain plus vascular asymmetry, then explain the immediate safe plan and why empirical aspirin or fibrinolysis is withheld.",
     "newSurprise": "The pain began while quietly sitting at a cafe rather than during exertion, and the patient's spicy-meal explanation competes with the vascular pattern.",
     "plannedTrap": "Anchoring on indigestion or routine ACS treatment can delay definitive aortic imaging or expose the patient to harmful aspirin or fibrinolysis.",
     "antiFailureFeatures": [
-      "The Doctor acts once abrupt maximum-intensity pain and vascular asymmetry establish a high-risk aortic pattern.",
+      "The Doctor explains monitored senior review once abrupt maximum-intensity pain and vascular asymmetry establish a high-risk aortic pattern.",
       "The Doctor explains why aspirin is withheld while retaining acute coronary syndrome as an important alternative.",
-      "The Doctor gives beta-blockade before adding a vasodilator."
+      "The Doctor explains heart-rate control before careful blood-pressure reduction without enacting treatment."
     ],
     "duplicateCheck": {
       "comparedCaseIds": [
@@ -1347,7 +1394,7 @@
     }
   },
   "performance": {
-    "targetSpokenSeconds": 433,
+    "targetSpokenSeconds": 425,
     "actionDurations": [
       {
         "lineId": "run-approach",
@@ -1357,76 +1404,6 @@
         "performedByParticipantId": null,
         "actorExactPhrase": "The doctor",
         "consentId": null,
-        "exceptionRationale": null
-      },
-      {
-        "lineId": "run-examination-action",
-        "seconds": 25,
-        "actionClass": "examination",
-        "performedBy": "doctor",
-        "performedByParticipantId": null,
-        "actorExactPhrase": "The doctor",
-        "consentId": "consent-examination",
-        "exceptionRationale": null
-      },
-      {
-        "lineId": "run-early-action",
-        "seconds": 15,
-        "actionClass": "emergency",
-        "performedBy": "doctor",
-        "performedByParticipantId": null,
-        "actorExactPhrase": "The doctor",
-        "consentId": null,
-        "exceptionRationale": "The high-risk pain pattern with vascular asymmetry requires immediate monitored escalation before diagnostic confirmation."
-      },
-      {
-        "lineId": "run-iv-action",
-        "seconds": 10,
-        "actionClass": "procedure",
-        "performedBy": "doctor",
-        "performedByParticipantId": null,
-        "actorExactPhrase": "The doctor",
-        "consentId": "consent-iv",
-        "exceptionRationale": null
-      },
-      {
-        "lineId": "run-blood-action",
-        "seconds": 8,
-        "actionClass": "procedure",
-        "performedBy": "doctor",
-        "performedByParticipantId": null,
-        "actorExactPhrase": "The doctor",
-        "consentId": "consent-bloods",
-        "exceptionRationale": null
-      },
-      {
-        "lineId": "run-analgesia-action",
-        "seconds": 8,
-        "actionClass": "treatment",
-        "performedBy": "doctor",
-        "performedByParticipantId": null,
-        "actorExactPhrase": "The doctor",
-        "consentId": "consent-analgesia",
-        "exceptionRationale": null
-      },
-      {
-        "lineId": "run-beta-action",
-        "seconds": 12,
-        "actionClass": "treatment",
-        "performedBy": "doctor",
-        "performedByParticipantId": null,
-        "actorExactPhrase": "The doctor",
-        "consentId": "consent-beta-blocker",
-        "exceptionRationale": null
-      },
-      {
-        "lineId": "run-cta-action",
-        "seconds": 8,
-        "actionClass": "procedure",
-        "performedBy": "doctor",
-        "performedByParticipantId": null,
-        "actorExactPhrase": "The doctor",
-        "consentId": "consent-cta",
         "exceptionRationale": null
       }
     ],
@@ -1442,19 +1419,30 @@
           "run-consent-answer",
           "run-open-question",
           "run-opening-story",
+          "run-pain-site",
+          "run-pain-site-answer",
+          "run-pain-character",
+          "run-pain-character-answer",
           "run-current-pain",
           "run-current-pain-answer",
+          "run-loss-consciousness",
+          "run-loss-consciousness-answer",
           "run-observations-request",
           "run-observations-response",
           "run-examination-consent",
           "run-examination-consent-answer",
-          "run-examination-action",
           "run-cardiovascular-request",
           "run-cardiovascular-response",
           "run-breathing",
           "run-breathing-answer",
+          "run-breathlessness",
+          "run-breathlessness-answer",
           "run-weakness",
           "run-weakness-answer",
+          "run-numbness",
+          "run-numbness-answer",
+          "run-speech",
+          "run-speech-answer",
           "run-abdominal",
           "run-abdominal-answer",
           "run-aorta-history",
@@ -1463,6 +1451,10 @@
           "run-medical-history-answer",
           "run-medications",
           "run-medications-answer",
+          "run-blood-thinner",
+          "run-blood-thinner-answer",
+          "run-allergies",
+          "run-allergies-answer",
           "run-summary",
           "run-time-prompt"
         ],
@@ -1476,11 +1468,11 @@
           {
             "requirement": "The focused assessment integrates the dangerous aortic pattern",
             "lineId": "run-summary",
-            "exactPhrase": "Your pain was severe immediately",
-            "positivePerformancePhrase": "Your pain was severe immediately"
+            "exactPhrase": "Your pain began suddenly at maximum severity, spread from your chest to your back and nearly caused fainting.",
+            "positivePerformancePhrase": "Your pain began suddenly at maximum severity, spread from your chest to your back and nearly caused fainting."
           }
         ],
-        "observedSeconds": 148,
+        "observedSeconds": 173,
         "completed": true
       },
       {
@@ -1489,64 +1481,46 @@
           "run-leading-diagnosis",
           "run-tear-concern",
           "run-uncertainty",
-          "run-heart-attack-concern",
-          "run-aspirin-response",
           "run-differentials"
         ],
         "requiredEvidence": [
           {
             "requirement": "The most likely diagnosis is explicitly explained",
             "lineId": "run-leading-diagnosis",
-            "exactPhrase": "my most likely diagnosis is an aortic dissection",
-            "positivePerformancePhrase": "my most likely diagnosis is an aortic dissection"
+            "exactPhrase": "my main concern is an aortic dissection.",
+            "positivePerformancePhrase": "my main concern is an aortic dissection."
           },
           {
             "requirement": "Important differential diagnoses are explicitly explained",
             "lineId": "run-differentials",
-            "exactPhrase": "Important differential diagnoses are a heart attack, a clot in the lung and a collapsed lung.",
-            "positivePerformancePhrase": "Important differential diagnoses are a heart attack, a clot in the lung and a collapsed lung."
+            "exactPhrase": "Other important diagnoses are a heart attack, a lung clot and a collapsed lung.",
+            "positivePerformancePhrase": "Other important diagnoses are a heart attack, a lung clot and a collapsed lung."
           }
         ],
-        "observedSeconds": 47,
+        "observedSeconds": 52,
         "completed": true
       },
       {
         "taskId": "task-management",
         "runLineIds": [
           "run-early-explanation",
-          "run-early-action",
           "run-indigestion-concern",
           "run-indigestion-response",
+          "run-seriousness-concern",
+          "run-seriousness-response",
           "run-management-overview",
-          "run-blood-thinner",
-          "run-blood-thinner-answer",
-          "run-allergies",
-          "run-allergies-answer",
-          "run-iv-consent",
-          "run-iv-consent-answer",
-          "run-iv-action",
-          "run-blood-consent",
-          "run-blood-consent-answer",
-          "run-blood-action",
-          "run-ecg-plan",
-          "run-analgesia-explanation",
-          "run-analgesia-consent",
-          "run-analgesia-consent-answer",
-          "run-analgesia-action",
-          "run-anti-impulse-explanation",
-          "run-asthma",
-          "run-asthma-answer",
-          "run-beta-consent",
-          "run-beta-consent-answer",
-          "run-beta-action",
+          "run-tests-plan",
+          "run-scan-concern",
           "run-imaging-explanation",
-          "run-contrast-reaction",
-          "run-contrast-reaction-answer",
-          "run-kidney-disease",
-          "run-kidney-disease-answer",
-          "run-cta-consent",
-          "run-cta-consent-answer",
-          "run-cta-action",
+          "run-scan-risk-concern",
+          "run-scan-risk-response",
+          "run-heart-attack-concern",
+          "run-aspirin-response",
+          "run-analgesia-explanation",
+          "run-anti-impulse-explanation",
+          "run-medicine-concern",
+          "run-medicine-response",
+          "run-surgery-concern",
           "run-surgery-plan",
           "run-family-concern",
           "run-family-response",
@@ -1563,19 +1537,19 @@
             "positivePerformancePhrase": "A staff member can update your partner"
           },
           {
-            "requirement": "The immediate management plan includes beta-blocker-first anti-impulse treatment",
-            "lineId": "run-beta-action",
-            "exactPhrase": "The doctor then begins titrated intravenous beta-blockade with continuous monitoring",
-            "positivePerformancePhrase": "The doctor then begins titrated intravenous beta-blockade with continuous monitoring"
+            "requirement": "The management plan explains heart-rate-first anti-impulse treatment",
+            "lineId": "run-anti-impulse-explanation",
+            "exactPhrase": "With senior supervision and continuous monitoring, we will first use medicine to slow your heart, then lower the blood pressure carefully.",
+            "positivePerformancePhrase": "With senior supervision and continuous monitoring, we will first use medicine to slow your heart, then lower the blood pressure carefully."
           },
           {
-            "requirement": "The immediate management plan includes definitive aortic imaging",
-            "lineId": "run-cta-action",
-            "exactPhrase": "confirms immediate CT angiography and continuous monitored transfer",
-            "positivePerformancePhrase": "The doctor confirms immediate CT angiography and continuous monitored transfer with the emergency and radiology teams."
+            "requirement": "The management plan includes definitive aortic imaging",
+            "lineId": "run-imaging-explanation",
+            "exactPhrase": "As you are not showing signs of circulatory collapse, the main test is an urgent CT angiogram.",
+            "positivePerformancePhrase": "As you are not showing signs of circulatory collapse, the main test is an urgent CT angiogram."
           }
         ],
-        "observedSeconds": 238,
+        "observedSeconds": 200,
         "completed": true
       }
     ],
@@ -1583,11 +1557,11 @@
       "status": "pass",
       "method": "spoken_readthrough",
       "reviewer": "FFmpeg libflite synthetic speech timing rehearsal",
-      "performedAt": "2026-07-15T04:25:50.879Z",
-      "observedSeconds": 433,
-      "caseContentSha256": "8ba0025a5e3f45a5c0105d2f5063ebb9c68b8e96ce81c5a06fefb24a82c0f33e",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
-      "notes": "A reproducible line-by-line synthetic spoken rehearsal rendered 338.75 seconds of all visible non-Action lines. Reviewed Action intervals add 94 seconds; the raw total is 432.75 seconds and the recorded whole-second total is 433 seconds. The three-minute prompt starts at 181.505 seconds. This verifies elapsed-time feasibility only, not dialogue naturalness. The legacy spoken_readthrough method identifier is retained for Engine 1.1 schema compatibility; no human listening event is claimed. Evidence: audits/CASE_002_TIMING_EVIDENCE.json sha256:8a5b96b8102794c4879c2bc823da6f1a845b9beb5d9cc772ac4b58e4a0288c38."
+      "performedAt": "2026-07-15T13:14:04.946Z",
+      "observedSeconds": 425,
+      "caseContentSha256": "288eac0b05e309532a4684ebc2c6d4a731c0bb29fefaa628a248f9e5439eb149",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
+      "notes": "A reproducible line-by-line synthetic spoken rehearsal rendered 417.44 seconds of all visible non-Action lines. Reviewed Action intervals add 8 seconds; the raw total is 425.44 seconds and the recorded whole-second total is 425 seconds. The three-minute prompt starts at 182.73 seconds. This verifies elapsed-time feasibility only, not dialogue naturalness. The legacy spoken_readthrough method identifier is retained for Engine 1.1 schema compatibility; no human listening event is claimed. Evidence: audits/CASE_002_TIMING_EVIDENCE.json sha256:b4313443e43f033e0349f298018890199cb0744677548e385ea3dd7d4113066c."
     }
   },
   "sourceBasis": {
@@ -1656,19 +1630,6 @@
         "jurisdiction": "International",
         "applicability": "Joint guideline recommendations for anti-impulse treatment and definitive management of acute aortic syndromes.",
         "authoritative": true
-      },
-      {
-        "id": "source-anzcor-oxygen",
-        "sourceType": "australian_clinical_guideline",
-        "organisation": "Australian and New Zealand Committee on Resuscitation",
-        "title": "Guideline 9.2.10 - The Use of Oxygen in Emergencies",
-        "url": "https://www.anzcor.org/home/first-aid/guideline-9-2-10-the-use-of-oxygen-in-emergencies",
-        "publishedOrUpdated": "2021-04-01",
-        "accessed": "2026-07-15",
-        "reviewDue": "2027-01-15",
-        "jurisdiction": "Australia",
-        "applicability": "Contextual support for pulse-oximetry-guided oxygen use and avoiding routine oxygen in normoxaemic chest pain.",
-        "authoritative": true
       }
     ],
     "claimMap": [
@@ -1735,8 +1696,6 @@
         "runLineIds": [
           "run-breathing-answer",
           "run-cardiovascular-response",
-          "run-heart-attack-concern",
-          "run-aspirin-response",
           "run-differentials"
         ],
         "taskIds": [
@@ -1767,7 +1726,6 @@
         "runLineIds": [
           "run-current-pain-answer",
           "run-early-explanation",
-          "run-early-action",
           "run-management-overview",
           "run-surgery-plan"
         ],
@@ -1798,10 +1756,9 @@
           }
         ],
         "runLineIds": [
+          "run-tests-plan",
           "run-imaging-explanation",
-          "run-contrast-reaction",
-          "run-kidney-disease",
-          "run-cta-action"
+          "run-scan-risk-response"
         ],
         "taskIds": [
           "task-management"
@@ -1830,8 +1787,7 @@
           }
         ],
         "runLineIds": [
-          "run-imaging-explanation",
-          "run-cta-action"
+          "run-imaging-explanation"
         ],
         "taskIds": [
           "task-management"
@@ -1861,10 +1817,7 @@
         ],
         "runLineIds": [
           "run-analgesia-explanation",
-          "run-analgesia-action",
-          "run-anti-impulse-explanation",
-          "run-asthma",
-          "run-beta-action"
+          "run-anti-impulse-explanation"
         ],
         "taskIds": [
           "task-management"
@@ -1894,8 +1847,7 @@
           }
         ],
         "runLineIds": [
-          "run-anti-impulse-explanation",
-          "run-beta-action"
+          "run-anti-impulse-explanation"
         ],
         "taskIds": [
           "task-management"
@@ -1921,10 +1873,9 @@
         ],
         "runLineIds": [
           "run-aspirin-response",
-          "run-ecg-plan"
+          "run-tests-plan"
         ],
         "taskIds": [
-          "task-reasoning",
           "task-management"
         ],
         "clinicalConceptIds": [
@@ -1959,32 +1910,6 @@
         ],
         "clinicalConceptIds": [
           "clinical-scope-emergency-registrar"
-        ],
-        "blueprintRefs": []
-      },
-      {
-        "id": "claim-oxygen",
-        "claimType": "threshold",
-        "claim": "Oxygen use should be guided by pulse oximetry; routine supplemental oxygen is not recommended for normoxaemic chest pain without shock, and the ANZCOR first-aid threshold is oxygen saturation below 92 percent.",
-        "sourceIds": [
-          "source-anzcor-oxygen"
-        ],
-        "sourceLocators": [
-          {
-            "sourceId": "source-anzcor-oxygen",
-            "locator": "Sections 3.1 and 3.2: pulse-oximetry-guided oxygen, saturation below 92 percent, shock exceptions and no routine oxygen for chest pain."
-          }
-        ],
-        "runLineIds": [
-          "run-observations-response",
-          "run-early-action"
-        ],
-        "taskIds": [
-          "task-assessment",
-          "task-management"
-        ],
-        "clinicalConceptIds": [
-          "clinical-threshold-oxygen"
         ],
         "blueprintRefs": []
       },
@@ -2024,15 +1949,15 @@
     ]
   },
   "qa": {
-    "caseContentSha256": "8ba0025a5e3f45a5c0105d2f5063ebb9c68b8e96ce81c5a06fefb24a82c0f33e",
-    "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
-    "blueprintPackageSha256": "685099bd36e6c04ec12bf655af158ae82fa93e21129325883d091130b326347f",
+    "caseContentSha256": "288eac0b05e309532a4684ebc2c6d4a731c0bb29fefaa628a248f9e5439eb149",
+    "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
+    "blueprintPackageSha256": "94294b81de83e0374c1552804a393a68f8d26c8fc6115ab88b4e3d9c5aee28ef",
     "blueprint": {
       "status": "pass",
       "method": "Executable blueprint integrity review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "automated_test",
@@ -2044,8 +1969,8 @@
       "status": "pass",
       "method": "Diagnosis-alias, urgency-language and management-leakage review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "line_review",
@@ -2055,10 +1980,10 @@
     },
     "taskAlignment": {
       "status": "pass",
-      "method": "Task-to-line and task-evidence review including no-unrequested-handover control",
+      "method": "Task-verb performance-mode review plus task-to-line evidence, no-unrequested-procedure and no-unrequested-handover controls",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "line_review",
@@ -2070,8 +1995,8 @@
       "status": "pass",
       "method": "Identity-first, consent-first, atomic-question and natural-dialogue review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "line_review",
@@ -2083,8 +2008,8 @@
       "status": "pass",
       "method": "Participant disclosure and concern sequencing review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "line_review",
@@ -2096,8 +2021,8 @@
       "status": "pass",
       "method": "Examiner ownership, finding-release and three-minute prompt review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "line_review",
@@ -2109,8 +2034,8 @@
       "status": "pass",
       "method": "AMC specification and station-authenticity review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "line_review",
@@ -2122,12 +2047,12 @@
       "status": "pass",
       "method": "Line-by-line FFmpeg libflite synthetic spoken timing rehearsal plus reviewed Action intervals",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "listen_test",
-          "reference": "audits/CASE_002_TIMING_EVIDENCE.json#sha256=8a5b96b8102794c4879c2bc823da6f1a845b9beb5d9cc772ac4b58e4a0288c38"
+          "reference": "audits/CASE_002_TIMING_EVIDENCE.json#sha256=b4313443e43f033e0349f298018890199cb0744677548e385ea3dd7d4113066c"
         }
       ]
     },
@@ -2135,12 +2060,12 @@
       "status": "pass",
       "method": "Line-by-line acute-aortic safety and accuracy review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "source_review",
-          "reference": "ACI-aortic-May-2025;ACC-AHA-aortic-2022;ANZCOR-oxygen-9.2.10"
+          "reference": "ACI-aortic-May-2025;ACC-AHA-aortic-2022;Heart-Foundation-CSANZ-ACS-2025"
         }
       ]
     },
@@ -2148,8 +2073,8 @@
       "status": "pass",
       "method": "Authoritative-source currency and locator review",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "source_review",
@@ -2159,10 +2084,10 @@
     },
     "finalQa": {
       "status": "pass",
-      "method": "Engine 1.1 new Case 2 final audit",
+      "method": "Engine 1.1 Case 2 task-scope correction final audit",
       "reviewer": "Case-generation engine review",
-      "reviewedAt": "2026-07-15T04:26:01.009Z",
-      "reviewScopeSha256": "1ee4e0e8e8a9057d3be88492cba368c9b56525429a0f7c1a0ae2d51792c87180",
+      "reviewedAt": "2026-07-15T13:14:11.046Z",
+      "reviewScopeSha256": "695ee6911cf0cd1bf44db4b06c819f2d9a67e992782279607877a524b11b9ef3",
       "evidence": [
         {
           "type": "audit_report",

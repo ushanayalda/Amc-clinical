@@ -119,8 +119,9 @@ test("the machine registry is structurally and semantically coherent", function 
   assert.equal(engineStatus.emergencyExploreCollection.sourceFilesModified, false);
   assert.equal(engineStatus.emergencyExploreCollection.legacyCaseSetSha256,
     "fd244a5be2bcf6512b2d69962de143f9958ea68c0160ce57acc7c478a083c92a");
-  assert.equal(engineStatus.publication.performed, false);
-  assert.equal(engineStatus.publication.authorised, false);
+  assert.equal(engineStatus.publication.performed, true);
+  assert.equal(engineStatus.publication.authorised, true);
+  assert.equal(engineStatus.publication.correctedCase2RevisionPublished, true);
 });
 
 test("the authoring template cannot self-release through pass labels", function () {
@@ -206,30 +207,45 @@ test("Case 2 preserves a neutral Stem and an atomic, source-bound acute aortic s
 
   assert.doesNotMatch(stemText, /acute aortic|dissect|urgent|immediate|resuscitation|angiograph|surgery|unstable/i);
   assert.equal(JSON.stringify(caseData).includes("handover"), false);
+  assert.equal(byId.get("run-intro").text, "Hello, I am Ushana, one of the doctors. Could you confirm your full name and date of birth?");
+  assert.equal(byId.get("run-id").text, "My name is Julian Merrick, and my date of birth is 7 September 1966.");
+  assert.ok(positions.get("run-intro") < positions.get("run-id"));
   assert.ok(positions.get("run-id") < positions.get("run-consent"));
   assert.ok(positions.get("run-consent-answer") < positions.get("run-open-question"));
   turns.filter(function (turn) { return turn.speaker === "Doctor"; }).forEach(function (turn) {
     turn.lines.forEach(function (line) {
       assert.ok((line.text.match(/[?]/g) || []).length <= 1, line.id + " contains multiple questions");
-      if (line.id !== "run-intro") assert.equal(hasCompoundQuestion(line.text), false, line.id + " is compound");
+      assert.equal(hasCompoundQuestion(line.text), false, line.id + " is compound");
     });
   });
   blueprint.interaction.informationRequests.forEach(function (request) {
     assert.equal(request.requestCount, 1, request.id + " is not atomic");
   });
 
-  assert.ok(positions.get("run-observations-response") < positions.get("run-early-action"));
-  assert.ok(positions.get("run-cardiovascular-response") < positions.get("run-early-action"));
+  assert.ok(positions.get("run-observations-response") < positions.get("run-early-explanation"));
+  assert.ok(positions.get("run-cardiovascular-response") < positions.get("run-early-explanation"));
   assert.match(byId.get("run-cardiovascular-response").text, /lungs are clear/i);
   assert.match(byId.get("run-cardiovascular-response").text, /normal speech, symmetrical facial movement, equal limb power and no sensory loss/i);
-  assert.match(byId.get("run-early-action").text, /continuous cardiac, oxygen-saturation and frequent blood-pressure monitoring/i);
-  assert.match(byId.get("run-early-action").text, /withholds supplemental oxygen because his saturation is 97 percent/i);
-  assert.match(byId.get("run-aspirin-response").text, /will withhold it until dissection is excluded/i);
-  assert.match(byId.get("run-ecg-plan").text, /Aspirin and clot-dissolving treatment remain withheld/i);
-  assert.ok(byId.get("run-beta-action").text.indexOf("beta-blockade") < byId.get("run-beta-action").text.indexOf("vasodilator"));
-  assert.match(byId.get("run-imaging-explanation").text, /stable enough for immediate CT angiography/i);
-  assert.match(byId.get("run-imaging-explanation").text, /If CT becomes unsafe.*bedside heart ultrasound/i);
+  assert.match(byId.get("run-early-explanation").text, /ask the senior emergency doctor to review you now, keep you closely monitored and arrange pain relief/i);
+  assert.match(byId.get("run-aspirin-response").text, /Aspirin and clot-dissolving medicine can worsen bleeding and complicate surgery/i);
+  assert.match(byId.get("run-tests-plan").text, /ECG because a heart attack remains possible/i);
+  assert.match(byId.get("run-tests-plan").text, /must not delay the scan/i);
+  assert.ok(byId.get("run-anti-impulse-explanation").text.indexOf("slow your heart") < byId.get("run-anti-impulse-explanation").text.indexOf("lower the blood pressure"));
+  assert.match(byId.get("run-imaging-explanation").text, /not showing signs of circulatory collapse.*urgent CT angiogram/i);
   assert.doesNotMatch(lines.map(function (line) { return line.text; }).join(" "), /D-dimer/i);
+  assert.deepEqual(blueprint.performance.actionDurations.map(function (item) {
+    return [item.lineId, item.actionClass];
+  }), [["run-approach", "neutral_preparation"]]);
+  assert.deepEqual(blueprint.interaction.consents.map(function (item) { return item.scope; }), ["consultation", "examination"]);
+  assert.equal(lines.filter(function (line) { return line.speaker === "Action"; }).length, 1);
+  assert.equal(lines.filter(function (line) {
+    return line.speaker === "Action" && /insert|cannul|blood|administer|give|treat|transfer|scan/i.test(line.text);
+  }).length, 0);
+  assert.equal(blueprint.performance.taskEvidence.find(function (item) {
+    return item.taskId === "task-management";
+  }).runLineIds.some(function (lineId) {
+    return byId.get(lineId) && byId.get(lineId).speaker === "Action";
+  }), false);
   assert.ok(blueprint.performance.listenTest.observedSeconds >= 420);
   assert.ok(blueprint.performance.listenTest.observedSeconds <= 480);
 
@@ -1717,6 +1733,25 @@ test("a handover is allowed only when a visible station task requests it", funct
   convertDoctorTurnToHandover(requested);
   assert.equal(issueCodes(auditCase(requested.caseData, requested.blueprint, requested.registry))
     .has("handover_not_requested_by_task"), false);
+});
+
+test("explanation tasks cannot enact procedures, treatments or emergency-department interventions", function () {
+  const enacted = makeValidTriplet();
+  enacted.caseData.stem.tasks[0].text = "Explain the management plan.";
+  enacted.blueprint.tasks[0].text = enacted.caseData.stem.tasks[0].text;
+  enacted.blueprint.tasks[0].actionVerb = "Explain";
+  enacted.blueprint.performance.actionDurations[0].actionClass = "treatment";
+  refreshHashes(enacted);
+  assert.ok(issueCodes(auditCase(enacted.caseData, enacted.blueprint, enacted.registry))
+    .has("task_performance_mode_mismatch"));
+
+  const neutral = makeValidTriplet();
+  neutral.caseData.stem.tasks[0].text = "Explain the management plan.";
+  neutral.blueprint.tasks[0].text = neutral.caseData.stem.tasks[0].text;
+  neutral.blueprint.tasks[0].actionVerb = "Explain";
+  refreshHashes(neutral);
+  assert.equal(issueCodes(auditCase(neutral.caseData, neutral.blueprint, neutral.registry))
+    .has("task_performance_mode_mismatch"), false);
 });
 
 test("task controls, learner metadata and urgency language remain exact and neutral", function () {

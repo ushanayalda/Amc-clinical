@@ -13,6 +13,7 @@
     "atomic information requests and participant disclosure control",
     "Examiner release and modality control",
     "actor-bound Action classification",
+    "task-verb performance-mode control",
     "task, marking and critical-action evidence",
     "clinical source mapping",
     "listen-through timing",
@@ -24,8 +25,8 @@
     "publication"
   ],
   "verification": {
-    "engineTestsPassed": 81,
-    "repositoryTestsPassed": 202,
+    "engineTestsPassed": 82,
+    "repositoryTestsPassed": 203,
     "canonicalCaseSyntaxPassed": 44,
     "buildPassed": true,
     "distributionVerificationPassed": true,
@@ -70,8 +71,14 @@
     "reviewer competence and honesty"
   ],
   "publication": {
-    "performed": false,
-    "authorised": false
+    "performed": true,
+    "authorised": true,
+    "publishedCaseIds": [
+      "case-001",
+      "case-002"
+    ],
+    "correctedCase2RevisionPublished": true,
+    "note": "The corrected audited Case 2 revision replaces the earlier rejected public revision."
   },
-  "nextProductionRule": "Generate a fresh Case 3 from the next fixed registry slot. Do not edit Emergency Explore and do not publish without explicit authorisation."
+  "nextProductionRule": "Case 3 remains the next generation slot. Do not edit Emergency Explore, and do not publish without explicit authorisation."
 }

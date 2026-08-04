@@ -30,21 +30,21 @@ jobs:
             -DWHISPER_BUILD_EXAMPLES=ON
           cmake --build whisper.cpp/build --config Release --target whisper-cli -j 2
 
-      - name: Download multilingual small model
+      - name: Download multilingual tiny model
         run: |
-          mkdir -p arabic-transcription-tool
+          mkdir -p arabic-transcription-tool-tiny
           curl -L --fail --retry 5 --retry-delay 10 \
-            -o arabic-transcription-tool/ggml-small-q5_1.bin \
-            https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small-q5_1.bin
-          cp whisper.cpp/build/bin/whisper-cli arabic-transcription-tool/
-          cp whisper.cpp/LICENSE arabic-transcription-tool/whisper.cpp-LICENSE.txt
-          sha256sum arabic-transcription-tool/* > arabic-transcription-tool/SHA256SUMS.txt
-          ls -lh arabic-transcription-tool
+            -o arabic-transcription-tool-tiny/ggml-tiny-q5_1.bin \
+            https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny-q5_1.bin
+          cp whisper.cpp/build/bin/whisper-cli arabic-transcription-tool-tiny/
+          cp whisper.cpp/LICENSE arabic-transcription-tool-tiny/whisper.cpp-LICENSE.txt
+          sha256sum arabic-transcription-tool-tiny/* > arabic-transcription-tool-tiny/SHA256SUMS.txt
+          ls -lh arabic-transcription-tool-tiny
 
       - name: Upload tool artifact
         uses: actions/upload-artifact@v4
         with:
-          name: arabic-transcription-tool
-          path: arabic-transcription-tool/
+          name: arabic-transcription-tool-tiny
+          path: arabic-transcription-tool-tiny/
           compression-level: 9
           retention-days: 1

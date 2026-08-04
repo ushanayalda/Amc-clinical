@@ -1,0 +1,50 @@
+name: Temporary Arabic transcription tool
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/temp-whisper-arabic-tool.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-tool:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake git curl
+
+      - name: Build whisper-cli
+        run: |
+          git clone --depth 1 --branch v1.8.3 https://github.com/ggml-org/whisper.cpp.git
+          cmake -S whisper.cpp -B whisper.cpp/build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_SHARED_LIBS=OFF \
+            -DGGML_NATIVE=OFF \
+            -DWHISPER_BUILD_TESTS=OFF \
+            -DWHISPER_BUILD_EXAMPLES=ON
+          cmake --build whisper.cpp/build --config Release --target whisper-cli -j 2
+
+      - name: Download multilingual small model
+        run: |
+          mkdir -p arabic-transcription-tool
+          curl -L --fail --retry 5 --retry-delay 10 \
+            -o arabic-transcription-tool/ggml-small-q5_1.bin \
+            https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small-q5_1.bin
+          cp whisper.cpp/build/bin/whisper-cli arabic-transcription-tool/
+          cp whisper.cpp/LICENSE arabic-transcription-tool/whisper.cpp-LICENSE.txt
+          sha256sum arabic-transcription-tool/* > arabic-transcription-tool/SHA256SUMS.txt
+          ls -lh arabic-transcription-tool
+
+      - name: Upload tool artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: arabic-transcription-tool
+          path: arabic-transcription-tool/
+          compression-level: 9
+          retention-days: 1
